@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.Member" table="`Member`">
+    <composite-id>
+      <key-many-to-one class="de.fhb.jproject.data.User" column="`UserLoginName`" name="ORM_UserLoginName">
+			</key-many-to-one>
+      <key-many-to-one class="de.fhb.jproject.data.Project" column="`ProjectName`" name="ORM_ProjectName">
+			</key-many-to-one>
+    </composite-id>
+    <property column="`ProjectRole`" lazy="false" length="255" name="projectRole" not-null="true" type="string"/>
+    <set cascade="save-update,lock" lazy="true" name="ORM_Task" table="`TODO`">
+      <key not-null="true">
+        <column name="`MemberUserLoginName`"/>
+        <column name="`MemberProjectName`"/>
+      </key>
+      <many-to-many class="de.fhb.jproject.data.Task" column="`TaskID`">
+			</many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

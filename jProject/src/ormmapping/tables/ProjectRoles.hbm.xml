@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.ProjectRoles" table="`ProjectRoles`">
+    <id column="`Role`" name="role" type="string">
+      <generator class="native">
+			</generator>
+    </id>
+    <property lazy="false" length="1" name="commentDocuAction" not-null="true" type="boolean">
+      <column default="0" name="`CommentDocuAction`"/>
+    </property>
+    <property lazy="false" length="1" name="commentSourceAction" not-null="true" type="boolean">
+      <column default="0" name="`CommentSourceAction`"/>
+    </property>
+    <property lazy="false" length="1" name="commentTaskAction" not-null="true" type="boolean">
+      <column default="0" name="`CommentTaskAction`"/>
+    </property>
+    <property column="`CommentProjectAction`" lazy="false" length="1" name="commentProjectAction" not-null="true" type="boolean"/>
+    <property lazy="false" length="1" name="deleteCommentAction" not-null="true" type="boolean">
+      <column default="0" name="`DeleteCommentAction`"/>
+    </property>
+    <property column="`ShowAllComments41DocuAction`" lazy="false" length="1" name="showAllComments41DocuAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllComments41SourceAction`" lazy="false" length="1" name="showAllComments41SourceAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllComments41TaskAction`" lazy="false" length="1" name="showAllComments41TaskAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllComments41ProjectAction`" lazy="false" length="1" name="showAllComments41ProjectAction" not-null="true" type="boolean"/>
+    <property column="`UpdateCommentAction`" lazy="false" length="1" name="updateCommentAction" not-null="true" type="boolean"/>
+    <property lazy="false" length="1" name="addNewDocuAction" not-null="true" type="boolean">
+      <column default="0" name="`AddNewDocuAction`"/>
+    </property>
+    <property lazy="false" length="1" name="deleteDocuAction" not-null="true" type="boolean">
+      <column default="0" name="`DeleteDocuAction`"/>
+    </property>
+    <property lazy="false" length="1" name="downloadDocuAction" not-null="true" type="boolean">
+      <column default="0" name="`DownloadDocuAction`"/>
+    </property>
+    <property column="`ShowDocuAction`" lazy="false" length="1" name="showDocuAction" not-null="true" type="boolean"/>
+    <property lazy="false" length="1" name="showAllDocuAction" not-null="true" type="boolean">
+      <column default="0" name="`ShowAllDocuAction`"/>
+    </property>
+    <property column="`UpdateDocuAction`" lazy="false" length="1" name="updateDocuAction" not-null="true" type="boolean"/>
+    <property lazy="false" length="1" name="addMemberAction" not-null="true" type="boolean">
+      <column default="0" name="`AddMemberAction`"/>
+    </property>
+    <property column="`DeleteMemberAction`" lazy="false" length="1" name="deleteMemberAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllMemberAction`" lazy="false" length="1" name="showAllMemberAction" not-null="true" type="boolean"/>
+    <property column="`AddNewSourceAction`" lazy="false" length="1" name="addNewSourceAction" not-null="true" type="boolean"/>
+    <property column="`DeleteSourceAction`" lazy="false" length="1" name="deleteSourceAction" not-null="true" type="boolean"/>
+    <property column="`DownloadSourceAction`" lazy="false" length="1" name="downloadSourceAction" not-null="true" type="boolean"/>
+    <property column="`ShowSourceAction`" lazy="false" length="1" name="showSourceAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllSourceAction`" lazy="false" length="1" name="showAllSourceAction" not-null="true" type="boolean"/>
+    <property column="`UpdateSourceAction`" lazy="false" length="1" name="updateSourceAction" not-null="true" type="boolean"/>
+    <property column="`AddNewTaskAction`" lazy="false" length="1" name="addNewTaskAction" not-null="true" type="boolean"/>
+    <property column="`DeleteTaskAction`" lazy="false" length="1" name="deleteTaskAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllTasksAction`" lazy="false" length="1" name="showAllTasksAction" not-null="true" type="boolean"/>
+    <property column="`ShowAllOwnTasksAction`" lazy="false" length="1" name="showAllOwnTasksAction" not-null="true" type="boolean"/>
+    <property column="`UpdateTaskAction`" lazy="false" length="1" name="updateTaskAction" not-null="true" type="boolean"/>
+  </class>
+</hibernate-mapping>

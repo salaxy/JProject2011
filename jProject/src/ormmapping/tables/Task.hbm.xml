@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.Task" table="`Task`">
+    <id column="`ID`" name="id" type="integer" unsaved-value="0">
+      <generator class="native">
+			</generator>
+    </id>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Project" column="`ProjectName`" lazy="no-proxy" name="projectName" not-null="true">
+		</many-to-one>
+    <property column="`Titel`" lazy="false" length="255" name="titel" not-null="true" type="string"/>
+    <property column="`Aufgabenstellung`" lazy="false" name="aufgabenstellung" not-null="true" type="text"/>
+    <property column="`Done`" lazy="false" length="1" name="done" not-null="true" type="byte"/>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Termin" column="`TerminID`" lazy="no-proxy" name="termin" not-null="false">
+		</many-to-one>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_MemberUserLoginName" table="`TODO`">
+      <key column="`TaskID`" not-null="true"/>
+      <many-to-many class="de.fhb.jproject.data.Member">
+        <column name="`MemberUserLoginName`"/>
+        <column name="`MemberProjectName`"/>
+      </many-to-many>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Comment_Task">
+      <key column="`TaskID`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.CommentTask"/>
+    </set>
+  </class>
+</hibernate-mapping>
