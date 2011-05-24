@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.User" table="`User`">
+    <id column="`LoginName`" name="loginName" type="string">
+      <generator class="native">
+			</generator>
+    </id>
+    <property column="`Password`" lazy="false" length="255" name="password" not-null="true" type="string"/>
+    <property column="`Vorname`" lazy="false" length="255" name="vorname" not-null="true" type="string"/>
+    <property column="`Nachname`" lazy="false" length="255" name="nachname" not-null="true" type="string"/>
+    <property lazy="false" length="255" name="sprache" not-null="true" type="string">
+      <column default="deutsch" name="`Sprache`"/>
+    </property>
+    <property lazy="false" length="255" name="globalRole" not-null="true" type="string">
+      <column default="Member" name="`GlobalRole`"/>
+    </property>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Member">
+      <key column="`UserLoginName`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.Member"/>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Comment">
+      <key column="`UserLoginName`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.Comment"/>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_iCQ">
+      <key column="`UserLoginName`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.ICQ"/>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Skype">
+      <key column="`UserLoginName`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.Skype"/>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Telefon">
+      <key column="`UserLoginName`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.Telefon"/>
+    </set>
+  </class>
+</hibernate-mapping>

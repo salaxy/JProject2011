@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.Telefon" table="`Telefon`">
+    <id column="`TelNumber`" name="telNumber" type="integer" unsaved-value="0">
+      <generator class="native">
+			</generator>
+    </id>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.User" column="`UserLoginName`" lazy="no-proxy" name="userLoginName" not-null="true">
+		</many-to-one>
+  </class>
+</hibernate-mapping>

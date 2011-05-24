@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<hibernate-mapping>
+  <class lazy="false" name="de.fhb.jproject.data.Sourcecode" table="`Sourcecode`">
+    <id column="`ID`" name="id" type="integer" unsaved-value="0">
+      <generator class="native">
+			</generator>
+    </id>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Project" column="`ProjectName`" lazy="no-proxy" name="projectName" not-null="true">
+		</many-to-one>
+    <property column="`Dateiname`" lazy="false" length="255" name="dateiname" not-null="true" type="string"/>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Comment_Sourcecode">
+      <key column="`SourcecodeID`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.CommentSourcecode"/>
+    </set>
+  </class>
+</hibernate-mapping>
