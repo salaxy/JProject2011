@@ -21,6 +21,7 @@ import org.orm.PersistentException;
  */
 public class ProjectControl {
 	User aktUser;
+	//TODO Project aktProject;
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
 	
@@ -71,7 +72,7 @@ public class ProjectControl {
 		
 		//RECHTE-ABFRAGE Projekt
 		if(projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzuf�gen eines Members!");
+			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 		}			
 
 		//EIGENTLICHE AKTIONEN
@@ -192,7 +193,7 @@ public class ProjectControl {
 		try {	
 			DAFactory.getDAFactory().getProjectDA().delete(project);
 		} catch (PersistentException e) {
-			throw new ProjectException("Kann Projekt nicht loeschen!");
+			throw new ProjectException("Kann Projekt nicht loeschen! "+ e.getMessage());
 		}	
 	}	
 	
@@ -257,7 +258,8 @@ public class ProjectControl {
 			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Datenbank fehler!");
+			//TODO DATENBANKFEHLER...samma...gib dir ma n bissi mühe!
+			throw new ProjectException("Datenbank fehler! "+ e.getMessage());
 		}
 		
 		return list;
@@ -270,15 +272,16 @@ public class ProjectControl {
 	 */
 	public List<Project> showAllOwnProjects()
 	throws ProjectException{
-		//TODO man ey -.- un da fummelst du mir für die zeile jetzt inner DA schicht rum
-		
-		//TODO for(each) drummachen
-		//TODO !!!!!!!!!!!!!!!! aktUser.member.toArray()[0].getProjectName(); !!!!!!!!!
-		/*
-		List<Project> list=null;
-		
 		//debuglogging
 		logger.info("showAllOwnProjects()");
+		List<Project> list=null;
+		//TODO man ey -.- und da fummelst du mir für das ding jetzt inner DA schicht rum
+		
+		//TODO for(each) drummachen
+		//TODO !!!!!!!!!!!!!!!!!!!!!!!!!
+		//TODO und wieso ist das überhaupt in project?...is eher userbezogen
+		
+		
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -290,25 +293,15 @@ public class ProjectControl {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
 		
-		//holen der Daten
-		try {
-			list=DAFactory.getDAFactory().getProjectDA().listAllOwnProjects(aktUser.getLoginName());
-			
-		} catch (PersistentException e) {
-			e.printStackTrace();
-			throw new ProjectException("Konnte Projekte nicht finden! " + e.getMessage());
+		for (Member aktMember : aktUser.member.toArray()) {
+			list.add(aktMember.getProjectName());
 		}
-
 		return list;
-		 * 
-		 */
-		return null;
 	}
 	
 	public List<Member> ShowAllMember(String projectName)
 	throws ProjectException{
 		
-		List<Member> list=null;
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -342,11 +335,10 @@ public class ProjectControl {
 		}
 		
 		//Daten umwandeln
-		list=Arrays.asList(project.member.toArray());
+		return Arrays.asList(project.member.toArray());
 		//aus performance gr�nden habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
-
-		return list;			
+			
 	}
 	
 	
