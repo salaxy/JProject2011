@@ -16,7 +16,7 @@ import de.fhb.jproject.manager.MainControl;
  */
 public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 
-	private MainControl _mainController;
+	private MainControl mainController;
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -25,11 +25,11 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		//Controller holen
-		_mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 //		try {
 //			//Debugprint
-//			DebugSystem.println(DebugSystem.LEVEL_ACTIONS,"Action: XXX_Action");
+//			DebugSystem.println(DebugSystem.LEVELACTIONS,"Action: XXXAction");
 //			
 //			//Controller in aktion
 //			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));

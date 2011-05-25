@@ -2,7 +2,6 @@ package de.fhb.jproject.manager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 
@@ -11,6 +10,7 @@ import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import java.util.ArrayList;
 import org.orm.PersistentException;
 
 /**
@@ -25,7 +25,6 @@ public class ProjectControl {
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
 	
-	boolean dummy=false;
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
 	public ProjectControl(User aktUser){
@@ -71,7 +70,7 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 		}			
 
@@ -123,7 +122,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(globalRolesController.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
+		if(!globalRolesController.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum erstellen eines Projektes!");
 		}
 		
@@ -136,8 +135,7 @@ public class ProjectControl {
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
 		member.setProjectNameId(name);
 		member.setUserLoginNameId(aktUser.getLoginName());
-		//XXX projekte Rolle setzen
-//		member.setProjectRole(value);
+		member.setProjectRole("Leader");
 		
 		//projekt speichern
 		try {		
@@ -183,7 +181,7 @@ public class ProjectControl {
 //		}
 		
 //		//RECHTE-ABFRAGE Projekt
-//		if(projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())){
+//		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())){
 //			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
 //		}	
 		
@@ -214,7 +212,7 @@ public class ProjectControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
+		if(!globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}		
 		
@@ -249,7 +247,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
+		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}	
 		
@@ -274,7 +272,7 @@ public class ProjectControl {
 	throws ProjectException{
 		//debuglogging
 		logger.info("showAllOwnProjects()");
-		List<Project> list=null;
+		List<Project> list=new ArrayList();
 		//TODO man ey -.- und da fummelst du mir für das ding jetzt inner DA schicht rum
 		
 		//TODO for(each) drummachen
@@ -289,7 +287,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
+		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
 		
@@ -299,7 +297,7 @@ public class ProjectControl {
 		return list;
 	}
 	
-	public List<Member> ShowAllMember(String projectName)
+	public List<Member> showAllMember(String projectName)
 	throws ProjectException{
 		
 		Project project=null;
@@ -330,7 +328,7 @@ public class ProjectControl {
 		
 		
 		//RECHTE-ABFRAGE projekt
-		if(projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 		
