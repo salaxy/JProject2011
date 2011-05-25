@@ -201,8 +201,7 @@ public class ProjectControl {
 	public Project showProject(String projectName)
 	throws ProjectException{ 
 		
-		Project project=null;
-		Member memAktUser=null;	
+		Project project=null;	
 		
 		//debuglogging
 		logger.info("showProject()");
@@ -213,31 +212,19 @@ public class ProjectControl {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
+		//abfrage ob user Rechte hat
+		if(globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte!");
+		}		
+		
 		//projekt holen
 		try {
 			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
-			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
 		
-		//abfrage ob user Rechte hat
-		if(projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte!");
-		}
-		
-		//holen der Daten
-		try {
-			return DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
-		} catch (PersistentException e) {
-			throw new ProjectException("Kann Project nicht finden!");
-		}
+		return project;
 	}
 	
 	public void  searchProjects(){}
