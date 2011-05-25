@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -31,8 +32,14 @@ public class LoginAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//Controller holen
-		mainController=new MainControl();
+		//Session holen
+		HttpSession session = req.getSession();
+
+		mainController = new MainControl();
+		//HttpSession ist nicht Threadsave deswegn Synchronized
+		synchronized(session){
+			session.setAttribute("mainController", mainController);
+		}
 		//TODO maincontrolelr hier in die sessionlegen statt im servlet
 		
 		try {
