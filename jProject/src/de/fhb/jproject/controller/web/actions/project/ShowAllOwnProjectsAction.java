@@ -4,7 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.commons.web.HttpRequestActionBase;
 
 
 /**

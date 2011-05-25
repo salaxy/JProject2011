@@ -1,6 +1,6 @@
 package de.fhb.jproject.controller.web.actions.project;
 
-import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.commons.exceptions.ProjectException;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.user.ShowUserSettingsAction;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.manager.MainControl;
