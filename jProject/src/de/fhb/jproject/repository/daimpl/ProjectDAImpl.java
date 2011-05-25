@@ -51,6 +51,7 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		return Arrays.asList(listProjectByQuery("Project.name = Project.name", "Name"));
 		
 	}
+	
 	@Override
 	public List<Project> listAllProjects(String orderBy) throws PersistentException {
 		logger.info("listAllProjects(String orderBy)");
@@ -78,6 +79,7 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		}
 
 		return list;
-		
 	}
+	
+	
 }
