@@ -40,6 +40,8 @@ public class ProjectControl {
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");
 		
 		
+		
+		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
             throw new ProjectException("Sie sind nicht eingeloggt!");
