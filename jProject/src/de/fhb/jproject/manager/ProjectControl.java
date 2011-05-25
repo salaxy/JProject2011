@@ -33,16 +33,12 @@ public class ProjectControl {
 		
 		//TODO abfangen ob zulässige rolle mitgegebn
 		
-		
 		Project project=null;
 		Member member=null;
 		
 		//debuglogging
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");
-		
-		
-		
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -52,8 +48,7 @@ public class ProjectControl {
 		//abfrage ob user Rechte hat
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
-		}
-				
+		}			
 
 		try {		
 			
@@ -78,12 +73,10 @@ public class ProjectControl {
 		} catch (PersistentException e) {
             throw new ProjectException("Konnte Projekt oder User nicht finden!");
 		}
-		
 
 	}
 	
-	
-	
+
 	public void addNewProject(String name, String status)
 	throws ProjectException{ 
 		
@@ -213,7 +206,6 @@ public class ProjectControl {
 			e.printStackTrace();
 			throw new ProjectException("Datenbank fehler!");
 		}
-		
 		
 		return list;
 	}
