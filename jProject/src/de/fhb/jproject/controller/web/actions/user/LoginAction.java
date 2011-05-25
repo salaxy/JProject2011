@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.manager.MainControl;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -32,15 +31,9 @@ public class LoginAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//Session holen
-		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) req.getSession().getAttribute("mainController");
 
-		mainController = new MainControl();
-		//HttpSession ist nicht Threadsave deswegn Synchronized
-		synchronized(session){
-			session.setAttribute("mainController", mainController);
-		}
-		//TODO maincontrolelr hier in die sessionlegen statt im servlet
 		
 		try {
 			
@@ -55,7 +48,8 @@ public class LoginAction extends HttpRequestActionBase {
 			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
 			
 			//forwarden zum JSP
-			forward(req, resp, "/index.jsp");
+			System.out.println("Erfolgreich eingeloggt!");
+			forward(req, resp, "/eingeloggt.jsp");
 
 		}catch (ProjectException e) {
 			
