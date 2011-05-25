@@ -13,7 +13,7 @@ import de.fhb.jproject.commons.web.HttpRequestActionBase;
  * 
  * @author klay
  */
-public class AddNewDocuAction extends HttpRequestActionBase {
+public class ShowDocuAction extends HttpRequestActionBase {
 
 //	private JProjectBO logic;
 

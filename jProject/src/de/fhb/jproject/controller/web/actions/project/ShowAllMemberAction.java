@@ -1,10 +1,10 @@
-package de.fhb.jproject.controller.web.actions.user;
+package de.fhb.jproject.controller.web.actions.project;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.commons.web.HttpRequestActionBase;
 
 
 /**
@@ -13,7 +13,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
  * 
  * @author klay
  */
-public class LogoutAction extends HttpRequestActionBase {
+public class ShowAllMemberAction extends HttpRequestActionBase {
 
 //	private JProjectBO logic;
 
