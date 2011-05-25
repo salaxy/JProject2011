@@ -1,0 +1,41 @@
+/*
+ * http://www.kiltz.de/Wiki.jsp?page=Hibernate.Features.Sperren
+ Realisierungen der pessimistischen Sperrstrategie
+    Hibernate nutzt für pessimistische Sperren die Mechanismen der Datenbanken. Mit einem SELECT FOR UPDATE kann gleich bei dem laden eines Objektes die Sperre gesetzt werden. Außerdem kann man das Objekt auch im geladenen Zusand mit session.lock(object, lockMode) sperren.
+
+    Folgende LockModes sind in beiden Fällen möglich:
+
+        LockMode.READ Die Lesesperre stellt sicher, dass ein gelesenes Objekt eine zeit lang nicht verändert wird. Mehrere Benutzer können eine Lesesperre haben.
+        LockMode.UPGRADE Die wartende Schreibsperre gibt ein Sperre zurück, wenn keine lesende oder schreibende Sperre besteht. Sollte eine Sperre bestehen, wartet Hibernate, bis das Objekt wieder frei ist und gibt dann die Sperre zurück.
+        LockMode.UPGRADE_NOWAIT ist eine nicht-wartende Schreibsperre. Sofern eine andere Sperre existiert wird eine LockAcquisitionException geworfen.
+
+    Die Sperren sind nur in einer Transaktion möglich. Bei beenden der Transaktion wird auch die Sperre beendet. 
+ */
+
+/* STANDARD AUFRUF
+        PersistentManager pm = null;
+        PersistentSession session = null;
+        PersistentTransaction t = null;
+        User user = null;
+        try {
+            pm = JProjectPersistentManager.instance();
+            //t = pm.getSession().beginTransaction();
+            session = pm.getSession();
+        
+        
+            try {
+                //DO SOMETHING HERE
+                System.out.println("Closing connection");
+                //t.commit();
+                session.close();
+
+            } catch (PersistentException e) {
+                //t.rollback();
+                session.close();
+                e.printStackTrace();
+            }
+        
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+         */

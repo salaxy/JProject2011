@@ -15,6 +15,7 @@ public class CommentControl {
 	
 	// !!! Comment Actions !!!
 	
+	
 	public void commentDocu(){}
 			
 	public void commentSource(){}
@@ -23,6 +24,16 @@ public class CommentControl {
 	
 	public void deleteComment(){}
 	
-	public void showComment(){}
+	public void commentProject(){}
+	
+	public void updateComment(){}
+	
+	public void showAllComments41Docu(){}
+	
+	public void showAllComments41Source(){}
+	
+	public void showAllComments41Task(){}
+	
+	public void showAllComments41Project(){}
 	
 }

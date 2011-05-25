@@ -5,19 +5,6 @@ import org.apache.log4j.Logger;
 
 
 public class MainControl{
-	/*
-	 *	+CommentProjectAction
-		+ShowAllComments41DocuAction
-		+ShowAllComments41SourceAction
-		+ShowAllComments41TaskAction
-		+ShowAllComments41ProjectAction
-		+UpdateCommentAction
-		+ShowDocuAction
-		+UpdateDocuAction
-		+ShowAllMemberAction
-		+UpdateSourceAction
-		+ShowUserInfoAction
-	 */
 	
     private static final Logger rootLogger = Logger.getRootLogger();
     private static final Logger logger = Logger.getLogger(MainControl.class);
@@ -34,13 +21,12 @@ public class MainControl{
 	
 
 	public MainControl() {
-		rootLogger.setLevel(Level.DEBUG);
+		rootLogger.setLevel(Level.OFF);
 		
 		globalRolesController=new GlobalRolesControl();	
-//		GlobalRolesContoller
-//		ProjectRolesContoller
-		userController=new UserControl(globalRolesController);		
+		projectRolesController= new ProjectRolesControl();
 		
+		userController=new UserControl(globalRolesController);		
 		
 		projectContoller=new ProjectControl(userController.getAktUser(), projectRolesController);
 		sourceContoller=new SourceControl(userController.getAktUser(), projectRolesController);

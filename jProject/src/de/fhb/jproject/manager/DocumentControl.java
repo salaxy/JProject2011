@@ -23,4 +23,8 @@ public class DocumentControl {
 	
 	public void showAllDocu(){}
 	
+	public void updateDocu(){}
+	
+	public void showDocu(){}
+	
 }
