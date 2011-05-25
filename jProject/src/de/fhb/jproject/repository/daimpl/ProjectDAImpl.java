@@ -61,25 +61,6 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		
 	}
 	
-	/**
-	 * eigens ertellt fuer show all own projects
-	 */
-	@Override
-	public List<Project> listAllOwnProjects(String userLoginName) throws PersistentException {
-		logger.info("listAllOwnProjects(String userLoginName)");
-		logger.debug("String userLoginName("+userLoginName+")");
-		
-		List<Project>list=new ArrayList<Project>();
-		
-		User user =null;
-		user=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
-		
-		for (Member aktMember : user.member.toArray()) {
-			list.add(this.getProjectByORMID(aktMember.getProjectNameId()));
-		}
-
-		return list;
-	}
 	
 	
 }

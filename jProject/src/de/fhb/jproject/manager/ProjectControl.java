@@ -48,7 +48,7 @@ public class ProjectControl {
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		
-		//TODO abfangen ob zulässige rolle mitgegebn		
+		//TODO abfangen ob zulï¿½ssige rolle mitgegebn		
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -71,7 +71,7 @@ public class ProjectControl {
 		
 		//RECHTE-ABFRAGE Projekt
 		if(projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Members!");
+			throw new ProjectException("Sie haben keine Rechte zum hinzufï¿½gen eines Members!");
 		}			
 
 		//EIGENTLICHE AKTIONEN
@@ -79,7 +79,7 @@ public class ProjectControl {
 		//member erzeugen und parameter setzen
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
 		
-		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unötig
+		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unï¿½tig
 		member.setProjectName(project);		
 		
 		//rolle setzen
@@ -270,7 +270,11 @@ public class ProjectControl {
 	 */
 	public List<Project> showAllOwnProjects()
 	throws ProjectException{
+		//TODO man ey -.- un da fummelst du mir fÃ¼r die zeile jetzt inner DA schicht rum
 		
+		//TODO for(each) drummachen
+		//TODO !!!!!!!!!!!!!!!! aktUser.member.toArray()[0].getProjectName(); !!!!!!!!!
+		/*
 		List<Project> list=null;
 		
 		//debuglogging
@@ -295,7 +299,10 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Projekte nicht finden! " + e.getMessage());
 		}
 
-		return list;	
+		return list;
+		 * 
+		 */
+		return null;
 	}
 	
 	public List<Member> ShowAllMember(String projectName)
@@ -336,7 +343,7 @@ public class ProjectControl {
 		
 		//Daten umwandeln
 		list=Arrays.asList(project.member.toArray());
-		//aus performance gründen habe ich hier keine auslagerung vorgenommen,
+		//aus performance grï¿½nden habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
 
 		return list;			
