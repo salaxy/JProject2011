@@ -155,7 +155,7 @@ public class UserControl {
 		}
 		//abfrage ob user Rechte hat
 		if(dummy){
-			// TODO ???????????????????
+			// TODO Rechte abfragen oder sowas
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -191,7 +191,7 @@ public class UserControl {
 			throw new ProjectException("Sie haben keine Rechte zum aendern!");
 		}
 		
-		//�ndern der user einstellungen
+		//aendern der user einstellungen
 		//wenn nicht leerer String und ge�ndert
 		if(!(nachName.isEmpty())&&!(nachName.equals(aktUser.getNachname()))){
 			//�ndern
