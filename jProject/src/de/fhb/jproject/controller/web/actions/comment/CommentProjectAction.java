@@ -1,5 +1,7 @@
 package de.fhb.jproject.controller.web.actions.comment;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author klay
  */
-public class CommentSourceAction extends HttpRequestActionBase {
+public class CommentProjectAction extends HttpRequestActionBase {
 
 	private MainControl _mainController;
 
@@ -55,4 +57,5 @@ public class CommentSourceAction extends HttpRequestActionBase {
 //		}
 		
 	}
+
 }
