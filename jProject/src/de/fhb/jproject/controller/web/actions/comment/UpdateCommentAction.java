@@ -1,12 +1,10 @@
 package de.fhb.jproject.controller.web.actions.comment;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.fhb.jproject.commons.web.HttpRequestActionBase;
+import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.manager.MainControl;
 
 

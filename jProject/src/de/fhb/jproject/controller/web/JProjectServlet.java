@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.fhb.jproject.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.commons.web.HttpServletControllerBase;
+import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.commons.web.HttpServletControllerBase;
 import de.fhb.jproject.controller.web.actions.comment.CommentDocuAction;
 import de.fhb.jproject.controller.web.actions.comment.CommentProjectAction;
 import de.fhb.jproject.controller.web.actions.comment.CommentSourceAction;
