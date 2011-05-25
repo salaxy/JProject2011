@@ -1,7 +1,8 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.commons.exceptions.ProjectException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainControl;
 
 
@@ -19,11 +21,10 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author klay
  */
-public class LoginAction extends HttpRequestActionBase {
+public class ShowAllUserAction extends HttpRequestActionBase {
 
-
-	private MainControl mainController;
-	private static final Logger logger = Logger.getLogger(LoginAction.class);
+	private MainControl _mainController;
+	private static final Logger _logger = Logger.getLogger(ShowAllUserAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -31,45 +32,49 @@ public class LoginAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		
+		List <User> userList=null;
+	
 		//Controller holen
-		mainController=new MainControl();
-		//TODO maincontrolelr hier in die sessionlegen statt im servlet
+		_mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 		try {
 			
 			//Debugprint
-			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			logger.debug("Parameter: "
-					+ "String loginName(" + req.getParameter("loginName") + "), "
-					+ "String password(" + req.getParameter("password") + ")"
-					);
+			_logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
-			//Controller in aktion
-			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
+			//UserList holen
+			userList=_mainController.getUserController().showAllUser();
+			
+//			for( User user : userList){
+//				System.out.println("User: "+user.getLoginName());
+//			}
+
+			//Daten dem Reqest mitgeben
+			req.setAttribute("userList", userList);
 			
 			//forwarden zum JSP
-			forward(req, resp, "/index.jsp");
+			forward(req, resp, "ShowAllUser.jsp");
 
 		}catch (ProjectException e) {
 			
 			e.printStackTrace();
-			logger.error(e.getMessage());
+			_logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}catch (IOException e) {
 			
 			e.printStackTrace();
-			logger.error(e.getMessage());
+			_logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}catch(NullPointerException e){
 			
 			e.printStackTrace();
-			logger.error(e.getMessage());
+			_logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}
-		
 		
 	}
 }
