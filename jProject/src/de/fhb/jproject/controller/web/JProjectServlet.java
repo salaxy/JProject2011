@@ -252,7 +252,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null) {
+		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
 			mainController = new MainControl();
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
