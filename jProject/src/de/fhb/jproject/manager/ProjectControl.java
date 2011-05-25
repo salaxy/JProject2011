@@ -13,7 +13,6 @@ import de.fhb.jproject.exceptions.ProjectException;
 import org.orm.PersistentException;
 
 public class ProjectControl {
-
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	boolean dummy=false;
@@ -31,6 +30,9 @@ public class ProjectControl {
 	 */
 	public void addMember(String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
+		
+		//TODO abfangen ob zulässige rolle mitgegebn
+		
 		
 		Project project=null;
 		Member member=null;
@@ -51,25 +53,33 @@ public class ProjectControl {
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
-		try {
+				
+
+		try {		
+			
 			//projekt holen
-			project=DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(projectName);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Projekt nicht laden! "+ ex);
-		}
-		
-		//member erzeugen und parameter setzen
-		member=DAFactory.getDAFactory().getMemberDA().createMember();
-		member.setProjectName(project);
-		member.setProjectRole(rolle);
-		//TODO rolle richtig einbauen
-		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);		
+			
+			//member erzeugen und parameter setzen
+			member=DAFactory.getDAFactory().getMemberDA().createMember();
+			
+			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unötig
+			member.setProjectName(project);		
+			
+			//rolle setzen
+			member.setProjectRole(rolle);
+	
 			//user holen und setzen
-			member.setUserLoginName(DAFactory.getDAFactory().getUserDA().loadUserByORMID(userLoginName));
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Member nicht laden! "+ ex);
+			member.setUserLoginName(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
+			
+			//speichern
+			DAFactory.getDAFactory().getProjectDA().save(project);
+			
+		} catch (PersistentException e) {
+            throw new ProjectException("Konnte Projekt oder User nicht finden!");
 		}
 		
+
 	}
 	
 	
@@ -105,22 +115,22 @@ public class ProjectControl {
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
 		member.setProjectNameId(name);
 		member.setUserLoginNameId(aktUser.getLoginName());
-		project.member.add(member);
-		try {
+		
+
+		try {		
 			//projekt speichern
 			DAFactory.getDAFactory().getProjectDA().save(project);
-			
-			//TODO rechte richtig setzen
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Projekt nicht speichern! "+ ex);
+		} catch (PersistentException e) {
+            throw new ProjectException("Konnte Projekt nicht erstellen!");
 		}
+		
 	}	
 	
 	public void deleteProject(String name)
 	throws ProjectException{ 
 		
 		//debuglogging
-		logger.info("deleteProject(String name)");
+		logger.info("deleteProject()");
 		logger.debug("String name("+name+")");
 		
         //abfrage ob user eingeloggt
@@ -132,12 +142,20 @@ public class ProjectControl {
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
+		
+		//loeschen
+		Project project=null;
+		
 		try {
-			//loeschen
-			DAFactory.getDAFactory().getProjectDA().delete(name);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Project nicht loeschen! "+ ex);
-		}
+			
+			project = DAFactory.getDAFactory().getProjectDA().getProjectByORMID(name);		
+			DAFactory.getDAFactory().getProjectDA().delete(project);
+			
+		} catch (PersistentException e) {
+			
+			throw new ProjectException("Kann Projekt nicht finden!");
+		}	
+
 	}	
 	
 	public void deleteMember(){}
@@ -158,11 +176,12 @@ public class ProjectControl {
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
+		
+		//holen der Daten
 		try {
-			//holen der Daten
-			return DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(name);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Projekt nicht laden! "+ ex);
+			return DAFactory.getDAFactory().getProjectDA().getProjectByORMID(name);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Project nicht finden!");
 		}
 		
 	}
@@ -171,6 +190,8 @@ public class ProjectControl {
 	
 	public List<Project>  showAllProjects()
 	throws ProjectException{ 
+		
+		List<Project> list=null;
 		
 		//debuglogging
 		logger.info("showAllProjects()");
@@ -184,12 +205,17 @@ public class ProjectControl {
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
+		
+		//holen der Daten
 		try {
-			//holen der Daten
-			return DAFactory.getDAFactory().getProjectDA().listAllProjects();
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann Projektliste nicht laden! "+ ex);
+			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
+		} catch (PersistentException e) {
+			e.printStackTrace();
+			throw new ProjectException("Datenbank fehler!");
 		}
+		
+		
+		return list;
 	}
 	
 	public void  showAllOwnProjects(){}
@@ -198,8 +224,7 @@ public class ProjectControl {
 	
 	private boolean isUserLoggedIn() {		
 		return (aktUser.getLoginName()!=null)&&(aktUser.getLoginName()!=null)&&(aktUser.getLoginName()!=null);
-		//TODO einer wï¿½rde vieleicht auch reichen
+		//TODO einer würde vieleicht auch reichen
 	}
-	
-	
 }
+
