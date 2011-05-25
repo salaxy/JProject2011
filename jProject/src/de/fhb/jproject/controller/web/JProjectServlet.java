@@ -278,11 +278,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null) {
+		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
 			mainController = new MainControl();
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
-				session.setAttribute("mainController", mainController);				
+				session.setAttribute("mainController", mainController);
 			}
 		}
 

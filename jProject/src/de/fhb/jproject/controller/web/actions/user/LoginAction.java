@@ -48,8 +48,9 @@ public class LoginAction extends HttpRequestActionBase {
 			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
 			
 			//forwarden zum JSP
+			//TODO syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
-			forward(req, resp, "/eingeloggt.jsp");
+			forward(req, resp, "/index.jsp");
 
 		}catch (ProjectException e) {
 			
