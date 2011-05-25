@@ -156,7 +156,7 @@ public class UserControl {
 		//abfrage ob user Rechte hat
 		if(dummy){
 			// TODO Rechte abfragen oder sowas
-			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
+			throw new ProjectException("Sie haben keine Rechte zum suchen!");
 		}
 		try {
 			//holen der daten
