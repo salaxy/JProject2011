@@ -7,10 +7,10 @@ public class SourceControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	
-	public SourceControl(User aktUser, ProjectRolesControl projectRolesController){
+	public SourceControl(User aktUser){
 		
 		this.aktUser=aktUser;
-		this.projectRolesController=projectRolesController;
+		this.projectRolesController=ProjectRolesControl.getInstance();
 	}
 	
 	// !!! Source Actions !!!

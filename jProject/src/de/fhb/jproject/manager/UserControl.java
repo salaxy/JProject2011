@@ -29,8 +29,8 @@ public class UserControl {
     private User aktUser = null;
     private boolean dummy=false;
     
-    public UserControl(GlobalRolesControl globalRolesController){
-		this.globalRolesController = globalRolesController;
+    public UserControl(){
+		this.globalRolesController = GlobalRolesControl.getInstance();;
     	aktUser=DAFactory.getDAFactory().getUserDA().createUser();
 		//debuglogging
 		logger.info("new UserControl()");

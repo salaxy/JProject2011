@@ -6,7 +6,19 @@ import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 
 public class GlobalRolesControl {
+	
 	private static final Logger logger = Logger.getLogger(GlobalRolesControl.class);
+	private static GlobalRolesControl instance = null;
+	
+	private GlobalRolesControl(){}
+	
+	public static GlobalRolesControl getInstance() {
+		if (instance == null) {
+			instance = new GlobalRolesControl();
+		}
+		return instance;
+	}
+	
 	public boolean isAllowedAddNewProjectAction(String role) throws ProjectException{
 		logger.info("isAllowedAddNewProjectAction(String role)");
 		logger.debug("String role("+role+")");

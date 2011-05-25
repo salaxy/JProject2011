@@ -12,16 +12,23 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import org.orm.PersistentException;
 
+/**
+ * Contoller Klasse fuer die ProjectActions
+ * 
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ */
 public class ProjectControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
+	
 	boolean dummy=false;
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
-	public ProjectControl(User aktUser, ProjectRolesControl projectRolesController){
+	public ProjectControl(User aktUser){
 		
 		this.aktUser=aktUser;
-		this.projectRolesController=projectRolesController;
+		this.projectRolesController=ProjectRolesControl.getInstance();
 	}
 	
 
@@ -31,49 +38,64 @@ public class ProjectControl {
 	public void addMember(String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
 		
-		//TODO abfangen ob zulässige rolle mitgegebn
-		
 		Project project=null;
 		Member member=null;
+		Member memAktUser=null;		
 		
 		//debuglogging
 		logger.info("addMember()");
-		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");
+		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
+		
+		//TODO abfangen ob zulässige rolle mitgegebn		
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//abfrage ob user Rechte hat
-		if(dummy){
-			throw new ProjectException("Sie haben keine Rechte!");
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Projekt-Rolle des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE
+		if(projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Members!");
 		}			
 
-		try {		
-			
-			//projekt holen
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);		
-			
-			//member erzeugen und parameter setzen
-			member=DAFactory.getDAFactory().getMemberDA().createMember();
-			
-			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unötig
-			member.setProjectName(project);		
-			
-			//rolle setzen
-			member.setProjectRole(rolle);
+		//EIGENTLICHE AKTIONEN
+		
+		//member erzeugen und parameter setzen
+		member=DAFactory.getDAFactory().getMemberDA().createMember();
+		
+		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unötig
+		member.setProjectName(project);		
+		
+		//rolle setzen
+		member.setProjectRole(rolle);
 	
-			//user holen und setzen
+		//user holen und setzen
+		try {
 			member.setUserLoginName(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
-			
-			//speichern
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
+		}
+		
+		//speichern	
+		try {	
 			DAFactory.getDAFactory().getProjectDA().save(project);
-			
 		} catch (PersistentException e) {
             throw new ProjectException("Konnte Projekt oder User nicht finden!");
 		}
-
 	}
 	
 
@@ -87,17 +109,16 @@ public class ProjectControl {
 		logger.info("addNewProject()");
 		logger.debug("String name("+name+")"+"String status("+status+")");
 		
-		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
+		//TODO Globale rechte abfragen
 		//abfrage ob user Rechte hat
 		if(dummy){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
-		
 		
 		//project parameter setzen
 		project=DAFactory.getDAFactory().getProjectDA().createProject();
@@ -176,7 +197,6 @@ public class ProjectControl {
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Project nicht finden!");
 		}
-		
 	}
 	
 	public void  searchProjects(){}
@@ -215,8 +235,8 @@ public class ProjectControl {
 	public void  ShowAllMember(){}
 	
 	private boolean isUserLoggedIn() {		
-		return (aktUser.getLoginName()!=null)&&(aktUser.getLoginName()!=null)&&(aktUser.getLoginName()!=null);
-		//TODO einer würde vieleicht auch reichen
+		return (aktUser!=null);
+		//TODO irgentwie ist das noch nicht richtig soo
 	}
 }
 
