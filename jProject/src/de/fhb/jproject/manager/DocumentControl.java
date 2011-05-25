@@ -7,10 +7,10 @@ public class DocumentControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	
-	public DocumentControl(User aktUser, ProjectRolesControl projectRolesController){
+	public DocumentControl(User aktUser){
 		
 		this.aktUser=aktUser;
-		this.projectRolesController=projectRolesController;
+		this.projectRolesController=ProjectRolesControl.getInstance();;
 	}
 	
 	// !!! Dokument Actions !!!
