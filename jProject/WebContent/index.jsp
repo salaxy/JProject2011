@@ -27,6 +27,7 @@
 			<div id="navbarback">
 <!--NAVBARBACK -->
 				<form class="buttonright" method="GET" action="JProjectServlet">
+					
 					<input name="do" value="Login" type="submit">
 					<input value="Benutzername" name="loginName"	type="text"		size="15" maxlength="50">
 					<input value="Password"		name="password"		type="password" size="10" maxlength="30">

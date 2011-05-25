@@ -25,7 +25,9 @@ public class MainControl{
 		
 //		globalRolesController=new GlobalRolesControl();	
 //		projectRolesController= new ProjectRolesControl();
-		//INFO habe die beiden controller hier dr�ber zum singleton gemacht
+		//INFO habe die beiden controller hier dr�ber zum singleton gemacht
+		// warum...is total unnötig...dann kannste auch alle controller als singleton machen
+		//man hör auf mit solchen experimenten
 		
 		userController=new UserControl();		
 		

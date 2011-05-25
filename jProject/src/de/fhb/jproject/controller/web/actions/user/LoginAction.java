@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -30,9 +31,10 @@ public class LoginAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
-		
+		HttpSession session = req.getSession();
 		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) session.getAttribute("mainController");
+		session.setAttribute("aktUser", mainController.getUserController().getAktUser());
 
 		
 		try {
@@ -46,6 +48,7 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//Controller in aktion
 			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
+			
 			
 			//forwarden zum JSP
 			//TODO syso entfernen
