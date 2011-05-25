@@ -62,7 +62,7 @@ import de.fhb.jproject.manager.MainControl;
 @WebServlet("/JProjectServlet")
 public class JProjectServlet extends HttpServletControllerBase {
 
-	private MainControl _mainController;
+	private MainControl mainController;
 
 	/*
 	 * (non-Javadoc)
@@ -73,7 +73,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 */
 	public void init(ServletConfig conf) throws ServletException {
 		HttpRequestActionBase action = null;
-		_actions = new HashMap();
+		actions = new HashMap();
 		
 		//Actions hinzufuegen
 		
@@ -81,155 +81,155 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		//kommentieren eines Dokuments
 		action = new CommentDocuAction();
-		_actions.put("CommentDocu", action);
+		actions.put("CommentDocu", action);
 				
 		action = new CommentSourceAction();
-		_actions.put("CommentSource", action);
+		actions.put("CommentSource", action);
 		
 		action = new CommentProjectAction();
-		_actions.put("CommentProject", action);
+		actions.put("CommentProject", action);
 		
 		action = new CommentTaskAction();
-		_actions.put("CommentTask", action);
+		actions.put("CommentTask", action);
 		
 		action = new DeleteCommentAction();
-		_actions.put("DeleteComment", action);
+		actions.put("DeleteComment", action);
 		
 		action = new ShowAllComments41DocuAction();
-		_actions.put("ShowAllComments41Docu", action);
+		actions.put("ShowAllComments41Docu", action);
 		
 		action = new ShowAllComments41SourceAction();
-		_actions.put("ShowAllComments41Source", action);
+		actions.put("ShowAllComments41Source", action);
 		
 		action = new ShowAllComments41TaskAction();
-		_actions.put("ShowAllComments41Task", action);
+		actions.put("ShowAllComments41Task", action);
 		
 		action = new ShowAllComments41ProjectAction();
-		_actions.put("ShowAllComments41Project", action);
+		actions.put("ShowAllComments41Project", action);
 		
 		action = new UpdateCommentAction();
-		_actions.put("UpdateComment", action);
+		actions.put("UpdateComment", action);
 		
 	
 		
 		// !!! Dokument Actions !!!
 		
 		action = new AddNewDocuAction();
-		_actions.put("AddNewDocu", action);
+		actions.put("AddNewDocu", action);
 			
 		action = new DeleteDocuAction();
-		_actions.put("DeleteDocu", action);
+		actions.put("DeleteDocu", action);
 		
 		action = new DownloadDocuAction();
-		_actions.put("DownloadDocu", action);
+		actions.put("DownloadDocu", action);
 		
 		action = new ShowAllDocuAction();
-		_actions.put("ShowAllDocu", action);
+		actions.put("ShowAllDocu", action);
 		
 		action = new UpdateDocuAction();
-		_actions.put("UpdateDocu", action);
+		actions.put("UpdateDocu", action);
 		
 		action = new ShowDocuAction();
-		_actions.put("ShowDocu", action);
+		actions.put("ShowDocu", action);
 		
 		// !!! Projekt Actions !!!
 
 		action = new AddMemberAction();
-		_actions.put("AddMember", action);
+		actions.put("AddMember", action);
 		
 		action = new AddNewProjectAction();
-		_actions.put("AddNewProject", action);		
+		actions.put("AddNewProject", action);		
 		
 		action = new DeleteProjectAction();
-		_actions.put("DeleteProject", action);	
+		actions.put("DeleteProject", action);	
 		
 		action = new DeleteMemberAction();
-		_actions.put("DeleteMember", action);
+		actions.put("DeleteMember", action);
 		
 		action = new ShowProjectAction();
-		_actions.put("ShowProject", action);
+		actions.put("ShowProject", action);
 		
 		action = new SearchProjectsAction();
-		_actions.put("SearchProjects", action);
+		actions.put("SearchProjects", action);
 		
 		action = new ShowAllProjectsAction();
-		_actions.put("ShowAllProjects", action);
+		actions.put("ShowAllProjects", action);
 		
 		action = new ShowAllOwnProjectsAction();
-		_actions.put("ShowAllOwnProjects", action);		
+		actions.put("ShowAllOwnProjects", action);		
 		
 		action = new ShowAllMemberAction();
-		_actions.put("ShowAllMember", action);
+		actions.put("ShowAllMember", action);
 		
 		
 		// !!! Source Actions !!!
 		
 		
 		action = new AddNewSourceAction();
-		_actions.put("AddNewSource", action);		
+		actions.put("AddNewSource", action);		
 		
 		action = new DeleteSourceAction();
-		_actions.put("DeleteSource", action);		
+		actions.put("DeleteSource", action);		
 		
 		action = new DownloadSourceAction();
-		_actions.put("DownloadSource", action);		
+		actions.put("DownloadSource", action);		
 		
 		action = new ShowSourceAction();
-		_actions.put("ShowSource", action);		
+		actions.put("ShowSource", action);		
 		
 		action = new ShowAllSourceAction();
-		_actions.put("ShowAllSource", action);	
+		actions.put("ShowAllSource", action);	
 		
 		action = new UpdateSourceAction();
-		_actions.put("UpdateSource", action);	
+		actions.put("UpdateSource", action);	
 		
 		
 		// !!! Task Actions !!!
 
 		action = new AddNewTaskAction();
-		_actions.put("AddNewTask", action);		
+		actions.put("AddNewTask", action);		
 		
 		action = new DeleteTaskAction();
-		_actions.put("DeleteTask", action);		
+		actions.put("DeleteTask", action);		
 		
 		action = new ShowAllTasksAction();
-		_actions.put("ShowAllTasks", action);		
+		actions.put("ShowAllTasks", action);		
 		
 		action = new ShowAllOwnTasksAction();
-		_actions.put("ShowAllOwnTasks", action);		
+		actions.put("ShowAllOwnTasks", action);		
 		
 		action = new UpdateTaskAction();
-		_actions.put("UpdateTask", action);	
+		actions.put("UpdateTask", action);	
 		
 		
 		// !!! User Actions !!!
 		
 		action = new DeleteUserAction();
-		_actions.put("DeleteUser", action);		
+		actions.put("DeleteUser", action);		
 		
 		action = new ShowUserSettingsAction();
-		_actions.put("ShowUserSettings", action);	
+		actions.put("ShowUserSettings", action);	
 		
 		action = new ShowUserInfoAction();
-		_actions.put("ShowUserInfo", action);		
+		actions.put("ShowUserInfo", action);		
 		
 		action = new SearchUserAction();
-		_actions.put("SearchUser", action);		
+		actions.put("SearchUser", action);		
 		
 		action = new UpdateUserSettingsAction();
-		_actions.put("UpdateUserSettings", action);		
+		actions.put("UpdateUserSettings", action);		
 		
 		action = new ShowAllUserAction();
-		_actions.put("ShowAllUser", action);
+		actions.put("ShowAllUser", action);
 		
 		action = new LoginAction();
-		_actions.put("Login", action);		
+		actions.put("Login", action);		
 		
 		action = new LogoutAction();
-		_actions.put("Logout", action);
+		actions.put("Logout", action);
 		
 		action = new RegisterAction();
-		_actions.put("Register", action);
+		actions.put("Register", action);
 		
 	}
 
@@ -253,10 +253,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
 		if (session.getAttribute("mainController") == null) {
-			_mainController = new MainControl();
+			mainController = new MainControl();
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
-				session.setAttribute("mainController", _mainController);
+				session.setAttribute("mainController", mainController);
 			}
 		}
 		
@@ -279,10 +279,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
 		if (session.getAttribute("mainController") == null) {
-			_mainController = new MainControl();
+			mainController = new MainControl();
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
-				session.setAttribute("mainController", _mainController);				
+				session.setAttribute("mainController", mainController);				
 			}
 		}
 

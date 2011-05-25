@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public abstract class HttpServletControllerBase extends HttpServlet {
-	protected HashMap _actions;
+	protected HashMap actions;
 	  
 	/* (non-Javadoc)
 	 * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
 	 */
 	public void init(ServletConfig conf) throws ServletException {
 			HttpRequestActionBase action = null;
-			_actions = new HashMap();
+			actions = new HashMap();
 			
 		    // ... erzeuge deine Aktionen
 		    // action = new MyAction();
@@ -31,7 +31,7 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 			// der HashMap hinzu. Es handelt sich hier um eine 
 			// vereinfachte Factory, die eine Aktion ueber die 
 			// Namensgebung zurueck liefert
-		    // _actions.put("meineAktion", action);
+		    // actions.put("meineAktion", action);
 		    // ... und das mit allen Aktionen, die durch das 
 			// Servelt verwaltet werden sollen
 		    // ...  
@@ -48,7 +48,7 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 		// um die Operation, die ausgefueht werden soll zu bestimmen
 	    String op = getOperation(req);
 	    // dann wird die entsprechende Aktion aus der Map geholt ...
-	    HttpRequestActionBase action = (HttpRequestActionBase)_actions.get(op);
+	    HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 	    // ... und angestossen
 	    action.perform(req, resp);
 	}
@@ -63,7 +63,7 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 		// um die Operation, die ausgefueht werden soll zu bestimmen
 	    String op = getOperation(req);
 	    // dann wird die entsprechende Aktion aus der Map geholt ...
-	    HttpRequestActionBase action = (HttpRequestActionBase)_actions.get(op);
+	    HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 	    // ... und angestossen
 	    action.perform(req, resp);
 	}
