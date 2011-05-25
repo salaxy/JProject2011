@@ -16,7 +16,7 @@ import de.fhb.jproject.manager.MainControl;
  */
 public class CommentTaskAction extends HttpRequestActionBase {
 
-	private MainControl _mainController;
+	private MainControl mainController;
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -25,11 +25,11 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		//Controller holen
-		_mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 //		try {
 //			//Debugprint
-//			DebugSystem.println(DebugSystem.LEVEL_ACTIONS,"Action: XXX_Action");
+//			DebugSystem.println(DebugSystem.LEVELACTIONS,"Action: XXXAction");
 //			
 //			//Controller in aktion
 //			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
@@ -42,21 +42,21 @@ public class CommentTaskAction extends HttpRequestActionBase {
 //			e.printStackTrace();
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
-//			new Error_Action().perform(req, resp);
+//			new ErrorAction().perform(req, resp);
 //			
 //		}catch (IOException e) {
 //			
 //			e.printStackTrace();
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
-//			new Error_Action().perform(req, resp);
+//			new ErrorAction().perform(req, resp);
 //			
 //		}catch(NullPointerException e){
 //			
 //			e.printStackTrace();
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
-//			new Error_Action().perform(req, resp);
+//			new ErrorAction().perform(req, resp);
 //			
 //		}
 		

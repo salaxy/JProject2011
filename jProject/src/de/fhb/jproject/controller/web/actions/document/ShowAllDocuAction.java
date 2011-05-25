@@ -30,7 +30,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 //		int  nr=Integer.parseInt(req.getParameter("nr"));
 //		
 //		
-//		List<CD_VO> cdList=logic.showCDs();
+//		List<CDVO> cdList=logic.showCDs();
 //		
 //		req.setAttribute("aktcd", logic.getAktuelleCD());
 //		req.setAttribute("cdlist", cdList);

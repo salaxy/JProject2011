@@ -22,8 +22,8 @@ import de.fhb.jproject.manager.MainControl;
  */
 public class ShowUserSettingsAction extends HttpRequestActionBase {
 
-	private MainControl _mainController;
-	private static final Logger _logger = Logger.getLogger(ShowUserSettingsAction.class);
+	private MainControl mainController;
+	private static final Logger logger = Logger.getLogger(ShowUserSettingsAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -32,17 +32,17 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		//Controller holen
-		_mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 		User aktUser=null;
 		
 		try {
 			
 			//Debugprint
-			_logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
-			aktUser =_mainController.getUserController().showUserSettings();
+			aktUser =mainController.getUserController().showUserSettings();
 			
 			//setzen der Parameter
 			req.setAttribute("user", aktUser);
@@ -53,19 +53,19 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 		}catch (ProjectException e) {
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}catch (IOException e) {
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}catch(NullPointerException e){
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}

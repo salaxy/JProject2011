@@ -21,8 +21,8 @@ import de.fhb.jproject.manager.MainControl;
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
 
-	private MainControl _mainController;
-	private static final Logger _logger = Logger.getLogger(UpdateUserSettingsAction.class);
+	private MainControl mainController;
+	private static final Logger logger = Logger.getLogger(UpdateUserSettingsAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -31,15 +31,15 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		//Controller holen
-		_mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 		try {
 			
 			//Debugprint
-			_logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
-			_mainController.getUserController().updateUserSettings(req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
+			mainController.getUserController().updateUserSettings(req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
 					req.getParameter("neuSkype"), req.getParameter("neutelefon"), req.getParameter("sprache"), req.getParameter("neuesPasswortEins"),
 					req.getParameter("neuesPasswortZwei"), req.getParameter("altesPasswort"));
 			
@@ -50,19 +50,19 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 		}catch (ProjectException e) {
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}catch (IOException e) {
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}catch(NullPointerException e){
 			
 			e.printStackTrace();
-			_logger.error(e.getMessage());
+			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}
