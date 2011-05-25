@@ -1,0 +1,10 @@
+
+INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('heinz', 'Password', 'Vorname', 'Nachname', 'Sprache');
+
+INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('karl', 'Password', 'Vorname', 'Nachname', 'Sprache');

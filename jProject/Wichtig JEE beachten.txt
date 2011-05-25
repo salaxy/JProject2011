@@ -1,0 +1,14 @@
+
+die rechtetabelle tritt NICHT in kraft wenn es sich um z.b. ein comment handelt, dass der user selbst erstellt hat...
+das ist also eine vorbedingung
+also…alles was ein user selbst erstellt hat…darf er auch löschen
+
+ausnahme ist hier ein project…das darf der leader nur löschen
+oder admin
+also…implizit…hat der leader ja das projekt erstellt…aber das wissen wir nur indirekt über das leadersein
+aber es kann auch vorkommen, dass der leader seine rechte an dritte weitergibt…(er hat kein bock mehr oder so)
+und dann kann der erbe das projekt löschen
+understand?
+schreibs dir auf ;D
+
+
