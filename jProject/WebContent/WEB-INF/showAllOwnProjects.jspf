@@ -1,8 +1,7 @@
 <c:choose>
 	<c:when test="${sessionScope.loggedIn != null}">
 		<c:forEach items="${showAllOwnProjects}" var="project" varStatus="i">
-        	<a href="JProjectServlet?do=ShowProject&Name=${project.name}">${project.name}</a><br>
-        </c:forEach>
-		hallo
+			<a href="JProjectServlet?do=ShowProject&Name=${project.name}">${project.name}</a><br>
+		</c:forEach>
 	</c:when>
 </c:choose>

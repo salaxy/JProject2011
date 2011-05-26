@@ -155,7 +155,7 @@ img.download {
 	width:100%;
 }
 
-/* --------------left und right navigavtion------------- */
+/* --------------left navigation------------- */
 #left {
 	width:200px; 
 	float:left; 
@@ -163,6 +163,11 @@ img.download {
 	margin-left:-200px; 
 	margin-right:1px;
 }
+#projects {
+	padding:0px;
+	margin-left:20px;
+}
+/* --------------right navigation------------- */
 /*
 #right {
 	width:200px; 
