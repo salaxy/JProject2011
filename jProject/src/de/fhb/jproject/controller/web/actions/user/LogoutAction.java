@@ -5,6 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.manager.MainControl;
+import java.io.IOException;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -15,6 +20,9 @@ import de.fhb.commons.web.HttpRequestActionBase;
  */
 public class LogoutAction extends HttpRequestActionBase {
 
+	
+	private MainControl mainController;
+	private static final Logger logger = Logger.getLogger(LoginAction.class);
 //	private JProjectBO logic;
 
 	/* (non-Javadoc)
@@ -25,24 +33,44 @@ public class LogoutAction extends HttpRequestActionBase {
 		
 		//TODO session.invalidate();!!!!!!!!!!!
 		
-		//Business-object holen
-//		logic=(JProjectBO) req.getSession().getAttribute("logic");
-//		
-//		//informationen holen
-//		int  nr=Integer.parseInt(req.getParameter("nr"));
-//		
-//		
-//		List<CDVO> cdList=logic.showCDs();
-//		
-//		req.setAttribute("aktcd", logic.getAktuelleCD());
-//		req.setAttribute("cdlist", cdList);
-//		
-//		try {
-//			forward(req, resp, "json.jsp");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
+		
+
+		
+		try {
+			
+			//Debugprint
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			
+			//Controller in aktion
+			mainController.getUserController().logout();
+			synchronized(session){
+				session.setAttribute("loggedIn", null);
+				session.setAttribute("aktUser", null);
+				session.invalidate();
+			}
+			
+			
+			//forwarden zum JSP
+			//TODO syso entfernen
+			System.out.println("Erfolgreich ausgeloggt!");
+			forward(req, resp, "/index.jsp");
+
+		}catch (IOException e) {
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+			
+		}catch(NullPointerException e){
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+			
+		}
 		
 	}
 }
