@@ -223,12 +223,39 @@ public class ProjectControl {
 			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
+		}
 		
 		return project;
 	}
 	
-	public void  searchProjects(){}
+	public void searchProjects(){
+		
+//		List<Project> list=null;
+//		
+//		//debuglogging
+//		logger.info("showAllProjects()");
+//		
+//        //abfrage ob user eingeloggt
+//		if(!isUserLoggedIn()){
+//            throw new ProjectException("Sie sind nicht eingeloggt!");
+//        }
+//		
+//		//RECHTE-ABFRAGE Global
+//		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
+//			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
+//		}	
+//		
+//		//holen der Daten
+//		try {
+//			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
+//		} catch (PersistentException e) {
+//			e.printStackTrace();
+//			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
+//		}
+//		
+//		return list;
+//		
+	}
 	
 	/**
 	 * anzeigen aller existierenden Projekte
@@ -273,17 +300,7 @@ public class ProjectControl {
 	throws ProjectException{
 		//debuglogging
 		logger.info("showAllOwnProjects()");
-		List<Project> list=new ArrayList();
-		//TODO man ey -.- und da fummelst du mir für das ding jetzt inner DA schicht rum
-		
-		//TODO for(each) drummachen
-		//TODO !!!!!!!!!!!!!!!!!!!!!!!!!
-		//TODO und wieso ist das überhaupt in project?...is eher userbezogen
-		
-		//XXX wollte ich erst vieleicht hab ich mir dabei was gedacht, habs auch erst so gehabt wie du
-		// schichtentrenung usw
-		
-		
+		List<Project> list=new ArrayList<Project>();
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -298,6 +315,7 @@ public class ProjectControl {
 		for (Member aktMember : aktUser.member.toArray()) {
 			list.add(aktMember.getProjectName());
 		}
+		
 		return list;
 	}
 	
