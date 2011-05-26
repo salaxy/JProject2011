@@ -195,8 +195,79 @@ public class ProjectControl {
 		}	
 	}	
 	
-	public void deleteMember(){}
+	/**
+	 *  Member aus einen Projekt entfernen
+	 * @param userLoginName
+	 * @param projectName
+	 * @throws ProjectException
+	 */
+	public void deleteMember(String userLoginName, String projectName)
+	throws ProjectException{ 
+		
+		Project project=null;
+		Member memAktUser=null;
+		Member delMember=null;
+		User user=null;
+		
+		//debuglogging
+		logger.info("deleteMember()");
+		logger.debug("String name("+userLoginName+")"+"String name("+projectName+")");
+		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//TODO Admin und ProjektLeader sind berechtigt 
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Projekt-Rolle des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		if(!projectRolesController.isAllowedDeleteMemberAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
+		}	
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//User holen
+		try {
+			user=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
+		}
+		
+		//zuloeschenden Member holen
+		try {
+			delMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(user, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht loeschen! "+ e1.getMessage());
+		}
+		
+		//loeschen
+		try {	
+			DAFactory.getDAFactory().getMemberDA().delete(delMember);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Projekt nicht loeschen! "+ e.getMessage());
+		}	
+	}
 	
+	/**
+	 * Projekt-daten holen
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public Project showProject(String projectName)
 	throws ProjectException{ 
 		
