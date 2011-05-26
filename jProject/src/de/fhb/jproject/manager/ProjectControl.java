@@ -48,7 +48,9 @@ public class ProjectControl {
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		
-		//TODO abfangen ob zulï¿½ssige rolle mitgegebn		
+		//TODO abfangen ob zulï¿½ssige rolle mitgegebn	
+		//solange werden nur leader hinzugefügt
+		rolle="Leader";
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
