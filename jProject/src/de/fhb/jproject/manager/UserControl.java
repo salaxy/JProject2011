@@ -29,11 +29,12 @@ public class UserControl {
     private User aktUser = null;
     private boolean dummy=false;
     
-    public UserControl(){
-		this.globalRolesController = GlobalRolesControl.getInstance();;
-    	aktUser=DAFactory.getDAFactory().getUserDA().createUser();
-		//debuglogging
+    public UserControl(GlobalRolesControl globalRolesController){		
+    	//debuglogging
 		logger.info("new UserControl()");
+		
+		this.globalRolesController = globalRolesController;
+    	aktUser=DAFactory.getDAFactory().getUserDA().createUser();
     }
 
 	public void deleteUser(String loginName)

@@ -7,10 +7,10 @@ public class TaskControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	
-	public TaskControl(User aktUser){
+	public TaskControl(User aktUser, ProjectRolesControl projectRolesController){
 		
 		this.aktUser=aktUser;
-		this.projectRolesController=ProjectRolesControl.getInstance();
+		this.projectRolesController=projectRolesController;
 	}
 
 	// !!! Task Actions !!!
