@@ -397,6 +397,7 @@ public class ProjectControl {
 		
 		Project project=null;
 		Member memAktUser=null;	
+//		User user=null;
 		
 		//debuglogging
 		logger.info("ShowAllMember()");
@@ -414,6 +415,15 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
+		System.out.println(aktUser.getLoginName());
+		
+//		//user nochmal neu holen
+//		try {
+//			user=DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getORMID());
+//		} catch (PersistentException e1) {
+//			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
+//		}	
+		
 		//Projekt-Rolle des aktuellen Users holen
 		try {
 			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
@@ -426,6 +436,12 @@ public class ProjectControl {
 		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
+		
+//		Member[] array=project.member.toArray();
+//		
+//		for(Member m: array){
+//			System.out.println(m.getProjectNameId());
+//		}
 		
 		//Daten umwandeln
 		return Arrays.asList(project.member.toArray());
