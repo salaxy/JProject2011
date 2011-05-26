@@ -20,7 +20,10 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: NICHT FREIGEGEBEN
+ * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
+ * 
+ * http://localhost:8080/jProject/JProjectServlet?do=ShowProject&projectName=ProjectName
+ * 
  */
 public class ShowProjectAction extends HttpRequestActionBase {
 
@@ -52,8 +55,10 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("project", project);
 			
+//			System.out.println(project.getName());
+			
 			//forwarden zum JSP
-			forward(req, resp, "/AddMember.jsp");
+			forward(req, resp, "/ShowProject.jsp");
 
 		}catch (ProjectException e) {
 			
