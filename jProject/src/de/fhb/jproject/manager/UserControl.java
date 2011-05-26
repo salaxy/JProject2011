@@ -330,7 +330,12 @@ public class UserControl {
 		//debuglogging
 		logger.info("getAktUser()");
 		
-        return aktUser;
+		//Passwort auf null setzen und Nachname kuerzen um sicherheit zu wahren
+		User tempUser=aktUser;
+		tempUser.setPassword(null);
+		tempUser.setNachname(aktUser.getNachname().toCharArray()[0]+".");
+		
+        return tempUser;
     }
     
 	
