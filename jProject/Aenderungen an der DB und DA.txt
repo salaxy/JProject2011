@@ -1,0 +1,14 @@
+Datenbank
+*********
+
+- isAllowedDeleteProjectAction bitte "auch" in der ProjectRole tabelle also in beiden
+
+
+
+
+DA-Schicht
+**********
+
+brauche die methoden:
+
+- findProjectsLike(String name)		(projectDA)
