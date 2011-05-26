@@ -21,7 +21,9 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- *  * STATUS: NICHT FREIGEGEBEN
+ * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
+ * 
+ * http://localhost:8080/jProject/JProjectServlet?do=ShowAllProjects
  */
 public class ShowAllProjectsAction extends HttpRequestActionBase {
 
