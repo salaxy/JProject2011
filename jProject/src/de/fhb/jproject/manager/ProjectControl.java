@@ -20,10 +20,8 @@ import org.orm.PersistentException;
  * 
  */
 public class ProjectControl {
+	
 	User aktUser;
-	//TODO Project aktProject;
-	//völlig ünnötig, gibst mir die id immer mit,
-	//hör auf ständifg hier rum zu psuschen , wtf ich möchhte das jetzt mal selber machen
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
 	
