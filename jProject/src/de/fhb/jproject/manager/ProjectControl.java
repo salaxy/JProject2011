@@ -22,6 +22,8 @@ import org.orm.PersistentException;
 public class ProjectControl {
 	User aktUser;
 	//TODO Project aktProject;
+	//völlig ünnötig, gibst mir die id immer mit,
+	//hör auf ständifg hier rum zu psuschen , wtf ich möchhte das jetzt mal selber machen
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
 	
@@ -257,6 +259,8 @@ public class ProjectControl {
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			//TODO DATENBANKFEHLER...samma...gib dir ma n bissi mÃ¼he!
+			//LOL ich wusste nocht nicht was hier inschreib
+			//änder es doch einfach wenn du es nicht für richtig hälst
 			throw new ProjectException("Datenbank fehler! "+ e.getMessage());
 		}
 		
@@ -278,6 +282,9 @@ public class ProjectControl {
 		//TODO for(each) drummachen
 		//TODO !!!!!!!!!!!!!!!!!!!!!!!!!
 		//TODO und wieso ist das Ã¼berhaupt in project?...is eher userbezogen
+		
+		//XXX wollte ich erst vieleicht hab ich mir dabei was gedacht, habs auch erst so gehabt wie du
+		// schichtentrenung usw
 		
 		
 		
@@ -334,7 +341,7 @@ public class ProjectControl {
 		
 		//Daten umwandeln
 		return Arrays.asList(project.member.toArray());
-		//aus performance grï¿½nden habe ich hier keine auslagerung vorgenommen,
+		//aus performance gründen habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
 			
 	}

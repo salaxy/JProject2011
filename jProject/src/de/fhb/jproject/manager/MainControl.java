@@ -15,8 +15,8 @@ public class MainControl{
 	private TaskControl taskcontroller;
 	private DocumentControl documentController;
 	private CommentControl commentController;
-	private ProjectRolesControl projectRolesController;	
-	private GlobalRolesControl globalRolesController;
+//	private ProjectRolesControl projectRolesController;	
+//	private GlobalRolesControl globalRolesController;
 
 	
 
@@ -70,12 +70,12 @@ public class MainControl{
 	}
 	
 	
-	public ProjectRolesControl getProjectRolesController(){
-		return projectRolesController;
-	}
-	
-	
-	public GlobalRolesControl getGlobalRolesController(){
-		return globalRolesController;
-	}
+//	public ProjectRolesControl getProjectRolesController(){
+//		return projectRolesController;
+//	}
+//	
+//	
+//	public GlobalRolesControl getGlobalRolesController(){
+//		return globalRolesController;
+//	}
 }
