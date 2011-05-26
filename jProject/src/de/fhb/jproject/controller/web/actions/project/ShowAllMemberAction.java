@@ -52,7 +52,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			memberList=mainController.getProjectContoller().showAllMember(req.getParameter("projectName"));
 			
 			for( Member m : memberList){
-				System.out.println("Member: "+ m.getUserLoginNameId()+" "+m.getProjectNameId()+" "+m.getProjectRole());
+				System.out.println("Member: "+ m.getUserLoginName().getLoginName()+" "+m.getProjectName().getName()+" "+m.getProjectRole());
 			}		
 			
 			//setzen der Parameter
