@@ -2,6 +2,7 @@ package de.fhb.jproject.manager;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 
@@ -397,63 +398,34 @@ public class ProjectControl {
 	throws ProjectException{
 		
 		Project project=null;
-		Member memAktUser=null;	
-//		User user=null;
+		Member memAktUser=null;
 		
 		//debuglogging
 		logger.info("ShowAllMember()");
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		/*
+		
 		if(!isUserLoggedIn()){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		*/
 		//projekt holen
 		try {
 			project=DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-		System.out.println(aktUser.getLoginName());
-		
-//		//user nochmal neu holen
-//		try {
-//			user=DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getORMID());
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
-//		}	
-		
+		}
 		//Projekt-Rolle des aktuellen Users holen
-		
 		try {
 			memAktUser=DAFactory.getDAFactory().getMemberDA().loadMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
-		
-		
 		//RECHTE-ABFRAGE projekt
 		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 		
-//		Member[] array=project.member.toArray();
-//		
-//		for(Member m: array){
-//			System.out.println(m.getProjectNameId());
-//		}
-		
-		//Daten umwandeln
-		MemberSetCollection msc = project.member;
-		System.out.println("Size: "+msc.size());
-		/*
-		for (Member m : msc.toArray()) {
-			System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
-		}
-		*/
 		return Arrays.asList(project.member.toArray());
 		//aus performance gr�nden habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
@@ -463,7 +435,7 @@ public class ProjectControl {
 	
 	private boolean isUserLoggedIn() {		
 		//TODO irgentwie ist das noch nicht richtig soo		
-		return (aktUser!=null);
+		return (aktUser.getLoginName()!=null);
 	}
 }
 
