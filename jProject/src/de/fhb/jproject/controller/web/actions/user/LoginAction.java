@@ -31,6 +31,7 @@ public class LoginAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
+		
 		HttpSession session = req.getSession();
 		//Controller holen
 		mainController=(MainControl) session.getAttribute("mainController");

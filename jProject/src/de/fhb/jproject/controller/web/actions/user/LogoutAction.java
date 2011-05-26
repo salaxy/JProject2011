@@ -31,7 +31,6 @@ public class LogoutAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//TODO session.invalidate();!!!!!!!!!!!
 		
 		HttpSession session = req.getSession();
 		//Controller holen
@@ -47,6 +46,7 @@ public class LogoutAction extends HttpRequestActionBase {
 			//Controller in aktion
 			mainController.getUserController().logout();
 			synchronized(session){
+				session.setAttribute("mainController", null);
 				session.setAttribute("loggedIn", null);
 				session.setAttribute("aktUser", null);
 				session.invalidate();
