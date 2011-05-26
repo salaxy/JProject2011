@@ -197,12 +197,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		try {
 			de.fhb.jproject.data.Sourcecode sourcecode = commentSourcecode.getSourcecode();
 			if(commentSourcecode.getSourcecode() != null) {
-				commentSourcecode.getSourcecode().comment_Sourcecode.remove(commentSourcecode);
+				commentSourcecode.getSourcecode().commentSourcecode.remove(commentSourcecode);
 			}
 			commentSourcecode.setORM_Sourcecode(sourcecode);
 			
 			if(commentSourcecode.getComment() != null) {
-				commentSourcecode.getComment().setSourcecode(null);
+				commentSourcecode.getComment().setCommentSourcecode(null);
 			}
 			
 			return delete(commentSourcecode);
@@ -217,12 +217,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		try {
 			de.fhb.jproject.data.Sourcecode sourcecode = commentSourcecode.getSourcecode();
 			if(commentSourcecode.getSourcecode() != null) {
-				commentSourcecode.getSourcecode().comment_Sourcecode.remove(commentSourcecode);
+				commentSourcecode.getSourcecode().commentSourcecode.remove(commentSourcecode);
 			}
 			commentSourcecode.setORM_Sourcecode(sourcecode);
 			
 			if(commentSourcecode.getComment() != null) {
-				commentSourcecode.getComment().setSourcecode(null);
+				commentSourcecode.getComment().setCommentSourcecode(null);
 			}
 			
 			try {

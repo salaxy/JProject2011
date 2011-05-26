@@ -22,8 +22,8 @@ public class CommentProject {
 			this.comment = (de.fhb.jproject.data.Comment) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENTPROJECT_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.Project) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENTPROJECT_PROJECT) {
+			this.project = (de.fhb.jproject.data.Project) owner;
 		}
 	}
 	
@@ -36,16 +36,16 @@ public class CommentProject {
 	
 	private de.fhb.jproject.data.Comment comment;
 	
-	private de.fhb.jproject.data.Project projectName;
+	private de.fhb.jproject.data.Project project;
 	
-	private String projectNameId;
+	private String projectId;
 	
-	public void setProjectNameId(String value) {
-		this.projectNameId = value;
+	public void setProjectId(String value) {
+		this.projectId = value;
 	}
 	
-	public String getProjectNameId() {
-		return projectNameId;
+	public String getProjectId() {
+		return projectId;
 	}
 	
 	public void setComment(de.fhb.jproject.data.Comment value) {
@@ -53,10 +53,10 @@ public class CommentProject {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
 			this.comment = value;
 			if (value != null) {
-				comment.setProjectName(this);
+				comment.setCommentProject(this);
 			}
 			else {
-				lcomment.setProjectName(null);
+				lcomment.setCommentProject(null);
 			}
 		}
 	}
@@ -65,36 +65,36 @@ public class CommentProject {
 		return comment;
 	}
 	
-	public void setProjectName(de.fhb.jproject.data.Project value) {
-		if (projectName != null) {
-			projectName.comment_Project.remove(this);
+	public void setProject(de.fhb.jproject.data.Project value) {
+		if (project != null) {
+			project.commentProject.remove(this);
 		}
 		if (value != null) {
-			value.comment_Project.add(this);
+			value.commentProject.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.Project getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.Project getProject() {
+		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_ProjectName(de.fhb.jproject.data.Project value) {
-		this.projectName = value;
+	public void setORM_Project(de.fhb.jproject.data.Project value) {
+		this.project = value;
 	}
 	
-	private de.fhb.jproject.data.Project getORM_ProjectName() {
-		return projectName;
+	private de.fhb.jproject.data.Project getORM_Project() {
+		return project;
 	}
 	
 	public de.fhb.jproject.data.Project getORMID() {
-		return getProjectName();
+		return getProject();
 	}
 	
 	public String toString() {
-		return String.valueOf(((getProjectName() == null) ? "" : String.valueOf(getProjectName().getORMID())));
+		return String.valueOf(((getProject() == null) ? "" : String.valueOf(getProject().getORMID())));
 	}
 	
 }

@@ -281,11 +281,11 @@ public class UserDAOImpl implements de.fhb.jproject.repository.dao.UserDAO {
 		try {
 			de.fhb.jproject.data.Member[] lMembers = user.member.toArray();
 			for(int i = 0; i < lMembers.length; i++) {
-				lMembers[i].setUserLoginName(null);
+				lMembers[i].setUser(null);
 			}
 			de.fhb.jproject.data.Comment[] lComments = user.comment.toArray();
 			for(int i = 0; i < lComments.length; i++) {
-				lComments[i].setUserLoginName(null);
+				lComments[i].setUser(null);
 			}
 			de.fhb.jproject.data.ICQ[] liCQs = user.iCQ.toArray();
 			for(int i = 0; i < liCQs.length; i++) {
@@ -311,11 +311,11 @@ public class UserDAOImpl implements de.fhb.jproject.repository.dao.UserDAO {
 		try {
 			de.fhb.jproject.data.Member[] lMembers = user.member.toArray();
 			for(int i = 0; i < lMembers.length; i++) {
-				lMembers[i].setUserLoginName(null);
+				lMembers[i].setUser(null);
 			}
 			de.fhb.jproject.data.Comment[] lComments = user.comment.toArray();
 			for(int i = 0; i < lComments.length; i++) {
-				lComments[i].setUserLoginName(null);
+				lComments[i].setUser(null);
 			}
 			de.fhb.jproject.data.ICQ[] liCQs = user.iCQ.toArray();
 			for(int i = 0; i < liCQs.length; i++) {

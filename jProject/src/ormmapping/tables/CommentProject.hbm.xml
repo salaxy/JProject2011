@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.CommentProject" table="`CommentProject`">
-    <id column="`ProjectName`" name="projectNameId" type="string">
-      <generator class="foreign">
-        <param name="property">projectName</param>
-      </generator>
-    </id>
-    <one-to-one cascade="all" class="de.fhb.jproject.data.Project" constrained="true" name="projectName"/>
-    <many-to-one access="field" cascade="save-update,lock" class="de.fhb.jproject.data.Comment" column="`CommentID`" lazy="no-proxy" name="comment" not-null="true" unique="true">
+	<class name="de.fhb.jproject.data.CommentProject" table="`CommentProject`" lazy="false">
+		<id name="projectId" column="`Project`" type="string">
+			<generator class="foreign">
+				<param name="property">project</param>
+			</generator>
+		</id>
+		<one-to-one name="project" class="de.fhb.jproject.data.Project" cascade="all" constrained="true"/>
+		<many-to-one name="comment" column="`CommentID`" class="de.fhb.jproject.data.Comment" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy" access="field">
 		</many-to-one>
-  </class>
+	</class>
 </hibernate-mapping>

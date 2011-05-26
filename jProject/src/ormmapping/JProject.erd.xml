@@ -107,7 +107,7 @@
       <Index>true</Index>
       <UserTypes/>
     </Column>
-    <Column name="ProjectName">
+    <Column name="Project">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
@@ -143,14 +143,14 @@
       <Index>true</Index>
       <UserTypes/>
     </Column>
-    <Column name="ProjectName">
+    <Column name="Project">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
+      <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
@@ -254,7 +254,7 @@
       <Index>true</Index>
       <UserTypes/>
     </Column>
-    <Column name="UserLoginName">
+    <Column name="User">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>User.LoginName</ReferencedColumn>
@@ -262,7 +262,7 @@
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
@@ -290,14 +290,14 @@
       <Index>true</Index>
       <UserTypes/>
     </Column>
-    <Column name="ProjectName">
+    <Column name="Project">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
+      <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
@@ -349,7 +349,7 @@
     </Column>
   </Entity>
   <Entity name="Member">
-    <Column name="UserLoginName">
+    <Column name="User">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>User.LoginName</ReferencedColumn>
@@ -357,11 +357,11 @@
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="ProjectName">
+    <Column name="Project">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
@@ -369,7 +369,7 @@
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
@@ -386,27 +386,27 @@
     </Column>
   </Entity>
   <Entity name="TODO">
-    <Column name="MemberUserLoginName">
+    <Column name="MemberUser">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Member.UserLoginName</ReferencedColumn>
+      <ReferencedColumn>Member.User</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="MemberProjectName">
+    <Column name="MemberProject">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Member.ProjectName</ReferencedColumn>
+      <ReferencedColumn>Member.Project</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
@@ -418,7 +418,7 @@
       <Length>10</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>false</Unique>
+      <Unique>true</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
@@ -448,7 +448,7 @@
     </Column>
   </Entity>
   <Entity name="CommentProject">
-    <Column name="ProjectName">
+    <Column name="Project">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
@@ -902,6 +902,17 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+    <Column name="DeleteProjectAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
   </Entity>
   <Entity name="GlobalRoles">
     <Column name="Role">
@@ -1082,37 +1093,37 @@
       <UserTypes/>
     </Column>
   </Entity>
-  <ForeignKey name="FKMember261333">
+  <ForeignKey name="FKMember111780">
     <ReferenceTable>Member</ReferenceTable>
     <ReferencedTable>User</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>UserLoginName</Column>
+      <Column>User</Column>
     </Columns>
     <RefColumns>
       <Column>LoginName</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKMember682269">
+  <ForeignKey name="FKMember203878">
     <ReferenceTable>Member</ReferenceTable>
     <ReferencedTable>Project</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>ProjectName</Column>
+      <Column>Project</Column>
     </Columns>
     <RefColumns>
       <Column>Name</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKComment274070">
+  <ForeignKey name="FKComment124517">
     <ReferenceTable>Comment</ReferenceTable>
     <ReferencedTable>User</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>UserLoginName</Column>
+      <Column>User</Column>
     </Columns>
     <RefColumns>
       <Column>LoginName</Column>
@@ -1154,54 +1165,54 @@
       <Column>LoginName</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKSourcecode913982">
+  <ForeignKey name="FKSourcecode392374">
     <ReferenceTable>Sourcecode</ReferenceTable>
     <ReferencedTable>Project</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>ProjectName</Column>
+      <Column>Project</Column>
     </Columns>
     <RefColumns>
       <Column>Name</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKDocument19008">
+  <ForeignKey name="FKDocument497399">
     <ReferenceTable>Document</ReferenceTable>
     <ReferencedTable>Project</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>ProjectName</Column>
+      <Column>Project</Column>
     </Columns>
     <RefColumns>
       <Column>Name</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKTask186005">
+  <ForeignKey name="FKTask263977">
     <ReferenceTable>Task</ReferenceTable>
     <ReferencedTable>Project</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>ProjectName</Column>
+      <Column>Project</Column>
     </Columns>
     <RefColumns>
       <Column>Name</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKTODO524112">
+  <ForeignKey name="FKTODO442996">
     <ReferenceTable>TODO</ReferenceTable>
     <ReferencedTable>Member</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>MemberUserLoginName</Column>
-      <Column>MemberProjectName</Column>
+      <Column>MemberUser</Column>
+      <Column>MemberProject</Column>
     </Columns>
     <RefColumns>
-      <Column>UserLoginName</Column>
-      <Column>ProjectName</Column>
+      <Column>User</Column>
+      <Column>Project</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKTODO825529">
@@ -1237,13 +1248,13 @@
       <Column>ID</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKCommentPro233432">
+  <ForeignKey name="FKCommentPro755040">
     <ReferenceTable>CommentProject</ReferenceTable>
     <ReferencedTable>Project</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
     <OnDelete>Cascade</OnDelete>
     <Columns>
-      <Column>ProjectName</Column>
+      <Column>Project</Column>
     </Columns>
     <RefColumns>
       <Column>Name</Column>

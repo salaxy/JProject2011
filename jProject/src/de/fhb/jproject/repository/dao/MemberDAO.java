@@ -14,14 +14,14 @@ import org.orm.*;
 import de.fhb.jproject.data.*;
 
 public interface MemberDAO {
-	public Member loadMemberByORMID(de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName) throws PersistentException;
-	public Member getMemberByORMID(de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName) throws PersistentException;
-	public Member loadMemberByORMID(de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Member getMemberByORMID(de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName) throws PersistentException;
-	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName) throws PersistentException;
-	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User userLoginName, de.fhb.jproject.data.Project projectName, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Member loadMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException;
+	public Member getMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException;
+	public Member loadMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Member getMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException;
+	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException;
+	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException;
 	public Member[] listMemberByQuery(String condition, String orderBy) throws PersistentException;
 	public Member[] listMemberByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException;
 	public Member[] listMemberByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException;

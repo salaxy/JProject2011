@@ -79,6 +79,8 @@ public class ProjectRoles {
 	
 	private boolean updateTaskAction;
 	
+	private boolean deleteProjectAction;
+	
 	public void setRole(String value) {
 		this.role = value;
 	}
@@ -115,148 +117,20 @@ public class ProjectRoles {
 		return commentTaskAction;
 	}
 	
-	public void setDeleteCommentAction(boolean value) {
-		this.deleteCommentAction = value;
-	}
-	
-	public boolean getDeleteCommentAction() {
-		return deleteCommentAction;
-	}
-	
-	public void setAddNewDocuAction(boolean value) {
-		this.addNewDocuAction = value;
-	}
-	
-	public boolean getAddNewDocuAction() {
-		return addNewDocuAction;
-	}
-	
-	public void setDeleteDocuAction(boolean value) {
-		this.deleteDocuAction = value;
-	}
-	
-	public boolean getDeleteDocuAction() {
-		return deleteDocuAction;
-	}
-	
-	public void setDownloadDocuAction(boolean value) {
-		this.downloadDocuAction = value;
-	}
-	
-	public boolean getDownloadDocuAction() {
-		return downloadDocuAction;
-	}
-	
-	public void setShowAllDocuAction(boolean value) {
-		this.showAllDocuAction = value;
-	}
-	
-	public boolean getShowAllDocuAction() {
-		return showAllDocuAction;
-	}
-	
-	public void setAddMemberAction(boolean value) {
-		this.addMemberAction = value;
-	}
-	
-	public boolean getAddMemberAction() {
-		return addMemberAction;
-	}
-	
-	public void setDeleteMemberAction(boolean value) {
-		this.deleteMemberAction = value;
-	}
-	
-	public boolean getDeleteMemberAction() {
-		return deleteMemberAction;
-	}
-	
-	public void setAddNewSourceAction(boolean value) {
-		this.addNewSourceAction = value;
-	}
-	
-	public boolean getAddNewSourceAction() {
-		return addNewSourceAction;
-	}
-	
-	public void setDeleteSourceAction(boolean value) {
-		this.deleteSourceAction = value;
-	}
-	
-	public boolean getDeleteSourceAction() {
-		return deleteSourceAction;
-	}
-	
-	public void setDownloadSourceAction(boolean value) {
-		this.downloadSourceAction = value;
-	}
-	
-	public boolean getDownloadSourceAction() {
-		return downloadSourceAction;
-	}
-	
-	public void setShowSourceAction(boolean value) {
-		this.showSourceAction = value;
-	}
-	
-	public boolean getShowSourceAction() {
-		return showSourceAction;
-	}
-	
-	public void setShowAllSourceAction(boolean value) {
-		this.showAllSourceAction = value;
-	}
-	
-	public boolean getShowAllSourceAction() {
-		return showAllSourceAction;
-	}
-	
-	public void setAddNewTaskAction(boolean value) {
-		this.addNewTaskAction = value;
-	}
-	
-	public boolean getAddNewTaskAction() {
-		return addNewTaskAction;
-	}
-	
-	public void setDeleteTaskAction(boolean value) {
-		this.deleteTaskAction = value;
-	}
-	
-	public boolean getDeleteTaskAction() {
-		return deleteTaskAction;
-	}
-	
-	public void setShowAllTasksAction(boolean value) {
-		this.showAllTasksAction = value;
-	}
-	
-	public boolean getShowAllTasksAction() {
-		return showAllTasksAction;
-	}
-	
-	public void setShowAllOwnTasksAction(boolean value) {
-		this.showAllOwnTasksAction = value;
-	}
-	
-	public boolean getShowAllOwnTasksAction() {
-		return showAllOwnTasksAction;
-	}
-	
-	public void setUpdateTaskAction(boolean value) {
-		this.updateTaskAction = value;
-	}
-	
-	public boolean getUpdateTaskAction() {
-		return updateTaskAction;
-	}
-	
 	public void setCommentProjectAction(boolean value) {
 		this.commentProjectAction = value;
 	}
 	
 	public boolean getCommentProjectAction() {
 		return commentProjectAction;
+	}
+	
+	public void setDeleteCommentAction(boolean value) {
+		this.deleteCommentAction = value;
+	}
+	
+	public boolean getDeleteCommentAction() {
+		return deleteCommentAction;
 	}
 	
 	public void setShowAllComments41DocuAction(boolean value) {
@@ -299,12 +173,44 @@ public class ProjectRoles {
 		return updateCommentAction;
 	}
 	
+	public void setAddNewDocuAction(boolean value) {
+		this.addNewDocuAction = value;
+	}
+	
+	public boolean getAddNewDocuAction() {
+		return addNewDocuAction;
+	}
+	
+	public void setDeleteDocuAction(boolean value) {
+		this.deleteDocuAction = value;
+	}
+	
+	public boolean getDeleteDocuAction() {
+		return deleteDocuAction;
+	}
+	
+	public void setDownloadDocuAction(boolean value) {
+		this.downloadDocuAction = value;
+	}
+	
+	public boolean getDownloadDocuAction() {
+		return downloadDocuAction;
+	}
+	
 	public void setShowDocuAction(boolean value) {
 		this.showDocuAction = value;
 	}
 	
 	public boolean getShowDocuAction() {
 		return showDocuAction;
+	}
+	
+	public void setShowAllDocuAction(boolean value) {
+		this.showAllDocuAction = value;
+	}
+	
+	public boolean getShowAllDocuAction() {
+		return showAllDocuAction;
 	}
 	
 	public void setUpdateDocuAction(boolean value) {
@@ -315,6 +221,22 @@ public class ProjectRoles {
 		return updateDocuAction;
 	}
 	
+	public void setAddMemberAction(boolean value) {
+		this.addMemberAction = value;
+	}
+	
+	public boolean getAddMemberAction() {
+		return addMemberAction;
+	}
+	
+	public void setDeleteMemberAction(boolean value) {
+		this.deleteMemberAction = value;
+	}
+	
+	public boolean getDeleteMemberAction() {
+		return deleteMemberAction;
+	}
+	
 	public void setShowAllMemberAction(boolean value) {
 		this.showAllMemberAction = value;
 	}
@@ -323,12 +245,100 @@ public class ProjectRoles {
 		return showAllMemberAction;
 	}
 	
+	public void setAddNewSourceAction(boolean value) {
+		this.addNewSourceAction = value;
+	}
+	
+	public boolean getAddNewSourceAction() {
+		return addNewSourceAction;
+	}
+	
+	public void setDeleteSourceAction(boolean value) {
+		this.deleteSourceAction = value;
+	}
+	
+	public boolean getDeleteSourceAction() {
+		return deleteSourceAction;
+	}
+	
+	public void setDownloadSourceAction(boolean value) {
+		this.downloadSourceAction = value;
+	}
+	
+	public boolean getDownloadSourceAction() {
+		return downloadSourceAction;
+	}
+	
+	public void setShowSourceAction(boolean value) {
+		this.showSourceAction = value;
+	}
+	
+	public boolean getShowSourceAction() {
+		return showSourceAction;
+	}
+	
+	public void setShowAllSourceAction(boolean value) {
+		this.showAllSourceAction = value;
+	}
+	
+	public boolean getShowAllSourceAction() {
+		return showAllSourceAction;
+	}
+	
 	public void setUpdateSourceAction(boolean value) {
 		this.updateSourceAction = value;
 	}
 	
 	public boolean getUpdateSourceAction() {
 		return updateSourceAction;
+	}
+	
+	public void setAddNewTaskAction(boolean value) {
+		this.addNewTaskAction = value;
+	}
+	
+	public boolean getAddNewTaskAction() {
+		return addNewTaskAction;
+	}
+	
+	public void setDeleteTaskAction(boolean value) {
+		this.deleteTaskAction = value;
+	}
+	
+	public boolean getDeleteTaskAction() {
+		return deleteTaskAction;
+	}
+	
+	public void setShowAllTasksAction(boolean value) {
+		this.showAllTasksAction = value;
+	}
+	
+	public boolean getShowAllTasksAction() {
+		return showAllTasksAction;
+	}
+	
+	public void setShowAllOwnTasksAction(boolean value) {
+		this.showAllOwnTasksAction = value;
+	}
+	
+	public boolean getShowAllOwnTasksAction() {
+		return showAllOwnTasksAction;
+	}
+	
+	public void setUpdateTaskAction(boolean value) {
+		this.updateTaskAction = value;
+	}
+	
+	public boolean getUpdateTaskAction() {
+		return updateTaskAction;
+	}
+	
+	public void setDeleteProjectAction(boolean value) {
+		this.deleteProjectAction = value;
+	}
+	
+	public boolean getDeleteProjectAction() {
+		return deleteProjectAction;
 	}
 	
 	public String toString() {

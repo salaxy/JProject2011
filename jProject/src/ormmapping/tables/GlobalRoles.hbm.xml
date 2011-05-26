@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.GlobalRoles" table="`GlobalRoles`">
-    <id column="`Role`" name="role" type="string">
-      <generator class="native">
+	<class name="de.fhb.jproject.data.GlobalRoles" table="`GlobalRoles`" lazy="false">
+		<id name="role" column="`Role`" type="string">
+			<generator class="native">
 			</generator>
-    </id>
-    <property lazy="false" length="1" name="addNewProjectAction" not-null="true" type="boolean">
-      <column default="0" name="`AddNewProjectAction`"/>
-    </property>
-    <property column="`DeleteProjectAction`" lazy="false" length="1" name="deleteProjectAction" not-null="true" type="boolean"/>
-    <property column="`ShowProjectAction`" lazy="false" length="1" name="showProjectAction" not-null="true" type="boolean"/>
-    <property column="`SearchProjectsAction`" lazy="false" length="1" name="searchProjectsAction" not-null="true" type="boolean"/>
-    <property column="`ShowAllProjectsAction`" lazy="false" length="1" name="showAllProjectsAction" not-null="true" type="boolean"/>
-    <property column="`ShowAllOwnProjectAction`" lazy="false" length="1" name="showAllOwnProjectAction" not-null="true" type="boolean"/>
-    <property column="`DeleteUserAction`" lazy="false" length="1" name="deleteUserAction" not-null="true" type="boolean"/>
-    <property column="`ShowUserSettingsAction`" lazy="false" length="1" name="showUserSettingsAction" not-null="true" type="boolean"/>
-    <property column="`UpdateUserSettingsAction`" lazy="false" length="1" name="updateUserSettingsAction" not-null="true" type="boolean"/>
-    <property column="`ShowUserInfoAction`" lazy="false" length="1" name="showUserInfoAction" not-null="true" type="boolean"/>
-    <property column="`SearchUserAction`" lazy="false" length="1" name="searchUserAction" not-null="true" type="boolean"/>
-    <property column="`ShowAllUserAction`" lazy="false" length="1" name="showAllUserAction" not-null="true" type="boolean"/>
-    <property column="`LoginAction`" lazy="false" length="1" name="loginAction" not-null="true" type="boolean"/>
-    <property column="`LogoutAction`" lazy="false" length="1" name="logoutAction" not-null="true" type="boolean"/>
-    <property column="`RegisterAction`" lazy="false" length="1" name="registerAction" not-null="true" type="boolean"/>
-  </class>
+		</id>
+		<property name="addNewProjectAction" type="boolean" length="1" not-null="true" lazy="false">
+			<column name="`AddNewProjectAction`" default="0"/>
+		</property>
+		<property name="deleteProjectAction" column="`DeleteProjectAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showProjectAction" column="`ShowProjectAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="searchProjectsAction" column="`SearchProjectsAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showAllProjectsAction" column="`ShowAllProjectsAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showAllOwnProjectAction" column="`ShowAllOwnProjectAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="deleteUserAction" column="`DeleteUserAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showUserSettingsAction" column="`ShowUserSettingsAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="updateUserSettingsAction" column="`UpdateUserSettingsAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showUserInfoAction" column="`ShowUserInfoAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="searchUserAction" column="`SearchUserAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="showAllUserAction" column="`ShowAllUserAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="loginAction" column="`LoginAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="logoutAction" column="`LogoutAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="registerAction" column="`RegisterAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+	</class>
 </hibernate-mapping>

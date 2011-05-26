@@ -18,19 +18,19 @@ public class Task {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSERLOGINNAME) {
-			return ORM_memberUserLoginName;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSER) {
+			return ORM_memberUser;
 		}
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_COMMENT_TASK) {
-			return ORM_comment_Task;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_COMMENTTASK) {
+			return ORM_commentTask;
 		}
 		
 		return null;
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.Project) owner;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_PROJECT) {
+			this.project = (de.fhb.jproject.data.Project) owner;
 		}
 		
 		else if (key == de.fhb.jproject.data.ORMConstants.KEY_TASK_TERMIN) {
@@ -51,7 +51,7 @@ public class Task {
 	
 	private int id;
 	
-	private de.fhb.jproject.data.Project projectName;
+	private de.fhb.jproject.data.Project project;
 	
 	private String titel;
 	
@@ -61,9 +61,9 @@ public class Task {
 	
 	private de.fhb.jproject.data.Termin termin;
 	
-	private java.util.Set ORM_memberUserLoginName = new java.util.HashSet();
+	private java.util.Set ORM_memberUser = new java.util.HashSet();
 	
-	private java.util.Set ORM_comment_Task = new java.util.HashSet();
+	private java.util.Set ORM_commentTask = new java.util.HashSet();
 	
 	private void setId(int value) {
 		this.id = value;
@@ -101,38 +101,38 @@ public class Task {
 		return done;
 	}
 	
-	private void setORM_MemberUserLoginName(java.util.Set value) {
-		this.ORM_memberUserLoginName = value;
+	private void setORM_MemberUser(java.util.Set value) {
+		this.ORM_memberUser = value;
 	}
 	
-	private java.util.Set getORM_MemberUserLoginName() {
-		return ORM_memberUserLoginName;
+	private java.util.Set getORM_MemberUser() {
+		return ORM_memberUser;
 	}
 	
-	public final de.fhb.jproject.data.MemberSetCollection memberUserLoginName = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
+	public final de.fhb.jproject.data.MemberSetCollection memberUser = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
-	public void setProjectName(de.fhb.jproject.data.Project value) {
-		if (projectName != null) {
-			projectName.task.remove(this);
+	public void setProject(de.fhb.jproject.data.Project value) {
+		if (project != null) {
+			project.task.remove(this);
 		}
 		if (value != null) {
 			value.task.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.Project getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.Project getProject() {
+		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_ProjectName(de.fhb.jproject.data.Project value) {
-		this.projectName = value;
+	public void setORM_Project(de.fhb.jproject.data.Project value) {
+		this.project = value;
 	}
 	
-	private de.fhb.jproject.data.Project getORM_ProjectName() {
-		return projectName;
+	private de.fhb.jproject.data.Project getORM_Project() {
+		return project;
 	}
 	
 	public void setTermin(de.fhb.jproject.data.Termin value) {
@@ -159,15 +159,15 @@ public class Task {
 		return termin;
 	}
 	
-	private void setORM_Comment_Task(java.util.Set value) {
-		this.ORM_comment_Task = value;
+	private void setORM_CommentTask(java.util.Set value) {
+		this.ORM_commentTask = value;
 	}
 	
-	private java.util.Set getORM_Comment_Task() {
-		return ORM_comment_Task;
+	private java.util.Set getORM_CommentTask() {
+		return ORM_commentTask;
 	}
 	
-	public final de.fhb.jproject.data.CommentTaskSetCollection comment_Task = new de.fhb.jproject.data.CommentTaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_COMMENT_TASK, de.fhb.jproject.data.ORMConstants.KEY_COMMENTTASK_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.CommentTaskSetCollection commentTask = new de.fhb.jproject.data.CommentTaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_COMMENTTASK, de.fhb.jproject.data.ORMConstants.KEY_COMMENTTASK_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

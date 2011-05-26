@@ -339,6 +339,8 @@ public class UserControl {
         return tempUser;
 		 * 
 		 */
+		User tempUser = new User();
+		
 		return aktUser;
     }
     

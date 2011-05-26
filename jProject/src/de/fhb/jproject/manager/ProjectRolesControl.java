@@ -321,5 +321,14 @@ public class ProjectRolesControl {
 		}
 	}
 	
+	public boolean isAllowedDeleteProjectAction(String role) throws ProjectException{
+		logger.info("isAllowedDeleteProjectAction(String role)");
+		logger.debug("String role("+role+")");
+		try {
+			return DAFactory.getDAFactory().getProjectRolesDA().loadProjectRolesByORMID(role).getDeleteProjectAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
+		}
+	}
 	
 }

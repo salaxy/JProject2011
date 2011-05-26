@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.Comment" table="`Comment`">
-    <id column="`ID`" name="id" type="integer" unsaved-value="0">
-      <generator class="native">
+	<class name="de.fhb.jproject.data.Comment" table="`Comment`" lazy="false">
+		<id name="id" column="`ID`" type="integer" unsaved-value="0">
+			<generator class="native">
 			</generator>
-    </id>
-    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.User" column="`UserLoginName`" lazy="no-proxy" name="userLoginName" not-null="true">
+		</id>
+		<many-to-one name="user" cascade="lock" column="`User`" class="de.fhb.jproject.data.User" not-null="true" lazy="no-proxy" access="field">
 		</many-to-one>
-    <property column="`Entry`" lazy="false" name="entry" not-null="true" type="text"/>
-    <one-to-one access="field" cascade="save-update,lock" class="de.fhb.jproject.data.CommentProject" lazy="no-proxy" name="projectName" property-ref="comment"/>
-    <one-to-one access="field" cascade="save-update,lock" class="de.fhb.jproject.data.CommentSourcecode" lazy="no-proxy" name="sourcecode" property-ref="comment"/>
-    <one-to-one access="field" cascade="save-update,lock" class="de.fhb.jproject.data.CommentDocument" lazy="no-proxy" name="document" property-ref="comment"/>
-    <one-to-one access="field" cascade="save-update,lock" class="de.fhb.jproject.data.CommentTask" lazy="no-proxy" name="task" property-ref="comment"/>
-  </class>
+		<property name="entry" column="`Entry`" type="text" not-null="true" lazy="false"/>
+		<one-to-one name="commentProject" class="de.fhb.jproject.data.CommentProject" cascade="save-update,lock" lazy="no-proxy" access="field"/>
+		<one-to-one name="commentSourcecode" class="de.fhb.jproject.data.CommentSourcecode" cascade="save-update,lock" lazy="no-proxy" access="field"/>
+		<one-to-one name="commentDocument" class="de.fhb.jproject.data.CommentDocument" cascade="save-update,lock" lazy="no-proxy" access="field"/>
+		<one-to-one name="commentTask" class="de.fhb.jproject.data.CommentTask" cascade="save-update,lock" lazy="no-proxy" access="field"/>
+	</class>
 </hibernate-mapping>

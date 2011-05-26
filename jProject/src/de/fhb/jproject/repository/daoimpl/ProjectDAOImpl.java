@@ -281,23 +281,23 @@ public class ProjectDAOImpl implements de.fhb.jproject.repository.dao.ProjectDAO
 		try {
 			de.fhb.jproject.data.Member[] lMembers = project.member.toArray();
 			for(int i = 0; i < lMembers.length; i++) {
-				lMembers[i].setProjectName(null);
+				lMembers[i].setProject(null);
 			}
 			de.fhb.jproject.data.Sourcecode[] lSourcecodes = project.sourcecode.toArray();
 			for(int i = 0; i < lSourcecodes.length; i++) {
-				lSourcecodes[i].setProjectName(null);
+				lSourcecodes[i].setProject(null);
 			}
 			de.fhb.jproject.data.Document[] lDocuments = project.document.toArray();
 			for(int i = 0; i < lDocuments.length; i++) {
-				lDocuments[i].setProjectName(null);
+				lDocuments[i].setProject(null);
 			}
 			de.fhb.jproject.data.Task[] lTasks = project.task.toArray();
 			for(int i = 0; i < lTasks.length; i++) {
-				lTasks[i].setProjectName(null);
+				lTasks[i].setProject(null);
 			}
-			de.fhb.jproject.data.CommentProject[] lComment_Projects = project.comment_Project.toArray();
-			for(int i = 0; i < lComment_Projects.length; i++) {
-				lComment_Projects[i].setProjectName(null);
+			de.fhb.jproject.data.CommentProject[] lCommentProjects = project.commentProject.toArray();
+			for(int i = 0; i < lCommentProjects.length; i++) {
+				lCommentProjects[i].setProject(null);
 			}
 			return delete(project);
 		}
@@ -311,23 +311,23 @@ public class ProjectDAOImpl implements de.fhb.jproject.repository.dao.ProjectDAO
 		try {
 			de.fhb.jproject.data.Member[] lMembers = project.member.toArray();
 			for(int i = 0; i < lMembers.length; i++) {
-				lMembers[i].setProjectName(null);
+				lMembers[i].setProject(null);
 			}
 			de.fhb.jproject.data.Sourcecode[] lSourcecodes = project.sourcecode.toArray();
 			for(int i = 0; i < lSourcecodes.length; i++) {
-				lSourcecodes[i].setProjectName(null);
+				lSourcecodes[i].setProject(null);
 			}
 			de.fhb.jproject.data.Document[] lDocuments = project.document.toArray();
 			for(int i = 0; i < lDocuments.length; i++) {
-				lDocuments[i].setProjectName(null);
+				lDocuments[i].setProject(null);
 			}
 			de.fhb.jproject.data.Task[] lTasks = project.task.toArray();
 			for(int i = 0; i < lTasks.length; i++) {
-				lTasks[i].setProjectName(null);
+				lTasks[i].setProject(null);
 			}
-			de.fhb.jproject.data.CommentProject[] lComment_Projects = project.comment_Project.toArray();
-			for(int i = 0; i < lComment_Projects.length; i++) {
-				lComment_Projects[i].setProjectName(null);
+			de.fhb.jproject.data.CommentProject[] lCommentProjects = project.commentProject.toArray();
+			for(int i = 0; i < lCommentProjects.length; i++) {
+				lCommentProjects[i].setProject(null);
 			}
 			try {
 				session.delete(project);

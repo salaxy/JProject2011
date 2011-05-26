@@ -52,14 +52,14 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			memberList=mainController.getProjectContoller().showAllMember(req.getParameter("projectName"));
 			
 			for( Member m : memberList){
-				System.out.println("Member: "+ m.getUserLoginName().getLoginName()+" "+m.getProjectName().getName()+" "+m.getProjectRole());
+				System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
 			}		
 			
 			//setzen der Parameter
 			req.setAttribute("memberList", memberList);
 			
 			//forwarden zum JSP
-			forward(req, resp, "/ShowAllMember.jsp");
+			forward(req, resp, "/showAllMember.jsp");
 
 		}catch (ProjectException e) {
 			

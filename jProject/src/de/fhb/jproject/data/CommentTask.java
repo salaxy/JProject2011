@@ -53,10 +53,10 @@ public class CommentTask {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
 			this.comment = value;
 			if (value != null) {
-				comment.setTask(this);
+				comment.setCommentTask(this);
 			}
 			else {
-				lcomment.setTask(null);
+				lcomment.setCommentTask(null);
 			}
 		}
 	}
@@ -67,10 +67,10 @@ public class CommentTask {
 	
 	public void setTask(de.fhb.jproject.data.Task value) {
 		if (task != null) {
-			task.comment_Task.remove(this);
+			task.commentTask.remove(this);
 		}
 		if (value != null) {
-			value.comment_Task.add(this);
+			value.commentTask.add(this);
 		}
 	}
 	

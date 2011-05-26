@@ -18,24 +18,24 @@ public class Comment {
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_USERLOGINNAME) {
-			this.userLoginName = (de.fhb.jproject.data.User) owner;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_USER) {
+			this.user = (de.fhb.jproject.data.User) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.CommentProject) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_COMMENTPROJECT) {
+			this.commentProject = (de.fhb.jproject.data.CommentProject) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_SOURCECODE) {
-			this.sourcecode = (de.fhb.jproject.data.CommentSourcecode) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_COMMENTSOURCECODE) {
+			this.commentSourcecode = (de.fhb.jproject.data.CommentSourcecode) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_DOCUMENT) {
-			this.document = (de.fhb.jproject.data.CommentDocument) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_COMMENTDOCUMENT) {
+			this.commentDocument = (de.fhb.jproject.data.CommentDocument) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_TASK) {
-			this.task = (de.fhb.jproject.data.CommentTask) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_COMMENT_COMMENTTASK) {
+			this.commentTask = (de.fhb.jproject.data.CommentTask) owner;
 		}
 	}
 	
@@ -48,17 +48,17 @@ public class Comment {
 	
 	private int id;
 	
-	private de.fhb.jproject.data.User userLoginName;
+	private de.fhb.jproject.data.User user;
 	
 	private String entry;
 	
-	private de.fhb.jproject.data.CommentProject projectName;
+	private de.fhb.jproject.data.CommentProject commentProject;
 	
-	private de.fhb.jproject.data.CommentSourcecode sourcecode;
+	private de.fhb.jproject.data.CommentSourcecode commentSourcecode;
 	
-	private de.fhb.jproject.data.CommentDocument document;
+	private de.fhb.jproject.data.CommentDocument commentDocument;
 	
-	private de.fhb.jproject.data.CommentTask task;
+	private de.fhb.jproject.data.CommentTask commentTask;
 	
 	private void setId(int value) {
 		this.id = value;
@@ -80,96 +80,96 @@ public class Comment {
 		return entry;
 	}
 	
-	public void setUserLoginName(de.fhb.jproject.data.User value) {
-		if (userLoginName != null) {
-			userLoginName.comment.remove(this);
+	public void setUser(de.fhb.jproject.data.User value) {
+		if (user != null) {
+			user.comment.remove(this);
 		}
 		if (value != null) {
 			value.comment.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.User getUserLoginName() {
-		return userLoginName;
+	public de.fhb.jproject.data.User getUser() {
+		return user;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_UserLoginName(de.fhb.jproject.data.User value) {
-		this.userLoginName = value;
+	public void setORM_User(de.fhb.jproject.data.User value) {
+		this.user = value;
 	}
 	
-	private de.fhb.jproject.data.User getORM_UserLoginName() {
-		return userLoginName;
+	private de.fhb.jproject.data.User getORM_User() {
+		return user;
 	}
 	
-	public void setProjectName(de.fhb.jproject.data.CommentProject value) {
-		if (this.projectName != value) {
-			de.fhb.jproject.data.CommentProject lprojectName = this.projectName;
-			this.projectName = value;
+	public void setCommentProject(de.fhb.jproject.data.CommentProject value) {
+		if (this.commentProject != value) {
+			de.fhb.jproject.data.CommentProject lcommentProject = this.commentProject;
+			this.commentProject = value;
 			if (value != null) {
-				projectName.setComment(this);
+				commentProject.setComment(this);
 			}
 			else {
-				lprojectName.setComment(null);
+				lcommentProject.setComment(null);
 			}
 		}
 	}
 	
-	public de.fhb.jproject.data.CommentProject getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.CommentProject getCommentProject() {
+		return commentProject;
 	}
 	
-	public void setSourcecode(de.fhb.jproject.data.CommentSourcecode value) {
-		if (this.sourcecode != value) {
-			de.fhb.jproject.data.CommentSourcecode lsourcecode = this.sourcecode;
-			this.sourcecode = value;
+	public void setCommentSourcecode(de.fhb.jproject.data.CommentSourcecode value) {
+		if (this.commentSourcecode != value) {
+			de.fhb.jproject.data.CommentSourcecode lcommentSourcecode = this.commentSourcecode;
+			this.commentSourcecode = value;
 			if (value != null) {
-				sourcecode.setComment(this);
+				commentSourcecode.setComment(this);
 			}
 			else {
-				lsourcecode.setComment(null);
+				lcommentSourcecode.setComment(null);
 			}
 		}
 	}
 	
-	public de.fhb.jproject.data.CommentSourcecode getSourcecode() {
-		return sourcecode;
+	public de.fhb.jproject.data.CommentSourcecode getCommentSourcecode() {
+		return commentSourcecode;
 	}
 	
-	public void setDocument(de.fhb.jproject.data.CommentDocument value) {
-		if (this.document != value) {
-			de.fhb.jproject.data.CommentDocument ldocument = this.document;
-			this.document = value;
+	public void setCommentDocument(de.fhb.jproject.data.CommentDocument value) {
+		if (this.commentDocument != value) {
+			de.fhb.jproject.data.CommentDocument lcommentDocument = this.commentDocument;
+			this.commentDocument = value;
 			if (value != null) {
-				document.setComment(this);
+				commentDocument.setComment(this);
 			}
 			else {
-				ldocument.setComment(null);
+				lcommentDocument.setComment(null);
 			}
 		}
 	}
 	
-	public de.fhb.jproject.data.CommentDocument getDocument() {
-		return document;
+	public de.fhb.jproject.data.CommentDocument getCommentDocument() {
+		return commentDocument;
 	}
 	
-	public void setTask(de.fhb.jproject.data.CommentTask value) {
-		if (this.task != value) {
-			de.fhb.jproject.data.CommentTask ltask = this.task;
-			this.task = value;
+	public void setCommentTask(de.fhb.jproject.data.CommentTask value) {
+		if (this.commentTask != value) {
+			de.fhb.jproject.data.CommentTask lcommentTask = this.commentTask;
+			this.commentTask = value;
 			if (value != null) {
-				task.setComment(this);
+				commentTask.setComment(this);
 			}
 			else {
-				ltask.setComment(null);
+				lcommentTask.setComment(null);
 			}
 		}
 	}
 	
-	public de.fhb.jproject.data.CommentTask getTask() {
-		return task;
+	public de.fhb.jproject.data.CommentTask getCommentTask() {
+		return commentTask;
 	}
 	
 	public String toString() {

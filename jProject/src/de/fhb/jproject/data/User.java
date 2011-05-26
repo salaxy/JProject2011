@@ -126,7 +126,7 @@ public class User {
 		return ORM_member;
 	}
 	
-	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_USERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_USER, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Comment(java.util.Set value) {
 		this.ORM_comment = value;
@@ -136,7 +136,7 @@ public class User {
 		return ORM_comment;
 	}
 	
-	public final de.fhb.jproject.data.CommentSetCollection comment = new de.fhb.jproject.data.CommentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_COMMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENT_USERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.CommentSetCollection comment = new de.fhb.jproject.data.CommentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_COMMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENT_USER, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_iCQ(java.util.Set value) {
 		this.ORM_iCQ = value;
