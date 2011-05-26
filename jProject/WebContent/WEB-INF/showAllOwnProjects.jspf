@@ -1,0 +1,8 @@
+<c:choose>
+	<c:when test="${sessionScope.loggedIn == null}">
+		
+	</c:when>
+	<c:otherwise>
+		<%@include file="../" %>
+	</c:otherwise>
+</c:choose>
