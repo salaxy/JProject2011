@@ -405,13 +405,14 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
+		/*
 		if(!isUserLoggedIn()){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
+		*/
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
@@ -426,8 +427,9 @@ public class ProjectControl {
 //		}	
 		
 		//Projekt-Rolle des aktuellen Users holen
+		
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=DAFactory.getDAFactory().getMemberDA().loadMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -447,11 +449,11 @@ public class ProjectControl {
 		//Daten umwandeln
 		MemberSetCollection msc = project.member;
 		System.out.println("Size: "+msc.size());
-		
+		/*
 		for (Member m : msc.toArray()) {
 			System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
 		}
-		
+		*/
 		return Arrays.asList(project.member.toArray());
 		//aus performance gr�nden habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
