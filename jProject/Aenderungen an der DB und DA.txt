@@ -11,4 +11,4 @@ DA-Schicht
 
 brauche die methoden:
 
-- findProjectsLike(String name)		(projectDA)
+- List<Project> findProjectsLike(String name)		(projectDA)
