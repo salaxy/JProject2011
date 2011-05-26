@@ -66,17 +66,17 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
-		}			
+//		//Projekt-Rolle des aktuellen Users holen
+//		try {
+//			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+//		} catch (PersistentException e1) {
+//			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+//		}
+//		
+//		//RECHTE-ABFRAGE Projekt
+//		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+//			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
+//		}			
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -88,17 +88,22 @@ public class ProjectControl {
 		
 		//rolle setzen
 		member.setProjectRole(rolle);
-	
+		
 		//user holen und setzen
 		try {
 			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 		}
-		
+//		try {
+//			DAFactory.getDAFactory().getProjectDA().evict(project);
+//		} catch (PersistentException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		//speichern	
 		try {	
-			DAFactory.getDAFactory().getProjectDA().save(project);
+			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
             throw new ProjectException("Konnte Projekt oder User nicht finden!" +e.getMessage());
 		}
