@@ -7,6 +7,10 @@ import org.orm.PersistentException;
 
 public class GlobalRolesControl {
 	
+	//existierende Rollen
+	public static final String ADMIN="Admin";
+	public static final String MEMBER="Member";
+	
 	private static final Logger logger = Logger.getLogger(GlobalRolesControl.class);
 	
 	public boolean isAllowedAddNewProjectAction(String role) throws ProjectException{
