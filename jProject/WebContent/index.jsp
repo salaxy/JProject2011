@@ -4,7 +4,7 @@
     Author     : MacYser
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -27,18 +27,7 @@
 		<div id="outercontainer" >
 			<div id="navbarback">
 <!--NAVBARBACK -->
-<c:if test="${loggenIn == true}">
-				<form class="buttonright" method="GET" action="JProjectServlet">
-					
-					<input name="do" value="Login" type="submit">
-					<input value="Benutzername" name="loginName"	type="text"		size="15" maxlength="50">
-					<input value="Password"		name="password"		type="password" size="10" maxlength="30">
-					
-					
-				</form>
-</c:if><c:otherwise>
-				Hallo ${aktUser.getLoginName()}
-</c:otherwise>
+				<%@include file="WEB-INF/login.jspf" %>
 <!--NAVBARBACK-END -->			
 			</div>
 			<div id="container" >
@@ -54,20 +43,10 @@
 			 			<div id="left" >
 	<!--LEFT -->
 			 				<h2>Menue links</h2>
-			 				<!--
-							<p>
-								<a href="http://validator.w3.org/check?uri=http%3A%2F%2Fintensivstation.ch%2Ffiles%2Ftemplates%2F2%2Ftemplate-3.html">
-									<img src="http://www.intensivstation.ch/files/WEB-INF/images/buttons/xhtml10.gif" alt="" width="80" height="15" border="0"/>
-								</a>
-								<br/>
-								<a href="http://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fintensivstation.ch%2Ffiles%2Ftemplates%2F2%2F3.css&warning=2&profile=css2&usermedium=all">
-									<img src="http://www.intensivstation.ch/files/WEB-INF/images/buttons/css.gif" alt="" width="80" height="15" border="0"/>
-								</a>
-								<br />
-							-->
+			 				
 	<!--LEFT-END -->
 			   			</div>
-<!--RIGHT -->			<!--<div id="right" >
+	<!--RIGHT -->		<!--<div id="right" >
 	
 							<h2>Menue rechts</h2>
 	
