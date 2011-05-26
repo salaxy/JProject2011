@@ -99,7 +99,7 @@ public class ProjectControl {
 		try {	
 			DAFactory.getDAFactory().getProjectDA().save(project);
 		} catch (PersistentException e) {
-            throw new ProjectException("Konnte Projekt oder User nicht finden!");
+            throw new ProjectException("Konnte Projekt oder User nicht finden!" +e.getMessage());
 		}
 	}
 	
