@@ -36,18 +36,16 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			logger.debug("Parameter: "
-					+ "String loginName(" + req.getParameter("loginName") + ")"
-					);
+			
 			
 			//Controller in aktion			
 			List<Project> list = mainController.getProjectContoller().showAllOwnProjects();
 			for (Project aktProject : list) {
 				System.out.println("Project: "+aktProject.getName());
 			}
-			
+			req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			//forwarden zum JSP
-			forward(req, resp, "/showAllOwnProjects.jsp");
+			forward(req, resp, "/showAllOwnProjects.jspf");
 
 		}catch (ProjectException e) {
 			

@@ -1,4 +1,3 @@
-
 <c:choose>
 	<c:when test="${sessionScope.loggedIn == null}">
 		<form class="buttonright" method="GET" action="JProjectServlet">
