@@ -19,7 +19,9 @@ import de.fhb.jproject.manager.MainControl;
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
- * @author klay
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ *  * STATUS: NICHT FREIGEGEBEN
  */
 public class ShowAllProjectsAction extends HttpRequestActionBase {
 
@@ -34,20 +36,22 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 		
 		List<Project> projectList=null;
 		
-		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		try {		
+			//Controller holen
+			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
-		try {
-			//Debugprint
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
 			projectList=mainController.getProjectContoller().showAllProjects();
 			
-//			for( Project p : projectList){
-//				System.out.println("Project: "+p.getName());
-//			}		
+			for( Project p : projectList){
+				System.out.println("Project: "+p.getName());
+			}		
+			
+			//setzen der Parameter
+			req.setAttribute("projectList", projectList);
 			
 			//forwarden zum JSP
 			forward(req, resp, "/showAllProjects.jsp");
