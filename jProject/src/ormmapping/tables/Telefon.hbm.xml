@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.Telefon" table="`Telefon`">
-    <id column="`TelNumber`" name="telNumber" type="integer" unsaved-value="0">
-      <generator class="native">
+	<class name="de.fhb.jproject.data.Telefon" table="`Telefon`" lazy="false">
+		<id name="telNumber" column="`TelNumber`" type="integer" unsaved-value="0">
+			<generator class="native">
 			</generator>
-    </id>
-    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.User" column="`UserLoginName`" lazy="no-proxy" name="userLoginName" not-null="true">
+		</id>
+		<many-to-one name="userLoginName" cascade="lock" column="`UserLoginName`" class="de.fhb.jproject.data.User" not-null="true" lazy="no-proxy" access="field">
 		</many-to-one>
-  </class>
+	</class>
 </hibernate-mapping>

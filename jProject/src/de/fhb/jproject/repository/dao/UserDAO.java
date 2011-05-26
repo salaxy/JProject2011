@@ -12,7 +12,6 @@ package de.fhb.jproject.repository.dao;
 
 import org.orm.*;
 import de.fhb.jproject.data.*;
-import java.util.List;
 
 public interface UserDAO {
 	public User loadUserByORMID(String loginName) throws PersistentException;
@@ -38,5 +37,4 @@ public interface UserDAO {
 	public boolean deleteAndDissociate(de.fhb.jproject.data.User user, org.orm.PersistentSession session) throws PersistentException;
 	public boolean refresh(de.fhb.jproject.data.User user) throws PersistentException;
 	public boolean evict(de.fhb.jproject.data.User user) throws PersistentException;
-	
 }

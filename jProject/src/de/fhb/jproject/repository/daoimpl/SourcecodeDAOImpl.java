@@ -279,13 +279,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Sourcecode sourcecode)throws PersistentException {
 		try {
-			if(sourcecode.getProjectName() != null) {
-				sourcecode.getProjectName().sourcecode.remove(sourcecode);
+			if(sourcecode.getProject() != null) {
+				sourcecode.getProject().sourcecode.remove(sourcecode);
 			}
 			
-			de.fhb.jproject.data.CommentSourcecode[] lComment_Sourcecodes = sourcecode.comment_Sourcecode.toArray();
-			for(int i = 0; i < lComment_Sourcecodes.length; i++) {
-				lComment_Sourcecodes[i].setSourcecode(null);
+			de.fhb.jproject.data.CommentSourcecode[] lCommentSourcecodes = sourcecode.commentSourcecode.toArray();
+			for(int i = 0; i < lCommentSourcecodes.length; i++) {
+				lCommentSourcecodes[i].setSourcecode(null);
 			}
 			return delete(sourcecode);
 		}
@@ -297,13 +297,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Sourcecode sourcecode, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			if(sourcecode.getProjectName() != null) {
-				sourcecode.getProjectName().sourcecode.remove(sourcecode);
+			if(sourcecode.getProject() != null) {
+				sourcecode.getProject().sourcecode.remove(sourcecode);
 			}
 			
-			de.fhb.jproject.data.CommentSourcecode[] lComment_Sourcecodes = sourcecode.comment_Sourcecode.toArray();
-			for(int i = 0; i < lComment_Sourcecodes.length; i++) {
-				lComment_Sourcecodes[i].setSourcecode(null);
+			de.fhb.jproject.data.CommentSourcecode[] lCommentSourcecodes = sourcecode.commentSourcecode.toArray();
+			for(int i = 0; i < lCommentSourcecodes.length; i++) {
+				lCommentSourcecodes[i].setSourcecode(null);
 			}
 			try {
 				session.delete(sourcecode);

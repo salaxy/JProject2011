@@ -24,28 +24,28 @@ public class Member implements Serializable {
 		if (!(aObj instanceof Member))
 			return false;
 		Member member = (Member)aObj;
-		if (getUserLoginName() == null) {
-			if (member.getUserLoginName() != null)
+		if (getUser() == null) {
+			if (member.getUser() != null)
 				return false;
 		}
-		else if (!getUserLoginName().equals(member.getUserLoginName()))
+		else if (!getUser().equals(member.getUser()))
 			return false;
-		if (getProjectName() == null) {
-			if (member.getProjectName() != null)
+		if (getProject() == null) {
+			if (member.getProject() != null)
 				return false;
 		}
-		else if (!getProjectName().equals(member.getProjectName()))
+		else if (!getProject().equals(member.getProject()))
 			return false;
 		return true;
 	}
 	
 	public int hashCode() {
 		int hashcode = 0;
-		if (getUserLoginName() != null) {
-			hashcode = hashcode + (getUserLoginName().getORMID() == null ? 0 : getUserLoginName().getORMID().hashCode());
+		if (getUser() != null) {
+			hashcode = hashcode + (getUser().getORMID() == null ? 0 : getUser().getORMID().hashCode());
 		}
-		if (getProjectName() != null) {
-			hashcode = hashcode + (getProjectName().getORMID() == null ? 0 : getProjectName().getORMID().hashCode());
+		if (getProject() != null) {
+			hashcode = hashcode + (getProject().getORMID() == null ? 0 : getProject().getORMID().hashCode());
 		}
 		return hashcode;
 	}
@@ -59,12 +59,12 @@ public class Member implements Serializable {
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_MEMBER_USERLOGINNAME) {
-			this.userLoginName = (de.fhb.jproject.data.User) owner;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_MEMBER_USER) {
+			this.user = (de.fhb.jproject.data.User) owner;
 		}
 		
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_MEMBER_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.Project) owner;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_MEMBER_PROJECT) {
+			this.project = (de.fhb.jproject.data.Project) owner;
 		}
 	}
 	
@@ -79,28 +79,28 @@ public class Member implements Serializable {
 		
 	};
 	
-	private de.fhb.jproject.data.User userLoginName;
+	private de.fhb.jproject.data.User user;
 	
-	private String userLoginNameId;
+	private String userId;
 	
-	public void setUserLoginNameId(String value) {
-		this.userLoginNameId = value;
+	public void setUserId(String value) {
+		this.userId = value;
 	}
 	
-	public String getUserLoginNameId() {
-		return userLoginNameId;
+	public String getUserId() {
+		return userId;
 	}
 	
-	private de.fhb.jproject.data.Project projectName;
+	private de.fhb.jproject.data.Project project;
 	
-	private String projectNameId;
+	private String projectId;
 	
-	public void setProjectNameId(String value) {
-		this.projectNameId = value;
+	public void setProjectId(String value) {
+		this.projectId = value;
 	}
 	
-	public String getProjectNameId() {
-		return projectNameId;
+	public String getProjectId() {
+		return projectId;
 	}
 	
 	private String projectRole;
@@ -115,52 +115,52 @@ public class Member implements Serializable {
 		return projectRole;
 	}
 	
-	public void setUserLoginName(de.fhb.jproject.data.User value) {
-		if (userLoginName != null) {
-			userLoginName.member.remove(this);
+	public void setUser(de.fhb.jproject.data.User value) {
+		if (user != null) {
+			user.member.remove(this);
 		}
 		if (value != null) {
 			value.member.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.User getUserLoginName() {
-		return userLoginName;
+	public de.fhb.jproject.data.User getUser() {
+		return user;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_UserLoginName(de.fhb.jproject.data.User value) {
-		this.userLoginName = value;
+	public void setORM_User(de.fhb.jproject.data.User value) {
+		this.user = value;
 	}
 	
-	private de.fhb.jproject.data.User getORM_UserLoginName() {
-		return userLoginName;
+	private de.fhb.jproject.data.User getORM_User() {
+		return user;
 	}
 	
-	public void setProjectName(de.fhb.jproject.data.Project value) {
-		if (projectName != null) {
-			projectName.member.remove(this);
+	public void setProject(de.fhb.jproject.data.Project value) {
+		if (project != null) {
+			project.member.remove(this);
 		}
 		if (value != null) {
 			value.member.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.Project getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.Project getProject() {
+		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_ProjectName(de.fhb.jproject.data.Project value) {
-		this.projectName = value;
+	public void setORM_Project(de.fhb.jproject.data.Project value) {
+		this.project = value;
 	}
 	
-	private de.fhb.jproject.data.Project getORM_ProjectName() {
-		return projectName;
+	private de.fhb.jproject.data.Project getORM_Project() {
+		return project;
 	}
 	
 	private void setORM_Task(java.util.Set value) {
@@ -171,10 +171,10 @@ public class Member implements Serializable {
 		return ORM_task;
 	}
 	
-	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
+	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSER, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public String toString() {
-		return String.valueOf(((getUserLoginName() == null) ? "" : String.valueOf(getUserLoginName().getORMID())) + " " + ((getProjectName() == null) ? "" : String.valueOf(getProjectName().getORMID())));
+		return String.valueOf(((getUser() == null) ? "" : String.valueOf(getUser().getORMID())) + " " + ((getProject() == null) ? "" : String.valueOf(getProject().getORMID())));
 	}
 	
 }

@@ -18,16 +18,16 @@ public class Sourcecode {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_COMMENT_SOURCECODE) {
-			return ORM_Comment_Sourcecode;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_COMMENTSOURCECODE) {
+			return ORM_commentSourcecode;
 		}
 		
 		return null;
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.Project) owner;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_PROJECT) {
+			this.project = (de.fhb.jproject.data.Project) owner;
 		}
 	}
 	
@@ -44,11 +44,11 @@ public class Sourcecode {
 	
 	private int id;
 	
-	private de.fhb.jproject.data.Project projectName;
+	private de.fhb.jproject.data.Project project;
 	
 	private String dateiname;
 	
-	private java.util.Set ORM_Comment_Sourcecode = new java.util.HashSet();
+	private java.util.Set ORM_commentSourcecode = new java.util.HashSet();
 	
 	private void setId(int value) {
 		this.id = value;
@@ -70,39 +70,39 @@ public class Sourcecode {
 		return dateiname;
 	}
 	
-	public void setProjectName(de.fhb.jproject.data.Project value) {
-		if (projectName != null) {
-			projectName.sourcecode.remove(this);
+	public void setProject(de.fhb.jproject.data.Project value) {
+		if (project != null) {
+			project.sourcecode.remove(this);
 		}
 		if (value != null) {
 			value.sourcecode.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.Project getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.Project getProject() {
+		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_ProjectName(de.fhb.jproject.data.Project value) {
-		this.projectName = value;
+	public void setORM_Project(de.fhb.jproject.data.Project value) {
+		this.project = value;
 	}
 	
-	private de.fhb.jproject.data.Project getORM_ProjectName() {
-		return projectName;
+	private de.fhb.jproject.data.Project getORM_Project() {
+		return project;
 	}
 	
-	private void setORM_Comment_Sourcecode(java.util.Set value) {
-		this.ORM_Comment_Sourcecode = value;
+	private void setORM_CommentSourcecode(java.util.Set value) {
+		this.ORM_commentSourcecode = value;
 	}
 	
-	private java.util.Set getORM_Comment_Sourcecode() {
-		return ORM_Comment_Sourcecode;
+	private java.util.Set getORM_CommentSourcecode() {
+		return ORM_commentSourcecode;
 	}
 	
-	public final de.fhb.jproject.data.CommentSourcecodeSetCollection comment_Sourcecode = new de.fhb.jproject.data.CommentSourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_COMMENT_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_COMMENTSOURCECODE_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.CommentSourcecodeSetCollection commentSourcecode = new de.fhb.jproject.data.CommentSourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_COMMENTSOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_COMMENTSOURCECODE_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

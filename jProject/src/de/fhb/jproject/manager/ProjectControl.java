@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -49,7 +50,7 @@ public class ProjectControl {
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		
 		//TODO abfangen ob zulï¿½ssige rolle mitgegebn	
-		//solange werden nur leader hinzugefügt
+		//solange werden nur leader hinzugefï¿½gt
 		rolle="Leader";
 		
         //abfrage ob user eingeloggt
@@ -82,14 +83,14 @@ public class ProjectControl {
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
 		
 		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unï¿½tig
-		member.setProjectName(project);		
+		member.setProject(project);
 		
 		//rolle setzen
 		member.setProjectRole(rolle);
 	
 		//user holen und setzen
 		try {
-			member.setUserLoginName(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
+			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 		}
@@ -135,8 +136,8 @@ public class ProjectControl {
 		
 		//project erzeuger als member erzeugen und hinzufuegen
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
-		member.setProjectNameId(name);
-		member.setUserLoginNameId(aktUser.getLoginName());
+		member.setProjectId(name);
+		member.setUserId(aktUser.getLoginName());
 		member.setProjectRole("Leader");
 		
 		//projekt speichern
@@ -386,7 +387,7 @@ public class ProjectControl {
 		}
 		
 		for (Member aktMember : aktUser.member.toArray()) {
-			list.add(aktMember.getProjectName());
+			list.add(aktMember.getProject());
 		}
 		
 		return list;
@@ -444,8 +445,15 @@ public class ProjectControl {
 //		}
 		
 		//Daten umwandeln
+		MemberSetCollection msc = project.member;
+		System.out.println("Size: "+msc.size());
+		
+		for (Member m : msc.toArray()) {
+			System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
+		}
+		
 		return Arrays.asList(project.member.toArray());
-		//aus performance gründen habe ich hier keine auslagerung vorgenommen,
+		//aus performance grï¿½nden habe ich hier keine auslagerung vorgenommen,
 		//da das project eh schon vorliegt, keine extra anfrage notwendig
 			
 	}

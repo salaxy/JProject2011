@@ -279,13 +279,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Document document)throws PersistentException {
 		try {
-			if(document.getProjectName() != null) {
-				document.getProjectName().document.remove(document);
+			if(document.getProject() != null) {
+				document.getProject().document.remove(document);
 			}
 			
-			de.fhb.jproject.data.CommentDocument[] lComment_Documents = document.comment_Document.toArray();
-			for(int i = 0; i < lComment_Documents.length; i++) {
-				lComment_Documents[i].setDocument(null);
+			de.fhb.jproject.data.CommentDocument[] lCommentDocuments = document.commentDocument.toArray();
+			for(int i = 0; i < lCommentDocuments.length; i++) {
+				lCommentDocuments[i].setDocument(null);
 			}
 			return delete(document);
 		}
@@ -297,13 +297,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Document document, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			if(document.getProjectName() != null) {
-				document.getProjectName().document.remove(document);
+			if(document.getProject() != null) {
+				document.getProject().document.remove(document);
 			}
 			
-			de.fhb.jproject.data.CommentDocument[] lComment_Documents = document.comment_Document.toArray();
-			for(int i = 0; i < lComment_Documents.length; i++) {
-				lComment_Documents[i].setDocument(null);
+			de.fhb.jproject.data.CommentDocument[] lCommentDocuments = document.commentDocument.toArray();
+			for(int i = 0; i < lCommentDocuments.length; i++) {
+				lCommentDocuments[i].setDocument(null);
 			}
 			try {
 				session.delete(document);

@@ -53,10 +53,10 @@ public class CommentSourcecode {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
 			this.comment = value;
 			if (value != null) {
-				comment.setSourcecode(this);
+				comment.setCommentSourcecode(this);
 			}
 			else {
-				lcomment.setSourcecode(null);
+				lcomment.setCommentSourcecode(null);
 			}
 		}
 	}
@@ -67,10 +67,10 @@ public class CommentSourcecode {
 	
 	public void setSourcecode(de.fhb.jproject.data.Sourcecode value) {
 		if (sourcecode != null) {
-			sourcecode.comment_Sourcecode.remove(this);
+			sourcecode.commentSourcecode.remove(this);
 		}
 		if (value != null) {
-			value.comment_Sourcecode.add(this);
+			value.commentSourcecode.add(this);
 		}
 	}
 	

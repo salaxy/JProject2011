@@ -18,16 +18,16 @@ public class Document {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_COMMENT_DOCUMENT) {
-			return ORM_comment_Document;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_COMMENTDOCUMENT) {
+			return ORM_commentDocument;
 		}
 		
 		return null;
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_PROJECTNAME) {
-			this.projectName = (de.fhb.jproject.data.Project) owner;
+		if (key == de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_PROJECT) {
+			this.project = (de.fhb.jproject.data.Project) owner;
 		}
 	}
 	
@@ -44,11 +44,11 @@ public class Document {
 	
 	private int id;
 	
-	private de.fhb.jproject.data.Project projectName;
+	private de.fhb.jproject.data.Project project;
 	
 	private String dateiname;
 	
-	private java.util.Set ORM_comment_Document = new java.util.HashSet();
+	private java.util.Set ORM_commentDocument = new java.util.HashSet();
 	
 	private void setId(int value) {
 		this.id = value;
@@ -70,39 +70,39 @@ public class Document {
 		return dateiname;
 	}
 	
-	public void setProjectName(de.fhb.jproject.data.Project value) {
-		if (projectName != null) {
-			projectName.document.remove(this);
+	public void setProject(de.fhb.jproject.data.Project value) {
+		if (project != null) {
+			project.document.remove(this);
 		}
 		if (value != null) {
 			value.document.add(this);
 		}
 	}
 	
-	public de.fhb.jproject.data.Project getProjectName() {
-		return projectName;
+	public de.fhb.jproject.data.Project getProject() {
+		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
 	 */
-	public void setORM_ProjectName(de.fhb.jproject.data.Project value) {
-		this.projectName = value;
+	public void setORM_Project(de.fhb.jproject.data.Project value) {
+		this.project = value;
 	}
 	
-	private de.fhb.jproject.data.Project getORM_ProjectName() {
-		return projectName;
+	private de.fhb.jproject.data.Project getORM_Project() {
+		return project;
 	}
 	
-	private void setORM_Comment_Document(java.util.Set value) {
-		this.ORM_comment_Document = value;
+	private void setORM_CommentDocument(java.util.Set value) {
+		this.ORM_commentDocument = value;
 	}
 	
-	private java.util.Set getORM_Comment_Document() {
-		return ORM_comment_Document;
+	private java.util.Set getORM_CommentDocument() {
+		return ORM_commentDocument;
 	}
 	
-	public final de.fhb.jproject.data.CommentDocumentSetCollection comment_Document = new de.fhb.jproject.data.CommentDocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_COMMENT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTDOCUMENT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.CommentDocumentSetCollection commentDocument = new de.fhb.jproject.data.CommentDocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_COMMENTDOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTDOCUMENT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

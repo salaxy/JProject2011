@@ -30,8 +30,8 @@ public class Project {
 		else if (key == de.fhb.jproject.data.ORMConstants.KEY_PROJECT_TASK) {
 			return ORM_task;
 		}
-		else if (key == de.fhb.jproject.data.ORMConstants.KEY_PROJECT_COMMENT_PROJECT) {
-			return ORM_comment_Project;
+		else if (key == de.fhb.jproject.data.ORMConstants.KEY_PROJECT_COMMENTPROJECT) {
+			return ORM_commentProject;
 		}
 		
 		return null;
@@ -56,7 +56,7 @@ public class Project {
 	
 	private java.util.Set ORM_task = new java.util.HashSet();
 	
-	private java.util.Set ORM_comment_Project = new java.util.HashSet();
+	private java.util.Set ORM_commentProject = new java.util.HashSet();
 	
 	public void setName(String value) {
 		this.name = value;
@@ -86,7 +86,7 @@ public class Project {
 		return ORM_member;
 	}
 	
-	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_PROJECTNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Sourcecode(java.util.Set value) {
 		this.ORM_sourcecode = value;
@@ -96,7 +96,7 @@ public class Project {
 		return ORM_sourcecode;
 	}
 	
-	public final de.fhb.jproject.data.SourcecodeSetCollection sourcecode = new de.fhb.jproject.data.SourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_PROJECTNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.SourcecodeSetCollection sourcecode = new de.fhb.jproject.data.SourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Document(java.util.Set value) {
 		this.ORM_document = value;
@@ -106,7 +106,7 @@ public class Project {
 		return ORM_document;
 	}
 	
-	public final de.fhb.jproject.data.DocumentSetCollection document = new de.fhb.jproject.data.DocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_PROJECTNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.DocumentSetCollection document = new de.fhb.jproject.data.DocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Task(java.util.Set value) {
 		this.ORM_task = value;
@@ -116,17 +116,17 @@ public class Project {
 		return ORM_task;
 	}
 	
-	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_PROJECTNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
-	private void setORM_Comment_Project(java.util.Set value) {
-		this.ORM_comment_Project = value;
+	private void setORM_CommentProject(java.util.Set value) {
+		this.ORM_commentProject = value;
 	}
 	
-	private java.util.Set getORM_Comment_Project() {
-		return ORM_comment_Project;
+	private java.util.Set getORM_CommentProject() {
+		return ORM_commentProject;
 	}
 	
-	public final de.fhb.jproject.data.CommentProjectSetCollection comment_Project = new de.fhb.jproject.data.CommentProjectSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_COMMENT_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTPROJECT_PROJECTNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final de.fhb.jproject.data.CommentProjectSetCollection commentProject = new de.fhb.jproject.data.CommentProjectSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_COMMENTPROJECT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTPROJECT_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getName());

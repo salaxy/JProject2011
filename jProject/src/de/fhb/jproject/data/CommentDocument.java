@@ -53,10 +53,10 @@ public class CommentDocument {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
 			this.comment = value;
 			if (value != null) {
-				comment.setDocument(this);
+				comment.setCommentDocument(this);
 			}
 			else {
-				lcomment.setDocument(null);
+				lcomment.setCommentDocument(null);
 			}
 		}
 	}
@@ -67,10 +67,10 @@ public class CommentDocument {
 	
 	public void setDocument(de.fhb.jproject.data.Document value) {
 		if (document != null) {
-			document.comment_Document.remove(this);
+			document.commentDocument.remove(this);
 		}
 		if (value != null) {
-			value.comment_Document.add(this);
+			value.commentDocument.add(this);
 		}
 	}
 	

@@ -279,24 +279,24 @@ public class CommentDAOImpl implements de.fhb.jproject.repository.dao.CommentDAO
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Comment comment)throws PersistentException {
 		try {
-			if(comment.getUserLoginName() != null) {
-				comment.getUserLoginName().comment.remove(comment);
+			if(comment.getUser() != null) {
+				comment.getUser().comment.remove(comment);
 			}
 			
-			if(comment.getProjectName() != null) {
-				comment.getProjectName().setComment(null);
+			if(comment.getCommentProject() != null) {
+				comment.getCommentProject().setComment(null);
 			}
 			
-			if(comment.getSourcecode() != null) {
-				comment.getSourcecode().setComment(null);
+			if(comment.getCommentSourcecode() != null) {
+				comment.getCommentSourcecode().setComment(null);
 			}
 			
-			if(comment.getDocument() != null) {
-				comment.getDocument().setComment(null);
+			if(comment.getCommentDocument() != null) {
+				comment.getCommentDocument().setComment(null);
 			}
 			
-			if(comment.getTask() != null) {
-				comment.getTask().setComment(null);
+			if(comment.getCommentTask() != null) {
+				comment.getCommentTask().setComment(null);
 			}
 			
 			return delete(comment);
@@ -309,24 +309,24 @@ public class CommentDAOImpl implements de.fhb.jproject.repository.dao.CommentDAO
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Comment comment, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			if(comment.getUserLoginName() != null) {
-				comment.getUserLoginName().comment.remove(comment);
+			if(comment.getUser() != null) {
+				comment.getUser().comment.remove(comment);
 			}
 			
-			if(comment.getProjectName() != null) {
-				comment.getProjectName().setComment(null);
+			if(comment.getCommentProject() != null) {
+				comment.getCommentProject().setComment(null);
 			}
 			
-			if(comment.getSourcecode() != null) {
-				comment.getSourcecode().setComment(null);
+			if(comment.getCommentSourcecode() != null) {
+				comment.getCommentSourcecode().setComment(null);
 			}
 			
-			if(comment.getDocument() != null) {
-				comment.getDocument().setComment(null);
+			if(comment.getCommentDocument() != null) {
+				comment.getCommentDocument().setComment(null);
 			}
 			
-			if(comment.getTask() != null) {
-				comment.getTask().setComment(null);
+			if(comment.getCommentTask() != null) {
+				comment.getCommentTask().setComment(null);
 			}
 			
 			try {

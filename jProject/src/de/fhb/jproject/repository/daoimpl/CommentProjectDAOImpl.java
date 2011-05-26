@@ -196,14 +196,14 @@ public class CommentProjectDAOImpl implements de.fhb.jproject.repository.dao.Com
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentProject commentProject)throws PersistentException {
 		try {
 			if(commentProject.getComment() != null) {
-				commentProject.getComment().setProjectName(null);
+				commentProject.getComment().setCommentProject(null);
 			}
 			
-			de.fhb.jproject.data.Project projectName = commentProject.getProjectName();
-			if(commentProject.getProjectName() != null) {
-				commentProject.getProjectName().comment_Project.remove(commentProject);
+			de.fhb.jproject.data.Project project = commentProject.getProject();
+			if(commentProject.getProject() != null) {
+				commentProject.getProject().commentProject.remove(commentProject);
 			}
-			commentProject.setORM_ProjectName(projectName);
+			commentProject.setORM_Project(project);
 			
 			return delete(commentProject);
 		}
@@ -216,14 +216,14 @@ public class CommentProjectDAOImpl implements de.fhb.jproject.repository.dao.Com
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentProject commentProject, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(commentProject.getComment() != null) {
-				commentProject.getComment().setProjectName(null);
+				commentProject.getComment().setCommentProject(null);
 			}
 			
-			de.fhb.jproject.data.Project projectName = commentProject.getProjectName();
-			if(commentProject.getProjectName() != null) {
-				commentProject.getProjectName().comment_Project.remove(commentProject);
+			de.fhb.jproject.data.Project project = commentProject.getProject();
+			if(commentProject.getProject() != null) {
+				commentProject.getProject().commentProject.remove(commentProject);
 			}
-			commentProject.setORM_ProjectName(projectName);
+			commentProject.setORM_Project(project);
 			
 			try {
 				session.delete(commentProject);

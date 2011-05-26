@@ -279,21 +279,21 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Task task)throws PersistentException {
 		try {
-			if(task.getProjectName() != null) {
-				task.getProjectName().task.remove(task);
+			if(task.getProject() != null) {
+				task.getProject().task.remove(task);
 			}
 			
 			if(task.getTermin() != null) {
 				task.getTermin().task.remove(task);
 			}
 			
-			de.fhb.jproject.data.Member[] lMemberUserLoginNames = task.memberUserLoginName.toArray();
-			for(int i = 0; i < lMemberUserLoginNames.length; i++) {
-				lMemberUserLoginNames[i].task.remove(task);
+			de.fhb.jproject.data.Member[] lMemberUsers = task.memberUser.toArray();
+			for(int i = 0; i < lMemberUsers.length; i++) {
+				lMemberUsers[i].task.remove(task);
 			}
-			de.fhb.jproject.data.CommentTask[] lComment_Tasks = task.comment_Task.toArray();
-			for(int i = 0; i < lComment_Tasks.length; i++) {
-				lComment_Tasks[i].setTask(null);
+			de.fhb.jproject.data.CommentTask[] lCommentTasks = task.commentTask.toArray();
+			for(int i = 0; i < lCommentTasks.length; i++) {
+				lCommentTasks[i].setTask(null);
 			}
 			return delete(task);
 		}
@@ -305,21 +305,21 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Task task, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			if(task.getProjectName() != null) {
-				task.getProjectName().task.remove(task);
+			if(task.getProject() != null) {
+				task.getProject().task.remove(task);
 			}
 			
 			if(task.getTermin() != null) {
 				task.getTermin().task.remove(task);
 			}
 			
-			de.fhb.jproject.data.Member[] lMemberUserLoginNames = task.memberUserLoginName.toArray();
-			for(int i = 0; i < lMemberUserLoginNames.length; i++) {
-				lMemberUserLoginNames[i].task.remove(task);
+			de.fhb.jproject.data.Member[] lMemberUsers = task.memberUser.toArray();
+			for(int i = 0; i < lMemberUsers.length; i++) {
+				lMemberUsers[i].task.remove(task);
 			}
-			de.fhb.jproject.data.CommentTask[] lComment_Tasks = task.comment_Task.toArray();
-			for(int i = 0; i < lComment_Tasks.length; i++) {
-				lComment_Tasks[i].setTask(null);
+			de.fhb.jproject.data.CommentTask[] lCommentTasks = task.commentTask.toArray();
+			for(int i = 0; i < lCommentTasks.length; i++) {
+				lCommentTasks[i].setTask(null);
 			}
 			try {
 				session.delete(task);
