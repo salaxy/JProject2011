@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +27,7 @@
 		<div id="outercontainer" >
 			<div id="navbarback">
 <!--NAVBARBACK -->
+<c:if test="${loggenIn == true}">
 				<form class="buttonright" method="GET" action="JProjectServlet">
 					
 					<input name="do" value="Login" type="submit">
@@ -34,6 +36,9 @@
 					
 					
 				</form>
+</c:if><c:otherwise>
+				Hallo ${aktUser.getLoginName()}
+</c:otherwise>
 <!--NAVBARBACK-END -->			
 			</div>
 			<div id="container" >
