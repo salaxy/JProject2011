@@ -258,10 +258,7 @@ public class ProjectControl {
 			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			//TODO DATENBANKFEHLER...samma...gib dir ma n bissi mÃ¼he!
-			//LOL ich wusste nocht nicht was hier inschreib
-			//änder es doch einfach wenn du es nicht für richtig hälst
-			throw new ProjectException("Datenbank fehler! "+ e.getMessage());
+			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
 		}
 		
 		return list;
