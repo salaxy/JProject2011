@@ -1,8 +1,8 @@
 <c:choose>
-	<c:when test="${sessionScope.loggedIn == null}">
-		
+	<c:when test="${sessionScope.loggedIn != null}">
+		<c:forEach items="${showAllOwnProjects}" var="project" varStatus="i">
+        	<a href="JProjectServlet?do=ShowProject&Name=${project.name}">${project.name}</a><br>
+        </c:forEach>
+		hallo
 	</c:when>
-	<c:otherwise>
-		<%@include file="../" %>
-	</c:otherwise>
 </c:choose>

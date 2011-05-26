@@ -43,7 +43,8 @@
 			 			<div id="left" >
 	<!--LEFT -->
 			 				<h2>Menue links</h2>
-			 				<%@include file="WEB-INF/showAllOwnProjects.jspf" %>
+							<c:import url="JProjectServlet?do=ShowAllOwnProjects"></c:import>
+							
 	<!--LEFT-END -->
 			   			</div>
 	<!--RIGHT -->		<!--<div id="right" >
