@@ -16,17 +16,6 @@ import org.orm.PersistentException;
 public class ProjectRolesControl {
 	private static final Logger logger = Logger.getLogger(ProjectRolesControl.class);
 	
-	private static ProjectRolesControl instance = null;
-	
-	private ProjectRolesControl(){}
-	
-	public static ProjectRolesControl getInstance() {
-		if (instance == null) {
-			instance = new ProjectRolesControl();
-		}
-		return instance;
-	}
-	
 	public boolean isAllowedCommentDocuAction(String role) throws ProjectException{
 		logger.info("isAllowedCommentDocuAction(String role)");
 		logger.debug("String role("+role+")");

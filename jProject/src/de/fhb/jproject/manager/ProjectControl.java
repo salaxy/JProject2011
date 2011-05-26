@@ -29,10 +29,10 @@ public class ProjectControl {
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
-	public ProjectControl(User aktUser){
+	public ProjectControl(User aktUser, ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
 		this.aktUser=aktUser;
-		this.projectRolesController=ProjectRolesControl.getInstance();
-		this.globalRolesController=GlobalRolesControl.getInstance();
+		this.projectRolesController=projectRolesController;
+		this.globalRolesController=globalRolesController;
 	}
 	
 
@@ -228,33 +228,35 @@ public class ProjectControl {
 		return project;
 	}
 	
-	public void searchProjects(){
+	public List<Project> searchProjects(String teilName)
+	throws ProjectException{
 		
-//		List<Project> list=null;
-//		
-//		//debuglogging
-//		logger.info("showAllProjects()");
-//		
-//        //abfrage ob user eingeloggt
-//		if(!isUserLoggedIn()){
-//            throw new ProjectException("Sie sind nicht eingeloggt!");
-//        }
-//		
-//		//RECHTE-ABFRAGE Global
-//		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
-//			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
-//		}	
-//		
-//		//holen der Daten
+		List<Project> list=null;
+		
+		//debuglogging
+		logger.info("searchProjects()");
+		logger.debug("String teilName("+teilName+")");
+		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesController.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Scuhen der Projekte!");
+		}	
+		
+		//holen der Daten
+		//TODO suche implementieren
 //		try {
 //			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
 //		} catch (PersistentException e) {
 //			e.printStackTrace();
 //			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
 //		}
-//		
-//		return list;
-//		
+		
+		return list;	
 	}
 	
 	/**

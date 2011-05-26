@@ -15,27 +15,24 @@ public class MainControl{
 	private TaskControl taskcontroller;
 	private DocumentControl documentController;
 	private CommentControl commentController;
-//	private ProjectRolesControl projectRolesController;	
-//	private GlobalRolesControl globalRolesController;
+	private ProjectRolesControl projectRolesController;	
+	private GlobalRolesControl globalRolesController;
 
 	
 
 	public MainControl() {
 		rootLogger.setLevel(Level.OFF);
 		
-//		globalRolesController=new GlobalRolesControl();	
-//		projectRolesController= new ProjectRolesControl();
-		//INFO habe die beiden controller hier dr�ber zum singleton gemacht
-		// warum...is total unnötig...dann kannste auch alle controller als singleton machen
-		//man hör auf mit solchen experimenten
+		globalRolesController=new GlobalRolesControl();	
+		projectRolesController= new ProjectRolesControl();
 		
-		userController=new UserControl();		
+		userController=new UserControl(globalRolesController);		
 		
-		projectContoller=new ProjectControl(userController.getAktUser());
-		sourceContoller=new SourceControl(userController.getAktUser());
-		taskcontroller=new TaskControl(userController.getAktUser());
-		documentController=new DocumentControl(userController.getAktUser());
-		commentController=new CommentControl(userController.getAktUser());
+		projectContoller=new ProjectControl(userController.getAktUser(),projectRolesController,globalRolesController);
+		sourceContoller=new SourceControl(userController.getAktUser(),projectRolesController);
+		taskcontroller=new TaskControl(userController.getAktUser(),projectRolesController);
+		documentController=new DocumentControl(userController.getAktUser(),projectRolesController);
+		commentController=new CommentControl(userController.getAktUser(),projectRolesController);
 		
 	}
 

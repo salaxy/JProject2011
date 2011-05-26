@@ -7,10 +7,10 @@ public class CommentControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	
-	public CommentControl(User aktUser){
+	public CommentControl(User aktUser, ProjectRolesControl projectRolesController){
 		
 		this.aktUser=aktUser;
-		this.projectRolesController=ProjectRolesControl.getInstance();
+		this.projectRolesController=projectRolesController;
 	}
 	
 	// !!! Comment Actions !!!
