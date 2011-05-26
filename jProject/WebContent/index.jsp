@@ -43,7 +43,7 @@
 			 			<div id="left" >
 	<!--LEFT -->
 			 				<h2>Menue links</h2>
-			 				
+			 				<%@include file="WEB-INF/showAllOwnProjects.jspf" %>
 	<!--LEFT-END -->
 			   			</div>
 	<!--RIGHT -->		<!--<div id="right" >
