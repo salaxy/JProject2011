@@ -34,7 +34,7 @@ public class LoginAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Controller holen
 		mainController=(MainControl) session.getAttribute("mainController");
-		session.setAttribute("aktUser", mainController.getUserController().getAktUser());
+		
 
 		
 		try {
@@ -48,6 +48,10 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//Controller in aktion
 			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
+			synchronized(session){
+				session.setAttribute("loggedIn", true);
+				session.setAttribute("aktUser", mainController.getUserController().getAktUser());
+			}
 			
 			
 			//forwarden zum JSP
