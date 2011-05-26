@@ -23,6 +23,8 @@ public class LogoutAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		//TODO session.invalidate();!!!!!!!!!!!
+		
 		//Business-object holen
 //		logic=(JProjectBO) req.getSession().getAttribute("logic");
 //		
