@@ -11,6 +11,8 @@ import de.fhb.jproject.manager.MainControl;
 import java.io.IOException;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -44,22 +46,36 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 				System.out.println("Project: "+aktProject.getName());
 			}
 			req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
+			/*
+			JSONObject json = new JSONObject();
+			
+			for (Song_VO song : list) {
+				try {
+					json.append("songs", new JSONObject(song));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			resp.setContentType("application/json");
+			
 			//forwarden zum JSP
 			forward(req, resp, "/showAllOwnProjects.jspf");
-
+			
+			 * 
+			 */
 		}catch (ProjectException e) {
 			
 			e.printStackTrace();
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
-		}catch (IOException e) {
+		}/*catch (IOException e) {
 			
 			e.printStackTrace();
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
-		}catch(NullPointerException e){
+		}*/catch(NullPointerException e){
 			
 			e.printStackTrace();
 			logger.error(e.getMessage());

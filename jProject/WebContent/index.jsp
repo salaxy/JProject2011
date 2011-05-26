@@ -12,6 +12,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>jProject</title>
 		<link rel="stylesheet" href="style.css" type="text/css" />
+		<script type="text/javascript">
+			/*
+			function updateShowAllOwnProjectsList(json){
+				var newContent = '';
+				//alert(json);
+				json.songs.each(function(song){
+					newContent += song.nr+' - '+song.titel+"<br/>";
+				});
+				$('targetBox').set('html', newContent);
+			}*/
+			/*function getOwnProjectsJSON(){
+				var request = new Request({
+					url: "JProjectServlet?do=ShowAllOwnProjects"
+				});
+				var jsonRequest = new Request.JSON({
+					url: "JProjectServlet?do=ShowAllOwnProjects",
+					onComplete: updateShowAllOwnProjectsList
+				}).get();
+			}*/
+			/*
+			function getOwnProjectsRequest(){
+				var request = new Request({
+					url: "JProjectServlet?do=ShowAllOwnProjects"
+				});
+			}
+			*/
+		</script>
     </head>
     <body>
         <div id="banner">
@@ -42,9 +69,15 @@
 			 		<div id="inner">
 			 			<div id="left" >
 	<!--LEFT -->
-			 				<h2>Menue links</h2>
+							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
+							</img>Projekte</h2>
 							<c:import url="JProjectServlet?do=ShowAllOwnProjects"></c:import>
-							
+							<div id="projects">
+								<%@include file="WEB-INF/showAllOwnProjects.jspf" %>
+							</div>
+							<br /><br />
+							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
+							</img>Weitere<br />Funktionen</h2>
 	<!--LEFT-END -->
 			   			</div>
 	<!--RIGHT -->		<!--<div id="right" >
