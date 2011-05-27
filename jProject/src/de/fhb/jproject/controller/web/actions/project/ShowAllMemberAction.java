@@ -22,7 +22,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: NICHT FREIGEGEBEN
+ * STATUS: Voerst FREIGEGEBEN
  */
 public class ShowAllMemberAction extends HttpRequestActionBase {
 
