@@ -85,16 +85,21 @@ public class ProjectControl {
 		
 		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
 		member.setProject(project);
+		member.setProjectId(project.getName());
 		
 		//rolle setzen
 		member.setProjectRole(rolle);
 		
 		//user holen und setzen
 		try {
-			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName));
+			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			member.setUser(tempUser);
+			member.setUserId(tempUser.getLoginName());
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 		}
+		
+		
 //		try {
 //			DAFactory.getDAFactory().getProjectDA().evict(project);
 //		} catch (PersistentException e1) {
@@ -103,6 +108,11 @@ public class ProjectControl {
 //		}
 		//speichern	
 		try {	
+			System.out.println("member: "+member.getProjectId());
+			System.out.println("member: "+member.getUserId());
+			System.out.println("member: "+member.getProjectRole());
+			System.out.println("member: "+member.getUser());
+			System.out.println("member: "+member.getProject());
 			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
             throw new ProjectException("Konnte Projekt oder User nicht finden!" +e.getMessage());
