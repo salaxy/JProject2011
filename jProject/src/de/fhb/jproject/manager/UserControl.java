@@ -9,12 +9,15 @@ import org.apache.log4j.Logger;
 
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.ICQ;
+import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Skype;
 import de.fhb.jproject.data.Telefon;
 import de.fhb.jproject.data.User;
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
+import org.orm.PersistentTransaction;
 
 /**
  * Contoller Klasse f�r die UserActions
@@ -323,26 +326,40 @@ public class UserControl {
     }
 	
 	public void  register()throws ProjectException{
-		DAFactory fa = DAFactory.getDAFactory();
-		Member tempMember = fa.getMemberDA().createMember();
-		tempMember.setProjectRole("Member");
+		PersistentSession session;
+		DAFactory fa = DAFactory.getDAFactory();			
 		try {
-			User tempUser = fa.getUserDA().getUserByORMID("Bla");
-			tempUser.member.add(tempMember);
-					
-			
-			
-			Project tempProject = fa.getProjectDA().getProjectByORMID("ProjectName");
-			tempProject.member.add(tempMember);
-			
-			fa.getMemberDA().save(tempMember);
-			fa.getUserDA().save(tempUser);
-			fa.getProjectDA().save(tempProject);
-			
-		} catch (PersistentException ex) {
-			throw new ProjectException("Konnte User/Project nicht laden! "+ ex);
-		}
-		
+			session = JProjectPersistentManager.instance().getSession();
+            PersistentTransaction t = session.beginTransaction();
+            try {
+				Member tempMember = fa.getMemberDA().createMember();
+				tempMember.setProjectRole("Member");
+				//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
+				Project project = fa.getProjectDA().getProjectByORMID("ProjectName");
+				tempMember.setProject(project);
+				tempMember.setProjectId(project.getName());
+
+				//rolle setzen
+				
+                User tempUser = fa.getUserDA().getUserByORMID("Bla");
+				tempMember.setUser(tempUser);
+				tempMember.setUserId(tempUser.getLoginName());
+
+				session.clear();
+				fa.getMemberDA().save(tempMember);
+//				fa.getUserDA().save(tempUser);
+//				fa.getProjectDA().save(tempProject);
+                t.commit();//wenn alles erfolgreich speichere
+            } catch (PersistentException e) {
+                t.rollback();
+                e.printStackTrace();
+                throw new ProjectException("Konnte User/Project nicht laden! "+ e);
+            }
+            
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            throw new ProjectException("Kann Transaktion nicht initialisieren! "+e);
+        }	
 		
 			
 			
