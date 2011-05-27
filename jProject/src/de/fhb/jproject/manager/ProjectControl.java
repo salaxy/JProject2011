@@ -1,19 +1,21 @@
 package de.fhb.jproject.manager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.orm.PersistentException;
+import org.orm.PersistentSession;
+import org.orm.PersistentTransaction;
 
 import de.fhb.jproject.data.DAFactory;
+import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
-import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import java.util.ArrayList;
-import org.orm.PersistentException;
 
 /**
  * Contoller Klasse fuer die ProjectActions
@@ -43,7 +45,7 @@ public class ProjectControl {
 	throws ProjectException{ 	
 		
 		Project project=null;
-		Member member=null;
+//		Member member=null;
 		Member memAktUser=null;		
 		
 		//debuglogging
@@ -52,7 +54,7 @@ public class ProjectControl {
 		
 		//TODO abfangen ob zul�ssige rolle mitgegebn	
 		//solange werden nur leader hinzugef�gt
-		rolle="Leader";
+//		rolle="Leader";
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -66,57 +68,63 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-//		//Projekt-Rolle des aktuellen Users holen
-//		try {
-//			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-//		}
-//		
-//		//RECHTE-ABFRAGE Projekt
-//		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-//			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
-//		}			
-
-		//EIGENTLICHE AKTIONEN
-		
-		//member erzeugen und parameter setzen
-		member=DAFactory.getDAFactory().getMemberDA().createMember();
-		
-		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
-		member.setProject(project);
-		member.setProjectId(project.getName());
-		
-		//rolle setzen
-		member.setProjectRole(rolle);
-		
-		//user holen und setzen
+		//Projekt-Rolle des aktuellen Users holen
 		try {
-			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
-			member.setUser(tempUser);
-			member.setUserId(tempUser.getLoginName());
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		
-		
+		//RECHTE-ABFRAGE Projekt
+		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
+		}			
+
+//		//EIGENTLICHE AKTIONEN
+//		
+//		//member erzeugen und parameter setzen
+//		member=DAFactory.getDAFactory().getMemberDA().createMember();
+//		
+//		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
+//		member.setProject(project);
+//		member.setProjectId(project.getName());
+//		
+//		//rolle setzen
+//		member.setProjectRole(rolle);
+//		
+//		//user holen und setzen
 //		try {
-//			DAFactory.getDAFactory().getProjectDA().evict(project);
+//			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+//			member.setUser(tempUser);
+//			member.setUserId(tempUser.getLoginName());
 //		} catch (PersistentException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
+//			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 //		}
-		//speichern	
-		try {	
-			System.out.println("member: "+member.getProjectId());
-			System.out.println("member: "+member.getUserId());
-			System.out.println("member: "+member.getProjectRole());
-			System.out.println("member: "+member.getUser());
-			System.out.println("member: "+member.getProject());
-			DAFactory.getDAFactory().getMemberDA().save(member);
+				
+		
+		PersistentSession session;
+		DAFactory fa = DAFactory.getDAFactory();			
+		
+		try {
+			session = JProjectPersistentManager.instance().getSession();
+			Member tempMember = fa.getMemberDA().createMember();
+			tempMember.setProjectRole(rolle);
+			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
+			Project p = fa.getProjectDA().getProjectByORMID(projectName);
+			tempMember.setProject(p);
+
+			//rolle setzen
+
+			User tempUser = fa.getUserDA().getUserByORMID(userLoginName);
+			tempMember.setUser(tempUser);
+
+			session.clear();
+			fa.getMemberDA().save(tempMember);
 		} catch (PersistentException e) {
-            throw new ProjectException("Konnte Projekt oder User nicht finden!" +e.getMessage());
+			e.printStackTrace();
+			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
 		}
+		
 	}
 	
 	/**
