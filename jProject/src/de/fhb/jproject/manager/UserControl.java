@@ -328,47 +328,28 @@ public class UserControl {
 	public void  register()throws ProjectException{
 		PersistentSession session;
 		DAFactory fa = DAFactory.getDAFactory();			
+		
 		try {
 			session = JProjectPersistentManager.instance().getSession();
-            try {
-				Member tempMember = fa.getMemberDA().createMember();
-				tempMember.setProjectRole("Leader");
-				//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
-				Project project = fa.getProjectDA().getProjectByORMID("ProjectName");
-				tempMember.setProject(project);
-				tempMember.setProjectId(project.getName());
+			Member tempMember = fa.getMemberDA().createMember();
+			tempMember.setProjectRole("Member");
+			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
+			Project project = fa.getProjectDA().getProjectByORMID("ProjectName");
+			tempMember.setProject(project);
 
-				//rolle setzen
-				
-                User tempUser = fa.getUserDA().getUserByORMID("Bla");
-				tempMember.setUser(tempUser);
-				tempMember.setUserId(tempUser.getLoginName());
+			//rolle setzen
 
-				session.clear();
-				fa.getMemberDA().save(tempMember);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-                throw new ProjectException("Konnte User/Project nicht laden! "+ e);
-            }
-            
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            throw new ProjectException("Kann Transaktion nicht initialisieren! "+e);
-        }	
+			User tempUser = fa.getUserDA().getUserByORMID("Bla");
+			tempMember.setUser(tempUser);
+
+			session.clear();
+			fa.getMemberDA().save(tempMember);
+		} catch (PersistentException e) {
+			e.printStackTrace();
+			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
+		}
 		
-			
-			
-//		User tempUser = DAFactory.getDAFactory().getUserDA().createUser();
-//		tempUser.setGlobalRole("Member");
-//		tempUser.setLoginName("Bla2");
-//		tempUser.setNachname("nachbla");
-//		tempUser.setPassword("hex");
-//		tempUser.setSprache("deutsch");
-//		try {
-//			DAFactory.getDAFactory().getUserDA().save(tempUser);
-//		} catch (PersistentException ex) {
-//			throw new ProjectException("Konnte User nicht anlegen! "+ ex);
-//		}
+		
 	}
     
     public User getAktUser(){
