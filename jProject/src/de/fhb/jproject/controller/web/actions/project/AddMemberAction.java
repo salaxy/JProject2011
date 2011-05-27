@@ -21,7 +21,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author klay
  * 
- * STATUS: NICHT FREIGEGEBEN
+ * STATUS: FREIGEGEBEN
  */
 public class AddMemberAction extends HttpRequestActionBase {
 
