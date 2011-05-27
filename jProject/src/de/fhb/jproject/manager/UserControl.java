@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.ICQ;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Skype;
 import de.fhb.jproject.data.Telefon;
 import de.fhb.jproject.data.User;
@@ -321,8 +322,41 @@ public class UserControl {
         }
     }
 	
-	public void  register(){
-		//TODO
+	public void  register()throws ProjectException{
+		DAFactory fa = DAFactory.getDAFactory();
+		Member tempMember = fa.getMemberDA().createMember();
+		tempMember.setProjectRole("Member");
+		try {
+			User tempUser = fa.getUserDA().getUserByORMID("Bla");
+			tempUser.member.add(tempMember);
+					
+			
+			
+			Project tempProject = fa.getProjectDA().getProjectByORMID("ProjectName");
+			tempProject.member.add(tempMember);
+			
+			fa.getMemberDA().save(tempMember);
+			fa.getUserDA().save(tempUser);
+			fa.getProjectDA().save(tempProject);
+			
+		} catch (PersistentException ex) {
+			throw new ProjectException("Konnte User/Project nicht laden! "+ ex);
+		}
+		
+		
+			
+			
+//		User tempUser = DAFactory.getDAFactory().getUserDA().createUser();
+//		tempUser.setGlobalRole("Member");
+//		tempUser.setLoginName("Bla2");
+//		tempUser.setNachname("nachbla");
+//		tempUser.setPassword("hex");
+//		tempUser.setSprache("deutsch");
+//		try {
+//			DAFactory.getDAFactory().getUserDA().save(tempUser);
+//		} catch (PersistentException ex) {
+//			throw new ProjectException("Konnte User nicht anlegen! "+ ex);
+//		}
 	}
     
     public User getAktUser(){
