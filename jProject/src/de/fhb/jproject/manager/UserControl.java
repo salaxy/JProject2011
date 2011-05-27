@@ -330,10 +330,9 @@ public class UserControl {
 		DAFactory fa = DAFactory.getDAFactory();			
 		try {
 			session = JProjectPersistentManager.instance().getSession();
-            PersistentTransaction t = session.beginTransaction();
             try {
 				Member tempMember = fa.getMemberDA().createMember();
-				tempMember.setProjectRole("Member");
+				tempMember.setProjectRole("Leader");
 				//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist un�tig
 				Project project = fa.getProjectDA().getProjectByORMID("ProjectName");
 				tempMember.setProject(project);
@@ -347,11 +346,7 @@ public class UserControl {
 
 				session.clear();
 				fa.getMemberDA().save(tempMember);
-//				fa.getUserDA().save(tempUser);
-//				fa.getProjectDA().save(tempProject);
-                t.commit();//wenn alles erfolgreich speichere
             } catch (PersistentException e) {
-                t.rollback();
                 e.printStackTrace();
                 throw new ProjectException("Konnte User/Project nicht laden! "+ e);
             }
