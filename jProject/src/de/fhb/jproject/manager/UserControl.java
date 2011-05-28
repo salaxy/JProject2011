@@ -298,8 +298,6 @@ public class UserControl {
 				for (Telefon aktTelefon : user.telefon.toArray()) {
 					aktUser.telefon.add(aktTelefon);
 				}
-                
-                //aktUser = user;
 		}else{
 			throw new ProjectException("Falscher Loginname und/oder falsches Passwort!");
 		}
@@ -317,11 +315,6 @@ public class UserControl {
         	//ausloggen
             loggedIn = false;
 			aktUser = null;
-//            aktUser.setLoginName(null);
-//            aktUser.setNachname(null);
-//            aktUser.setPassword(null);
-//            aktUser.setVorname(null);
-//            aktUser.setSprache(null);
         }
     }
 	
