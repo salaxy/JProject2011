@@ -358,14 +358,34 @@ public class UserControl {
 		logger.info("getAktUser()");
 		
 		//Passwort auf null setzen und Nachname kuerzen um sicherheit zu wahren
-		/*
-		User tempUser=aktUser;
-		tempUser.setPassword(null);
-		tempUser.setNachname(aktUser.getNachname().toCharArray()[0]+".");
 		
-        return tempUser;
-		 * 
-		 */
+		User tempUser=new User();
+		tempUser.setLoginName(aktUser.getLoginName());
+                tempUser.setNachname(aktUser.getNachname());
+                tempUser.setVorname(aktUser.getVorname());
+                tempUser.setPassword(null);
+                tempUser.setSprache(aktUser.getSprache());
+				tempUser.setGlobalRole(aktUser.getGlobalRole());
+				tempUser.comment.clear();
+				for (Comment aktComment : aktUser.comment.toArray()) {
+					tempUser.comment.add(aktComment);
+				}
+				tempUser.iCQ.clear();
+				for (ICQ aktICQ : aktUser.iCQ.toArray()) {
+					tempUser.iCQ.add(aktICQ);
+				}
+				tempUser.member.clear();
+				for (Member aktMember : aktUser.member.toArray()) {
+					tempUser.member.add(aktMember);
+				}
+				tempUser.skype.clear();
+				for (Skype aktSkype : aktUser.skype.toArray()) {
+					tempUser.skype.add(aktSkype);
+				}
+				tempUser.telefon.clear();
+				for (Telefon aktTelefon : aktUser.telefon.toArray()) {
+					tempUser.telefon.add(aktTelefon);
+				}
 		
 		return aktUser;
     }
