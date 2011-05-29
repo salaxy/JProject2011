@@ -40,21 +40,22 @@ public class ProjectControl {
 
 	/**
 	 *  Hinzufuegen eines Users zu einem Projekt
+	 *  Notiz: Methode Funktioniert auch zum updaten
 	 */
 	public void addMember(String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
 		
 		Project project=null;
-//		Member member=null;
+		Member member=null;
 		Member memAktUser=null;		
 		
 		//debuglogging
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		
-		//TODO abfangen ob zulï¿½ssige rolle mitgegebn	
-		//solange werden nur leader hinzugefï¿½gt
-//		rolle="Leader";
+		if(!(rolle.equals(ProjectRolesControl.MEMBER)||rolle.equals(ProjectRolesControl.LEADER))){
+            throw new ProjectException("Keine zulässige Rolle!");
+		}
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -80,46 +81,32 @@ public class ProjectControl {
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 		}			
 
-//		//EIGENTLICHE AKTIONEN
-//		
-//		//member erzeugen und parameter setzen
-//		member=DAFactory.getDAFactory().getMemberDA().createMember();
-//		
-//		//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unï¿½tig
-//		member.setProject(project);
-//		member.setProjectId(project.getName());
-//		
-//		//rolle setzen
-//		member.setProjectRole(rolle);
-//		
-//		//user holen und setzen
-//		try {
-//			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
-//			member.setUser(tempUser);
-//			member.setUserId(tempUser.getLoginName());
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
-//		}
-				
+		//EIGENTLICHE AKTIONEN
 		
-		PersistentSession session;
-		DAFactory fa = DAFactory.getDAFactory();			
+		//member erzeugen und parameter setzen
+		member=DAFactory.getDAFactory().getMemberDA().createMember();
+		//project setzen
+		member.setProject(project);
+		//rolle setzen
+		member.setProjectRole(rolle);
 		
+		//user holen und setzen
 		try {
+			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			member.setUser(tempUser);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
+		}
+					
+		//Member speichern
+		try {		
+			PersistentSession session;		
+			//Session holen
 			session = JProjectPersistentManager.instance().getSession();
-			Member tempMember = fa.getMemberDA().createMember();
-			tempMember.setProjectRole(rolle);
-			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unï¿½tig
-			Project p = fa.getProjectDA().getProjectByORMID(projectName);
-			tempMember.setProject(p);
-
-			//rolle setzen
-
-			User tempUser = fa.getUserDA().getUserByORMID(userLoginName);
-			tempMember.setUser(tempUser);
-
+			//und bereinigen
 			session.clear();
-			fa.getMemberDA().save(tempMember);
+			//Member speichern
+			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
@@ -245,7 +232,6 @@ public class ProjectControl {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//TODO Admin und ProjektLeader sind berechtigt 
 		//projekt holen
 		try {
 			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
@@ -263,7 +249,7 @@ public class ProjectControl {
 		//RECHTE-ABFRAGE Projekt
 		if(!projectRolesController.isAllowedDeleteMemberAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
-		}	
+		}
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -278,15 +264,22 @@ public class ProjectControl {
 		try {
 			delMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(user, project);
 		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht loeschen! "+ e1.getMessage());
+			throw new ProjectException("Konnte zu entfernenden Member nicht finden! "+ e1.getMessage());
 		}
-		
-		//loeschen
-		try {	
+
+		//Member loeschen
+		try {		
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//Member loeschen
 			DAFactory.getDAFactory().getMemberDA().delete(delMember);
 		} catch (PersistentException e) {
-			throw new ProjectException("Kann Projekt nicht loeschen! "+ e.getMessage());
-		}	
+			e.printStackTrace();
+			throw new ProjectException("Konnte Member nicht entfernen! "+ e);
+		}
 	}
 	
 	/**
