@@ -109,7 +109,7 @@ public class ProjectControl {
 			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
+			throw new ProjectException("Konnte Member nicht speichern! "+ e);
 		}
 		
 	}
@@ -145,18 +145,92 @@ public class ProjectControl {
 		project.setName(name);
 		project.setStatus(status);
 		
-		//project erzeuger als member erzeugen und hinzufuegen
-		member=DAFactory.getDAFactory().getMemberDA().createMember();
-		member.setProjectId(name);
-		member.setUserId(aktUser.getLoginName());
-		member.setProjectRole("Leader");
+
 		
-		//projekt speichern
+		//Project speichern
 		try {		
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//Member speichern
 			DAFactory.getDAFactory().getProjectDA().save(project);
 		} catch (PersistentException e) {
-            throw new ProjectException("Konnte Projekt nicht erstellen!");
+			e.printStackTrace();
+			throw new ProjectException("Konnte Project nicht speichern! "+ e);
 		}
+		
+		
+		//project erzeuger als member erzeugen und hinzufuegen
+		member=DAFactory.getDAFactory().getMemberDA().createMember();
+		
+
+			member.setProject(project);
+
+		try {
+			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
+		} catch (PersistentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		member.setProjectRole(ProjectRolesControl.LEADER);
+		
+		//ersten Member als LEADER speichern
+		try {		
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//Member speichern
+			DAFactory.getDAFactory().getMemberDA().save(member);
+		} catch (PersistentException e) {
+			e.printStackTrace();
+			throw new ProjectException("Konnte Member nicht speichern! "+ e);
+		}
+		
+		
+		
+		
+		//was ZUM TESTEN
+//		Member member=null;
+//		Project project =null;
+//		
+//		//project erzeuger als member erzeugen und hinzufuegen
+//		member=DAFactory.getDAFactory().getMemberDA().createMember();
+//		
+//
+//	    try {
+//			member.setProject(DAFactory.getDAFactory().getProjectDA().getProjectByORMID("Blaxx"));
+//		} catch (PersistentException e2) {
+//			// TODO Auto-generated catch block
+//			e2.printStackTrace();
+//		}
+//
+//		try {
+//			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
+//		} catch (PersistentException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		member.setProjectRole(ProjectRolesControl.LEADER);
+//		
+//		//ersten Member als LEADER speichern
+//		try {		
+//			PersistentSession session;		
+//			//Session holen
+//			session = JProjectPersistentManager.instance().getSession();
+//			//und bereinigen
+//			session.clear();
+//			//Member speichern
+//			DAFactory.getDAFactory().getMemberDA().save(member);
+//		} catch (PersistentException e) {
+//			e.printStackTrace();
+//			throw new ProjectException("Konnte Member nicht speichern! "+ e);
+//		}
 	}	
 	
 	/**
