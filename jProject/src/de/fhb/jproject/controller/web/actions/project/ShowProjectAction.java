@@ -22,7 +22,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
  * 
- * http://localhost:8080/jProject/JProjectServlet?do=ShowProject&projectName=ProjectName
+ * do=ShowProject&projectName=ProjectName
  * 
  */
 public class ShowProjectAction extends HttpRequestActionBase {
@@ -49,13 +49,14 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//Controller holen
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
+			System.out.println(req.getParameter("projectName"));
 			//Controller in aktion
 			project=mainController.getProjectContoller().showProject(req.getParameter("projectName"));
 			
 			//setzen der Parameter
 			req.setAttribute("project", project);
 			
-//			System.out.println(project.getName());
+			System.out.println(project.getName());
 			
 			//forwarden zum JSP
 			forward(req, resp, "/ShowProject.jsp");
