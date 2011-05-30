@@ -357,7 +357,7 @@
       <Length>255</Length>
       <Nullable>false</Nullable>
       <IDGenerator>assigned</IDGenerator>
-      <Unique>true</Unique>
+      <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
     </Column>
