@@ -116,6 +116,7 @@ public class ProjectControl {
 	
 	/**
 	 * ein user erstellt ein neues Projekt
+	 * und wird als erster Leader eingetragen
 	 * @param name
 	 * @param status
 	 * @throws ProjectException
@@ -145,8 +146,6 @@ public class ProjectControl {
 		project.setName(name);
 		project.setStatus(status);
 		
-
-		
 		//Project speichern
 		try {		
 			PersistentSession session;		
@@ -164,9 +163,8 @@ public class ProjectControl {
 		
 		//project erzeuger als member erzeugen und hinzufuegen
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
-		
-
-			member.setProject(project);
+		member.setProject(project);		
+		member.setProjectRole(ProjectRolesControl.LEADER);
 
 		try {
 			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
@@ -174,8 +172,6 @@ public class ProjectControl {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		member.setProjectRole(ProjectRolesControl.LEADER);
 		
 		//ersten Member als LEADER speichern
 		try {		
@@ -190,47 +186,6 @@ public class ProjectControl {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Member nicht speichern! "+ e);
 		}
-		
-		
-		
-		
-		//was ZUM TESTEN
-//		Member member=null;
-//		Project project =null;
-//		
-//		//project erzeuger als member erzeugen und hinzufuegen
-//		member=DAFactory.getDAFactory().getMemberDA().createMember();
-//		
-//
-//	    try {
-//			member.setProject(DAFactory.getDAFactory().getProjectDA().getProjectByORMID("Blaxx"));
-//		} catch (PersistentException e2) {
-//			// TODO Auto-generated catch block
-//			e2.printStackTrace();
-//		}
-//
-//		try {
-//			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
-//		} catch (PersistentException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
-//		member.setProjectRole(ProjectRolesControl.LEADER);
-//		
-//		//ersten Member als LEADER speichern
-//		try {		
-//			PersistentSession session;		
-//			//Session holen
-//			session = JProjectPersistentManager.instance().getSession();
-//			//und bereinigen
-//			session.clear();
-//			//Member speichern
-//			DAFactory.getDAFactory().getMemberDA().save(member);
-//		} catch (PersistentException e) {
-//			e.printStackTrace();
-//			throw new ProjectException("Konnte Member nicht speichern! "+ e);
-//		}
 	}	
 	
 	/**
@@ -253,29 +208,31 @@ public class ProjectControl {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//TODO Admin und ProjektLeader sind berechtigt 
-		//projekt holen
-//		try {
-//			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-//		}	
-//			
-//		//Projekt-Rolle des aktuellen Users holen
-//		try {
-//			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-//		}
 		
-//		//RECHTE-ABFRAGE Projekt
-//		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())){
-//			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
-//		}	
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Projekt-Rolle des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt und Global
+		//Admin und ProjektLeader sind berechtigt 
+		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())||globalRolesController.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
+		}	
 		
 		//EIGENTLICHE AKTIONEN
 		
 		//loeschen
+		//Info: Member werden automatisch gelöscht durch das cascade in der DB
 		try {	
 			DAFactory.getDAFactory().getProjectDA().delete(project);
 		} catch (PersistentException e) {
