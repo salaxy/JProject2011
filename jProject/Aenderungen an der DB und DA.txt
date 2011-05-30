@@ -1,7 +1,7 @@
 Datenbank
 *********
 
-- isAllowedDeleteProjectAction bitte "auch" in der ProjectRole tabelle also in beiden
+- isAllowedDeleteProjectAction bitte "auch" in der ProjectRole tabelle also in beiden - erledigt
 
 
 
