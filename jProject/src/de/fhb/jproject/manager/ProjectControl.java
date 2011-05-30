@@ -157,7 +157,7 @@ public class ProjectControl {
 			DAFactory.getDAFactory().getProjectDA().save(project);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte Project nicht speichern! "+ e);
+			throw new ProjectException("Konnte Project nicht speichern! "+ e.getMessage());
 		}
 		
 		
@@ -169,8 +169,7 @@ public class ProjectControl {
 		try {
 			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
 		} catch (PersistentException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new ProjectException("Konnte aktuellen User nicht finden! "+ e1.getMessage());
 		}
 		
 		//ersten Member als LEADER speichern
@@ -184,7 +183,7 @@ public class ProjectControl {
 			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte Member nicht speichern! "+ e);
+			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
 		}
 	}	
 	
@@ -309,7 +308,7 @@ public class ProjectControl {
 			DAFactory.getDAFactory().getMemberDA().delete(delMember);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte Member nicht entfernen! "+ e);
+			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
 		}
 	}
 	
@@ -368,13 +367,14 @@ public class ProjectControl {
 		}	
 		
 		//holen der Daten
-		//TODO suche implementieren
+		//TODO suche implementieren in der DA..... List<Project> findProjectsLike(String teilName)
+		//
 //		try {
 //			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
 //		} catch (PersistentException e) {
 //			e.printStackTrace();
 //			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
-//		}
+//		}		
 		
 		return list;	
 	}
@@ -473,15 +473,14 @@ public class ProjectControl {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 		
+		//TODO immernoch erscheint ein Null eintrag aus heiterem himmel!?
+		//bleibt vorerst unbeachtet
 		return Arrays.asList(project.member.toArray());
-		//aus performance gr�nden habe ich hier keine auslagerung vorgenommen,
-		//da das project eh schon vorliegt, keine extra anfrage notwendig
 			
 	}
 	
 	
 	private boolean isUserLoggedIn() {		
-		//TODO irgentwie ist das noch nicht richtig soo		
 		return (aktUser.getLoginName()!=null);
 	}
 }
