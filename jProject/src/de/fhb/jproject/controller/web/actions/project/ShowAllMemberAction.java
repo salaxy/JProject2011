@@ -22,7 +22,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: Voerst FREIGEGEBEN
+ * STATUS: Voerst FREIGEGEBEN (Nulleintrag fehler)
  */
 public class ShowAllMemberAction extends HttpRequestActionBase {
 
