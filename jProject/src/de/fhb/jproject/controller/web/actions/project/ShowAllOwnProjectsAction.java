@@ -1,25 +1,27 @@
 package de.fhb.jproject.controller.web.actions.project;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
-import java.io.IOException;
-import java.util.List;
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 /**
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
- * @author klay
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * STATUS: FREIGEGEBEN
  */
 public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	private MainControl mainController;
@@ -42,9 +44,11 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			
 			//Controller in aktion			
 			List<Project> list = mainController.getProjectContoller().showAllOwnProjects();
+			
 			for (Project aktProject : list) {
 				System.out.println("Project: "+aktProject.getName());
 			}
+			
 			req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			/*
 			JSONObject json = new JSONObject();
