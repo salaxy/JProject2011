@@ -21,7 +21,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: FREIGEGEBEN
+ * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
  */
 public class AddMemberAction extends HttpRequestActionBase {
 

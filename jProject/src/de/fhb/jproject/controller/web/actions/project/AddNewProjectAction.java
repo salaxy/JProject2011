@@ -19,7 +19,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS:  FREIGEGEBEN
+ * STATUS:  FREIGEGEBEN - ERFOLGREICH GETESTET
  * 
  * JProjectServlet?do=AddNewProject&projectName=Blaxx&status=neu
  * 
