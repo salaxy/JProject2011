@@ -29,6 +29,8 @@ public class ProjectControl {
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
 	
+	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
+	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
 	public ProjectControl(User aktUser, ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
@@ -458,12 +460,14 @@ public class ProjectControl {
         }
 		//projekt holen
 		try {
+//			JProjectPersistentManager.instance().getSession().clear();
 			project=DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
 		//Projekt-Rolle des aktuellen Users holen
-		try {
+		try {	
+
 			memAktUser=DAFactory.getDAFactory().getMemberDA().loadMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
@@ -473,9 +477,19 @@ public class ProjectControl {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 		
+		
 		//TODO immernoch erscheint ein Null eintrag aus heiterem himmel!?
 		//bleibt vorerst unbeachtet
-		return Arrays.asList(project.member.toArray());
+		//fehler kaschieren
+		Member[] arrayFehler=project.member.toArray();
+		
+//		Member[] array= new Member[arrayFehler.length-1];
+//		
+//		for(int i=0;i<array.length;i++){
+//			array[i]=arrayFehler[i];
+//		}
+		
+		return Arrays.asList(arrayFehler);
 			
 	}
 	
