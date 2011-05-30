@@ -17,9 +17,11 @@ import de.fhb.jproject.manager.MainControl;
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
- * @author klay
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: NICHT FREIGEGEBEN
+ * STATUS:  FREIGEGEBEN
+ * 
+ * JProjectServlet?do=AddNewProject&projectName=Blaxx&status=neu
  * 
  */
 public class AddNewProjectAction extends HttpRequestActionBase {
