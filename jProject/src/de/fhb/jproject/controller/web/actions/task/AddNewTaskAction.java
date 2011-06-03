@@ -23,7 +23,7 @@ import de.fhb.jproject.manager.MainControl;
  * 
  * STATUS:  FREIGEGEBEN 
  * 
- * JProjectServlet?do=AddNewTask&projectName=ProjectName&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&time=2011-06-02
+ * JProjectServlet?do=AddNewTask&projectName=ProjectName&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
  *  
  */
 public class AddNewTaskAction extends HttpRequestActionBase {
@@ -45,7 +45,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
-					+ "String time(" + req.getParameter("time") + ")"
+					+ "String date(" + req.getParameter("date") + ")"
 					);
 			
 			//Controller holen
@@ -56,7 +56,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),
 					//yyyy-mm-dd <<< muss sooo aussehen
-					req.getParameter("time")
+					req.getParameter("date")
 					);
 			
 			
