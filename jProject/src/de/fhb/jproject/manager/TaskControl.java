@@ -35,7 +35,7 @@ public class TaskControl {
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
 	 */
-	public void  addNewTask(String projectName, String titel, String aufgabenStellung, String time)
+	public void addNewTask(String projectName, String titel, String aufgabenStellung, String date)
 	throws ProjectException{ 
 		
 		
@@ -45,8 +45,11 @@ public class TaskControl {
 		Termin termin = null;
 		
 		//debuglogging
-		logger.info("addMember()");
-		logger.debug("String projectName("+projectName+")"+"String titel("+titel+")");	
+		logger.info("addNewTask()");
+		logger.debug("String projectName("+projectName+")"
+				+"String titel("+titel+")"
+				+"String date("+date+")"
+				);	
 		
         //abfrage ob user eingeloggt
 		if(!isUserLoggedIn()){
@@ -75,19 +78,17 @@ public class TaskControl {
 
 		//EIGENTLICHE AKTIONEN
 		
-		//task erzeugen und parameter setzen
-		task=DAFactory.getDAFactory().getTaskDA().createTask();
-		//project setzen
-		task.setProject(project);
-		//setzen weiterer attribute
-		task.setAufgabenstellung(aufgabenStellung);
-		task.setTitel(titel);
-		task.setDone((byte)0);
-	
 		// Termin erzeugen und setzen
 		termin =DAFactory.getDAFactory().getTerminDA().createTermin();
-		//timestring in der Form >>>yyyy-mm-dd	als	Date erzeugen und setzen
-		termin.setTermin(Date.valueOf(time));
+		
+		//datum in der Form >>>yyyy-mm-dd	als	Date erzeugen und setzen
+		try {	
+			termin.setTermin(Date.valueOf(date));
+		} catch (IllegalArgumentException e) {
+			throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Kein Datum uebergeben! "+ e.getMessage());
+		}
 		
 		//termin speichern
 		try {		
@@ -103,6 +104,15 @@ public class TaskControl {
 			throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
 		}
 
+		//task erzeugen und parameter setzen
+		task=DAFactory.getDAFactory().getTaskDA().createTask();
+		//project setzen
+		task.setProject(project);
+		//setzen weiterer attribute
+		task.setAufgabenstellung(aufgabenStellung);
+		task.setTitel(titel);
+		task.setDone((byte)0);
+		
 		//der Task den termin hinzufuegen
 		task.setTermin(termin);
 					
@@ -119,16 +129,99 @@ public class TaskControl {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Task nicht speichern! "+ e.getMessage());
 		}
-
 	}	
 	
-	public void  deleteTask(){
-		//wer kann eine aufgabe löschen
-		//owner/ersteller, admin, projekLEADER
+	/**
+	 * loeschen eines Taks eines Projektes
+	 * 
+	 */
+	public void  deleteTask(String taskId, String projectName)
+	throws ProjectException{ 
+		//INFO: projektName ist zum loeschen an sich nicht notwendig,
+		//jedoch notwendig um die Rechte zum loeschen abzufragen
 		
+		Project project=null;
+		Member memAktUser=null;	
+		Task task=null;
 		
+		//debuglogging
+		logger.info("deleteTask()");
+		logger.debug("String projectName("+projectName+")");
+		logger.debug("String taskId("+taskId+")");
 		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!isAdmin()){
+			
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesController.isAllowedDeleteTaskAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte die Aufgabe(Task) zu loeschen!");
+			}	
+		}
+		
+
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//hole den task
+		try {
+			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
+		}catch(IllegalArgumentException e){
+			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+		}
+		
+		//termin loeschen
+		try {	
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//loeschen
+			DAFactory.getDAFactory().getTerminDA().delete(task.getTermin());
+		} catch (PersistentException e) {
+			//XXX es kann sein das ein Task gar kein termin hat, dann muss trotzdessen die task loeschbar sein
+			// daher hier keine Exception! Ist das programmiertechnisch ok?
+//			throw new ProjectException("Kann Termin nicht loeschen! "+ e.getMessage());
+		}catch (NullPointerException e) {
+//			throw new ProjectException("Termin wurde nicht gefunden! "+ e.getMessage());{/
+		}
+		
+		//loeschen
+		//Info: Termin wird nicht automatisch mit gelöscht
+		try {	
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//task loeschen
+			DAFactory.getDAFactory().getTaskDA().delete(task);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Task nicht loeschen! "+ e.getMessage());
+		}	
 	}		
 	
 	/** 
@@ -178,9 +271,11 @@ public class TaskControl {
 	
 	public void  updateTask(){}
 	
-	private boolean isUserLoggedIn() {		
-		//TODO irgentwie ist das noch nicht richtig soo		
+	private boolean isUserLoggedIn() {			
 		return (aktUser!=null);
 	}
 	
+	private boolean isAdmin(){
+		return aktUser.getGlobalRole().equals(GlobalRolesControl.ADMIN);
+	}
 }
