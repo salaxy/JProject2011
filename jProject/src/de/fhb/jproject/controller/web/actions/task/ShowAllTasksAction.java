@@ -1,21 +1,39 @@
 package de.fhb.jproject.controller.web.actions.task;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.Task;
+import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.manager.MainControl;
 
 
 /**
+ * 
+ * Action die angesprochen wird 
+ * wenn alle Aufgaben eines Projektes angezeigt werden sollen
+ * 
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
- * @author klay
+ * @author Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * STATUS: FREIGEGEBEN und GETESTET 
+ * 
+ * http://localhost:8080/jProject/JProjectServlet?do=ShowAllTasks&projectName=ProjectName
  */
 public class ShowAllTasksAction extends HttpRequestActionBase {
 
-//	private JProjectBO logic;
+	private MainControl mainController;
+	private static final Logger logger = Logger.getLogger(ShowAllTasksAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -23,24 +41,50 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//Business-object holen
-//		logic=(JProjectBO) req.getSession().getAttribute("logic");
-//		
-//		//informationen holen
-//		int  nr=Integer.parseInt(req.getParameter("nr"));
-//		
-//		
-//		List<CDVO> cdList=logic.showCDs();
-//		
-//		req.setAttribute("aktcd", logic.getAktuelleCD());
-//		req.setAttribute("cdlist", cdList);
-//		
-//		try {
-//			forward(req, resp, "json.jsp");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		List<Task> taskList=null;
 		
+		try {				
+			
+			//Debugprint
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			logger.debug("Parameter: "
+					+ "String projectName(" + req.getParameter("projectName") + ")"
+					);	
+			
+			//Controller holen
+			mainController=(MainControl) req.getSession().getAttribute("mainController");
+		
+			//Controller in aktion
+			taskList=mainController.getTaskcontroller().showAllTasks(req.getParameter("projectName"));
+			
+//			for( Task t : taskList){
+//				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
+//			}		
+			
+			//setzen der Parameter
+			req.setAttribute("taskList", taskList);
+			
+			//forwarden zum JSP
+			forward(req, resp, "/ShowAllTasks.jsp");
+
+		}catch (ProjectException e) {
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			errorforward(req, resp, e.getMessage());
+			
+		}catch (IOException e) {
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+			
+		}catch(NullPointerException e){
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+			
+		}
 	}
 }
