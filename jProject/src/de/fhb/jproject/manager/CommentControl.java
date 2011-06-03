@@ -22,11 +22,19 @@ public class CommentControl {
 	
 	public void commentTask(){}
 	
-	public void deleteComment(){}
+	public void deleteComment(){
+		
+		//wer kann ein aufgabe löschen
+		//owner/ersteller, admin, projekLEADER
+	}
 	
 	public void commentProject(){}
 	
-	public void updateComment(){}
+	public void updateComment(){
+		//wer kann ein comment löschen
+		//owner/ersteller, admin, projekLEADER
+		
+	}
 	
 	public void showAllComments41Docu(){}
 	
