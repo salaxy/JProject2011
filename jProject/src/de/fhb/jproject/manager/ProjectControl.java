@@ -111,7 +111,7 @@ public class ProjectControl {
 			DAFactory.getDAFactory().getMemberDA().save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte Member nicht speichern! "+ e);
+			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
 		}
 		
 	}
