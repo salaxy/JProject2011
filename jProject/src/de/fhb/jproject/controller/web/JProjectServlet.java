@@ -44,6 +44,8 @@ import de.fhb.jproject.controller.web.actions.sources.ShowAllSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.ShowSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.UpdateSourceAction;
 import de.fhb.jproject.controller.web.actions.task.AddNewTaskAction;
+import de.fhb.jproject.controller.web.actions.task.AssignTaskAction;
+import de.fhb.jproject.controller.web.actions.task.DeAssignTaskAction;
 import de.fhb.jproject.controller.web.actions.task.DeleteTaskAction;
 import de.fhb.jproject.controller.web.actions.task.ShowAllOwnTasksAction;
 import de.fhb.jproject.controller.web.actions.task.ShowAllTasksAction;
@@ -201,6 +203,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 		action = new UpdateTaskAction();
 		actions.put("UpdateTask", action);	
 		
+		action = new AssignTaskAction();
+		actions.put("AssignTask", action);	
+		
+		action = new DeAssignTaskAction();
+		actions.put("DeAssignTask", action);
 		
 		// !!! User Actions !!!
 		
