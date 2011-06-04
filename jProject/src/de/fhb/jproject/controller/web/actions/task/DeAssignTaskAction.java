@@ -1,7 +1,6 @@
 package de.fhb.jproject.controller.web.actions.task;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,55 +9,46 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.Task;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
 
 
 /**
- * Aktion die ausgeführt wird, wenn die eigenen Tasks/Aufgaben
- * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
+ * Action die angesprochen wird, wenn einem Member von einem Task/Aufgabe abgordert wird
  * 
- * STATUS:	FREIGEGEBEN
- * URL:		JProjectServlet?do=ShowAllOwnTasks&projectName=ProjectName
- * @author	Andy Klay <klay@fh-brandenburg.de>
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=DeAssignTask&projectName=ProjectName&userLoginName=karl&taskId=5 
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
-public class ShowAllOwnTasksAction extends HttpRequestActionBase {
+public class DeAssignTaskAction extends HttpRequestActionBase {
 
 	private MainControl mainController;
-	private static final Logger logger = Logger.getLogger(ShowAllOwnTasksAction.class);
+	private static final Logger logger = Logger.getLogger(DeAssignTaskAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
+	throws ServletException{	
 		
-		List<Task> taskList=null;
-		
-		try {				
+		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
-					);	
+					+ "String projectName(" + req.getParameter("projectName") + "), "
+					+ "String taskId(" + req.getParameter("taskId") + ")"
+					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
+					);
 			
 			//Controller holen
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			taskList=mainController.getTaskcontroller().showAllOwnTasks(req.getParameter("projectName"));
-			
-//			for( Task t : taskList){
-//				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
-//			}	
-			
-			//setzen der Parameter
-			req.setAttribute("taskList", taskList);
+			mainController.getTaskcontroller().deAssignTask(req.getParameter("userLoginName"), req.getParameter("projectName") ,  req.getParameter("taskId"));
 			
 			//forwarden zum JSP
-			forward(req, resp, "/ShowAllOwnTasks.jsp");
+			forward(req, resp, "/DeAssignTask.jsp");
 
 		}catch (ProjectException e) {
 			
@@ -71,13 +61,14 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			e.printStackTrace();
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
-			
+            
 		}catch(NullPointerException e){
 			
 			e.printStackTrace();
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
-			
+            
 		}
+		
 	}
 }
