@@ -1,6 +1,7 @@
 package de.fhb.jproject.manager;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -202,7 +203,7 @@ public class TaskControl {
 			//loeschen
 			DAFactory.getDAFactory().getTerminDA().delete(task.getTermin());
 		} catch (PersistentException e) {
-			//XXX es kann sein das ein Task gar kein termin hat, dann muss trotzdessen die task loeschbar sein
+			//XXX es kann sein das ein Task gar kein termin hat, dann muss trotzdessen die task loeschbar sein,muss es???
 			// daher hier keine Exception! Ist das programmiertechnisch ok?
 //			throw new ProjectException("Kann Termin nicht loeschen! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -267,7 +268,253 @@ public class TaskControl {
 		return Arrays.asList(project.task.toArray());
 	}		
 	
-	public void  showAllOwnTasks(){}		
+	/**
+	 * Alle zugeordneten Aufgaben des aktuellen Users zu einem
+	 * angegeben Projekt holen (in dem der User Member ist)
+	 * 
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<Task> showAllOwnTasks(String projectName)
+	throws ProjectException{
+		
+		Project project=null;
+		Member memAktUser=null;	
+		
+		List<Task> list=new ArrayList<Task>();
+		
+		//debuglogging
+		logger.info("addNewTask()");
+		logger.debug("String projectName("+projectName+")");
+		//wenn projectname null ist dann zeige alle aufgaben???
+		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Projekt-Rolle des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		//TODO Admin??? Rechte Nachbessern?
+		if(!projectRolesController.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+		}
+
+		//Array zu liste umformen
+		for (Task aktTask : memAktUser.task.toArray()) {
+			list.add(aktTask);
+		}
+		
+		return list;
+	}	
+	
+	
+	/**
+	 * Einem Member eines Projektes eine Aufgabe/Task zuordnen
+	 * (TODO eintrag erzeugen)
+	 * 
+	 * @param userLoginName
+	 * @param projectName
+	 * @param taskId
+	 * @throws ProjectException
+	 */
+	public void assignTask(String userLoginName, String projectName, String taskId)
+	throws ProjectException{ 
+		
+		Project project=null;
+		Member memAktUser=null;	
+		
+		Task task=null;		
+		User assignUser=null;
+		Member assignMember=null;
+		
+		//debuglogging
+		logger.info("addNewTask()");
+		logger.debug("String projectName(" + projectName + ")"
+				+ "String userLoginName(" + userLoginName + ")"
+				+ "String taskId(" + taskId + ")"
+				);	
+		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Member des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		//TODO Admin darf keine task zuordnen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
+		//TODO Rechte nachbessern?
+		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
+		}
+		
+		//zuzuordnenden user holen
+		try {
+			assignUser=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
+		}
+		
+		//Membereintrag des zuzuordnenden Users holen
+		try {
+			assignMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(assignUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//zuzuordnenden Task holen
+		try {
+			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
+		}catch(IllegalArgumentException e){
+			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+		}
+		
+		//task zum Member hinzufuegen
+		assignMember.task.add(task);
+		
+		//updaten/speichern des Members
+		try {	
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//task loeschen
+			DAFactory.getDAFactory().getMemberDA().save(assignMember);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
+		}	
+	}
+	
+	
+	/**
+	 * User von einer Aufgabe abordern 
+	 * (TODO eintrag loeschen)
+	 * 
+	 * @param userLoginName
+	 * @param projectName
+	 * @param taskId
+	 * @throws ProjectException
+	 */
+	public void deAssignTask(String userLoginName, String projectName, String taskId)
+	throws ProjectException{ 
+		
+		Project project=null;
+		Member memAktUser=null;	
+		
+		Task task=null;		
+		User deassignUser=null;
+		Member deassignMember=null;
+		
+		//debuglogging
+		logger.info("deAssignTask()");
+		logger.debug("String projectName(" + projectName + ")"
+				+ "String userLoginName(" + userLoginName + ")"
+				+ "String taskId(" + taskId + ")"
+				);	
+		
+        //abfrage ob user eingeloggt
+		if(!isUserLoggedIn()){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//projekt holen
+		try {
+			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Member des aktuellen Users holen
+		try {
+			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		//TODO Admin darf keine task zuordnen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
+		//TODO RECHTE nachbessern?
+		if(!projectRolesController.isAllowedDeleteTaskAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+		}
+		
+		//zugeordneten user holen
+		try {
+			deassignUser=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
+		}
+		
+		//Membereintrag des zugeordneten Users holen
+		try {
+			deassignMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(deassignUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//Task dazu holen
+		try {
+			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
+		}catch(IllegalArgumentException e){
+			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+		}
+		
+		//task im member entfernen
+		deassignMember.task.remove(task);
+		
+		//updaten/speichern des Members
+		try {	
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//task loeschen
+			DAFactory.getDAFactory().getMemberDA().save(deassignMember);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
+		}	
+	}
+	
+	
 	
 	public void  updateTask(){}
 	
