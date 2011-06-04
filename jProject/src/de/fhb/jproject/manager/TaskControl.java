@@ -131,6 +131,11 @@ public class TaskControl {
 			DAFactory.getDAFactory().getTaskDA().save(task);
 		} catch (PersistentException e) {
 			e.printStackTrace();
+			try {
+				DAFactory.getDAFactory().getTerminDA().delete(termin);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Task nicht speichern und erstellten Termin nicht wieder leoschen! "+ e.getMessage());
+			}
 			throw new ProjectException("Konnte Task nicht speichern! "+ e.getMessage());
 		}
 	}	
