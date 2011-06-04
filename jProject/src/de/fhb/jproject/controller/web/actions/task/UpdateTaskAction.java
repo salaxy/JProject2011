@@ -1,46 +1,98 @@
 package de.fhb.jproject.controller.web.actions.task;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.manager.MainControl;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action die angesprochen wird, wenn eine Task/Aufgabe geupdated wird
  * 
- * @author klay
+ * Hinweise: 
+ * es sollen nur die parameter die geändert werden mitgeben werden, andere komplett weglassen
+ * d.h. also kein leerstring mitgeben sondern den parameter gar nicht uebergebn
+ * so das z.b wenn der titel nicht geändert wird req.getParameter("titel")=null ergibt
+ * taskid und projectName sind aber pflichtparameter!!!
+ * 
+ * @micher ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
+ * also ueberprüfe ich nciht auf leerstring, weil das ja auch gewollt sein könnte,
+ * gib mir irgentwann mal rückmeldung ob das so umsetzen kannst, es wäre ein leichtes es später noch zu ändern
+ * TODO diese nachricht spaeter loeschen
+ * 
+ * !!!Parameter "done" MUSS entweder der String "true" oder "false" sein!!!
+ * !!!Parameter "date" MUSS die Form "yyyy-mm-dd" haben!!!
+ *  
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=UpdateTask&projectName=ProjectName&taskId=5&titel=DeineAufgabe&date=2011-06-10&done=true
+ * @author  Andy Klay <klay@fh-brandenburg.de> 
+ * 
  */
 public class UpdateTaskAction extends HttpRequestActionBase {
 
-//	private JProjectBO logic;
+	private MainControl mainController;
+	private static final Logger logger = Logger.getLogger(UpdateTaskAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
+	throws ServletException{	
 		
-		//Business-object holen
-//		logic=(JProjectBO) req.getSession().getAttribute("logic");
-//		
-//		//informationen holen
-//		int  nr=Integer.parseInt(req.getParameter("nr"));
-//		
-//		
-//		List<CDVO> cdList=logic.showCDs();
-//		
-//		req.setAttribute("aktcd", logic.getAktuelleCD());
-//		req.setAttribute("cdlist", cdList);
-//		
-//		try {
-//			forward(req, resp, "json.jsp");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {		
+			
+			//Debugprint
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			logger.debug("Parameter: "
+					+ "String projectName(" + req.getParameter("projectName") + "), "
+					+ "String taskId(" + req.getParameter("taskId") + ")"
+					+ "String titel(" + req.getParameter("titel") + ")"
+					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
+					+ "String date(" + req.getParameter("date") + ")"
+					+ "String done(" + req.getParameter("done") + ")"
+					);
+			
+			//Controller holen
+			mainController=(MainControl) req.getSession().getAttribute("mainController");
+		
+			//Controller in aktion
+			mainController.getTaskcontroller().updateTask( req.getParameter("projectName"),
+					req.getParameter("taskId"),
+					req.getParameter("titel"),
+					req.getParameter("aufgabenStellung"),
+					req.getParameter("date"),
+					req.getParameter("done")
+					);
+			
+			//forwarden zum JSP
+			forward(req, resp, "/UpdateTask.jsp");
+
+		}catch (ProjectException e) {
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			errorforward(req, resp, e.getMessage());
+			
+		}catch (IOException e) {
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+            
+		}catch(NullPointerException e){
+			
+			e.printStackTrace();
+			logger.error(e.getMessage());
+            errorforward(req, resp, e.getMessage());
+            
+		}
 		
 	}
 }
