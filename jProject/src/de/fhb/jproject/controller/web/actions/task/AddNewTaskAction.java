@@ -16,15 +16,13 @@ import de.fhb.jproject.manager.MainControl;
 
 /**
  * Action die angesprochen wird wenn eine Aufgabe einem Projekt hingefügt wird
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
  * 
- * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * STATUS:  FREIGEGEBEN 
- * 
- * JProjectServlet?do=AddNewTask&projectName=ProjectName&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
+ * Hinweise:
+ * - Parameter "date" MUSS die Form "yyyy-mm-dd" haben
  *  
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=AddNewTask&projectName=ProjectName&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
+ * @author  Andy Klay <klay@fh-brandenburg.de> 
  */
 public class AddNewTaskAction extends HttpRequestActionBase {
 
