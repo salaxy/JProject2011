@@ -1,6 +1,11 @@
 Datenbank
 *********
-
+ -isAllowedAssignTask(), isAllowedDeAssignTask()
+ (aufgabe einem member zuordnen, abordnen)
+ - Darf der Admin das? Muss er das können
+ -nehme im moment stellvertretend dafür die rechte von delete und add Task!
+ - würde villt reichen?
+ - was ist mit dem admin an der stelle?
 
 
 
