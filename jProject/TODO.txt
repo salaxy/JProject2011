@@ -1,0 +1,4 @@
+
+
+- Konstanten bei Role controller rausnehmen und ...schauen nach listAllRoles...etc.
+- 
