@@ -116,7 +116,9 @@ public class CommentControl {
 		
 		
 		commentDocu.setComment(comment);
-		commentDocu.setDocument(document);
+		//TODO solte nicht benutzt werdern aber geht
+		commentDocu.setORM_Document(document);
+//		commentDocu.setDocument(document);
 //		commentDocu.setDocumentId(document.getId());
 //		commentDocu.setDocument(document);
 		
