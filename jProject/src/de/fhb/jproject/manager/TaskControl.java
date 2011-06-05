@@ -87,7 +87,7 @@ public class TaskControl {
 		task.setAufgabenstellung(aufgabenStellung);
 		task.setTitel(titel);
 		task.setDone((byte)0);
-		//Hinweis: dieser block hier drüber muss vor dem termin setten ausgeführt werden sonst
+		//Hinweis: dieser block hier drï¿½ber muss vor dem termin setten ausgefï¿½hrt werden sonst
 		// gibt es eine LazyIn....Ecxpetion bei... setProject 
 		
 		// Termin erzeugen und setzen
@@ -220,7 +220,7 @@ public class TaskControl {
 		}
 		
 		//loeschen
-		//Info: Termin wird nicht automatisch mit gelöscht
+		//Info: Termin wird nicht automatisch mit gelï¿½scht
 		try {	
 			PersistentSession session;		
 			//Session holen
@@ -269,8 +269,8 @@ public class TaskControl {
 		}	
 		
 		//RECHTE-ABFRAGE projekt
-		//Projektteilhaber oder Admin dürfen diese aktion ausführen 
-		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole())||aktUser.getGlobalRole().equals(GlobalRolesControl.ADMIN))){
+		//Projektteilhaber oder Admin dï¿½rfen diese aktion ausfï¿½hren 
+		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
 		}
 		
@@ -664,6 +664,6 @@ public class TaskControl {
 	}
 	
 	private boolean isAdmin(){
-		return aktUser.getGlobalRole().equals(GlobalRolesControl.ADMIN);
+		return aktUser.getGlobalRole().equals("Admin");
 	}
 }

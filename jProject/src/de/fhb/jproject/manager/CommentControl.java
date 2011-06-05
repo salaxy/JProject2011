@@ -439,6 +439,6 @@ public class CommentControl {
 	}
 	
 	private boolean isAdmin(){
-		return aktUser.getGlobalRole().equals(GlobalRolesControl.ADMIN);
+		return aktUser.getGlobalRole().equals("Admin");
 	}
 }

@@ -15,9 +15,6 @@ import org.orm.PersistentException;
  */
 public class ProjectRolesControl {
 	
-	//existierende Rollen
-	public static final String MEMBER="Member";
-	public static final String LEADER="Leader";
 	
 	private static final Logger logger = Logger.getLogger(ProjectRolesControl.class);
 	

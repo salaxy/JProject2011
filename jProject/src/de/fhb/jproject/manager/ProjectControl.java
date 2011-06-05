@@ -3,6 +3,7 @@ package de.fhb.jproject.manager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -28,6 +29,7 @@ public class ProjectControl {
 	User aktUser;
 	ProjectRolesControl projectRolesController;
 	GlobalRolesControl globalRolesController;
+	private final String LEADER = "Leader";
 	
 	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
 	
@@ -54,9 +56,10 @@ public class ProjectControl {
 		//debuglogging
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
-		
-		if(!(rolle.equals(ProjectRolesControl.MEMBER)||rolle.equals(ProjectRolesControl.LEADER))){
-            throw new ProjectException("Keine zul�ssige Rolle!");
+		try {
+			DAFactory.getDAFactory().getProjectRolesDA().getProjectRolesByORMID(rolle);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Keine zulaessige Rolle angegeben!");
 		}
 		
         //abfrage ob user eingeloggt
@@ -166,7 +169,7 @@ public class ProjectControl {
 		//project erzeuger als member erzeugen und hinzufuegen
 		member=DAFactory.getDAFactory().getMemberDA().createMember();
 		member.setProject(project);		
-		member.setProjectRole(ProjectRolesControl.LEADER);
+		member.setProjectRole(LEADER);
 
 		try {
 			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
