@@ -89,13 +89,37 @@ public class CommentControl {
 
 		//EIGENTLICHE AKTIONEN
 		commentDocu=DAFactory.getDAFactory().getCommentDocumentDA().createCommentDocument(); 
-		commentDocu.setDocument(document);
+//		.setDocumentId(document.getId());
+//		commentDocu.setDocument();
+		
+		
+		
 		
 		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
-		comment.setCommentDocument(commentDocu);
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
 		
+		try {		
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+			//Member speichern
+			DAFactory.getDAFactory().getCommentDA().save(comment);
+		} catch (PersistentException e) {
+			e.printStackTrace();
+			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
+		}
+		
+		
+		
+		
+		commentDocu.setComment(comment);
+		commentDocu.setDocumentId(document.getId());
+//		commentDocu.setDocument(document);
+		
+//		comment.setCommentDocument(commentDocu);
 
 		
 //		//member erzeugen und parameter setzen
@@ -112,6 +136,19 @@ public class CommentControl {
 //		} catch (PersistentException e1) {
 //			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 //		}
+		
+//		try {		
+//			PersistentSession session;		
+//			//Session holen
+//			session = JProjectPersistentManager.instance().getSession();
+//			//und bereinigen
+//			session.clear();
+//			//Member speichern
+//			DAFactory.getDAFactory().getCommentDocumentDA().save(commentDocu);
+//		} catch (PersistentException e) {
+//			e.printStackTrace();
+//			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
+//		}
 //					
 		//Member speichern
 		try {		
@@ -121,10 +158,10 @@ public class CommentControl {
 			//und bereinigen
 			session.clear();
 			//Member speichern
-			DAFactory.getDAFactory().getCommentDA().save(comment);
+			DAFactory.getDAFactory().getCommentDocumentDA().save(commentDocu);
 		} catch (PersistentException e) {
 			e.printStackTrace();
-			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
+			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 	}
 			
