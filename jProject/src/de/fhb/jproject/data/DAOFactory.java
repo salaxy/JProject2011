@@ -7,6 +7,10 @@
  * Modifying its content may cause the program not work, or your work may lost.
  */
 
+/**
+ * Licensee: DuKe TeAm
+ * License Type: Purchased
+ */
 package de.fhb.jproject.data;
 
 import de.fhb.jproject.repository.dao.*;

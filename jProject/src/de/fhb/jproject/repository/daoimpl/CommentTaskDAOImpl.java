@@ -195,15 +195,15 @@ public class CommentTaskDAOImpl implements de.fhb.jproject.repository.dao.Commen
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentTask commentTask)throws PersistentException {
 		try {
+			de.fhb.jproject.data.Comment comment = commentTask.getComment();
 			if(commentTask.getComment() != null) {
 				commentTask.getComment().setCommentTask(null);
 			}
+			commentTask.setComment(comment);
 			
-			de.fhb.jproject.data.Task task = commentTask.getTask();
 			if(commentTask.getTask() != null) {
 				commentTask.getTask().commentTask.remove(commentTask);
 			}
-			commentTask.setORM_Task(task);
 			
 			return delete(commentTask);
 		}
@@ -215,15 +215,15 @@ public class CommentTaskDAOImpl implements de.fhb.jproject.repository.dao.Commen
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentTask commentTask, org.orm.PersistentSession session)throws PersistentException {
 		try {
+			de.fhb.jproject.data.Comment comment = commentTask.getComment();
 			if(commentTask.getComment() != null) {
 				commentTask.getComment().setCommentTask(null);
 			}
+			commentTask.setComment(comment);
 			
-			de.fhb.jproject.data.Task task = commentTask.getTask();
 			if(commentTask.getTask() != null) {
 				commentTask.getTask().commentTask.remove(commentTask);
 			}
-			commentTask.setORM_Task(task);
 			
 			try {
 				session.delete(commentTask);

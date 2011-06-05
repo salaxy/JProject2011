@@ -195,15 +195,15 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentSourcecode commentSourcecode)throws PersistentException {
 		try {
-			de.fhb.jproject.data.Sourcecode sourcecode = commentSourcecode.getSourcecode();
 			if(commentSourcecode.getSourcecode() != null) {
 				commentSourcecode.getSourcecode().commentSourcecode.remove(commentSourcecode);
 			}
-			commentSourcecode.setORM_Sourcecode(sourcecode);
 			
+			de.fhb.jproject.data.Comment comment = commentSourcecode.getComment();
 			if(commentSourcecode.getComment() != null) {
 				commentSourcecode.getComment().setCommentSourcecode(null);
 			}
+			commentSourcecode.setComment(comment);
 			
 			return delete(commentSourcecode);
 		}
@@ -215,15 +215,15 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentSourcecode commentSourcecode, org.orm.PersistentSession session)throws PersistentException {
 		try {
-			de.fhb.jproject.data.Sourcecode sourcecode = commentSourcecode.getSourcecode();
 			if(commentSourcecode.getSourcecode() != null) {
 				commentSourcecode.getSourcecode().commentSourcecode.remove(commentSourcecode);
 			}
-			commentSourcecode.setORM_Sourcecode(sourcecode);
 			
+			de.fhb.jproject.data.Comment comment = commentSourcecode.getComment();
 			if(commentSourcecode.getComment() != null) {
 				commentSourcecode.getComment().setCommentSourcecode(null);
 			}
+			commentSourcecode.setComment(comment);
 			
 			try {
 				session.delete(commentSourcecode);

@@ -1,27 +1,27 @@
 package de.fhb.jproject.controller.web.actions.project;
 
-import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
- * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
+ * @author klay
  */
 public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	private MainControl mainController;
@@ -33,8 +33,9 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		HttpSession session = req.getSession();
 		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) session.getAttribute("mainController");
 		
 		try {
 			
@@ -44,12 +45,11 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			
 			//Controller in aktion			
 			List<Project> list = mainController.getProjectContoller().showAllOwnProjects();
-			
 			for (Project aktProject : list) {
 				System.out.println("Project: "+aktProject.getName());
 			}
-			
-			req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
+			session.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
+			//req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			/*
 			JSONObject json = new JSONObject();
 			
@@ -61,12 +61,13 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 				}
 			}
 			resp.setContentType("application/json");
-			
+			*/
 			//forwarden zum JSP
-			forward(req, resp, "/showAllOwnProjects.jspf");
+			//RequestDispatcher reqDisp = req.getRequestDispatcher("WEB-INF/showAllOwnProjects.jspf");
+            //reqDisp.forward(req, resp);
+			//forward(req, resp, "WEB-INF/showAllOwnProjects.jspf");
 			
-			 * 
-			 */
+			
 		}catch (ProjectException e) {
 			
 			e.printStackTrace();

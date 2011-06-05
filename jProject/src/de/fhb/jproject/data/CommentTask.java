@@ -36,17 +36,17 @@ public class CommentTask {
 	
 	private de.fhb.jproject.data.Comment comment;
 	
+	private int commentId;
+	
+	public void setCommentId(int value) {
+		this.commentId = value;
+	}
+	
+	public int getCommentId() {
+		return commentId;
+	}
+	
 	private de.fhb.jproject.data.Task task;
-	
-	private int taskId;
-	
-	public void setTaskId(int value) {
-		this.taskId = value;
-	}
-	
-	public int getTaskId() {
-		return taskId;
-	}
 	
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
@@ -63,6 +63,10 @@ public class CommentTask {
 	
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
+	}
+	
+	public de.fhb.jproject.data.Comment getORMID() {
+		return getComment();
 	}
 	
 	public void setTask(de.fhb.jproject.data.Task value) {
@@ -89,12 +93,8 @@ public class CommentTask {
 		return task;
 	}
 	
-	public de.fhb.jproject.data.Task getORMID() {
-		return getTask();
-	}
-	
 	public String toString() {
-		return String.valueOf(((getTask() == null) ? "" : String.valueOf(getTask().getORMID())));
+		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}
 	
 }

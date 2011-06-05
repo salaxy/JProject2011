@@ -71,7 +71,6 @@
 	<!--LEFT -->
 							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
 							</img>Projekte</h2>
-							<c:import url="JProjectServlet?do=ShowAllOwnProjects"></c:import>
 							<div id="projects">
 								<%@include file="WEB-INF/showAllOwnProjects.jspf" %>
 							</div>

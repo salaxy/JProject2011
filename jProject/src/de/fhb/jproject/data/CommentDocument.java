@@ -36,17 +36,17 @@ public class CommentDocument {
 	
 	private de.fhb.jproject.data.Comment comment;
 	
+	private int commentId;
+	
+	public void setCommentId(int value) {
+		this.commentId = value;
+	}
+	
+	public int getCommentId() {
+		return commentId;
+	}
+	
 	private de.fhb.jproject.data.Document document;
-	
-	private int documentId;
-	
-	public void setDocumentId(int value) {
-		this.documentId = value;
-	}
-	
-	public int getDocumentId() {
-		return documentId;
-	}
 	
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
@@ -63,6 +63,10 @@ public class CommentDocument {
 	
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
+	}
+	
+	public de.fhb.jproject.data.Comment getORMID() {
+		return getComment();
 	}
 	
 	public void setDocument(de.fhb.jproject.data.Document value) {
@@ -89,12 +93,8 @@ public class CommentDocument {
 		return document;
 	}
 	
-	public de.fhb.jproject.data.Document getORMID() {
-		return getDocument();
-	}
-	
 	public String toString() {
-		return String.valueOf(((getDocument() == null) ? "" : String.valueOf(getDocument().getORMID())));
+		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}
 	
 }

@@ -36,17 +36,17 @@ public class CommentSourcecode {
 	
 	private de.fhb.jproject.data.Sourcecode sourcecode;
 	
-	private int sourcecodeId;
-	
-	public void setSourcecodeId(int value) {
-		this.sourcecodeId = value;
-	}
-	
-	public int getSourcecodeId() {
-		return sourcecodeId;
-	}
-	
 	private de.fhb.jproject.data.Comment comment;
+	
+	private int commentId;
+	
+	public void setCommentId(int value) {
+		this.commentId = value;
+	}
+	
+	public int getCommentId() {
+		return commentId;
+	}
 	
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
@@ -63,6 +63,10 @@ public class CommentSourcecode {
 	
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
+	}
+	
+	public de.fhb.jproject.data.Comment getORMID() {
+		return getComment();
 	}
 	
 	public void setSourcecode(de.fhb.jproject.data.Sourcecode value) {
@@ -89,12 +93,8 @@ public class CommentSourcecode {
 		return sourcecode;
 	}
 	
-	public de.fhb.jproject.data.Sourcecode getORMID() {
-		return getSourcecode();
-	}
-	
 	public String toString() {
-		return String.valueOf(((getSourcecode() == null) ? "" : String.valueOf(getSourcecode().getORMID())));
+		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}
 	
 }
