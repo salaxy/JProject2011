@@ -1,1 +1,2 @@
-- isAllowedDeleteProjectAction bitte "auch" in der ProjectRole tabelle also in beiden
+TODO:
+-abfrage ob Rolle vorhanden
