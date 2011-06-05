@@ -56,7 +56,7 @@ public class ProjectControl {
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		
 		if(!(rolle.equals(ProjectRolesControl.MEMBER)||rolle.equals(ProjectRolesControl.LEADER))){
-            throw new ProjectException("Keine zulässige Rolle!");
+            throw new ProjectException("Keine zulï¿½ssige Rolle!");
 		}
 		
         //abfrage ob user eingeloggt
@@ -233,7 +233,7 @@ public class ProjectControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//loeschen
-		//Info: Member werden automatisch gelöscht durch das cascade in der DB
+		//Info: Member werden automatisch gelï¿½scht durch das cascade in der DB
 		try {	
 			DAFactory.getDAFactory().getProjectDA().delete(project);
 		} catch (PersistentException e) {

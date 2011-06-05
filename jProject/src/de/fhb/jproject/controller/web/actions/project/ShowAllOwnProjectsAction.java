@@ -48,7 +48,6 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			for (Project aktProject : list) {
 				System.out.println("Project: "+aktProject.getName());
 			}
-			session.setAttribute("showAllOwnProjects", null);
 			session.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			//req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			/*
