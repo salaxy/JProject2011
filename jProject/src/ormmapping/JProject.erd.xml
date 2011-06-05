@@ -448,8 +448,20 @@
     </Column>
   </Entity>
   <Entity name="CommentProject">
-    <Column name="Project">
+    <Column name="CommentID">
       <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>Comment.ID</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="Project">
+      <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Project.Name</ReferencedColumn>
       <Type>27</Type>
@@ -460,8 +472,10 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+  </Entity>
+  <Entity name="CommentSourcecode">
     <Column name="CommentID">
-      <PrimaryKey>false</PrimaryKey>
+      <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Comment.ID</ReferencedColumn>
       <Type>9</Type>
@@ -472,10 +486,8 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-  </Entity>
-  <Entity name="CommentSourcecode">
     <Column name="SourcecodeID">
-      <PrimaryKey>true</PrimaryKey>
+      <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Sourcecode.ID</ReferencedColumn>
       <Type>9</Type>
@@ -486,8 +498,10 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+  </Entity>
+  <Entity name="CommentDocument">
     <Column name="CommentID">
-      <PrimaryKey>false</PrimaryKey>
+      <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Comment.ID</ReferencedColumn>
       <Type>9</Type>
@@ -498,10 +512,8 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-  </Entity>
-  <Entity name="CommentDocument">
     <Column name="DocumentID">
-      <PrimaryKey>true</PrimaryKey>
+      <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>Document.ID</ReferencedColumn>
       <Type>9</Type>
@@ -512,24 +524,12 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="CommentID">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Comment.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>10</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
   </Entity>
   <Entity name="CommentTask">
-    <Column name="TaskID">
+    <Column name="CommentID">
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Task.ID</ReferencedColumn>
+      <ReferencedColumn>Comment.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -538,10 +538,10 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="CommentID">
+    <Column name="TaskID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>Comment.ID</ReferencedColumn>
+      <ReferencedColumn>Task.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
