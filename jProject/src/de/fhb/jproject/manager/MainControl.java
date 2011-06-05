@@ -32,7 +32,7 @@ public class MainControl{
 		sourceContoller=new SourceControl(userController.getAktUser(),projectRolesController);
 		taskcontroller=new TaskControl(userController.getAktUser(),projectRolesController);
 		documentController=new DocumentControl(userController.getAktUser(),projectRolesController);
-		commentController=new CommentControl(userController.getAktUser(),projectRolesController);
+		commentController=new CommentControl(userController.getAktUser(),projectRolesController, globalRolesController);
 		
 	}
 

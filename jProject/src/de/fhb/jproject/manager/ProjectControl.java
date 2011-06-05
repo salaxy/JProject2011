@@ -497,5 +497,7 @@ public class ProjectControl {
 	private boolean isUserLoggedIn() {		
 		return (aktUser.getLoginName()!=null);
 	}
+	
+	
 }
 

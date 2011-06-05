@@ -198,7 +198,7 @@ public class TaskControl {
 		}catch (NullPointerException e) {
 			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
 		}catch(IllegalArgumentException e){
-			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+			throw new ProjectException("TaskId fehlerhaft! "+ e.getMessage());
 		}
 		
 		//termin loeschen
@@ -535,6 +535,7 @@ public class TaskControl {
 		//debuglogging
 		logger.info("updateTask()");
 		logger.debug("String projectName("+projectName+")"
+				//TODO
 //				+"String titel("+titel+")"
 //				+"String date("+date+")"
 				);	
