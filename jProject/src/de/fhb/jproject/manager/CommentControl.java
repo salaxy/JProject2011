@@ -116,7 +116,8 @@ public class CommentControl {
 		
 		
 		commentDocu.setComment(comment);
-		commentDocu.setDocumentId(document.getId());
+		commentDocu.setDocument(document);
+//		commentDocu.setDocumentId(document.getId());
 //		commentDocu.setDocument(document);
 		
 //		comment.setCommentDocument(commentDocu);
