@@ -15,13 +15,11 @@ import de.fhb.jproject.manager.MainControl;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action die angesprochen wird wenn ein Dokument kommentiert wird
  * 
- * @author klay
- * 
- * http://localhost:8080/jProject/JProjectServlet?do=CommentDocu&documentId=1&inhalt=GutesDokument
- * 
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=CommentDocu&documentId=1&inhalt=GutesDokument
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class CommentDocuAction extends HttpRequestActionBase {
 
@@ -39,8 +37,8 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("documentId") + "), "
-					+ "String titel(" + req.getParameter("inhalt") + ")"
+					+ "String documentId(" + req.getParameter("documentId") + "), "
+					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			
 			//Controller holen
