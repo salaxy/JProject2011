@@ -60,11 +60,43 @@ import de.fhb.jproject.controller.web.actions.user.ShowUserInfoAction;
 import de.fhb.jproject.controller.web.actions.user.ShowUserSettingsAction;
 import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.RequestDispatcher;
 
 @WebServlet("/JProjectServlet")
 public class JProjectServlet extends HttpServletControllerBase {
 
 	private MainControl mainController;
+	
+	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException{
+	
+		
+		//Session holen
+		HttpSession session = req.getSession();
+
+		//Player fuer die Session erzeugen falls noch nicht erzeugt
+		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
+			mainController = new MainControl();
+			
+			//HttpSession ist nicht Threadsave deswegn Synchronized
+			synchronized(session){
+				session.setAttribute("loggedIn", false);
+				session.setAttribute("aktUser", null);
+				session.setAttribute("mainController", mainController);
+			}
+		}
+		super.doGet(req, resp);
+		
+		System.out.println("LoggedIn?: "+(Boolean)session.getAttribute("loggedIn"));
+		if ((Boolean)session.getAttribute("loggedIn")) {
+			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
+			showAllOwnProjectsAction.perform(req, resp);
+			//Show all other loggedIn-Stuff...
+		}
+		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+        reqDisp.forward(req, resp);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -254,25 +286,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		
-		//Session holen
-		HttpSession session = req.getSession();
-
-		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
-			mainController = new MainControl();
-			synchronized(session){
-				session.setAttribute("mainController", null);
-				session.setAttribute("loggedIn", null);
-				session.setAttribute("aktUser", null);
-			}
-			//HttpSession ist nicht Threadsave deswegn Synchronized
-			synchronized(session){
-				session.setAttribute("mainController", mainController);
-			}
-		}
-		
-		super.doGet(req, resp);
+		processRequest(req,resp);
 	}
 
 	/*
@@ -284,20 +298,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-
-		//Session holen
-		HttpSession session = req.getSession();
-		
-		
-		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
-			mainController = new MainControl();
-			//HttpSession ist nicht Threadsave deswegn Synchronized
-			synchronized(session){
-				session.setAttribute("mainController", mainController);
-			}
-		}
-
-		super.doPost(req, resp);
+		processRequest(req,resp);
 	}
 }

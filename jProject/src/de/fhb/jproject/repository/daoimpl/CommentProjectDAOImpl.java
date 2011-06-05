@@ -195,15 +195,15 @@ public class CommentProjectDAOImpl implements de.fhb.jproject.repository.dao.Com
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentProject commentProject)throws PersistentException {
 		try {
+			de.fhb.jproject.data.Comment comment = commentProject.getComment();
 			if(commentProject.getComment() != null) {
 				commentProject.getComment().setCommentProject(null);
 			}
+			commentProject.setComment(comment);
 			
-			de.fhb.jproject.data.Project project = commentProject.getProject();
 			if(commentProject.getProject() != null) {
 				commentProject.getProject().commentProject.remove(commentProject);
 			}
-			commentProject.setORM_Project(project);
 			
 			return delete(commentProject);
 		}
@@ -215,15 +215,15 @@ public class CommentProjectDAOImpl implements de.fhb.jproject.repository.dao.Com
 	
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentProject commentProject, org.orm.PersistentSession session)throws PersistentException {
 		try {
+			de.fhb.jproject.data.Comment comment = commentProject.getComment();
 			if(commentProject.getComment() != null) {
 				commentProject.getComment().setCommentProject(null);
 			}
+			commentProject.setComment(comment);
 			
-			de.fhb.jproject.data.Project project = commentProject.getProject();
 			if(commentProject.getProject() != null) {
 				commentProject.getProject().commentProject.remove(commentProject);
 			}
-			commentProject.setORM_Project(project);
 			
 			try {
 				session.delete(commentProject);

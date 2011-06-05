@@ -251,57 +251,59 @@ public class UserControl {
         logger.info("login(String loginName, String password)");
         logger.debug("String "+"loginName("+loginName+"), String "+"password("+password+")");
 		
-		User user = null;
+		//abfrage ob user eingeloggt
+		if(!loggedIn){
+            //throw new ProjectException("Sie sind bereits eingeloggt");
+			User user = null;
+
+			//eingabefehler abfangen
+			if(loginName==null||password==null||password.equals("")){
+				throw new ProjectException("Kein Passwort oder Loginname eingegeben!");
+			}
+
+			
         
-		//eingabefehler abfangen
-		if(loginName==null||password==null||password.equals("")){
-			throw new ProjectException("Kein Passwort oder Loginname eingegeben!");
-		}
-		
-        //abfrage ob user eingeloggt
-        if(loggedIn){
-            throw new ProjectException("Sie sind bereits eingeloggt");
-        }
-		try {
-			//user suchen
-			user = DAFactory.getDAFactory().getUserDA().loadUserByORMID(loginName);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
-		
-		//passwort ueberpruefen
-		if(user.getPassword().equals(password)){
-                loggedIn = true;
-                aktUser.setLoginName(user.getLoginName());
-                aktUser.setNachname(user.getNachname());
-                aktUser.setVorname(user.getVorname());
-                aktUser.setPassword(user.getPassword());
-                aktUser.setSprache(user.getSprache());
-				aktUser.setGlobalRole(user.getGlobalRole());
-				aktUser.comment.clear();
-				for (Comment aktComment : user.comment.toArray()) {
-					aktUser.comment.add(aktComment);
-				}
-				aktUser.iCQ.clear();
-				for (ICQ aktICQ : user.iCQ.toArray()) {
-					aktUser.iCQ.add(aktICQ);
-				}
-				aktUser.member.clear();
-				for (Member aktMember : user.member.toArray()) {
-					aktUser.member.add(aktMember);
-				}
-				aktUser.skype.clear();
-				for (Skype aktSkype : user.skype.toArray()) {
-					aktUser.skype.add(aktSkype);
-				}
-				aktUser.telefon.clear();
-				for (Telefon aktTelefon : user.telefon.toArray()) {
-					aktUser.telefon.add(aktTelefon);
-				}
-		}else{
-			throw new ProjectException("Falscher Loginname und/oder falsches Passwort!");
-		}
         
+			try {
+				//user suchen
+				user = DAFactory.getDAFactory().getUserDA().loadUserByORMID(loginName);
+			} catch (PersistentException ex) {
+				throw new ProjectException("Kann User nicht finden! "+ ex);
+			}
+
+			//passwort ueberpruefen
+			if(user.getPassword().equals(password)){
+					loggedIn = true;
+					aktUser.setLoginName(user.getLoginName());
+					aktUser.setNachname(user.getNachname());
+					aktUser.setVorname(user.getVorname());
+					aktUser.setPassword(user.getPassword());
+					aktUser.setSprache(user.getSprache());
+					aktUser.setGlobalRole(user.getGlobalRole());
+					aktUser.comment.clear();
+					for (Comment aktComment : user.comment.toArray()) {
+						aktUser.comment.add(aktComment);
+					}
+					aktUser.iCQ.clear();
+					for (ICQ aktICQ : user.iCQ.toArray()) {
+						aktUser.iCQ.add(aktICQ);
+					}
+					aktUser.member.clear();
+					for (Member aktMember : user.member.toArray()) {
+						aktUser.member.add(aktMember);
+					}
+					aktUser.skype.clear();
+					for (Skype aktSkype : user.skype.toArray()) {
+						aktUser.skype.add(aktSkype);
+					}
+					aktUser.telefon.clear();
+					for (Telefon aktTelefon : user.telefon.toArray()) {
+						aktUser.telefon.add(aktTelefon);
+					}
+			}else{
+				throw new ProjectException("Falscher Loginname und/oder falsches Passwort!");
+			}
+		}
 	}
 	
 	

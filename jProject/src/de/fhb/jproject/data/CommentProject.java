@@ -36,17 +36,17 @@ public class CommentProject {
 	
 	private de.fhb.jproject.data.Comment comment;
 	
+	private int commentId;
+	
+	public void setCommentId(int value) {
+		this.commentId = value;
+	}
+	
+	public int getCommentId() {
+		return commentId;
+	}
+	
 	private de.fhb.jproject.data.Project project;
-	
-	private String projectId;
-	
-	public void setProjectId(String value) {
-		this.projectId = value;
-	}
-	
-	public String getProjectId() {
-		return projectId;
-	}
 	
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
@@ -63,6 +63,10 @@ public class CommentProject {
 	
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
+	}
+	
+	public de.fhb.jproject.data.Comment getORMID() {
+		return getComment();
 	}
 	
 	public void setProject(de.fhb.jproject.data.Project value) {
@@ -89,12 +93,8 @@ public class CommentProject {
 		return project;
 	}
 	
-	public de.fhb.jproject.data.Project getORMID() {
-		return getProject();
-	}
-	
 	public String toString() {
-		return String.valueOf(((getProject() == null) ? "" : String.valueOf(getProject().getORMID())));
+		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}
 	
 }
