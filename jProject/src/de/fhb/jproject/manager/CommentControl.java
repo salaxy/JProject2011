@@ -87,17 +87,16 @@ public class CommentControl {
 			}	
 		}		
 
+		
 		//EIGENTLICHE AKTIONEN
-		commentDocu=DAFactory.getDAFactory().getCommentDocumentDA().createCommentDocument(); 
-//		.setDocumentId(document.getId());
-//		commentDocu.setDocument();
 		
-		
-		
+		commentDocu=DAFactory.getDAFactory().getCommentDocumentDA().createCommentDocument();
+		commentDocu.setDocument(document);
 		
 		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
+		comment.setCommentDocument(commentDocu);
 		
 		try {		
 			PersistentSession session;		
@@ -112,48 +111,9 @@ public class CommentControl {
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
-		
-		
-		
 		commentDocu.setComment(comment);
-		//TODO solte nicht benutzt werdern aber geht
-		commentDocu.setORM_Document(document);
-//		commentDocu.setDocument(document);
-//		commentDocu.setDocumentId(document.getId());
-//		commentDocu.setDocument(document);
 		
-//		comment.setCommentDocument(commentDocu);
-
-		
-//		//member erzeugen und parameter setzen
-//		member=DAFactory.getDAFactory().getMemberDA().createMember();
-//		//project setzen
-//		member.setProject(project);
-//		//rolle setzen
-//		member.setProjectRole(rolle);
-//		
-//		//user holen und setzen
-//		try {
-//			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
-//			member.setUser(tempUser);
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
-//		}
-		
-//		try {		
-//			PersistentSession session;		
-//			//Session holen
-//			session = JProjectPersistentManager.instance().getSession();
-//			//und bereinigen
-//			session.clear();
-//			//Member speichern
-//			DAFactory.getDAFactory().getCommentDocumentDA().save(commentDocu);
-//		} catch (PersistentException e) {
-//			e.printStackTrace();
-//			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
-//		}
-//					
-		//Member speichern
+		//CommentDocument speichern
 		try {		
 			PersistentSession session;		
 			//Session holen
@@ -174,14 +134,14 @@ public class CommentControl {
 	
 	public void deleteComment(){
 		
-		//wer kann ein aufgabe löschen
+		//wer kann ein aufgabe lï¿½schen
 		//owner/ersteller, admin, projekLEADER
 	}
 	
 	public void commentProject(){}
 	
 	public void updateComment(){
-		//wer kann ein comment löschen
+		//wer kann ein comment lï¿½schen
 		//owner/ersteller, admin, projekLEADER
 		
 	}
