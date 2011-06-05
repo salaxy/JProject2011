@@ -68,21 +68,21 @@ CREATE TABLE `Termin` (
   PRIMARY KEY (`ID`), 
   UNIQUE INDEX (`ID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `CommentProject` (
+  `CommentID` int(10) NOT NULL, 
   `Project`   varchar(255) NOT NULL, 
-  `CommentID` int(10) NOT NULL, 
-  PRIMARY KEY (`Project`)) ENGINE=InnoDB CHARACTER SET UTF8;
+  PRIMARY KEY (`CommentID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `CommentSourcecode` (
-  `SourcecodeID` int(10) NOT NULL, 
   `CommentID`    int(10) NOT NULL, 
-  PRIMARY KEY (`SourcecodeID`)) ENGINE=InnoDB CHARACTER SET UTF8;
+  `SourcecodeID` int(10) NOT NULL, 
+  PRIMARY KEY (`CommentID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `CommentDocument` (
-  `DocumentID` int(10) NOT NULL, 
   `CommentID`  int(10) NOT NULL, 
-  PRIMARY KEY (`DocumentID`)) ENGINE=InnoDB CHARACTER SET UTF8;
+  `DocumentID` int(10) NOT NULL, 
+  PRIMARY KEY (`CommentID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `CommentTask` (
-  `TaskID`    int(10) NOT NULL, 
   `CommentID` int(10) NOT NULL, 
-  PRIMARY KEY (`TaskID`)) ENGINE=InnoDB CHARACTER SET UTF8;
+  `TaskID`    int(10) NOT NULL, 
+  PRIMARY KEY (`CommentID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `ProjectRoles` (
   `Role`                           varchar(255) NOT NULL, 
   `CommentDocuAction`              tinyint(1) DEFAULT 0 NOT NULL, 

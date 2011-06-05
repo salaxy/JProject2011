@@ -6,13 +6,13 @@ License Type: Purchased
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="de.fhb.jproject.data.CommentTask" table="`CommentTask`" lazy="false">
-		<id name="taskId" column="`TaskID`" type="integer">
+		<id name="commentId" column="`CommentID`" type="integer">
 			<generator class="foreign">
-				<param name="property">task</param>
+				<param name="property">comment</param>
 			</generator>
 		</id>
-		<one-to-one name="task" class="de.fhb.jproject.data.Task" cascade="all" constrained="true"/>
-		<many-to-one name="comment" column="`CommentID`" class="de.fhb.jproject.data.Comment" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy" access="field">
+		<one-to-one name="comment" class="de.fhb.jproject.data.Comment" cascade="all" constrained="true"/>
+		<many-to-one name="task" cascade="lock" column="`TaskID`" class="de.fhb.jproject.data.Task" not-null="true" lazy="no-proxy" access="field">
 		</many-to-one>
 	</class>
 </hibernate-mapping>
