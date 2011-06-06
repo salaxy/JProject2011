@@ -8,8 +8,8 @@ import org.orm.PersistentSession;
 
 public class DocumentControl {
 
-	User aktUser;
-	ProjectRolesControl projectRolesController;
+	private User aktUser;
+	private ProjectRolesControl projectRolesController;
 	
 	public DocumentControl(User aktUser, ProjectRolesControl projectRolesController){
 		
