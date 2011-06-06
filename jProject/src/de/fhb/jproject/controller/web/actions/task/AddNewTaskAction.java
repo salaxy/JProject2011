@@ -15,7 +15,7 @@ import de.fhb.jproject.manager.MainControl;
 
 
 /**
- * Action die angesprochen wird wenn eine Aufgabe einem Projekt hingefügt wird
+ * Action die angesprochen wird wenn eine Aufgabe einem Projekt hingefuegt wird
  * 
  * Hinweise:
  * - Parameter "date" MUSS die Form "yyyy-mm-dd" haben

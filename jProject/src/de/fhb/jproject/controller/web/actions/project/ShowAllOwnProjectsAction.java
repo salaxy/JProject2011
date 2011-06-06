@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
 import java.io.IOException;
@@ -43,12 +44,17 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			
-			//Controller in aktion			
-			List<Project> list = mainController.getProjectContoller().showAllOwnProjects();
+			//Controller in aktion
+			/*
+			List<Project> list = ;
 			for (Project aktProject : list) {
 				System.out.println("Project: "+aktProject.getName());
 			}
-			session.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
+			 * 
+			 */
+			//in den request packen reciht aus ;D
+			session.setAttribute("showAllOwnProjects", 
+								 mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			//req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
 			/*
 			JSONObject json = new JSONObject();

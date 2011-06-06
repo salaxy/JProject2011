@@ -402,14 +402,17 @@ public class ProjectControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Project> showAllOwnProjects()
+	public List<Project> showAllOwnProjects(User aktUser)
 	throws ProjectException{
 		//debuglogging
 		logger.info("showAllOwnProjects()");
 		List<Project> list=new ArrayList<Project>();
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+			throw new ProjectException("Sie sind nicht eingeloggt!");
+		}
+		//logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
