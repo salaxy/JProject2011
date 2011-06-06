@@ -63,9 +63,7 @@ public class ProjectControl {
 		}
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -137,9 +135,7 @@ public class ProjectControl {
 		logger.debug("String name("+name+")"+"String status("+status+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
@@ -208,9 +204,7 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		
 		//projekt holen
@@ -263,9 +257,7 @@ public class ProjectControl {
 		logger.debug("String name("+userLoginName+")"+"String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -333,9 +325,7 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
@@ -362,9 +352,7 @@ public class ProjectControl {
 		logger.debug("String teilName("+teilName+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
@@ -398,9 +386,7 @@ public class ProjectControl {
 		logger.info("showAllProjects()");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
@@ -430,9 +416,7 @@ public class ProjectControl {
 		List<Project> list=new ArrayList<Project>();
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
@@ -457,10 +441,8 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
+		logged();
 		
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		//projekt holen
 		try {
 //			JProjectPersistentManager.instance().getSession().clear();
@@ -497,8 +479,10 @@ public class ProjectControl {
 	}
 	
 	
-	private boolean isUserLoggedIn() {		
-		return (aktUser.getLoginName()!=null);
+	private void logged() throws ProjectException{
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 	}
 	
 	

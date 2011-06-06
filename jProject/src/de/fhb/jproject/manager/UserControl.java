@@ -15,6 +15,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Skype;
 import de.fhb.jproject.data.Telefon;
 import de.fhb.jproject.data.User;
+import de.fhb.jproject.repository.da.UserDA;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 import org.orm.PersistentTransaction;
@@ -29,37 +30,44 @@ public class UserControl {
 	
 	private static final Logger logger = Logger.getLogger(UserControl.class);
 	private GlobalRolesControl globalRolesController;
-	private boolean loggedIn = false;
     private User aktUser = null;
-    private boolean dummy=false;
+	
+	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
     
     public UserControl(GlobalRolesControl globalRolesController){		
     	//debuglogging
 		logger.info("new UserControl()");
 		
 		this.globalRolesController = globalRolesController;
-    	aktUser=DAFactory.getDAFactory().getUserDA().createUser();
+		
+		//WAS IST DAS?!?!?!?
+    	//aktUser=userDA.createUser();
     }
 
 	public void deleteUser(String loginName)
 	throws ProjectException{
+		User user = null;
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
         logger.debug("String loginName("+loginName+")");
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
-		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole())){
+		try {
+			user = userDA.loadUserByORMID(loginName);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht laden! "+ ex);
+		}
+		
+		//abfrage ob user Rechte hat bzw Eigner ist
+		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || aktUser == user){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
 			//loeschen des users
-			DAFactory.getDAFactory().getUserDA().delete(loginName);
+			userDA.delete(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht loeschen! "+ ex);
 		}
@@ -82,9 +90,7 @@ public class UserControl {
 		
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole())){
@@ -92,7 +98,7 @@ public class UserControl {
 		}
 		try {
 			//holen der daten
-			user= DAFactory.getDAFactory().getUserDA().loadUserByORMID(aktUser.getLoginName());
+			user= userDA.loadUserByORMID(aktUser.getLoginName());
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
@@ -118,9 +124,7 @@ public class UserControl {
 		
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole())){
@@ -128,7 +132,7 @@ public class UserControl {
 		}
 		try {
 			//holen der daten
-			user= DAFactory.getDAFactory().getUserDA().loadUserByORMID(loginName);
+			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
@@ -152,9 +156,8 @@ public class UserControl {
 		logger.debug("String loginName("+loginName+")");
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-			throw new ProjectException("Sie sind nicht eingeloggt");
-		}
+		logged();
+		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedSearchUserAction(aktUser.getGlobalRole())){
 			// TODO Rechte abfragen oder sowas
@@ -162,7 +165,7 @@ public class UserControl {
 		}
 		try {
 			//holen der daten
-			user= DAFactory.getDAFactory().getUserDA().loadUserByORMID(loginName);
+			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
@@ -184,9 +187,7 @@ public class UserControl {
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei+", String "+altesPasswort+")");
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
@@ -223,9 +224,7 @@ public class UserControl {
 		logger.info("showAllUser()");
 		
         //abfrage ob user eingeloggt
-		if(!loggedIn){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
@@ -233,7 +232,7 @@ public class UserControl {
 		}
 		try {
 			//holen der userliste
-			return DAFactory.getDAFactory().getUserDA().listAllUsers();
+			return userDA.listAllUsers();
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann keinen User finden! "+ ex);
 		}
@@ -241,7 +240,7 @@ public class UserControl {
 	
 	
 	
-	public void  login(String loginName, String password)
+	public void login(String loginName, String password)
 	throws ProjectException{
 		
 		//debuglogging
@@ -249,7 +248,7 @@ public class UserControl {
         logger.debug("String "+"loginName("+loginName+"), String "+"password("+password+")");
 		
 		//abfrage ob user eingeloggt
-		if(!loggedIn){
+		if(aktUser == null){
             //throw new ProjectException("Sie sind bereits eingeloggt");
 			User user = null;
 
@@ -258,19 +257,15 @@ public class UserControl {
 				throw new ProjectException("Kein Passwort oder Loginname eingegeben!");
 			}
 
-			
-        
-        
 			try {
 				//user suchen
-				user = DAFactory.getDAFactory().getUserDA().loadUserByORMID(loginName);
+				user = userDA.loadUserByORMID(loginName);
 			} catch (PersistentException ex) {
 				throw new ProjectException("Kann User nicht finden! "+ ex);
 			}
 
 			//passwort ueberpruefen
 			if(user.getPassword().equals(password)){
-					loggedIn = true;
 					aktUser.setLoginName(user.getLoginName());
 					aktUser.setNachname(user.getNachname());
 					aktUser.setVorname(user.getVorname());
@@ -304,20 +299,18 @@ public class UserControl {
 	}
 	
 	
-	public void  logout(){
+	public void logout(){
 		
 		//debuglogging
 		logger.info("logout()");
 		
         //abfrage ob user eingeloggt
-        if(loggedIn){
-        	//ausloggen
-            loggedIn = false;
+        if(aktUser != null){
 			aktUser = null;
         }
     }
 	
-	public void  register()throws ProjectException{
+	public void register()throws ProjectException{
 		/*
 		PersistentSession session;
 		DAFactory fa = DAFactory.getDAFactory();			
@@ -381,11 +374,16 @@ public class UserControl {
 					tempUser.telefon.add(aktTelefon);
 				}
 		
-		return aktUser;
+		return tempUser;
 		 * 
 		 */
 		return aktUser;
     }
+	private void logged() throws ProjectException{
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+	}
     
 	
 }
