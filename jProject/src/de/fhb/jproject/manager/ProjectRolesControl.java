@@ -328,4 +328,24 @@ public class ProjectRolesControl {
 		}
 	}
 	
+	public boolean isAllowedAssignTaskAction(String role) throws ProjectException{
+		logger.info("isAllowedAssignTaskAction(String role)");
+		logger.debug("String role("+role+")");
+		try {
+			return DAFactory.getDAFactory().getProjectRolesDA().loadProjectRolesByORMID(role).getAssignTaskAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
+		}
+	}
+	
+	public boolean isAllowedDeAssignTaskAction(String role) throws ProjectException{
+		logger.info("isAllowedDeAssignTaskAction(String role)");
+		logger.debug("String role("+role+")");
+		try {
+			return DAFactory.getDAFactory().getProjectRolesDA().loadProjectRolesByORMID(role).getDeAssignTaskAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
+		}
+	}
+	
 }
