@@ -56,9 +56,7 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//document holen (und implizit damit auch das Project)
 		try {
@@ -153,9 +151,7 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
@@ -247,9 +243,7 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//Task holen (und implizit damit auch das Project)
 		try {
@@ -344,9 +338,7 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//Project holen
 		try {
@@ -434,7 +426,9 @@ public class CommentControl {
 	public void showAllComments41Project(){}
 	
 	
-	private boolean isUserLoggedIn() {		
-		return (aktUser.getLoginName()!=null);
+	private void logged() throws ProjectException{
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 	}
 }

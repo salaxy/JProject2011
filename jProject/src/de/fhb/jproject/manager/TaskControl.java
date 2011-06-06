@@ -53,9 +53,7 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -159,9 +157,7 @@ public class TaskControl {
 		logger.debug("String taskId("+taskId+")");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -250,9 +246,7 @@ public class TaskControl {
 		logger.info("showAllTasks()");
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -299,9 +293,7 @@ public class TaskControl {
 		//wenn projectname null ist dann zeige alle aufgaben???
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -359,9 +351,7 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -455,9 +445,7 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -541,9 +529,7 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		if(!isUserLoggedIn()){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		logged();
 		
 		//projekt holen
 		try {
@@ -659,7 +645,9 @@ public class TaskControl {
 		}
 	}
 	
-	private boolean isUserLoggedIn() {			
-		return (aktUser!=null);
+	private void logged() throws ProjectException{
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 	}
 }
