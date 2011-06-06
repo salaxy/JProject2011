@@ -49,7 +49,7 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentDocu((User)session.getAttribute("aktUser"), req.getParameter("documentId"),
+			mainController.getCommentController().commentDocu((User)session.getAttribute("aktUser"), Integer.valueOf(req.getParameter("documentId")),
 					req.getParameter("inhalt"));
 			
 			
