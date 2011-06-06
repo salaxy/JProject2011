@@ -39,21 +39,21 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 //
 //		}catch (ProjectException e) {
 //			
-//			e.printStackTrace();
+//			
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
 //			new ErrorAction().perform(req, resp);
 //			
 //		}catch (IOException e) {
 //			
-//			e.printStackTrace();
+//			
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
 //			new ErrorAction().perform(req, resp);
 //			
 //		}catch(NullPointerException e){
 //			
-//			e.printStackTrace();
+//			
 //			req.setAttribute("errorMessage", e.getMessage());
 //			
 //			new ErrorAction().perform(req, resp);

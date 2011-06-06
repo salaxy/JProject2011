@@ -62,19 +62,19 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 
 		}catch (ProjectException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}catch (IOException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
             
 		}catch(NullPointerException e){
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
             
