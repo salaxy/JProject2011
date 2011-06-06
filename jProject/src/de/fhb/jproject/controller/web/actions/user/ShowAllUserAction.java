@@ -13,6 +13,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,8 +36,9 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 		
 		List <User> userList=null;
 	
+		HttpSession session = req.getSession();
 		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) session.getAttribute("mainController");
 		
 		try {
 			
@@ -44,7 +46,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
 			//UserList holen
-			userList=mainController.getUserController().showAllUser();
+			userList=mainController.getUserController().showAllUser((User)session.getAttribute("aktUser"));
 			
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
