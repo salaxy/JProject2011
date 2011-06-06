@@ -171,7 +171,7 @@ public class TaskControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!isAdmin()){
+		if(!globalRolesController.isAllowedDeleteTaskAction(aktUser.getGlobalRole())){
 			
 			//Projekt-Rolle des aktuellen Users holen
 			try {
@@ -661,9 +661,5 @@ public class TaskControl {
 	
 	private boolean isUserLoggedIn() {			
 		return (aktUser!=null);
-	}
-	
-	private boolean isAdmin(){
-		return aktUser.getGlobalRole().equals("Admin");
 	}
 }

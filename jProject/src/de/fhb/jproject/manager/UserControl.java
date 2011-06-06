@@ -80,9 +80,6 @@ public class UserControl {
 		
 		User user=null;
 		
-		//debuglogging
-		logger.info("showUserInfo()");
-		
 		
         //abfrage ob user eingeloggt
 		if(!loggedIn){

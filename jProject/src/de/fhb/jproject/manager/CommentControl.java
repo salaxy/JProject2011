@@ -72,7 +72,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!isAdmin()){
+		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -169,7 +169,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!isAdmin()){
+		if(!globalRolesController.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -263,7 +263,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!isAdmin()){
+		if(!globalRolesController.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -358,7 +358,7 @@ public class CommentControl {
 		}
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!isAdmin()){
+		if(!globalRolesController.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -436,9 +436,5 @@ public class CommentControl {
 	
 	private boolean isUserLoggedIn() {		
 		return (aktUser.getLoginName()!=null);
-	}
-	
-	private boolean isAdmin(){
-		return aktUser.getGlobalRole().equals("Admin");
 	}
 }
