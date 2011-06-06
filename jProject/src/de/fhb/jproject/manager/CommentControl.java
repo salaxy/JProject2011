@@ -18,12 +18,33 @@ import de.fhb.jproject.data.Sourcecode;
 import de.fhb.jproject.data.Task;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.repository.da.CommentDA;
+import de.fhb.jproject.repository.da.CommentDocumentDA;
+import de.fhb.jproject.repository.da.CommentProjectDA;
+import de.fhb.jproject.repository.da.CommentSourcecodeDA;
+import de.fhb.jproject.repository.da.CommentTaskDA;
+import de.fhb.jproject.repository.da.DocumentDA;
+import de.fhb.jproject.repository.da.MemberDA;
+import de.fhb.jproject.repository.da.ProjectDA;
+import de.fhb.jproject.repository.da.SourcecodeDA;
+import de.fhb.jproject.repository.da.TaskDA;
 
 public class CommentControl {
 	
-	User aktUser;
-	ProjectRolesControl projectRolesController;
-	GlobalRolesControl globalRolesController;
+	private User aktUser;
+	private ProjectRolesControl projectRolesController;
+	private GlobalRolesControl globalRolesController;
+	
+	private DocumentDA documentDA = DAFactory.getDAFactory().getDocumentDA();
+	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
+	private SourcecodeDA sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
+	private CommentDA commentDA = DAFactory.getDAFactory().getCommentDA();
+	private CommentDocumentDA commentDocumentDA = DAFactory.getDAFactory().getCommentDocumentDA();
+	private CommentSourcecodeDA commentSourcecodeDA = DAFactory.getDAFactory().getCommentSourcecodeDA();
+	private TaskDA taskDA = DAFactory.getDAFactory().getTaskDA();
+	private CommentTaskDA commentTaskDA = DAFactory.getDAFactory().getCommentTaskDA();
+	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
+	private CommentProjectDA commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
 	
 	private static final Logger logger = Logger.getLogger(CommentControl.class);
 	
@@ -60,7 +81,7 @@ public class CommentControl {
 		
 		//document holen (und implizit damit auch das Project)
 		try {
-			document=DAFactory.getDAFactory().getDocumentDA().getDocumentByORMID(Integer.valueOf(documentId));
+			document=documentDA.getDocumentByORMID(Integer.valueOf(documentId));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Dokument nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -74,7 +95,7 @@ public class CommentControl {
 			
 			//Member des aktuellen Users holen
 			try {
-				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, document.getProject());
+				memAktUser=memberDA.getMemberByORMID(aktUser, document.getProject());
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
@@ -89,24 +110,20 @@ public class CommentControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
-		commentDocu=DAFactory.getDAFactory().getCommentDocumentDA().createCommentDocument();
+		commentDocu=commentDocumentDA.createCommentDocument();
 		commentDocu.setDocument(document);
 		
 		//comment erstellen
-		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
+		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
 		comment.setCommentDocument(commentDocu);
 		
 		//Comment speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getCommentDA().save(comment);
+			commentDA.save(comment);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -117,13 +134,9 @@ public class CommentControl {
 		
 		//und CommentDocument speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			// speichern
-			DAFactory.getDAFactory().getCommentDocumentDA().save(commentDocu);
+			commentDocumentDA.save(commentDocu);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -155,7 +168,7 @@ public class CommentControl {
 		
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
-			sourcecode=DAFactory.getDAFactory().getSourcecodeDA().getSourcecodeByORMID(Integer.valueOf(sourcecodeId));
+			sourcecode=sourcecodeDA.getSourcecodeByORMID(Integer.valueOf(sourcecodeId));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Sourcecode nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -169,7 +182,7 @@ public class CommentControl {
 			
 			//Member des aktuellen Users holen
 			try {
-				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, sourcecode.getProject());
+				memAktUser=memberDA.getMemberByORMID(aktUser, sourcecode.getProject());
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
@@ -184,24 +197,20 @@ public class CommentControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//CommentSourcecode erstellen
-		commentSource=DAFactory.getDAFactory().getCommentSourcecodeDA().createCommentSourcecode();
+		commentSource=commentSourcecodeDA.createCommentSourcecode();
 		commentSource.setSourcecode(sourcecode);
 		
 		//comment erstellen
-		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
+		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
 		comment.setCommentSourcecode(commentSource);
 		
 		//Comment speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getCommentDA().save(comment);
+			commentDA.save(comment);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -212,13 +221,9 @@ public class CommentControl {
 		
 		//und CommentSourcecode speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			// speichern
-			DAFactory.getDAFactory().getCommentSourcecodeDA().save(commentSource);
+			commentSourcecodeDA.save(commentSource);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -247,7 +252,7 @@ public class CommentControl {
 		
 		//Task holen (und implizit damit auch das Project)
 		try {
-			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Task nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -261,7 +266,7 @@ public class CommentControl {
 			
 			//Member des aktuellen Users holen
 			try {
-				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, task.getProject());
+				memAktUser=memberDA.getMemberByORMID(aktUser, task.getProject());
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
@@ -276,24 +281,20 @@ public class CommentControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
-		commentTask=DAFactory.getDAFactory().getCommentTaskDA().createCommentTask();
+		commentTask=commentTaskDA.createCommentTask();
 		commentTask.setTask(task);
 		
 		//comment erstellen
-		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
+		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
 		comment.setCommentTask(commentTask);
 		
 		//Comment speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getCommentDA().save(comment);
+			commentDA.save(comment);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -304,13 +305,9 @@ public class CommentControl {
 		
 		//und CommentTaskspeichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			// speichern
-			DAFactory.getDAFactory().getCommentTaskDA().save(commentTask);
+			commentTaskDA.save(commentTask);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -342,7 +339,7 @@ public class CommentControl {
 		
 		//Project holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -354,7 +351,7 @@ public class CommentControl {
 			
 			//Member des aktuellen Users holen
 			try {
-				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
@@ -369,24 +366,20 @@ public class CommentControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
-		commentProject=DAFactory.getDAFactory().getCommentProjectDA().createCommentProject();
+		commentProject=commentProjectDA.createCommentProject();
 		commentProject.setProject(project);
 		
 		//comment erstellen
-		comment=DAFactory.getDAFactory().getCommentDA().createComment(); 
+		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
 		comment.setUser(aktUser);
 		comment.setCommentProject(commentProject);
 		
 		//Comment speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getCommentDA().save(comment);
+			commentDA.save(comment);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -397,13 +390,9 @@ public class CommentControl {
 		
 		//und CommentProject speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			// speichern
-			DAFactory.getDAFactory().getCommentProjectDA().save(commentProject);
+			commentProjectDA.save(commentProject);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -430,5 +419,12 @@ public class CommentControl {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
+	}
+	private void clearSession() throws PersistentException{
+		PersistentSession session;		
+		//Session holen
+		session = JProjectPersistentManager.instance().getSession();
+		//und bereinigen
+		session.clear();
 	}
 }
