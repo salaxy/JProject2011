@@ -14,7 +14,9 @@ License Type: Purchased
 		</many-to-one>
 		<property name="titel" column="`Titel`" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="aufgabenstellung" column="`Aufgabenstellung`" type="text" not-null="true" lazy="false"/>
-		<property name="done" column="`Done`" type="byte" length="1" not-null="true" lazy="false"/>
+		<property name="done" type="boolean" length="1" not-null="true" lazy="false">
+			<column name="`Done`" default="0"/>
+		</property>
 		<many-to-one name="termin" cascade="lock" column="`TerminID`" class="de.fhb.jproject.data.Termin" not-null="false" lazy="no-proxy" access="field">
 		</many-to-one>
 		<set name="ORM_MemberUser" table="`TODO`" lazy="true" cascade="save-update,lock" inverse="true">

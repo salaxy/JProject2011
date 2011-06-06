@@ -81,6 +81,10 @@ public class ProjectRoles {
 	
 	private boolean deleteProjectAction;
 	
+	private boolean deAssignTaskAction;
+	
+	private boolean assignTaskAction;
+	
 	public void setRole(String value) {
 		this.role = value;
 	}
@@ -339,6 +343,22 @@ public class ProjectRoles {
 	
 	public boolean getDeleteProjectAction() {
 		return deleteProjectAction;
+	}
+	
+	public void setDeAssignTaskAction(boolean value) {
+		this.deAssignTaskAction = value;
+	}
+	
+	public boolean getDeAssignTaskAction() {
+		return deAssignTaskAction;
+	}
+	
+	public void setAssignTaskAction(boolean value) {
+		this.assignTaskAction = value;
+	}
+	
+	public boolean getAssignTaskAction() {
+		return assignTaskAction;
 	}
 	
 	public String toString() {

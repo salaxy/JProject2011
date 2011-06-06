@@ -59,5 +59,7 @@ License Type: Purchased
 		<property name="showAllOwnTasksAction" column="`ShowAllOwnTasksAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="updateTaskAction" column="`UpdateTaskAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="deleteProjectAction" column="`DeleteProjectAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="deAssignTaskAction" column="`DeAssignTaskAction`" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="assignTaskAction" column="`AssignTaskAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

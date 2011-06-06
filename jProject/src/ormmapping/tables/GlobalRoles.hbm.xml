@@ -24,8 +24,6 @@ License Type: Purchased
 		<property name="showUserInfoAction" column="`ShowUserInfoAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="searchUserAction" column="`SearchUserAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="showAllUserAction" column="`ShowAllUserAction`" type="boolean" length="1" not-null="true" lazy="false"/>
-		<property name="loginAction" column="`LoginAction`" type="boolean" length="1" not-null="true" lazy="false"/>
-		<property name="logoutAction" column="`LogoutAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="registerAction" column="`RegisterAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="commentDocuAction" type="boolean" length="1" not-null="true" lazy="false">
 			<column name="`CommentDocuAction`" default="0"/>
@@ -75,6 +73,5 @@ License Type: Purchased
 		<property name="showAllTasksAction" column="`ShowAllTasksAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="showAllOwnTasksAction" column="`ShowAllOwnTasksAction`" type="boolean" length="1" not-null="true" lazy="false"/>
 		<property name="updateTaskAction" column="`UpdateTaskAction`" type="boolean" length="1" not-null="true" lazy="false"/>
-		<property name="deleteProjectAction2" column="`DeleteProjectAction2`" type="boolean" length="1" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

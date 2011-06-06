@@ -43,10 +43,6 @@ public class GlobalRoles {
 	
 	private boolean showAllUserAction;
 	
-	private boolean loginAction;
-	
-	private boolean logoutAction;
-	
 	private boolean registerAction;
 	
 	private boolean commentDocuAction;
@@ -108,8 +104,6 @@ public class GlobalRoles {
 	private boolean showAllOwnTasksAction;
 	
 	private boolean updateTaskAction;
-	
-	private boolean deleteProjectAction2;
 	
 	public void setRole(String value) {
 		this.role = value;
@@ -217,22 +211,6 @@ public class GlobalRoles {
 	
 	public boolean getShowAllUserAction() {
 		return showAllUserAction;
-	}
-	
-	public void setLoginAction(boolean value) {
-		this.loginAction = value;
-	}
-	
-	public boolean getLoginAction() {
-		return loginAction;
-	}
-	
-	public void setLogoutAction(boolean value) {
-		this.logoutAction = value;
-	}
-	
-	public boolean getLogoutAction() {
-		return logoutAction;
 	}
 	
 	public void setRegisterAction(boolean value) {
@@ -481,14 +459,6 @@ public class GlobalRoles {
 	
 	public boolean getUpdateTaskAction() {
 		return updateTaskAction;
-	}
-	
-	public void setDeleteProjectAction2(boolean value) {
-		this.deleteProjectAction2 = value;
-	}
-	
-	public boolean getDeleteProjectAction2() {
-		return deleteProjectAction2;
 	}
 	
 	public String toString() {
