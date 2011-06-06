@@ -28,11 +28,13 @@ import org.orm.PersistentTransaction;
  */
 public class UserControl {
 	
-	private static final Logger logger = Logger.getLogger(UserControl.class);
+	
 	private GlobalRolesControl globalRolesController;
     private User aktUser = null;
 	
 	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
+	
+	private static final Logger logger = Logger.getLogger(UserControl.class);
     
     public UserControl(GlobalRolesControl globalRolesController){		
     	//debuglogging

@@ -17,6 +17,10 @@ import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.repository.da.MemberDA;
+import de.fhb.jproject.repository.da.ProjectDA;
+import de.fhb.jproject.repository.da.ProjectRolesDA;
+import de.fhb.jproject.repository.da.UserDA;
 
 /**
  * Contoller Klasse fuer die ProjectActions
@@ -26,12 +30,17 @@ import de.fhb.jproject.exceptions.ProjectException;
  */
 public class ProjectControl {
 	
-	User aktUser;
-	ProjectRolesControl projectRolesController;
-	GlobalRolesControl globalRolesController;
+	private User aktUser;
+	private ProjectRolesControl projectRolesController;
+	private GlobalRolesControl globalRolesController;
 	private final String LEADER = "Leader";
 	
 	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
+	
+	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
+	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
+	private ProjectRolesDA projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
+	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
@@ -57,7 +66,7 @@ public class ProjectControl {
 		logger.info("addMember()");
 		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		try {
-			DAFactory.getDAFactory().getProjectRolesDA().getProjectRolesByORMID(rolle);
+			projectRolesDA.getProjectRolesByORMID(rolle);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Keine zulaessige Rolle angegeben!");
 		}
@@ -67,14 +76,14 @@ public class ProjectControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -87,7 +96,7 @@ public class ProjectControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//member erzeugen und parameter setzen
-		member=DAFactory.getDAFactory().getMemberDA().createMember();
+		member=memberDA.createMember();
 		//project setzen
 		member.setProject(project);
 		//rolle setzen
@@ -95,7 +104,7 @@ public class ProjectControl {
 		
 		//user holen und setzen
 		try {
-			User tempUser = DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			User tempUser = userDA.getUserByORMID(userLoginName);
 			member.setUser(tempUser);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
@@ -103,13 +112,9 @@ public class ProjectControl {
 					
 		//Member speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getMemberDA().save(member);
+			memberDA.save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
@@ -143,19 +148,15 @@ public class ProjectControl {
 		}
 		
 		//project parameter setzen
-		project=DAFactory.getDAFactory().getProjectDA().createProject();
+		project=projectDA.createProject();
 		project.setName(name);
 		project.setStatus(status);
 		
 		//Project speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getProjectDA().save(project);
+			projectDA.save(project);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Project nicht speichern! "+ e.getMessage());
@@ -163,25 +164,21 @@ public class ProjectControl {
 		
 		
 		//project erzeuger als member erzeugen und hinzufuegen
-		member=DAFactory.getDAFactory().getMemberDA().createMember();
+		member=memberDA.createMember();
 		member.setProject(project);		
 		member.setProjectRole(LEADER);
 
 		try {
-			member.setUser(DAFactory.getDAFactory().getUserDA().getUserByORMID(aktUser.getLoginName()));
+			member.setUser(userDA.getUserByORMID(aktUser.getLoginName()));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte aktuellen User nicht finden! "+ e1.getMessage());
 		}
 		
 		//ersten Member als LEADER speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getMemberDA().save(member);
+			memberDA.save(member);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
@@ -209,14 +206,14 @@ public class ProjectControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -232,7 +229,7 @@ public class ProjectControl {
 		//loeschen
 		//Info: Member werden automatisch gel�scht durch das cascade in der DB
 		try {	
-			DAFactory.getDAFactory().getProjectDA().delete(project);
+			projectDA.delete(project);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Projekt nicht loeschen! "+ e.getMessage());
 		}	
@@ -261,14 +258,14 @@ public class ProjectControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -282,27 +279,23 @@ public class ProjectControl {
 		
 		//User holen
 		try {
-			user=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			user=userDA.getUserByORMID(userLoginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
 		}
 		
 		//zuloeschenden Member holen
 		try {
-			delMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(user, project);
+			delMember=memberDA.getMemberByORMID(user, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zu entfernenden Member nicht finden! "+ e1.getMessage());
 		}
 
 		//Member loeschen
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member loeschen
-			DAFactory.getDAFactory().getMemberDA().delete(delMember);
+			memberDA.delete(delMember);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
@@ -334,7 +327,7 @@ public class ProjectControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
@@ -363,7 +356,7 @@ public class ProjectControl {
 		//TODO suche implementieren in der DA..... List<Project> findProjectsLike(String teilName)
 		//
 //		try {
-//			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
+//			list=projectDA.listAllProjects();
 //		} catch (PersistentException e) {
 //			e.printStackTrace();
 //			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
@@ -395,7 +388,7 @@ public class ProjectControl {
 		
 		//holen der Daten
 		try {
-			list=DAFactory.getDAFactory().getProjectDA().listAllProjects();
+			list=projectDA.listAllProjects();
 		} catch (PersistentException e) {
 			e.printStackTrace();
 			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
@@ -446,14 +439,14 @@ public class ProjectControl {
 		//projekt holen
 		try {
 //			JProjectPersistentManager.instance().getSession().clear();
-			project=DAFactory.getDAFactory().getProjectDA().loadProjectByORMID(projectName);
+			project=projectDA.loadProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
 		//Projekt-Rolle des aktuellen Users holen
 		try {	
 
-			memAktUser=DAFactory.getDAFactory().getMemberDA().loadMemberByORMID(aktUser, project);
+			memAktUser=memberDA.loadMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -483,6 +476,13 @@ public class ProjectControl {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
+	}
+	private void clearSession() throws PersistentException{
+		PersistentSession session;		
+		//Session holen
+		session = JProjectPersistentManager.instance().getSession();
+		//und bereinigen
+		session.clear();
 	}
 	
 	
