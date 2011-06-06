@@ -55,7 +55,7 @@ public class LoginAction extends HttpRequestActionBase {
 						req.getParameter("password")));
 			}
 			
-			//TODO syso entfernen
+			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
 
 		}catch (ProjectException e) {
