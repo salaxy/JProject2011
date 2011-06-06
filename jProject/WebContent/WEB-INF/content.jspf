@@ -1,0 +1,39 @@
+<div id="topcontent">
+	<form>
+		<textarea cols="93" rows="1">Project		Sourcecode	Documents	Tasks</textarea>
+	</form>
+</div>
+
+
+<div id="leftcontent">
+	<form>
+		<textarea cols="17" rows="10">LEFT AJAX
+		Bla
+		Bla
+		Bla
+		Bla
+		Bla
+		Bla</textarea>
+	</form>
+	<c:choose>
+		<c:when test="${sessionScope.loggedIn == true}">
+			<c:forEach items="${sessionScope.showAllOwnProjects}" var="project" varStatus="i">
+				<a href="JProjectServlet?do=ShowProject&Name=${project.name}">${project.name}</a><br>
+			</c:forEach>
+		</c:when>
+	</c:choose>
+</div>
+
+<div id="contentcontent">
+	<form>
+		<textarea cols="74" rows="10">CONTENT AJAX</textarea>
+	</form>
+</div>
+		
+
+			
+<div id="footercontent">
+	<form>
+		<textarea cols="93" rows="5">COMMENTS AJAX</textarea>
+	</form>
+</div>
