@@ -118,22 +118,53 @@ CREATE TABLE `ProjectRoles` (
   `DeleteProjectAction`            tinyint(1) NOT NULL, 
   PRIMARY KEY (`Role`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `GlobalRoles` (
-  `Role`                     varchar(255) NOT NULL, 
-  `AddNewProjectAction`      tinyint(1) DEFAULT 0 NOT NULL, 
-  `DeleteProjectAction`      tinyint(1) NOT NULL, 
-  `ShowProjectAction`        tinyint(1) NOT NULL, 
-  `SearchProjectsAction`     tinyint(1) NOT NULL, 
-  `ShowAllProjectsAction`    tinyint(1) NOT NULL, 
-  `ShowAllOwnProjectAction`  tinyint(1) NOT NULL, 
-  `DeleteUserAction`         tinyint(1) NOT NULL, 
-  `ShowUserSettingsAction`   tinyint(1) NOT NULL, 
-  `UpdateUserSettingsAction` tinyint(1) NOT NULL, 
-  `ShowUserInfoAction`       tinyint(1) NOT NULL, 
-  `SearchUserAction`         tinyint(1) NOT NULL, 
-  `ShowAllUserAction`        tinyint(1) NOT NULL, 
-  `LoginAction`              tinyint(1) NOT NULL, 
-  `LogoutAction`             tinyint(1) NOT NULL, 
-  `RegisterAction`           tinyint(1) NOT NULL, 
+  `Role`                           varchar(255) NOT NULL, 
+  `AddNewProjectAction`            tinyint(1) DEFAULT 0 NOT NULL, 
+  `DeleteProjectAction`            tinyint(1) NOT NULL, 
+  `ShowProjectAction`              tinyint(1) NOT NULL, 
+  `SearchProjectsAction`           tinyint(1) NOT NULL, 
+  `ShowAllProjectsAction`          tinyint(1) NOT NULL, 
+  `ShowAllOwnProjectAction`        tinyint(1) NOT NULL, 
+  `DeleteUserAction`               tinyint(1) NOT NULL, 
+  `ShowUserSettingsAction`         tinyint(1) NOT NULL, 
+  `UpdateUserSettingsAction`       tinyint(1) NOT NULL, 
+  `ShowUserInfoAction`             tinyint(1) NOT NULL, 
+  `SearchUserAction`               tinyint(1) NOT NULL, 
+  `ShowAllUserAction`              tinyint(1) NOT NULL, 
+  `LoginAction`                    tinyint(1) NOT NULL, 
+  `LogoutAction`                   tinyint(1) NOT NULL, 
+  `RegisterAction`                 tinyint(1) NOT NULL, 
+  `CommentDocuAction`              tinyint(1) DEFAULT 0 NOT NULL, 
+  `CommentSourceAction`            tinyint(1) DEFAULT 0 NOT NULL, 
+  `CommentTaskAction`              tinyint(1) DEFAULT 0 NOT NULL, 
+  `CommentProjectAction`           tinyint(1) NOT NULL, 
+  `DeleteCommentAction`            tinyint(1) DEFAULT 0 NOT NULL, 
+  `ShowAllComments41DocuAction`    tinyint(1) NOT NULL, 
+  `ShowAllComments41SourceAction`  tinyint(1) NOT NULL, 
+  `ShowAllComments41TaskAction`    tinyint(1) NOT NULL, 
+  `ShowAllComments41ProjectAction` tinyint(1) NOT NULL, 
+  `UpdateCommentAction`            tinyint(1) NOT NULL, 
+  `AddNewDocuAction`               tinyint(1) DEFAULT 0 NOT NULL, 
+  `DeleteDocuAction`               tinyint(1) DEFAULT 0 NOT NULL, 
+  `DownloadDocuAction`             tinyint(1) DEFAULT 0 NOT NULL, 
+  `ShowDocuAction`                 tinyint(1) NOT NULL, 
+  `ShowAllDocuAction`              tinyint(1) DEFAULT 0 NOT NULL, 
+  `UpdateDocuAction`               tinyint(1) NOT NULL, 
+  `AddMemberAction`                tinyint(1) DEFAULT 0 NOT NULL, 
+  `DeleteMemberAction`             tinyint(1) NOT NULL, 
+  `ShowAllMemberAction`            tinyint(1) NOT NULL, 
+  `AddNewSourceAction`             tinyint(1) NOT NULL, 
+  `DeleteSourceAction`             tinyint(1) NOT NULL, 
+  `DownloadSourceAction`           tinyint(1) NOT NULL, 
+  `ShowSourceAction`               tinyint(1) NOT NULL, 
+  `ShowAllSourceAction`            tinyint(1) NOT NULL, 
+  `UpdateSourceAction`             tinyint(1) NOT NULL, 
+  `AddNewTaskAction`               tinyint(1) NOT NULL, 
+  `DeleteTaskAction`               tinyint(1) NOT NULL, 
+  `ShowAllTasksAction`             tinyint(1) NOT NULL, 
+  `ShowAllOwnTasksAction`          tinyint(1) NOT NULL, 
+  `UpdateTaskAction`               tinyint(1) NOT NULL, 
+  `DeleteProjectAction2`           tinyint(1) NOT NULL, 
   PRIMARY KEY (`Role`)) ENGINE=InnoDB CHARACTER SET UTF8;
 ALTER TABLE `Member` ADD INDEX `FKMember111780` (`User`), ADD CONSTRAINT `FKMember111780` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Member` ADD INDEX `FKMember203878` (`Project`), ADD CONSTRAINT `FKMember203878` FOREIGN KEY (`Project`) REFERENCES `Project` (`Name`) ON UPDATE Cascade ON DELETE Cascade;
@@ -222,12 +253,12 @@ VALUES
 INSERT INTO `ProjectRoles`
   (`Role`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction`) 
 VALUES 
-  ('Member', 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0);
+  ('Member', 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0);
 INSERT INTO `GlobalRoles`
-  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `LoginAction`, `LogoutAction`, `RegisterAction`) 
+  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `LoginAction`, `LogoutAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction2`) 
 VALUES 
-  ('Admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+  ('Admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO `GlobalRoles`
-  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `LoginAction`, `LogoutAction`, `RegisterAction`) 
+  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `LoginAction`, `LogoutAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction2`) 
 VALUES 
-  ('Member', 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+  ('Member', 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
