@@ -54,7 +54,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -87,7 +87,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		try {
@@ -123,7 +123,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		try {
@@ -156,7 +156,7 @@ public class UserControl {
 			throw new ProjectException("Sie sind nicht eingeloggt");
 		}
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedSearchUserAction(aktUser.getGlobalRole())){
 			// TODO Rechte abfragen oder sowas
 			throw new ProjectException("Sie haben keine Rechte zum suchen!");
 		}
@@ -189,7 +189,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum aendern!");
 		}
 		
@@ -228,7 +228,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(dummy){
+		if(!globalRolesController.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -318,6 +318,7 @@ public class UserControl {
     }
 	
 	public void  register()throws ProjectException{
+		/*
 		PersistentSession session;
 		DAFactory fa = DAFactory.getDAFactory();			
 		
@@ -341,7 +342,7 @@ public class UserControl {
 			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
 		}
 		
-		
+		*/
 	}
     
     public User getAktUser(){
@@ -350,7 +351,8 @@ public class UserControl {
 		logger.info("getAktUser()");
 		
 		//Passwort auf null setzen und Nachname kuerzen um sicherheit zu wahren
-		
+		//zieht folgefehler nach sich
+		/*
 		User tempUser=new User();
 		tempUser.setLoginName(aktUser.getLoginName());
                 tempUser.setNachname(aktUser.getNachname());
@@ -379,6 +381,9 @@ public class UserControl {
 					tempUser.telefon.add(aktTelefon);
 				}
 		
+		return aktUser;
+		 * 
+		 */
 		return aktUser;
     }
     
