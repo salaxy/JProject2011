@@ -11,8 +11,10 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Task;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -33,7 +35,9 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		List<Task> taskList=null;
 		
 		try {				
@@ -48,7 +52,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			taskList=mainController.getTaskcontroller().showAllOwnTasks(req.getParameter("projectName"));
+			taskList=mainController.getTaskcontroller().showAllOwnTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			
 //			for( Task t : taskList){
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());

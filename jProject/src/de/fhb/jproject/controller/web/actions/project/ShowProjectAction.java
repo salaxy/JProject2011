@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,7 +37,9 @@ public class ShowProjectAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		Project project=null;
 		
 		try {		
@@ -51,7 +55,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		
 			System.out.println(req.getParameter("projectName"));
 			//Controller in aktion
-			project=mainController.getProjectContoller().showProject(req.getParameter("projectName"));
+			project=mainController.getProjectContoller().showProject((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			
 			//setzen der Parameter
 			req.setAttribute("project", project);

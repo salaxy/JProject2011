@@ -30,7 +30,6 @@ import de.fhb.jproject.repository.da.UserDA;
  */
 public class ProjectControl {
 	
-	private User aktUser;
 	private ProjectRolesControl projectRolesController;
 	private GlobalRolesControl globalRolesController;
 	private final String LEADER = "Leader";
@@ -44,8 +43,7 @@ public class ProjectControl {
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
-	public ProjectControl(User aktUser, ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
-		this.aktUser=aktUser;
+	public ProjectControl(ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
 		this.projectRolesController=projectRolesController;
 		this.globalRolesController=globalRolesController;
 	}
@@ -55,7 +53,7 @@ public class ProjectControl {
 	 *  Hinzufuegen eines Users zu einem Projekt
 	 *  Notiz: Methode Funktioniert auch zum updaten
 	 */
-	public void addMember(String userLoginName, String projectName, String rolle)
+	public void addMember(User aktUser, String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
 		
 		Project project=null;
@@ -72,7 +70,9 @@ public class ProjectControl {
 		}
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -129,7 +129,7 @@ public class ProjectControl {
 	 * @param status
 	 * @throws ProjectException
 	 */
-	public void addNewProject(String name, String status)
+	public void addNewProject(User aktUser, String name, String status)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -140,7 +140,9 @@ public class ProjectControl {
 		logger.debug("String name("+name+")"+"String status("+status+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
@@ -190,7 +192,7 @@ public class ProjectControl {
 	 * @param name
 	 * @throws ProjectException
 	 */
-	public void deleteProject(String projectName)
+	public void deleteProject(User aktUser, String projectName)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -201,7 +203,9 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		
 		//projekt holen
@@ -241,7 +245,7 @@ public class ProjectControl {
 	 * @param projectName
 	 * @throws ProjectException
 	 */
-	public void deleteMember(String userLoginName, String projectName)
+	public void deleteMember(User aktUser, String userLoginName, String projectName)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -254,7 +258,9 @@ public class ProjectControl {
 		logger.debug("String name("+userLoginName+")"+"String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -308,7 +314,7 @@ public class ProjectControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public Project showProject(String projectName)
+	public Project showProject(User aktUser, String projectName)
 	throws ProjectException{ 
 		
 		Project project=null;	
@@ -318,7 +324,9 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
@@ -335,7 +343,7 @@ public class ProjectControl {
 		return project;
 	}
 	
-	public List<Project> searchProjects(String teilName)
+	public List<Project> searchProjects(User aktUser, String teilName)
 	throws ProjectException{
 		
 		List<Project> list=null;
@@ -345,7 +353,9 @@ public class ProjectControl {
 		logger.debug("String teilName("+teilName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
@@ -370,7 +380,7 @@ public class ProjectControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Project> showAllProjects()
+	public List<Project> showAllProjects(User aktUser)
 	throws ProjectException{ 
 		
 		List<Project> list=null;
@@ -379,7 +389,9 @@ public class ProjectControl {
 		logger.info("showAllProjects()");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
@@ -426,7 +438,7 @@ public class ProjectControl {
 		return list;
 	}
 	
-	public List<Member> showAllMember(String projectName)
+	public List<Member> showAllMember(User aktUser, String projectName)
 	throws ProjectException{
 		
 		Project project=null;
@@ -437,7 +449,9 @@ public class ProjectControl {
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -474,12 +488,6 @@ public class ProjectControl {
 			
 	}
 	
-	
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-	}
 	private void clearSession() throws PersistentException{
 		PersistentSession session;		
 		//Session holen

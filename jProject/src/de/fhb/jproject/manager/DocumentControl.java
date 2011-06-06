@@ -8,12 +8,10 @@ import org.orm.PersistentSession;
 
 public class DocumentControl {
 
-	private User aktUser;
 	private ProjectRolesControl projectRolesController;
 	
-	public DocumentControl(User aktUser, ProjectRolesControl projectRolesController){
+	public DocumentControl(ProjectRolesControl projectRolesController){
 		
-		this.aktUser=aktUser;
 		this.projectRolesController=projectRolesController;
 	}
 	
@@ -31,11 +29,6 @@ public class DocumentControl {
 	
 	public void showDocu(){}
 	
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-	}
 	private void clearSession() throws PersistentException{
 		PersistentSession session;		
 		//Session holen

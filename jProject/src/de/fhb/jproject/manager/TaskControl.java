@@ -25,7 +25,6 @@ import de.fhb.jproject.repository.da.UserDA;
 
 public class TaskControl {
 	
-	private User aktUser;
 	private ProjectRolesControl projectRolesController;
 	private GlobalRolesControl globalRolesController;
 	
@@ -37,9 +36,8 @@ public class TaskControl {
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
-	public TaskControl(User aktUser, ProjectRolesControl projectRolesController){
+	public TaskControl(ProjectRolesControl projectRolesController){
 		
-		this.aktUser=aktUser;
 		this.projectRolesController=projectRolesController;
 		//GlobalRolesController is hier noch null
 	}
@@ -49,7 +47,7 @@ public class TaskControl {
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
 	 */
-	public void addNewTask(String projectName, String titel, String aufgabenStellung, String date)
+	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, String date)
 	throws ProjectException{ 
 		
 		
@@ -66,7 +64,9 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -147,7 +147,7 @@ public class TaskControl {
 	 * loeschen eines Taks eines Projektes
 	 * 
 	 */
-	public void  deleteTask(String taskId, String projectName)
+	public void  deleteTask(User aktUser, String taskId, String projectName)
 	throws ProjectException{ 
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
 		//jedoch notwendig um die Rechte zum loeschen abzufragen
@@ -162,7 +162,9 @@ public class TaskControl {
 		logger.debug("String taskId("+taskId+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -233,7 +235,7 @@ public class TaskControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Task> showAllTasks(String projectName)
+	public List<Task> showAllTasks(User aktUser, String projectName)
 	throws ProjectException{ 
 			
 		Project project=null;
@@ -243,7 +245,9 @@ public class TaskControl {
 		logger.info("showAllTasks()");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -276,7 +280,7 @@ public class TaskControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Task> showAllOwnTasks(String projectName)
+	public List<Task> showAllOwnTasks(User aktUser, String projectName)
 	throws ProjectException{
 		
 		Project project=null;
@@ -290,7 +294,9 @@ public class TaskControl {
 		//wenn projectname null ist dann zeige alle aufgaben???
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -330,7 +336,7 @@ public class TaskControl {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void assignTask(String userLoginName, String projectName, String taskId)
+	public void assignTask(User aktUser, String userLoginName, String projectName, String taskId)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -348,7 +354,9 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -420,7 +428,7 @@ public class TaskControl {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void deAssignTask(String userLoginName, String projectName, String taskId)
+	public void deAssignTask(User aktUser, String userLoginName, String projectName, String taskId)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -438,7 +446,9 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -502,7 +512,7 @@ public class TaskControl {
 	
 	
 	
-	public void updateTask(String projectName,String taskId, String titel, String aufgabenStellung, String date, String done)
+	public void updateTask(User aktUser, String projectName,String taskId, String titel, String aufgabenStellung, String date, String done)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -518,7 +528,9 @@ public class TaskControl {
 				);	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//projekt holen
 		try {
@@ -626,11 +638,6 @@ public class TaskControl {
 		}
 	}
 	
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-	}
 	private void clearSession() throws PersistentException{
 		PersistentSession session;		
 		//Session holen

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -45,7 +47,9 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		try {		
 			
 			//Debugprint
@@ -63,7 +67,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getTaskcontroller().updateTask( req.getParameter("projectName"),
+			mainController.getTaskcontroller().updateTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
 					req.getParameter("taskId"),
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),

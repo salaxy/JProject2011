@@ -31,28 +31,36 @@ import de.fhb.jproject.repository.da.TaskDA;
 
 public class CommentControl {
 	
-	private User aktUser;
 	private ProjectRolesControl projectRolesController;
 	private GlobalRolesControl globalRolesController;
 	
-	private DocumentDA documentDA = DAFactory.getDAFactory().getDocumentDA();
-	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
-	private SourcecodeDA sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
-	private CommentDA commentDA = DAFactory.getDAFactory().getCommentDA();
-	private CommentDocumentDA commentDocumentDA = DAFactory.getDAFactory().getCommentDocumentDA();
-	private CommentSourcecodeDA commentSourcecodeDA = DAFactory.getDAFactory().getCommentSourcecodeDA();
-	private TaskDA taskDA = DAFactory.getDAFactory().getTaskDA();
-	private CommentTaskDA commentTaskDA = DAFactory.getDAFactory().getCommentTaskDA();
-	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
-	private CommentProjectDA commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
+	private DocumentDA documentDA;
+	private MemberDA memberDA;
+	private SourcecodeDA sourcecodeDA;
+	private CommentDA commentDA;
+	private CommentDocumentDA commentDocumentDA;
+	private CommentSourcecodeDA commentSourcecodeDA;
+	private TaskDA taskDA;
+	private CommentTaskDA commentTaskDA;
+	private ProjectDA projectDA;
+	private CommentProjectDA commentProjectDA;
 	
 	private static final Logger logger = Logger.getLogger(CommentControl.class);
 	
 	
 	
-	public CommentControl(User aktUser, ProjectRolesControl projectRolesController,GlobalRolesControl globalRolesController){
+	public CommentControl(ProjectRolesControl projectRolesController,GlobalRolesControl globalRolesController){
+		documentDA = DAFactory.getDAFactory().getDocumentDA();
+		memberDA = DAFactory.getDAFactory().getMemberDA();
+		sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
+		commentDA = DAFactory.getDAFactory().getCommentDA();
+		commentDocumentDA = DAFactory.getDAFactory().getCommentDocumentDA();
+		commentSourcecodeDA = DAFactory.getDAFactory().getCommentSourcecodeDA();
+		taskDA = DAFactory.getDAFactory().getTaskDA();
+		commentTaskDA = DAFactory.getDAFactory().getCommentTaskDA();
+		projectDA = DAFactory.getDAFactory().getProjectDA();
+		commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
 		
-		this.aktUser=aktUser;
 		this.projectRolesController=projectRolesController;
 		this.globalRolesController=globalRolesController;
 	}
@@ -62,7 +70,7 @@ public class CommentControl {
 	/**
 	 * kommentieren eines Dokuments
 	 */
-	public void commentDocu(String documentId, String inhalt)
+	public void commentDocu(User aktUser, String documentId, String inhalt)
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -77,7 +85,9 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//document holen (und implizit damit auch das Project)
 		try {
@@ -149,7 +159,7 @@ public class CommentControl {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentSource(String sourcecodeId, String inhalt)
+	public void commentSource(User aktUser, String sourcecodeId, String inhalt)
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -164,7 +174,9 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
@@ -233,7 +245,7 @@ public class CommentControl {
 		
 	}
 	
-	public void commentTask(String taskId, String inhalt)	
+	public void commentTask(User aktUser, String taskId, String inhalt)	
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -248,7 +260,9 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//Task holen (und implizit damit auch das Project)
 		try {
@@ -320,7 +334,7 @@ public class CommentControl {
 		//owner/ersteller, admin, projekLEADER
 	}
 	
-	public void commentProject(String projectName, String inhalt)	
+	public void commentProject(User aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -335,7 +349,9 @@ public class CommentControl {
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//Project holen
 		try {
@@ -415,11 +431,6 @@ public class CommentControl {
 	public void showAllComments41Project(){}
 	
 	
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-	}
 	private void clearSession() throws PersistentException{
 		PersistentSession session;		
 		//Session holen

@@ -28,11 +28,11 @@ public class MainControl{
 		
 		userController=new UserControl(globalRolesController);		
 		
-		projectContoller=new ProjectControl(userController.getAktUser(),projectRolesController,globalRolesController);
-		sourceContoller=new SourceControl(userController.getAktUser(),projectRolesController);
-		taskcontroller=new TaskControl(userController.getAktUser(),projectRolesController);
-		documentController=new DocumentControl(userController.getAktUser(),projectRolesController);
-		commentController=new CommentControl(userController.getAktUser(),projectRolesController, globalRolesController);
+		projectContoller=new ProjectControl(projectRolesController,globalRolesController);
+		sourceContoller=new SourceControl(projectRolesController);
+		taskcontroller=new TaskControl(projectRolesController);
+		documentController=new DocumentControl(projectRolesController);
+		commentController=new CommentControl(projectRolesController, globalRolesController);
 		
 	}
 

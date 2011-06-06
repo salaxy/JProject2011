@@ -8,12 +8,10 @@ import org.orm.PersistentSession;
 
 public class SourceControl {
 	
-	private User aktUser;
 	private ProjectRolesControl projectRolesController;
 	
-	public SourceControl(User aktUser, ProjectRolesControl projectRolesController){
+	public SourceControl(ProjectRolesControl projectRolesController){
 		
-		this.aktUser=aktUser;
 		this.projectRolesController=projectRolesController;
 	}
 	
@@ -31,11 +29,6 @@ public class SourceControl {
 	
 	public void  updateSource(){}
 	
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-	}
 	private void clearSession() throws PersistentException{
 		PersistentSession session;		
 		//Session holen

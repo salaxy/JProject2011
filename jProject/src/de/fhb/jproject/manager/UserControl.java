@@ -30,7 +30,6 @@ public class UserControl {
 	
 	
 	private GlobalRolesControl globalRolesController;
-    private User aktUser = null;
 	
 	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
 	
@@ -42,11 +41,9 @@ public class UserControl {
 		
 		this.globalRolesController = globalRolesController;
 		
-		//WAS IST DAS?!?!?!?
-    	//aktUser=userDA.createUser();
     }
 
-	public void deleteUser(String loginName)
+	public void deleteUser(User aktUser, String loginName)
 	throws ProjectException{
 		User user = null;
 		
@@ -55,7 +52,9 @@ public class UserControl {
         logger.debug("String loginName("+loginName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		try {
 			user = userDA.loadUserByORMID(loginName);
@@ -82,7 +81,7 @@ public class UserControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public User showUserSettings()
+	public User showUserSettings(User aktUser/*, String loginName???*/)
 	throws ProjectException{
 		
 		//debuglogging
@@ -92,7 +91,9 @@ public class UserControl {
 		
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole())){
@@ -116,7 +117,7 @@ public class UserControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public User showUserInfo(String loginName)
+	public User showUserInfo(User aktUser, String loginName)
 	throws ProjectException{
 		
 		User user=null;
@@ -126,7 +127,9 @@ public class UserControl {
 		
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole())){
@@ -148,7 +151,7 @@ public class UserControl {
 	
 	
 	
-	public User searchUser(String loginName) 
+	public User searchUser(User aktUser, String loginName) 
     throws ProjectException{
 		
 		User user=null;
@@ -158,7 +161,9 @@ public class UserControl {
 		logger.debug("String loginName("+loginName+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedSearchUserAction(aktUser.getGlobalRole())){
@@ -177,7 +182,7 @@ public class UserControl {
 		return user;	
     }
 	
-	public void updateUserSettings(String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
+	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		
 		//debuglogging
@@ -189,7 +194,9 @@ public class UserControl {
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei+", String "+altesPasswort+")");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
@@ -219,14 +226,16 @@ public class UserControl {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<User> showAllUser()
+	public List<User> showAllUser(User aktUser)
 	throws ProjectException{ 
 		
 		//debuglogging
 		logger.info("showAllUser()");
 		
         //abfrage ob user eingeloggt
-		logged();
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
@@ -278,9 +287,10 @@ public class UserControl {
 		logger.info("logout()");
 		
         //abfrage ob user eingeloggt
-        if(aktUser != null){
+		//In der Action auf null setzen
+        /*if(aktUser != null){
 			aktUser = null;
-        }
+        }*/
     }
 	
 	public void register()throws ProjectException{
@@ -309,53 +319,6 @@ public class UserControl {
 		}
 		
 		*/
-	}
-    
-    public User getAktUser(){
-    	
-		//debuglogging
-		logger.info("getAktUser()");
-		
-		//Passwort auf null setzen und Nachname kuerzen um sicherheit zu wahren
-		//zieht folgefehler nach sich
-		/*
-		User tempUser=new User();
-		tempUser.setLoginName(aktUser.getLoginName());
-                tempUser.setNachname(aktUser.getNachname());
-                tempUser.setVorname(aktUser.getVorname());
-                tempUser.setPassword(null);
-                tempUser.setSprache(aktUser.getSprache());
-				tempUser.setGlobalRole(aktUser.getGlobalRole());
-				tempUser.comment.clear();
-				for (Comment aktComment : aktUser.comment.toArray()) {
-					tempUser.comment.add(aktComment);
-				}
-				tempUser.iCQ.clear();
-				for (ICQ aktICQ : aktUser.iCQ.toArray()) {
-					tempUser.iCQ.add(aktICQ);
-				}
-				tempUser.member.clear();
-				for (Member aktMember : aktUser.member.toArray()) {
-					tempUser.member.add(aktMember);
-				}
-				tempUser.skype.clear();
-				for (Skype aktSkype : aktUser.skype.toArray()) {
-					tempUser.skype.add(aktSkype);
-				}
-				tempUser.telefon.clear();
-				for (Telefon aktTelefon : aktUser.telefon.toArray()) {
-					tempUser.telefon.add(aktTelefon);
-				}
-		
-		return tempUser;
-		 * 
-		 */
-		return aktUser;
-    }
-	private void logged() throws ProjectException{
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 	}
     
 	

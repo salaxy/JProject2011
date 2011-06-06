@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.project.AddMemberAction;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -34,7 +36,9 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		try {		
 			
 			//Debugprint
@@ -50,7 +54,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getTaskcontroller().addNewTask( req.getParameter("projectName"),
+			mainController.getTaskcontroller().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),
 					//yyyy-mm-dd <<< muss sooo aussehen

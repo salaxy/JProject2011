@@ -12,8 +12,10 @@ import org.apache.log4j.Logger;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -34,7 +36,9 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		List<Member> memberList=null;
 		
 		try {				
@@ -49,7 +53,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			memberList=mainController.getProjectContoller().showAllMember(req.getParameter("projectName"));
+			memberList=mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			
 			for( Member m : memberList){
 				System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());

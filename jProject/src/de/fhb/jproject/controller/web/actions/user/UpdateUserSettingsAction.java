@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -30,8 +32,9 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		HttpSession session = req.getSession();
 		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) session.getAttribute("mainController");
 		
 		try {
 			
@@ -39,7 +42,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
-			mainController.getUserController().updateUserSettings(req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
+			mainController.getUserController().updateUserSettings((User)session.getAttribute("aktUser"), req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
 					req.getParameter("neuSkype"), req.getParameter("neutelefon"), req.getParameter("sprache"), req.getParameter("neuesPasswortEins"),
 					req.getParameter("neuesPasswortZwei"), req.getParameter("altesPasswort"));
 			

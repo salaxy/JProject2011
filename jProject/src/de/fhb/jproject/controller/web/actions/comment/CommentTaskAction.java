@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -28,7 +30,9 @@ public class CommentTaskAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
-		
+		HttpSession session = req.getSession();
+		//Controller holen
+		mainController=(MainControl) session.getAttribute("mainController");
 		try {		
 			
 			//Debugprint
@@ -42,7 +46,7 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentTask(req.getParameter("taskId"),
+			mainController.getCommentController().commentTask((User)session.getAttribute("aktUser"), req.getParameter("taskId"),
 					req.getParameter("inhalt"));
 			
 			

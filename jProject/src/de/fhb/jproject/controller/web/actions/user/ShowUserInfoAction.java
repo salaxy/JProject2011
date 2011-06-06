@@ -12,6 +12,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -31,8 +32,9 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		HttpSession session = req.getSession();
 		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
+		mainController=(MainControl) session.getAttribute("mainController");
 		
 		User user=null;
 		
@@ -42,7 +44,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
-			user =mainController.getUserController().showUserInfo(req.getParameter("loginName"));
+			user =mainController.getUserController().showUserInfo((User)session.getAttribute("aktUser"), req.getParameter("loginName"));
 			
 			//setzen der Parameter
 			req.setAttribute("user", user);
