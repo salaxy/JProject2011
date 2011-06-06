@@ -128,7 +128,7 @@ public class GlobalRolesControl {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
-
+/*
 	public boolean isAllowedLoginAction(String role) throws ProjectException {
 		logger.info("isAllowedLoginAction(String role)");
 		logger.debug("String role(" + role + ")");
@@ -148,7 +148,7 @@ public class GlobalRolesControl {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
-
+*/
 	public boolean isAllowedRegisterAction(String role) throws ProjectException {
 		logger.info("isAllowedRegisterAction(String role)");
 		logger.debug("String role(" + role + ")");
