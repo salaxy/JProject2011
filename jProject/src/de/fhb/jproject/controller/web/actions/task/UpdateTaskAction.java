@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * so das z.b wenn der titel nicht geaendert wird req.getParameter("titel")=null ergibt
  * taskid und projectName sind aber pflichtparameter!!!
  * 
- * @micher ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
+ * @micha ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
  * also ueberpruefe ich nciht auf leerstring, weil das ja auch gewollt sein koennte,
  * gib mir irgentwann mal rueckmeldung ob das so umsetzen kannst, es waere ein leichtes es spaeter noch zu aendern
  * TODO diese nachricht spaeter loeschen
@@ -68,11 +68,11 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 		
 			//Controller in aktion
 			mainController.getTaskcontroller().updateTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
-					req.getParameter("taskId"),
+					Integer.valueOf(req.getParameter("taskId")),
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),
-					req.getParameter("date"),
-					req.getParameter("done")
+					req.getParameter("date"),//TODO PARSE DATE
+					Boolean.getBoolean(req.getParameter("done"))
 					);
 			
 			//forwarden zum JSP
