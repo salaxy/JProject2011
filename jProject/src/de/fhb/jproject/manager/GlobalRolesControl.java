@@ -68,7 +68,7 @@ public class GlobalRolesControl {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
-
+	
 	public boolean isAllowedDeleteUserAction(String role) throws ProjectException {
 		logger.info("isAllowedDeleteUserAction(String role)");
 		logger.debug("String role(" + role + ")");
