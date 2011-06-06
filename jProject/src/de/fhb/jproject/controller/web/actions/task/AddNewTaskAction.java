@@ -13,6 +13,7 @@ import de.fhb.jproject.controller.web.actions.project.AddMemberAction;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import java.sql.Date;
 import javax.servlet.http.HttpSession;
 
 
@@ -47,18 +48,16 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
-					+ "String date(" + req.getParameter("date") + ")"
+					+ "Date date(" + req.getParameter("date") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
 			mainController.getTaskcontroller().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),
 					//yyyy-mm-dd <<< muss sooo aussehen
-					req.getParameter("date")
+					Date.valueOf(req.getParameter("date"))
 					);
 			
 			

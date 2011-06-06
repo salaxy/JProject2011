@@ -41,15 +41,15 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + "), "
-					+ "String taskId(" + req.getParameter("taskId") + ")"
+					+ "int taskId(" + req.getParameter("taskId") + ")"
 					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
 					);
-			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getTaskcontroller().deAssignTask((User)session.getAttribute("aktUser"), req.getParameter("userLoginName"), req.getParameter("projectName") ,  req.getParameter("taskId"));
+			mainController.getTaskcontroller().deAssignTask((User)session.getAttribute("aktUser"), 
+															req.getParameter("userLoginName"), 
+															req.getParameter("projectName") ,  
+															Integer.valueOf(req.getParameter("taskId")));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/DeAssignTask.jsp");

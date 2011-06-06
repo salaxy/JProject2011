@@ -48,11 +48,11 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getProjectContoller().deleteMember((User)session.getAttribute("aktUser"), req.getParameter("userLoginName"),req.getParameter("projectName"));
+			mainController.getProjectContoller().deleteMember((User)session.getAttribute("aktUser"), 
+															  req.getParameter("userLoginName"), 
+															  req.getParameter("projectName"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/DeleteMember.jsp");

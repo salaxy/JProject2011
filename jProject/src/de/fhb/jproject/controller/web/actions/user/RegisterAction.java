@@ -27,8 +27,6 @@ public class RegisterAction extends HttpRequestActionBase {
 		//Controller holen
 		mainController=(MainControl) session.getAttribute("mainController");
 		
-
-		
 		try {
 			
 			//Debugprint

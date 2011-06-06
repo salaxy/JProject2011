@@ -46,10 +46,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
-					);	
-			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
+					);
 		
 			//Controller in aktion
 			taskList=mainController.getTaskcontroller().showAllOwnTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));

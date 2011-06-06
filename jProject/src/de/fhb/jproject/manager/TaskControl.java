@@ -51,7 +51,7 @@ public class TaskControl {
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
 	 */
-	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, String date)
+	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
 		
 		
@@ -64,7 +64,7 @@ public class TaskControl {
 		logger.info("addNewTask()");
 		logger.debug("String projectName("+projectName+")"
 				+"String titel("+titel+")"
-				+"String date("+date+")"
+				+"Date date("+date+")"
 				);	
 		
         //abfrage ob user eingeloggt
@@ -109,7 +109,7 @@ public class TaskControl {
 		
 		//datum in der Form >>>yyyy-mm-dd	als	Date erzeugen und setzen
 		try {	
-			termin.setTermin(Date.valueOf(date));
+			termin.setTermin(date);
 		} catch (IllegalArgumentException e) {
 			throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -150,7 +150,7 @@ public class TaskControl {
 	 * loeschen eines Taks eines Projektes
 	 * 
 	 */
-	public void  deleteTask(User aktUser, String taskId, String projectName)
+	public void  deleteTask(User aktUser, int taskId, String projectName)
 	throws ProjectException{ 
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
 		//jedoch notwendig um die Rechte zum loeschen abzufragen
@@ -162,7 +162,7 @@ public class TaskControl {
 		//debuglogging
 		logger.info("deleteTask()");
 		logger.debug("String projectName("+projectName+")");
-		logger.debug("String taskId("+taskId+")");
+		logger.debug("int taskId("+taskId+")");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -198,7 +198,7 @@ public class TaskControl {
 		
 		//hole den task
 		try {
-			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(taskId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -324,7 +324,7 @@ public class TaskControl {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void assignTask(User aktUser, String userLoginName, String projectName, String taskId)
+	public void assignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -338,7 +338,7 @@ public class TaskControl {
 		logger.info("assignTask()");
 		logger.debug("String projectName(" + projectName + ")"
 				+ "String userLoginName(" + userLoginName + ")"
-				+ "String taskId(" + taskId + ")"
+				+ "int taskId(" + taskId + ")"
 				);	
 		
         //abfrage ob user eingeloggt
@@ -381,7 +381,7 @@ public class TaskControl {
 		
 		//zuzuordnenden Task holen
 		try {
-			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(taskId);
 			
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
@@ -414,7 +414,7 @@ public class TaskControl {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void deAssignTask(User aktUser, String userLoginName, String projectName, String taskId)
+	public void deAssignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -428,7 +428,7 @@ public class TaskControl {
 		logger.info("deAssignTask()");
 		logger.debug("String projectName(" + projectName + ")"
 				+ "String userLoginName(" + userLoginName + ")"
-				+ "String taskId(" + taskId + ")"
+				+ "int taskId(" + taskId + ")"
 				);	
 		
         //abfrage ob user eingeloggt
@@ -471,7 +471,7 @@ public class TaskControl {
 		
 		//Task dazu holen
 		try {
-			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(taskId);
 			
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
@@ -496,7 +496,7 @@ public class TaskControl {
 	
 	
 	
-	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, String date, boolean done)
+	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -540,7 +540,7 @@ public class TaskControl {
 		
 		//task holen
 		try {
-			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(taskId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -566,7 +566,7 @@ public class TaskControl {
 			if(task.getTermin()!=null){
 				try{
 					termin=task.getTermin();
-					termin.setTermin(Date.valueOf(date));
+					termin.setTermin(date);
 				} catch (IllegalArgumentException e) {
 					throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
 				}catch (NullPointerException e) {
@@ -576,7 +576,7 @@ public class TaskControl {
 				//wenn noch kein termin eintrag existiert
 				try{
 					termin=terminDA.createTermin();
-					termin.setTermin(Date.valueOf(date));//TODO Date-Parsen in der Action
+					termin.setTermin(date);//TODO Date-Parsen in der Action
 					task.setTermin(termin);
 				} catch (IllegalArgumentException e){
 					throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());

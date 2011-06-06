@@ -12,6 +12,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import java.sql.Date;
 import javax.servlet.http.HttpSession;
 
 
@@ -56,24 +57,22 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + "), "
-					+ "String taskId(" + req.getParameter("taskId") + ")"
+					+ "int taskId(" + req.getParameter("taskId") + ")"
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
-					+ "String date(" + req.getParameter("date") + ")"
-					+ "String done(" + req.getParameter("done") + ")"
+					+ "Date date(" + req.getParameter("date") + ")"
+					+ "boolean done(" + req.getParameter("done") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getTaskcontroller().updateTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
-					Integer.valueOf(req.getParameter("taskId")),
-					req.getParameter("titel"),
-					req.getParameter("aufgabenStellung"),
-					req.getParameter("date"),//TODO PARSE DATE
-					Boolean.getBoolean(req.getParameter("done"))
-					);
+			mainController.getTaskcontroller().updateTask((User)session.getAttribute("aktUser"), 
+														  req.getParameter("projectName"), 
+														  Integer.valueOf(req.getParameter("taskId")), 
+														  req.getParameter("titel"), 
+														  req.getParameter("aufgabenStellung"), 
+														  Date.valueOf(req.getParameter("date")), 
+														  Boolean.getBoolean(req.getParameter("done")));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/UpdateTask.jsp");

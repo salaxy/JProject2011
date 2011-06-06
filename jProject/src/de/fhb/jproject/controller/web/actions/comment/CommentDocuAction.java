@@ -45,12 +45,11 @@ public class CommentDocuAction extends HttpRequestActionBase {
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentDocu((User)session.getAttribute("aktUser"), Integer.valueOf(req.getParameter("documentId")),
-					req.getParameter("inhalt"));
+			mainController.getCommentController().commentDocu((User)session.getAttribute("aktUser"), 
+															  Integer.valueOf(req.getParameter("documentId")), 
+															  req.getParameter("inhalt"));
 			
 			
 			//forwarden zum JSP

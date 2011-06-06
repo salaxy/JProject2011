@@ -40,16 +40,15 @@ public class CommentSourceAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String sourcecodeId(" + req.getParameter("sourcecodeId") + "), "
+					+ "int sourcecodeId(" + req.getParameter("sourcecodeId") + "), "
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentSource((User)session.getAttribute("aktUser"), req.getParameter("sourcecodeId"),
-					req.getParameter("inhalt"));
+			mainController.getCommentController().commentSource((User)session.getAttribute("aktUser"), 
+																Integer.valueOf(req.getParameter("sourcecodeId")), 
+																req.getParameter("inhalt"));
 			
 			
 			//forwarden zum JSP

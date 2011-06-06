@@ -160,7 +160,7 @@ public class CommentControl {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentSource(User aktUser, String sourcecodeId, String inhalt)
+	public void commentSource(User aktUser, int sourcecodeId, String inhalt)
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -171,7 +171,7 @@ public class CommentControl {
 		
 		//debuglogging
 		logger.info("commentSource()");
-		logger.debug("String sourcecodeId("+sourcecodeId+")"
+		logger.debug("int sourcecodeId("+sourcecodeId+")"
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
@@ -181,7 +181,7 @@ public class CommentControl {
 		
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
-			sourcecode=sourcecodeDA.getSourcecodeByORMID(Integer.valueOf(sourcecodeId));
+			sourcecode=sourcecodeDA.getSourcecodeByORMID(sourcecodeId);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Sourcecode nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -246,7 +246,7 @@ public class CommentControl {
 		
 	}
 	
-	public void commentTask(User aktUser, String taskId, String inhalt)	
+	public void commentTask(User aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -257,7 +257,7 @@ public class CommentControl {
 		
 		//debuglogging
 		logger.info("commentTask()");
-		logger.debug("String taskId("+taskId+")"
+		logger.debug("int taskId("+taskId+")"
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
@@ -267,7 +267,7 @@ public class CommentControl {
 		
 		//Task holen (und implizit damit auch das Project)
 		try {
-			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(taskId);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Task nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {

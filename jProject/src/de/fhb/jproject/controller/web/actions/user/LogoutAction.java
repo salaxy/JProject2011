@@ -30,13 +30,9 @@ public class LogoutAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
-		
-		
 		HttpSession session = req.getSession();
 		//Controller holen
 		mainController=(MainControl) session.getAttribute("mainController");
-		
-
 		
 		try {
 			
@@ -44,7 +40,7 @@ public class LogoutAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Controller in aktion
-			mainController.getUserController().logout();
+			//mainController.getUserController().logout();
 			synchronized(session){
 				session.setAttribute("mainController", null);
 				session.setAttribute("loggedIn", null);
