@@ -327,12 +327,13 @@
     <Column name="Done">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>7</Type>
+      <Type>1</Type>
       <Length>1</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
+      <DefaultValue>0</DefaultValue>
       <UserTypes/>
     </Column>
     <Column name="TerminID">
@@ -913,6 +914,28 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+    <Column name="DeAssignTaskAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="AssignTaskAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
   </Entity>
   <Entity name="GlobalRoles">
     <Column name="Role">
@@ -1049,28 +1072,6 @@
       <UserTypes/>
     </Column>
     <Column name="ShowAllUserAction">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>1</Type>
-      <Length>1</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
-    <Column name="LoginAction">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>1</Type>
-      <Length>1</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
-    <Column name="LogoutAction">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>1</Type>
@@ -1431,17 +1432,6 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="DeleteProjectAction2">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>1</Type>
-      <Length>1</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
   </Entity>
   <ForeignKey name="FKMember111780">
     <ReferenceTable>Member</ReferenceTable>
@@ -1579,7 +1569,7 @@
   <ForeignKey name="FKTask626088">
     <ReferenceTable>Task</ReferenceTable>
     <ReferencedTable>Termin</ReferencedTable>
-    <OnDelete>Set null</OnDelete>
+    <OnDelete>Cascade</OnDelete>
     <Columns>
       <Column>TerminID</Column>
     </Columns>

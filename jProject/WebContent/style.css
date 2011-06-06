@@ -1,3 +1,4 @@
+* { padding: 0; margin: 0; }
 body {
 	background-color: #ffffff;
 	font-size: 11px;
@@ -32,13 +33,11 @@ a:active {
 
 p {
 	padding: 5px 10px;
-	margin:0px; 
 }
 
 pre{
 	font-size: 12px;
 	padding: 5px 10px;
-	margin:0px;
 }
 
 h1 {
@@ -48,13 +47,11 @@ h1 {
 	border-top:1px solid #564b47;
 	border-bottom:1px solid #564b47;
 	padding:5px 15px;
-	margin:0px
 }
 h2 {
 	font-size:20px;
 	font-weight: normal;
 	padding: 5px 10px;
-	margin:0px;
 }
 /*
 img.download {
@@ -70,8 +67,6 @@ img.download {
 	background-repeat: no-repeat;
 	background-position: right;
 	border-bottom: 5px solid #f2f2f2;
-	padding: 0px;
-	margin: 0px;
 }
 
 #logo {
@@ -86,8 +81,6 @@ img.download {
 #navbarback {
 	height: 36px;
 	background-image: url(images/navbar.png);
-	padding: 0px;
-	margin: 0px;
 }
 
 /* ----------navi-------------- */
@@ -95,8 +88,6 @@ img.download {
 	background-image: url(images/navbar.png);
 	background-position: center;
 	height: 36px;
-	padding: 0px;
-	margin: 0px;
 	margin-top: -36px;
 	border-left: 1px solid #ffffff;
 }
@@ -110,8 +101,6 @@ img.download {
 	width: 180px;
 	height: 36px;
 	border-right: 1px solid #ffffff;
-	padding: 0px;
-	margin: 0px;
 }
 .buttonright {
 	float: right;
@@ -120,8 +109,6 @@ img.download {
 	text-align: center;
 	width: 300px;
 	height: 36px;
-	padding: 0px;
-	margin: 0px;
 }
 
 /* ----------container zentriert das layout-------------- */
@@ -129,15 +116,11 @@ img.download {
 	background-image: url(images/content.png);
 	background-position: center;
 	background-repeat: repeat-y;
-	padding:0px;
-	margin: 0px;
 	margin-left: auto;
 	margin-right: auto;
 } 
 #container {
 	width: 980px;
-	padding:0px;
-	margin: 0px;
 	margin-left: auto;
 	margin-right: auto;
 } 
@@ -164,7 +147,6 @@ img.download {
 	margin-right:1px;
 }
 #projects {
-	padding:0px;
 	margin-left:20px;
 }
 /* --------------right navigation------------- */
@@ -182,14 +164,12 @@ img.download {
 	/*width: 550px;*/
 	width: 750px;
 	position: relative; 
-	margin: 0px; 
+	margin: 0px;
 }
 
 /*  ----------------footer---------------------- */ 
 #footer {
 	clear:left;
-	padding:0px;
-	margin:0px;
 	text-align: right;
 }
 
@@ -198,7 +178,75 @@ img.download {
 	background-image: url(images/footer.png);
 	background-position: top center;
 	background-repeat: no-repeat;
-	padding:0px;
-	margin:0px;
 	text-align: center;
 }
+
+
+
+
+/*  ----------------CONTENT---------------------- */ 
+/* ----------topcontent-------------- */
+#topcontent {
+	width: 750px;
+	height: 40px;
+}
+
+/* --------------left content navigation------------- */
+#leftcontent {
+	width:150px; 
+	float:left;
+	margin-right:1px;
+}
+/* -----------------Inhalt--------------------- */ 
+#contentcontent{
+	width: 750px;
+	margin-left: 150px;
+}
+/* ----------container zentriert das layout-------------- */
+#outercontainercontent {
+	margin-left: auto;
+	margin-right: auto;
+}
+#footercontent { 
+	width: 750px;
+	clear: both;
+}	
+	
+/*	
+#wrapper { 
+ margin: 0 auto;
+ width: 750px;
+
+}
+#header {
+ color: #333;
+ width: 750px;
+ float: left;
+ border: 1px solid #ccc;
+ height: 100px;
+ background: #BD9C8C;
+}
+#leftcolumn { 
+ color: #333;
+ border: 1px solid #ccc;
+ background: #E7DBD5;
+ height: 350px;
+ width: 240px;
+ float: left;
+}
+#rightcolumn { 
+ float: right;
+ color: #333;
+ border: 1px solid #ccc;
+ background: #F2F2E6;
+ height: 350px;
+ width: 500px;
+ display: inline;
+}
+#footer { 
+ width: 750px;
+ clear: both;
+ color: #333;
+ border: 1px solid #ccc;
+ background: #BD9C8C;
+}*/
