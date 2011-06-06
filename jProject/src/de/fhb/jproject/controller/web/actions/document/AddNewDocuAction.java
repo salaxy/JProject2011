@@ -38,7 +38,7 @@ public class AddNewDocuAction extends HttpRequestActionBase {
 //		try {
 //			forward(req, resp, "json.jsp");
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
+//			
 //			
 //		}
 		

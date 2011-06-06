@@ -55,11 +55,8 @@ public class LoginAction extends HttpRequestActionBase {
 						req.getParameter("password")));
 			}
 			
-			
-			//forwarden zum JSP
 			//TODO syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
-			//forward(req, resp, "/index.jsp");
 
 		}catch (ProjectException e) {
 			
@@ -67,13 +64,7 @@ public class LoginAction extends HttpRequestActionBase {
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
-		}/*catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
-		}*/catch(NullPointerException e){
+		}catch(NullPointerException e){
 			
 			
 			logger.error(e.getMessage());

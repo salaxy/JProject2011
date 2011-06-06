@@ -210,6 +210,7 @@ public class TaskControl {
 		}
 		
 		//termin loeschen
+		//TODO NICHT MEHR NOETIG...CASCADE IN DER DATENBANK...NUR TASK LOESCHEN
 		try {	
 			clearSession();
 			//loeschen
@@ -319,7 +320,6 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		//TODO Admin??? Rechte Nachbessern?
 		if(!projectRolesController.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
@@ -379,8 +379,6 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		//TODO Admin darf keine task zuordnen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
-		//TODO Rechte nachbessern?
 		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
 		}
@@ -471,8 +469,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		//TODO Admin darf keine task zuordnen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
-		//TODO RECHTE nachbessern?
+		// TODO Rechtecontroller
 		if(!projectRolesController.isAllowedDeleteTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
@@ -518,7 +515,7 @@ public class TaskControl {
 	
 	
 	
-	public void updateTask(User aktUser, String projectName,String taskId, String titel, String aufgabenStellung, String date, String done)
+	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, String date, boolean done)
 	throws ProjectException{ 
 		
 		Project project=null;
@@ -598,7 +595,7 @@ public class TaskControl {
 				//wenn noch kein termin eintrag existiert
 				try{
 					termin=terminDA.createTermin();
-					termin.setTermin(Date.valueOf(date));
+					termin.setTermin(Date.valueOf(date));//TODO Date-Parsen in der Action
 					task.setTermin(termin);
 				} catch (IllegalArgumentException e){
 					throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
@@ -615,24 +612,14 @@ public class TaskControl {
 				throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
 			}
 		}
-		
-		
-		if(done!=null){
-			
-			boolean value;
-			
-			try{
-				value=Boolean.valueOf(done);
-			}catch (IllegalArgumentException e){
-				throw new ProjectException("Done ist falsch gesetzt! "+ e.getMessage());
-			}
-
-			if(value){
-				task.setDone((byte)1);				
-			}else{
-				task.setDone((byte)0);
-			}
+	
+		//TODO DatenbankFix (funktioniert mit naechstem update)-> done = boolean
+		if(done){
+			task.setDone((byte)1);				
+		}else{
+			task.setDone((byte)0);
 		}
+		
 		
 		//task speichern/updaten
 		try {		

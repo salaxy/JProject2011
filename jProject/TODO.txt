@@ -1,4 +1,6 @@
 
 
-- Konstanten bei Role controller rausnehmen und ...schauen nach listAllRoles...etc.
-- 
+RECHTE
+Global+Project
+AssignTask
+DeAssignTask
