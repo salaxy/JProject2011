@@ -41,13 +41,11 @@ public class CommentProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
-			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentProject((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
-					req.getParameter("inhalt"));
+			mainController.getCommentController().commentProject((User)session.getAttribute("aktUser"), 
+																 req.getParameter("projectName"), 
+																 req.getParameter("inhalt"));
 			
 			
 			//forwarden zum JSP

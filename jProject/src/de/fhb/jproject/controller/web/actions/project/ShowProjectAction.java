@@ -50,17 +50,13 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
-		
-			System.out.println(req.getParameter("projectName"));
 			//Controller in aktion
-			project=mainController.getProjectContoller().showProject((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+			project=mainController.getProjectContoller().showProject((User)session.getAttribute("aktUser"), 
+																	 req.getParameter("projectName"));
 			
 			//setzen der Parameter
 			req.setAttribute("project", project);
 			
-			System.out.println(project.getName());
 			
 			//forwarden zum JSP
 			forward(req, resp, "/ShowProject.jsp");

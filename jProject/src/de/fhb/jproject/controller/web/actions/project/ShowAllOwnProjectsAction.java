@@ -44,34 +44,10 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			
-			//Controller in aktion
-			/*
-			List<Project> list = ;
-			for (Project aktProject : list) {
-				System.out.println("Project: "+aktProject.getName());
+			//TODO in den request packen reciht aus ;D
+			synchronized(session){
+				session.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			}
-			 * 
-			 */
-			//in den request packen reciht aus ;D
-			session.setAttribute("showAllOwnProjects", 
-								 mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
-			//req.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects());
-			/*
-			JSONObject json = new JSONObject();
-			
-			for (Song_VO song : list) {
-				try {
-					json.append("songs", new JSONObject(song));
-				} catch (JSONException e) {
-					
-				}
-			}
-			resp.setContentType("application/json");
-			*/
-			//forwarden zum JSP
-			//RequestDispatcher reqDisp = req.getRequestDispatcher("WEB-INF/showAllOwnProjects.jspf");
-            //reqDisp.forward(req, resp);
-			//forward(req, resp, "WEB-INF/showAllOwnProjects.jspf");
 			
 			
 		}catch (ProjectException e) {
@@ -80,13 +56,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
-		}/*catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
-		}*/catch(NullPointerException e){
+		}catch(NullPointerException e){
 			
 			
 			logger.error(e.getMessage());

@@ -48,11 +48,11 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getProjectContoller().addNewProject((User)session.getAttribute("aktUser"), req.getParameter("projectName"), req.getParameter("status"));
+			mainController.getProjectContoller().addNewProject((User)session.getAttribute("aktUser"), 
+															   req.getParameter("projectName"), 
+															   req.getParameter("status"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/AddNewProjectAction.jsp");

@@ -42,9 +42,7 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 		mainController=(MainControl) session.getAttribute("mainController");
 		List<Project> projectList=null;
 		
-		try {		
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
+		try {
 		
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");

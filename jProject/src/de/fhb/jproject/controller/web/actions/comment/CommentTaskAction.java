@@ -38,16 +38,15 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String taskId(" + req.getParameter("taskId") + "), "
+					+ "int taskId(" + req.getParameter("taskId") + "), "
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getCommentController().commentTask((User)session.getAttribute("aktUser"), req.getParameter("taskId"),
-					req.getParameter("inhalt"));
+			mainController.getCommentController().commentTask((User)session.getAttribute("aktUser"), 
+															  Integer.valueOf(req.getParameter("taskId")), 
+															  req.getParameter("inhalt"));
 			
 			
 			//forwarden zum JSP

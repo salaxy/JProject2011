@@ -24,41 +24,6 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
-		
-//		try {
-//			//Debugprint
-//			DebugSystem.println(DebugSystem.LEVELACTIONS,"Action: XXXAction");
-//			
-//			//Controller in aktion
-//			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
-//			
-//			//forwarden zum JSP
-//			forward(req, resp, "/mainpage.jsp");
-//
-//		}catch (ProjectException e) {
-//			
-//			
-//			req.setAttribute("errorMessage", e.getMessage());
-//			
-//			new ErrorAction().perform(req, resp);
-//			
-//		}catch (IOException e) {
-//			
-//			
-//			req.setAttribute("errorMessage", e.getMessage());
-//			
-//			new ErrorAction().perform(req, resp);
-//			
-//		}catch(NullPointerException e){
-//			
-//			
-//			req.setAttribute("errorMessage", e.getMessage());
-//			
-//			new ErrorAction().perform(req, resp);
-//			
-//		}
 		
 	}
 }

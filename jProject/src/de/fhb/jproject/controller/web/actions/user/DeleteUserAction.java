@@ -44,7 +44,8 @@ public class DeleteUserAction extends HttpRequestActionBase {
 					);
 			
 			//Controller in aktion			
-			mainController.getUserController().deleteUser((User)session.getAttribute("aktUser"), req.getParameter("loginName"));
+			mainController.getUserController().deleteUser((User)session.getAttribute("aktUser"), 
+														  req.getParameter("loginName"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/userGeloescht.jsp");

@@ -47,15 +47,15 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String taskId(" + req.getParameter("taskId") + "), "
+					+ "int taskId(" + req.getParameter("taskId") + "), "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getTaskcontroller().deleteTask((User)session.getAttribute("aktUser"), req.getParameter("taskId"), req.getParameter("projectName"));
+			mainController.getTaskcontroller().deleteTask((User)session.getAttribute("aktUser"), 
+														  Integer.valueOf(req.getParameter("taskId")), 
+														  req.getParameter("projectName"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/DeleteTask.jsp");

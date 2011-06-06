@@ -49,11 +49,10 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			memberList=mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+			memberList=mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), 
+																		  req.getParameter("projectName"));
 			
 			for( Member m : memberList){
 				System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());

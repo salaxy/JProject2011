@@ -47,12 +47,11 @@ public class AddMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("rolle") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
-		
 			//Controller in aktion
-			mainController.getProjectContoller().addMember((User)session.getAttribute("aktUser"), req.getParameter("userLoginName"),
-					req.getParameter("projectName"), req.getParameter("rolle"));
+			mainController.getProjectContoller().addMember((User)session.getAttribute("aktUser"), 
+														   req.getParameter("userLoginName"), 
+														   req.getParameter("projectName"), 
+														   req.getParameter("rolle"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/AddMember.jsp");

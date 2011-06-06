@@ -47,11 +47,10 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
 		
 			//Controller in aktion
-			mainController.getProjectContoller().deleteProject((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+			mainController.getProjectContoller().deleteProject((User)session.getAttribute("aktUser"), 
+															   req.getParameter("projectName"));
 			
 			//forwarden zum JSP
 			forward(req, resp, "/DeleteProject.jsp");

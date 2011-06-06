@@ -24,36 +24,6 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
-		//Controller holen
-		mainController=(MainControl) req.getSession().getAttribute("mainController");
-		
-//		try {
-//			//Debugprint
-//			DebugSystem.println(DebugSystem.LEVELACTIONS,"Action: XXXAction");
-//			
-//			//Controller in aktion
-//			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
-//			
-//			//forwarden zum JSP
-//			forward(req, resp, "/mainpage.jsp");
-//
-//		}catch (ProjectException e) {
-//			
-//						
-//			errorforward(req, resp, e.getMessage());
-//			
-//		}catch (IOException e) {
-//			
-//			
-//            errorforward(req, resp, e.getMessage());
-//			
-//		}catch(NullPointerException e){
-//			
-//			
-//            errorforward(req, resp, e.getMessage());
-//			
-//		}
-		
 	}
 
 }

@@ -54,10 +54,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
-			
-			//Controller holen
-			mainController=(MainControl) req.getSession().getAttribute("mainController");
-		
+					
 			//Controller in aktion
 			taskList=mainController.getTaskcontroller().showAllTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			

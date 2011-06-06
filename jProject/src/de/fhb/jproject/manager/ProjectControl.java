@@ -350,14 +350,14 @@ public class ProjectControl {
 		return project;
 	}
 	
-	public List<Project> searchProjects(User aktUser, String teilName)
+	public List<Project> searchProjects(User aktUser, String loginName)
 	throws ProjectException{
 		
 		List<Project> list=null;
 		
 		//debuglogging
 		logger.info("searchProjects()");
-		logger.debug("String teilName("+teilName+")");
+		logger.debug("String loginName("+loginName+")");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -370,7 +370,7 @@ public class ProjectControl {
 		}	
 		
 		//holen der Daten
-		//TODO suche implementieren in der DA..... List<Project> findProjectsLike(String teilName)
+		//TODO suche implementieren in der DA..... List<Project> findProjectsLike(String loginName)
 		//
 //		try {
 //			list=projectDA.listAllProjects();
