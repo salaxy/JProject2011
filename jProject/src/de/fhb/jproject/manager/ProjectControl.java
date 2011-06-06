@@ -116,7 +116,7 @@ public class ProjectControl {
 			//Member speichern
 			memberDA.save(member);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
 		}
 		
@@ -158,7 +158,7 @@ public class ProjectControl {
 			//Member speichern
 			projectDA.save(project);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Project nicht speichern! "+ e.getMessage());
 		}
 		
@@ -180,7 +180,7 @@ public class ProjectControl {
 			//Member speichern
 			memberDA.save(member);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
 		}
 	}	
@@ -297,7 +297,7 @@ public class ProjectControl {
 			//Member loeschen
 			memberDA.delete(delMember);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
 		}
 	}
@@ -358,7 +358,7 @@ public class ProjectControl {
 //		try {
 //			list=projectDA.listAllProjects();
 //		} catch (PersistentException e) {
-//			e.printStackTrace();
+//			
 //			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
 //		}		
 		
@@ -390,7 +390,7 @@ public class ProjectControl {
 		try {
 			list=projectDA.listAllProjects();
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
 		}
 		

@@ -333,7 +333,7 @@ public class UserControl {
 			session.clear();
 			fa.getMemberDA().save(tempMember);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
 		}
 		

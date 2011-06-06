@@ -17,18 +17,31 @@ import de.fhb.jproject.data.Task;
 import de.fhb.jproject.data.Termin;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.repository.da.MemberDA;
+import de.fhb.jproject.repository.da.ProjectDA;
+import de.fhb.jproject.repository.da.TaskDA;
+import de.fhb.jproject.repository.da.TerminDA;
+import de.fhb.jproject.repository.da.UserDA;
 
 public class TaskControl {
 	
-	User aktUser;
-	ProjectRolesControl projectRolesController;
-	GlobalRolesControl globalRolesController;
+	private User aktUser;
+	private ProjectRolesControl projectRolesController;
+	private GlobalRolesControl globalRolesController;
+	
+	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
+	private TaskDA taskDA = DAFactory.getDAFactory().getTaskDA();
+	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
+	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
+	private TerminDA terminDA = DAFactory.getDAFactory().getTerminDA();
+	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
 	public TaskControl(User aktUser, ProjectRolesControl projectRolesController){
 		
 		this.aktUser=aktUser;
 		this.projectRolesController=projectRolesController;
+		//GlobalRolesController is hier noch null
 	}
 
 	// !!! Task Actions !!!
@@ -57,14 +70,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -78,7 +91,7 @@ public class TaskControl {
 		//EIGENTLICHE AKTIONEN
 		
 		//task erzeugen und parameter setzen
-		task=DAFactory.getDAFactory().getTaskDA().createTask();
+		task=taskDA.createTask();
 		//project setzen
 		task.setProject(project);
 		//setzen weiterer attribute
@@ -89,7 +102,7 @@ public class TaskControl {
 		// gibt es eine LazyIn....Ecxpetion bei... setProject 
 		
 		// Termin erzeugen und setzen
-		termin =DAFactory.getDAFactory().getTerminDA().createTermin();
+		termin =terminDA.createTermin();
 		
 		//datum in der Form >>>yyyy-mm-dd	als	Date erzeugen und setzen
 		try {	
@@ -102,15 +115,11 @@ public class TaskControl {
 		
 		//termin speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getTerminDA().save(termin);
+			terminDA.save(termin);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
 		}
 
@@ -120,17 +129,13 @@ public class TaskControl {
 					
 		//task speichern
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getTaskDA().save(task);
+			taskDA.save(task);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			try {
-				DAFactory.getDAFactory().getTerminDA().delete(termin);
+				terminDA.delete(termin);
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Task nicht speichern und erstellten Termin nicht wieder leoschen! "+ e.getMessage());
 			}
@@ -161,7 +166,7 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
@@ -171,7 +176,7 @@ public class TaskControl {
 			
 			//Projekt-Rolle des aktuellen Users holen
 			try {
-				memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
@@ -188,7 +193,7 @@ public class TaskControl {
 		
 		//hole den task
 		try {
-			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -199,13 +204,9 @@ public class TaskControl {
 		
 		//termin loeschen
 		try {	
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//loeschen
-			DAFactory.getDAFactory().getTerminDA().delete(task.getTermin());
+			terminDA.delete(task.getTermin());
 		} catch (PersistentException e) {
 			//XXX es kann sein das ein Task gar kein termin hat, dann muss trotzdessen die task loeschbar sein,muss es???
 			// daher hier keine Exception! Ist das programmiertechnisch ok?
@@ -218,13 +219,9 @@ public class TaskControl {
 		//loeschen
 		//Info: Termin wird nicht automatisch mit gel�scht
 		try {	
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//task loeschen
-			DAFactory.getDAFactory().getTaskDA().delete(task);
+			taskDA.delete(task);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht loeschen! "+ e.getMessage());
 		}	
@@ -250,14 +247,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}	
@@ -297,14 +294,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -355,14 +352,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Member des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -376,21 +373,21 @@ public class TaskControl {
 		
 		//zuzuordnenden user holen
 		try {
-			assignUser=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			assignUser=userDA.getUserByORMID(userLoginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
 		}
 		
 		//Membereintrag des zuzuordnenden Users holen
 		try {
-			assignMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(assignUser, project);
+			assignMember=memberDA.getMemberByORMID(assignUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		
 		//zuzuordnenden Task holen
 		try {
-			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
 			
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
@@ -405,13 +402,9 @@ public class TaskControl {
 		
 		//updaten/speichern des Members
 		try {	
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//task loeschen
-			DAFactory.getDAFactory().getMemberDA().save(assignMember);
+			memberDA.save(assignMember);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
 		}	
@@ -449,14 +442,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Member des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -470,21 +463,21 @@ public class TaskControl {
 		
 		//zugeordneten user holen
 		try {
-			deassignUser=DAFactory.getDAFactory().getUserDA().getUserByORMID(userLoginName);
+			deassignUser=userDA.getUserByORMID(userLoginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
 		}
 		
 		//Membereintrag des zugeordneten Users holen
 		try {
-			deassignMember=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(deassignUser, project);
+			deassignMember=memberDA.getMemberByORMID(deassignUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		
 		//Task dazu holen
 		try {
-			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
 			
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
@@ -499,13 +492,9 @@ public class TaskControl {
 		
 		//updaten/speichern des Members
 		try {	
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//task loeschen
-			DAFactory.getDAFactory().getMemberDA().save(deassignMember);
+			memberDA.save(deassignMember);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
 		}	
@@ -533,14 +522,14 @@ public class TaskControl {
 		
 		//projekt holen
 		try {
-			project=DAFactory.getDAFactory().getProjectDA().getProjectByORMID(projectName);
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
 		//Projekt-Rolle des aktuellen Users holen
 		try {
-			memAktUser=DAFactory.getDAFactory().getMemberDA().getMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
@@ -554,7 +543,7 @@ public class TaskControl {
 		
 		//task holen
 		try {
-			task=DAFactory.getDAFactory().getTaskDA().getTaskByORMID(Integer.valueOf(taskId));
+			task=taskDA.getTaskByORMID(Integer.valueOf(taskId));
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
@@ -589,7 +578,7 @@ public class TaskControl {
 			}else{
 				//wenn noch kein termin eintrag existiert
 				try{
-					termin=DAFactory.getDAFactory().getTerminDA().createTermin();
+					termin=terminDA.createTermin();
 					termin.setTermin(Date.valueOf(date));
 					task.setTermin(termin);
 				} catch (IllegalArgumentException e){
@@ -599,15 +588,11 @@ public class TaskControl {
 			
 			//termin speichern
 			try {		
-				PersistentSession session;		
-				//Session holen
-				session = JProjectPersistentManager.instance().getSession();
-				//und bereinigen
-				session.clear();
+				clearSession();
 				//Member speichern
-				DAFactory.getDAFactory().getTerminDA().save(termin);
+				terminDA.save(termin);
 			} catch (PersistentException e) {
-				e.printStackTrace();
+				
 				throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
 			}
 		}
@@ -632,15 +617,11 @@ public class TaskControl {
 		
 		//task speichern/updaten
 		try {		
-			PersistentSession session;		
-			//Session holen
-			session = JProjectPersistentManager.instance().getSession();
-			//und bereinigen
-			session.clear();
+			clearSession();
 			//Member speichern
-			DAFactory.getDAFactory().getTaskDA().save(task);
+			taskDA.save(task);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte Task nicht speichern! "+ e.getMessage());
 		}
 	}
@@ -649,5 +630,12 @@ public class TaskControl {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
+	}
+	private void clearSession() throws PersistentException{
+		PersistentSession session;		
+		//Session holen
+		session = JProjectPersistentManager.instance().getSession();
+		//und bereinigen
+		session.clear();
 	}
 }
