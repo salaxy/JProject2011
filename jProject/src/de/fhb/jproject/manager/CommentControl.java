@@ -106,14 +106,14 @@ public class CommentControl {
 		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			
+			// TODO HIER IST DAS PROBLEM WARUM ER DIE EINTRAEGE DOPPELT MACHT!!!!!!!!!DER MEMBER IST SCHULD!!!!
 			try {
 				memAktUser=memberDA.loadMemberByORMID(aktUser, document.getProject());
 				//RECHTE-ABFRAGE Projekt
 				if(!(projectRolesController.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
 					throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
 				}
-				memberDA.save(memAktUser);
+				//memberDA.save(memAktUser);
 				//System.out.println("Member: "+memAktUser.getUserId());
 				
 			} catch (PersistentException e1) {
