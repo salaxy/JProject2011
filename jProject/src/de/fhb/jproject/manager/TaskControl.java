@@ -87,7 +87,6 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		//TODO Admin darf keine task hinzufuegen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
 		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())
 				|| !globalRolesController.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
@@ -208,23 +207,7 @@ public class TaskControl {
 			throw new ProjectException("TaskId fehlerhaft! "+ e.getMessage());
 		}
 		
-		//termin loeschen
-		//TODO NICHT MEHR NOETIG...CASCADE IN DER DATENBANK...NUR TASK LOESCHEN
-		try {	
-			clearSession();
-			//loeschen
-			terminDA.delete(task.getTermin());
-		} catch (PersistentException e) {
-			//XXX es kann sein das ein Task gar kein termin hat, dann muss trotzdessen die task loeschbar sein,muss es???
-			// daher hier keine Exception! Ist das programmiertechnisch ok?
-			//sollte bei normaler erstellung allerdings erstellt worden sein
-//			throw new ProjectException("Kann Termin nicht loeschen! "+ e.getMessage());
-		}catch (NullPointerException e) {
-//			throw new ProjectException("Termin wurde nicht gefunden! "+ e.getMessage());{/
-		}
-		
 		//loeschen
-		//Info: Termin wird nicht automatisch mit gel�scht
 		try {	
 			clearSession();
 			//task loeschen
@@ -378,7 +361,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
 		}
 		
@@ -468,8 +451,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		// TODO Rechtecontroller
-		if(!projectRolesController.isAllowedDeleteTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
 		
