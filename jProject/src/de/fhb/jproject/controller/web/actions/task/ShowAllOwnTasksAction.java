@@ -16,7 +16,7 @@ import de.fhb.jproject.manager.MainControl;
 
 
 /**
- * Aktion die ausgeführt wird, wenn die eigenen Tasks/Aufgaben
+ * Aktion die ausgefuehrt wird, wenn die eigenen Tasks/Aufgaben
  * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
  * 
  * STATUS:	FREIGEGEBEN

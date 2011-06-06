@@ -17,14 +17,14 @@ import de.fhb.jproject.manager.MainControl;
  * Action die angesprochen wird, wenn eine Task/Aufgabe geupdated wird
  * 
  * Hinweise: 
- * es sollen nur die parameter die geändert werden mitgeben werden, andere komplett weglassen
+ * es sollen nur die parameter die geaendert werden mitgeben werden, andere komplett weglassen
  * d.h. also kein leerstring mitgeben sondern den parameter gar nicht uebergebn
- * so das z.b wenn der titel nicht geändert wird req.getParameter("titel")=null ergibt
+ * so das z.b wenn der titel nicht geaendert wird req.getParameter("titel")=null ergibt
  * taskid und projectName sind aber pflichtparameter!!!
  * 
  * @micher ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
- * also ueberprüfe ich nciht auf leerstring, weil das ja auch gewollt sein könnte,
- * gib mir irgentwann mal rückmeldung ob das so umsetzen kannst, es wäre ein leichtes es später noch zu ändern
+ * also ueberpruefe ich nciht auf leerstring, weil das ja auch gewollt sein koennte,
+ * gib mir irgentwann mal rueckmeldung ob das so umsetzen kannst, es waere ein leichtes es spaeter noch zu aendern
  * TODO diese nachricht spaeter loeschen
  * 
  * !!!Parameter "done" MUSS entweder der String "true" oder "false" sein!!!

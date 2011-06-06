@@ -48,10 +48,10 @@ public class LoginAction extends HttpRequestActionBase {
 					);
 			
 			//Controller in aktion
-			mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password"));
 			synchronized(session){
+				
+				session.setAttribute("aktUser", mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password")));
 				session.setAttribute("loggedIn", true);
-				session.setAttribute("aktUser", mainController.getUserController().getAktUser());
 			}
 			
 			
