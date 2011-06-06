@@ -31,12 +31,12 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
                 t.commit();//wenn alles erfolgreich speichere
             } catch (PersistentException e) {
                 t.rollback();
-                e.printStackTrace();
+                
                 throw new ProjectException("Transaktion fehlgeschlagen!");
             }
             
         } catch (PersistentException e) {
-            e.printStackTrace();
+            
             throw new ProjectException("Kann Transaktion nicht initialisieren!");
         }
 	*/
@@ -47,7 +47,7 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
             //Operation1 probiere aus
             t.commit();//wenn alles erfolgreich speichere
         } catch (PersistentException e) {
-            e.printStackTrace();
+            
             throw new ProjectException("Operation fehlgeschlagen!");
         }
             

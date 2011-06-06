@@ -50,8 +50,9 @@ public class LoginAction extends HttpRequestActionBase {
 			//Controller in aktion
 			synchronized(session){
 				
-				session.setAttribute("aktUser", mainController.getUserController().login(req.getParameter("loginName"),req.getParameter("password")));
-				session.setAttribute("loggedIn", true);
+				session.setAttribute("aktUser", mainController.getUserController().login(
+						req.getParameter("loginName"),
+						req.getParameter("password")));
 			}
 			
 			
@@ -62,24 +63,26 @@ public class LoginAction extends HttpRequestActionBase {
 
 		}catch (ProjectException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}/*catch (IOException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}*/catch(NullPointerException e){
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}
-		
+		synchronized(session){
+			session.setAttribute("loggedIn", true);
+		}
 		
 	}
 }

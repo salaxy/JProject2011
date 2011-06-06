@@ -63,7 +63,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 				try {
 					json.append("songs", new JSONObject(song));
 				} catch (JSONException e) {
-					e.printStackTrace();
+					
 				}
 			}
 			resp.setContentType("application/json");
@@ -76,19 +76,19 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			
 		}catch (ProjectException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
 			errorforward(req, resp, e.getMessage());
 			
 		}/*catch (IOException e) {
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			
 		}*/catch(NullPointerException e){
 			
-			e.printStackTrace();
+			
 			logger.error(e.getMessage());
             errorforward(req, resp, e.getMessage());
 			

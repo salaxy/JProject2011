@@ -39,17 +39,17 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 //
 //		}catch (ProjectException e) {
 //			
-//			e.printStackTrace();			
+//						
 //			errorforward(req, resp, e.getMessage());
 //			
 //		}catch (IOException e) {
 //			
-//			e.printStackTrace();
+//			
 //            errorforward(req, resp, e.getMessage());
 //			
 //		}catch(NullPointerException e){
 //			
-//			e.printStackTrace();
+//			
 //            errorforward(req, resp, e.getMessage());
 //			
 //		}
