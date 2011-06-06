@@ -57,7 +57,7 @@ public class Task {
 	
 	private String aufgabenstellung;
 	
-	private byte done;
+	private boolean done;
 	
 	private de.fhb.jproject.data.Termin termin;
 	
@@ -93,11 +93,11 @@ public class Task {
 		return aufgabenstellung;
 	}
 	
-	public void setDone(byte value) {
+	public void setDone(boolean value) {
 		this.done = value;
 	}
 	
-	public byte getDone() {
+	public boolean getDone() {
 		return done;
 	}
 	

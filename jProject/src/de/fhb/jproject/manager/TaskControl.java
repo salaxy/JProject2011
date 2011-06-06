@@ -102,7 +102,6 @@ public class TaskControl {
 		//setzen weiterer attribute
 		task.setAufgabenstellung(aufgabenStellung);
 		task.setTitel(titel);
-		task.setDone((byte)0);
 		//Hinweis: dieser block hier dr�ber muss vor dem termin setten ausgef�hrt werden sonst
 		// gibt es eine LazyIn....Ecxpetion bei... setProject 
 		
@@ -613,12 +612,8 @@ public class TaskControl {
 			}
 		}
 	
-		//TODO DatenbankFix (funktioniert mit naechstem update)-> done = boolean
-		if(done){
-			task.setDone((byte)1);				
-		}else{
-			task.setDone((byte)0);
-		}
+		
+		task.setDone(done);
 		
 		
 		//task speichern/updaten
