@@ -1,5 +1,6 @@
 package de.fhb.jproject.manager;
 
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -28,6 +29,7 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
+import org.hibernate.LockMode;
 
 public class CommentControl {
 	
@@ -70,7 +72,7 @@ public class CommentControl {
 	/**
 	 * kommentieren eines Dokuments
 	 */
-	public void commentDocu(User aktUser, String documentId, String inhalt)
+	public void commentDocu(User aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
 		
 		Member memAktUser=null;	
@@ -81,7 +83,7 @@ public class CommentControl {
 		
 		//debuglogging
 		logger.info("commentDocu()");
-		logger.debug("String documentId("+documentId+")"
+		logger.debug("int documentId("+documentId+")"
 				+"String inhalt("+inhalt+")");	
 		
         //abfrage ob user eingeloggt
@@ -91,7 +93,7 @@ public class CommentControl {
 		
 		//document holen (und implizit damit auch das Project)
 		try {
-			document=documentDA.getDocumentByORMID(Integer.valueOf(documentId));
+			document=documentDA.loadDocumentByORMID(documentId);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Dokument nicht finden! "+ e1.getMessage());
 		}catch (NullPointerException e) {
@@ -104,18 +106,22 @@ public class CommentControl {
 		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
+			
 			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, document.getProject());
+				memAktUser=memberDA.loadMemberByORMID(aktUser, document.getProject());
+				//RECHTE-ABFRAGE Projekt
+				if(!(projectRolesController.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
+					throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
+				}
+				memberDA.save(memAktUser);
+				//System.out.println("Member: "+memAktUser.getUserId());
+				
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 			}
 			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesController.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
-			}	
-		}		
-
+				
+		}
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -132,25 +138,20 @@ public class CommentControl {
 		//Comment speichern
 		try {		
 			clearSession();
-			//Member speichern
+			
+			//Referenz auf Comment setzen
+			commentDocu.setComment(comment);
+			//Comment speichern
 			commentDA.save(comment);
-		} catch (PersistentException e) {
 			
-			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
-		}
-		
-		//referenz auf comment setzen
-		commentDocu.setComment(comment);
-		
-		//und CommentDocument speichern
-		try {		
-			clearSession();
-			// speichern
+			//CommentDocu speichern
 			commentDocumentDA.save(commentDocu);
+			clearSession();
 		} catch (PersistentException e) {
 			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
+		
 	}
 			
 	/**

@@ -21,7 +21,7 @@ public class MainControl{
 	
 
 	public MainControl() {
-		rootLogger.setLevel(Level.OFF);
+		rootLogger.setLevel(Level.INFO);
 		
 		globalRolesController=new GlobalRolesControl();	
 		projectRolesController= new ProjectRolesControl();
