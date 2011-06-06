@@ -125,7 +125,7 @@ public class CommentControl {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
@@ -138,7 +138,7 @@ public class CommentControl {
 			// speichern
 			commentDocumentDA.save(commentDocu);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 	}
@@ -212,7 +212,7 @@ public class CommentControl {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
@@ -225,7 +225,7 @@ public class CommentControl {
 			// speichern
 			commentSourcecodeDA.save(commentSource);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
@@ -296,7 +296,7 @@ public class CommentControl {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
@@ -309,7 +309,7 @@ public class CommentControl {
 			// speichern
 			commentTaskDA.save(commentTask);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 	}
@@ -381,7 +381,7 @@ public class CommentControl {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
@@ -394,7 +394,7 @@ public class CommentControl {
 			// speichern
 			commentProjectDA.save(commentProject);
 		} catch (PersistentException e) {
-			e.printStackTrace();
+			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
 		}
 		
