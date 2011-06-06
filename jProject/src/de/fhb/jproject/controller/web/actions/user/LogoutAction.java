@@ -54,7 +54,7 @@ public class LogoutAction extends HttpRequestActionBase {
 			
 			
 			//forwarden zum JSP
-			//TODO syso entfernen
+			//XXX syso entfernen
 			System.out.println("Erfolgreich ausgeloggt!");
 			forward(req, resp, "/index.jsp");
 

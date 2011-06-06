@@ -103,7 +103,6 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		//TODO || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -192,7 +191,6 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -279,7 +277,6 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -368,7 +365,6 @@ public class CommentControl {
 		}
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen

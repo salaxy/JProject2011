@@ -28,7 +28,7 @@ public class TaskDAImpl  extends TaskDAOImpl implements TaskDA {
             session = JProjectPersistentManager.instance().getSession();
         } catch (PersistentException ex) {
             //Kann session nicht anlegen.
-            logger.error("Kann Session nicht anlegen! ", ex);// TODO maybe FATAL
+            logger.fatal("Kann Session nicht anlegen! ", ex);
         }
 	}
 

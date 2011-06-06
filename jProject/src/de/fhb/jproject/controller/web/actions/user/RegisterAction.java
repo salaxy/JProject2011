@@ -39,7 +39,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			
 			
 			//forwarden zum JSP
-			//TODO syso entfernen
+			//XXX syso entfernen
 			System.out.println("Erfolgreich registriert!");
 			forward(req, resp, "/index.jsp");
 

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @micha ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
  * also ueberpruefe ich nciht auf leerstring, weil das ja auch gewollt sein koennte,
  * gib mir irgentwann mal rueckmeldung ob das so umsetzen kannst, es waere ein leichtes es spaeter noch zu aendern
- * TODO diese nachricht spaeter loeschen
+ * XXX diese nachricht spaeter loeschen
  * 
  * !!!Parameter "done" MUSS entweder der String "true" oder "false" sein!!!
  * !!!Parameter "date" MUSS die Form "yyyy-mm-dd" haben!!!

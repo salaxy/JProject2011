@@ -92,7 +92,6 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		
-		//TODO GLOBAL ROLE  || !(aktUser == user)
 		//RECHTE-ABFRAGE Projekt
 		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())
 				|| !globalRolesController.isAllowedAddMemberAction(aktUser.getGlobalRole())){

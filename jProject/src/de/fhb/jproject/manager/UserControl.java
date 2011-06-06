@@ -160,7 +160,6 @@ public class UserControl {
 		
 		//abfrage ob user Rechte hat
 		if(!globalRolesController.isAllowedSearchUserAction(aktUser.getGlobalRole())){
-			// TODO Rechte abfragen oder sowas
 			throw new ProjectException("Sie haben keine Rechte zum suchen!");
 		}
 		try {
@@ -169,7 +168,7 @@ public class UserControl {
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
-		
+		//TODO LIKE QUERY IN DER DA SCHICHT
 		user.setPassword(null);
 		
 		return user;	
