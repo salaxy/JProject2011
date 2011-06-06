@@ -28,16 +28,20 @@ public class TaskControl {
 	private ProjectRolesControl projectRolesController;
 	private GlobalRolesControl globalRolesController;
 	
-	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
-	private TaskDA taskDA = DAFactory.getDAFactory().getTaskDA();
-	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
-	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
-	private TerminDA terminDA = DAFactory.getDAFactory().getTerminDA();
+	private MemberDA memberDA;
+	private TaskDA taskDA;
+	private ProjectDA projectDA;
+	private UserDA userDA;
+	private TerminDA terminDA;
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
 	public TaskControl(ProjectRolesControl projectRolesController){
-		
+		memberDA = DAFactory.getDAFactory().getMemberDA();
+		taskDA = DAFactory.getDAFactory().getTaskDA();
+		projectDA = DAFactory.getDAFactory().getProjectDA();
+		userDA = DAFactory.getDAFactory().getUserDA();
+		terminDA = DAFactory.getDAFactory().getTerminDA();
 		this.projectRolesController=projectRolesController;
 		//GlobalRolesController is hier noch null
 	}

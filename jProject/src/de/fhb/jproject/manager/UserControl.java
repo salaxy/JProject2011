@@ -31,14 +31,14 @@ public class UserControl {
 	
 	private GlobalRolesControl globalRolesController;
 	
-	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
+	private UserDA userDA;
 	
 	private static final Logger logger = Logger.getLogger(UserControl.class);
     
     public UserControl(GlobalRolesControl globalRolesController){		
     	//debuglogging
 		logger.info("new UserControl()");
-		
+		userDA = DAFactory.getDAFactory().getUserDA();
 		this.globalRolesController = globalRolesController;
 		
     }

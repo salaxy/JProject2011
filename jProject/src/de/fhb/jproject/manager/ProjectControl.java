@@ -36,14 +36,18 @@ public class ProjectControl {
 	
 	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
 	
-	private MemberDA memberDA = DAFactory.getDAFactory().getMemberDA();
-	private ProjectDA projectDA = DAFactory.getDAFactory().getProjectDA();
-	private ProjectRolesDA projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
-	private UserDA userDA = DAFactory.getDAFactory().getUserDA();
+	private MemberDA memberDA;
+	private ProjectDA projectDA;
+	private ProjectRolesDA projectRolesDA;
+	private UserDA userDA;
 	
 	private static final Logger logger = Logger.getLogger(ProjectControl.class);
 	
 	public ProjectControl(ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
+		memberDA = DAFactory.getDAFactory().getMemberDA();
+		projectDA = DAFactory.getDAFactory().getProjectDA();
+		projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
+		userDA = DAFactory.getDAFactory().getUserDA();
 		this.projectRolesController=projectRolesController;
 		this.globalRolesController=globalRolesController;
 	}
