@@ -63,7 +63,7 @@ public class UserControl {
 		}
 		
 		//abfrage ob user Rechte hat bzw Eigner ist
-		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || aktUser == user){
+		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -94,19 +94,17 @@ public class UserControl {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
-		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte!");
-		}
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(aktUser.getLoginName());
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
+		//abfrage ob user Rechte hat
+		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+			throw new ProjectException("Sie haben keine Rechte!");
+		}
 		
-		user.setPassword(null);
 		
 		return user;
 	}
@@ -130,26 +128,21 @@ public class UserControl {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
-		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte!");
-		}
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
+		//abfrage ob user Rechte hat
+		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+			throw new ProjectException("Sie haben keine Rechte!");
+		}
 		
-		user.setLoginName(null);
-		user.setPassword(null);
+		
 		
 		return user;	
 	}
-	
-	
-	
 	
 	public User searchUser(User aktUser, String loginName) 
     throws ProjectException{
@@ -199,6 +192,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
+		//TODO || !(aktUser == user)
 		if(!globalRolesController.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum aendern!");
 		}
@@ -286,11 +280,6 @@ public class UserControl {
 		//debuglogging
 		logger.info("logout()");
 		
-        //abfrage ob user eingeloggt
-		//In der Action auf null setzen
-        /*if(aktUser != null){
-			aktUser = null;
-        }*/
     }
 	
 	public void register()throws ProjectException{

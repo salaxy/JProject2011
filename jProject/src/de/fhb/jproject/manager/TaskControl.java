@@ -88,7 +88,8 @@ public class TaskControl {
 		
 		//RECHTE-ABFRAGE Projekt
 		//TODO Admin darf keine task hinzufuegen! muss er das? brauchen wir einen eintag in den global role contoller fuer die action?
-		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}			
 
@@ -269,7 +270,8 @@ public class TaskControl {
 		
 		//RECHTE-ABFRAGE projekt
 		//Projektteilhaber oder Admin d�rfen diese aktion ausf�hren 
-		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))){
+		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))
+				|| !globalRolesController.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
 		}
 		
@@ -551,7 +553,8 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedUpdateTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum updaten einer Aufgabe/Task!");
 		}			
 

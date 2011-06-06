@@ -92,8 +92,10 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		
+		//TODO GLOBAL ROLE  || !(aktUser == user)
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedAddMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 		}			
 
@@ -228,7 +230,8 @@ public class ProjectControl {
 		
 		//RECHTE-ABFRAGE Projekt und Global
 		//Admin und ProjektLeader sind berechtigt 
-		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())||globalRolesController.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
+		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
 		}	
 		
@@ -281,7 +284,8 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedDeleteMemberAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedDeleteMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
 		}
 		
@@ -472,7 +476,8 @@ public class ProjectControl {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		//RECHTE-ABFRAGE projekt
-		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
+		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesController.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 		

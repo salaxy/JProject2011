@@ -103,6 +103,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		//TODO || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -191,6 +192,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -277,6 +279,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -333,6 +336,7 @@ public class CommentControl {
 		
 		//wer kann ein aufgabe l�schen
 		//owner/ersteller, admin, projekLEADER
+		//TODO ANTWORT: Admin, Ersteller und Leader
 	}
 	
 	public void commentProject(User aktUser, String projectName, String inhalt)	
@@ -364,6 +368,7 @@ public class CommentControl {
 		}
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		//TODO  || !(aktUser == user)
 		if(!globalRolesController.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
@@ -420,7 +425,7 @@ public class CommentControl {
 	public void updateComment(){
 		//wer kann ein comment l�schen
 		//owner/ersteller, admin, projekLEADER
-		
+		//TODO ANTWORT: Admin, Ersteller und Leader
 	}
 	
 	public void showAllComments41Docu(){}
