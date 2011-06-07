@@ -72,11 +72,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 			throws IOException, ServletException{
 		forwardString = null;
 		if (!getOperation(req).equals("Logout")) {
-			//TODO er sucht hier nach nem PARAMETER nicht nach nem ATTRIBUT :/
-			req.setAttribute("projectName", "ProjectName");//TODO ProjectName ersetzen durch aktUser.ProjectList[0]
-			
-			ShowProjectAction showProjectAction = new ShowProjectAction();
-			showProjectAction.perform(req, resp);
 
 			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
 			showAllOwnProjectsAction.perform(req, resp);
@@ -86,8 +81,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		
 			if (getOperation(req).equals("ShowProject")) {
-				ShowProjectAction showProjectAction2 = new ShowProjectAction();
-				showProjectAction2.perform(req, resp);
+				/*
+				ShowProjectAction showProjectAction = new ShowProjectAction();
+				showProjectAction.perform(req, resp);
+				 * 
+				 */
 				
 				ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
 				showAllMemberAction.perform(req, resp);
@@ -96,8 +94,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 			}
 			if (getOperation(req).equals("ShowAllSource") || getOperation(req).equals("ShowSource")) {
 				//projectName muss uebergeben werden
+				/*
 				ShowAllSourceAction showAllSourceAction = new ShowAllSourceAction();
 				showAllSourceAction.perform(req, resp);
+				 * 
+				 */
 				if (!getOperation(req).equals("ShowSource")) {
 					req.setAttribute("sourcecodeID", 0);
 					ShowSourceAction showSourceAction = new ShowSourceAction();
@@ -107,8 +108,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 			}
 			if (getOperation(req).equals("ShowAllDocu") || getOperation(req).equals("ShowDocu")) {
 				//projectName muss uebergeben werden
+				/*
 				ShowAllDocuAction showAllDocuAction = new ShowAllDocuAction();
 				showAllDocuAction.perform(req, resp);
+				 * 
+				 */
 				if (!getOperation(req).equals("ShowDocu")) {
 					req.setAttribute("documentID", 0);
 					ShowDocuAction showDocuAction = new ShowDocuAction();
@@ -118,8 +122,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 			}
 			if (getOperation(req).equals("ShowAllTasks") || getOperation(req).equals("ShowTask")) {
 				//projectName muss uebergeben werden
+				/*
 				ShowAllTasksAction showAllTasksAction = new ShowAllTasksAction();
 				showAllTasksAction.perform(req, resp);
+				 * 
+				 */
 				if (!getOperation(req).equals("ShowTask")) {
 					req.setAttribute("taskID", 0);
 					//TODO ShowTaskAction showTaskAction = new ShowTaskAction();
@@ -127,8 +134,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 				}
 			}
 			if (getOperation(req).equals("ShowSettings")) {
+				/*
 				ShowUserSettingsAction showUserSettingsAction = new ShowUserSettingsAction();
 				showUserSettingsAction.perform(req, resp);
+				 * 
+				 */
 				
 				forwardString = "settings.jsp";
 			}

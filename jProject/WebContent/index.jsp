@@ -100,7 +100,14 @@
 						
 						<div id="content" >
 	<!--CONTENT -->
-							<%@include file="WEB-INF/content.jspf" %>
+							<c:choose>
+								<c:when test="${sessionScope.loggedIn == true}">
+								<%@include file="WEB-INF/content.jspf" %>
+								</c:when>
+								<c:otherwise>
+									WelcomePage! About!
+								</c:otherwise>
+							</c:choose>
 							<!--<br />
 							<h1>Content</h1>
 								<p>
