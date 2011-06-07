@@ -2,14 +2,12 @@ package de.fhb.jproject.manager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
-import org.orm.PersistentTransaction;
 
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.JProjectPersistentManager;
@@ -425,21 +423,29 @@ public class ProjectControl {
 	throws ProjectException{
 		//debuglogging
 		logger.info("showAllOwnProjects()");
-		List<Project> list=new ArrayList<Project>();
+		List<Project> list=new ArrayList<Project>();		
+		User user=null;
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
 			throw new ProjectException("Sie sind nicht eingeloggt!");
 		}
-		//logged();
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
-		//TODO HIER IST DER FEHLER DETACH MemberSetCollection zurueckgeben! 
-		//TODO ALLE METHODEN MIT LIST RUECKGABETYP AENDERN
-		for (Member aktMember : aktUser.member.toArray()) {
+		
+		//XXX user neu holen um seiten effekte zu vermeiden  (statt aktUser zu nutzen)>>>loest das problem endlich
+		try {
+			//user suchen
+			user = userDA.loadUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
+		
+		//projekte in liste eintragen
+		for (Member aktMember : user.member.toArray()) {
 			list.add(aktMember.getProject());
 		}
 		
@@ -463,38 +469,29 @@ public class ProjectControl {
 		
 		//projekt holen
 		try {
-//			JProjectPersistentManager.instance().getSession().clear();
-			project=projectDA.loadProjectByORMID(projectName);
+			JProjectPersistentManager.instance().getSession().clear();
+			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}
+		}	
+		
+		
 		//Projekt-Rolle des aktuellen Users holen
 		try {	
 
-			memAktUser=memberDA.loadMemberByORMID(aktUser, project);
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
+		
 		//RECHTE-ABFRAGE projekt
 		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())
 				|| !globalRolesController.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
-		
-		
-		//TODO immernoch erscheint ein Null eintrag aus heiterem himmel!?
-		//bleibt vorerst unbeachtet
-		//fehler kaschieren
-		Member[] arrayFehler=project.member.toArray();
-		
-//		Member[] array= new Member[arrayFehler.length-1];
-//		
-//		for(int i=0;i<array.length;i++){
-//			array[i]=arrayFehler[i];
-//		}
-		
-		return Arrays.asList(arrayFehler);
-			
+
+		//TODO hier ist immer noch 1 null eintrag der bleibt!! woher?
+		return Arrays.asList(project.member.toArray());
 	}
 	
 	private void clearSession() throws PersistentException{
