@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class CommentTaskDAImpl extends CommentTaskDAOImpl implements CommentTaskDA{
-private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(CommentTaskDAImpl.class);
 	
 	public CommentTaskDAImpl(){
 		logger.info(" new CommentTaskDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<CommentTask> listAllCommentTasks() throws PersistentException {
 		logger.info("listAllCommentTasks()");
 		
 		return Arrays.asList(listCommentTaskByQuery("CommentTask.taskId = CommentTask.taskId", "TaskID"));
 		
 	}
+	@Override
 	public List<CommentTask> listAllCommentTasks(String orderBy) throws PersistentException {
 		logger.info("listAllCommentTasks(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class DocumentDAImpl  extends DocumentDAOImpl implements DocumentDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(DocumentDAImpl.class);
 	
 	public DocumentDAImpl(){
 		logger.info(" new DocumentDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Document> listAllDocuments() throws PersistentException {
 		logger.info("listAllDocuments()");
 		
 		return Arrays.asList(listDocumentByQuery("Document.id = Document.id", "ID"));
 		
 	}
+	@Override
 	public List<Document> listAllDocuments(String orderBy) throws PersistentException {
 		logger.info("listAllDocuments(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

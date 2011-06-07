@@ -21,13 +21,16 @@ public class CommentDocumentDAImpl extends CommentDocumentDAOImpl implements Com
 	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(CommentDocumentDAImpl.class);
 	public CommentDocumentDAImpl() {
+		logger.info(" new CommentDocumentDAImpl()");
 	}
+	@Override
 	public List<CommentDocument> listAllCommentDocuments() throws PersistentException {
 		logger.info("listAllCommentDocuments()");
 		
 		return Arrays.asList(listCommentDocumentByQuery("CommentDocument.documentId = CommentDocument.documentId", "DocumentID"));
 		
 	}
+	@Override
 	public List<CommentDocument> listAllCommentDocuments(String orderBy) throws PersistentException {
 		logger.info("listAllCommentDocuments(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class TaskDAImpl  extends TaskDAOImpl implements TaskDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(TaskDAImpl.class);
 	
 	public TaskDAImpl(){
 		logger.info(" new TaskDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Task> listAllTasks() throws PersistentException {
 		logger.info("listAllTasks()");
 	
 		return Arrays.asList(listTaskByQuery("Task.id = Task.id", "ID"));
 		
 	}
+	@Override
 	public List<Task> listAllTasks(String orderBy) throws PersistentException {
 		logger.info("listAllTasks(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

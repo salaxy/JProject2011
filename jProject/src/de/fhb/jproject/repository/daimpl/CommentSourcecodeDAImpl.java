@@ -20,25 +20,20 @@ import org.orm.PersistentSession;
  */
 public class CommentSourcecodeDAImpl extends CommentSourcecodeDAOImpl implements CommentSourcecodeDA{
 
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(CommentSourcecodeDAImpl.class);
 	
 	public CommentSourcecodeDAImpl(){
 		logger.info(" new CommentSourcecodeDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<CommentSourcecode> listAllCommentSourcecodes() throws PersistentException {
 		logger.info("listAllCommentSourcecodes()");
 		
 		return Arrays.asList(listCommentSourcecodeByQuery("CommentSourcecode.sourcecodeId = CommentSourcecode.sourcecodeId", "SourcecodeID"));
 		
 	}
+	@Override
 	public List<CommentSourcecode> listAllCommentSourcecodes(String orderBy) throws PersistentException {
 		logger.info("listAllCommentSourcecodes(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

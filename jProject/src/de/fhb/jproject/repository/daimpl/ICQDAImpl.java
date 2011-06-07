@@ -19,24 +19,19 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class ICQDAImpl  extends ICQDAOImpl implements ICQDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(ICQDAImpl.class);
 	
 	public ICQDAImpl(){
 		logger.info(" new ICQDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<ICQ> listAllICQs() throws PersistentException {
 		logger.info("listAllICQs()");
 		return Arrays.asList(listICQByQuery("ICQ.icqNumber = ICQ.icqNumber", "ICQNumber"));
 		
 	}
+	@Override
 	public List<ICQ> listAllICQs(String orderBy) throws PersistentException {
 		logger.info("listAllICQs(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

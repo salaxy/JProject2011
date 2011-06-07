@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class SkypeDAImpl  extends SkypeDAOImpl implements SkypeDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(SkypeDAImpl.class);
 	
 	public SkypeDAImpl(){
 		logger.info(" new SkypeDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Skype> listAllSkypes() throws PersistentException {
 		logger.info("listAllSkypes()");
 		
 		return Arrays.asList(listSkypeByQuery("Skype.skypeName = Skype.skypeName", "SkypeName"));
 		
 	}
+	@Override
 	public List<Skype> listAllSkypes(String orderBy) throws PersistentException {
 		logger.info("listAllSkypes(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

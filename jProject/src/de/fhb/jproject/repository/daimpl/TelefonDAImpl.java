@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class TelefonDAImpl  extends TelefonDAOImpl implements TelefonDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(TelefonDAImpl.class);
 	
 	public TelefonDAImpl(){
 		logger.info(" new TelefonDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Telefon> listAllTelefons() throws PersistentException {
 		logger.info("listAllTelefons()");
 		
 		return Arrays.asList(listTelefonByQuery("Telefon.telNumber = Telefon.telNumber", "TelNumber"));
 		
 	}
+	@Override
 	public List<Telefon> listAllTelefons(String orderBy) throws PersistentException {
 		logger.info("listAllTelefons(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

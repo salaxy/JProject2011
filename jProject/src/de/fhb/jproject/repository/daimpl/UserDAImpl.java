@@ -18,52 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserDAImpl extends UserDAOImpl implements UserDA {
-	
-    /* TRANSAKTIONS AUFRUF
-        try {
-            PersistentTransaction t = session.beginTransaction();
-            //HIER DER ANDERE TRY CATCH BLOCK!!!!!!!!!!!!!
-            try {
-                //HIER DIE TRANSAKTION!!!!!!!!!!!!!
-                //Transaktion1 probiere aus
-                //Transaktion2 probiere aus
-                //Transaktion3 probiere aus
-                t.commit();//wenn alles erfolgreich speichere
-            } catch (PersistentException e) {
-                t.rollback();
-                
-                throw new ProjectException("Transaktion fehlgeschlagen!");
-            }
-            
-        } catch (PersistentException e) {
-            
-            throw new ProjectException("Kann Transaktion nicht initialisieren!");
-        }
-	*/
-    /* NORMALER AUFRUF
-        
-        try {
-            //HIER DIE Operation!!!!!!!!!!!!!
-            //Operation1 probiere aus
-            t.commit();//wenn alles erfolgreich speichere
-        } catch (PersistentException e) {
-            
-            throw new ProjectException("Operation fehlgeschlagen!");
-        }
-            
-        
-	*/
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(UserDAImpl.class);
 	
 	public UserDAImpl(){
 		logger.info(" new UserDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
 	@Override

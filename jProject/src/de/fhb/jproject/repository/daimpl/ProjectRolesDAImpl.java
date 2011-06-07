@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class ProjectRolesDAImpl  extends ProjectRolesDAOImpl implements ProjectRolesDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(ProjectRolesDAImpl.class);
 	
 	public ProjectRolesDAImpl(){
 		logger.info(" new ProjectRolesDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<ProjectRoles> listAllProjectRoles() throws PersistentException {
 		logger.info("listAllProjectRoles()");
 		
 		return Arrays.asList(listProjectRolesByQuery("ProjectRoles.role = ProjectRoles.role", "Role"));
 		
 	}
+	@Override
 	public List<ProjectRoles> listAllProjectRoles(String orderBy) throws PersistentException {
 		logger.info("listAllProjectRoles(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");
