@@ -95,7 +95,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			synchronized(session){
 				session.setAttribute("ownProjectList", projectList);
 			}
-			
+			projectList=null;
 			
 			
 
