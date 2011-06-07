@@ -437,7 +437,8 @@ public class ProjectControl {
 		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
-		
+		//TODO HIER IST DER FEHLER DETACH MemberSetCollection zurueckgeben! 
+		//TODO ALLE METHODEN MIT LIST RUECKGABETYP AENDERN
 		for (Member aktMember : aktUser.member.toArray()) {
 			list.add(aktMember.getProject());
 		}

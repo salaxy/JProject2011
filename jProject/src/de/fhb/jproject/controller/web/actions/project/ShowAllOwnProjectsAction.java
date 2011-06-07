@@ -44,15 +44,18 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			
-			//TODO in den request packen reciht aus ;D
 			req.setAttribute("ownProjectList", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			
 			
 			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){			
-			logger.error(e.getMessage());			
+			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 	}

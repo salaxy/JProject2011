@@ -1,6 +1,5 @@
 package de.fhb.jproject.controller.web.actions.project;
 
-import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainControl;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 
@@ -40,7 +41,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Controller holen
 		mainController=(MainControl) session.getAttribute("mainController");
-		Project project=null;
+		Project project = null;
+		List<Member> memberList = null;
 		
 		try {		
 			
@@ -54,16 +56,33 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			project=mainController.getProjectContoller().showProject((User)session.getAttribute("aktUser"), 
 																	 req.getParameter("projectName"));
 			
+			/*TODO DELETE ACTION
+			ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
+			showAllMemberAction.perform(req, resp);
+			 * 
+			 */
+			memberList = mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+			//TODO anzahl documente, anzahl Sourcecode
+			//TODO fähigkeiten addMember, DeleteMember
+			
 			//setzen der Parameter
 			req.setAttribute("project", project);
-			session.setAttribute("aktProject", project);
+			session.setAttribute("aktProject", project);//TODO PRUEFEN OB NOCH GEBRAUCHT
+			
+			req.setAttribute("memberList", memberList);
+			
+			req.setAttribute("contentFile", "showProject.jsp");
 			
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
 	}
 }

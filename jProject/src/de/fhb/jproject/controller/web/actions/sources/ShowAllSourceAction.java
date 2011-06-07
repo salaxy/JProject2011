@@ -21,6 +21,29 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
+		//TODO ALLE GLOBALEN ACTIONS IN DER ART BEARBEITEN
+		//hier alles rein, was für die Aktion notwendig ist
+		//daten holen
+		//externe API abfragen
+		
+		/*TODO DELETE ACTION
+		ShowSourceAction showSourceAction = new ShowSourceAction();
+		showSourceAction.perform(req, resp);
+		
+		 * 
+		 */
+		// bo benutzen
+		req.setAttribute("xxx", "yyy");
+		
+		req.setAttribute("contentFile", "showAllSourcecode.jsp");
+		
+		
+		/*
+		 * catch(Exception e){
+		 *	req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		 * }
+		 */
 		
 	}
 }
