@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class GlobalRolesDAImpl  extends GlobalRolesDAOImpl implements GlobalRolesDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(GlobalRolesDAImpl.class);
 	
 	public GlobalRolesDAImpl(){
 		logger.info(" new GlobalRolesDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<GlobalRoles> listAllGlobalRoles() throws PersistentException {
 		logger.info("listAllGlobalRoles()");
 		
 		return Arrays.asList(listGlobalRolesByQuery("GlobalRoles.role = GlobalRoles.role", "Role"));
 		
 	}
+	@Override
 	public List<GlobalRoles> listAllGlobalRoles(String orderBy) throws PersistentException {
 		logger.info("listAllGlobalRoles(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

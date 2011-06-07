@@ -21,25 +21,20 @@ import org.orm.PersistentSession;
  */
 public class CommentProjectDAImpl extends CommentProjectDAOImpl implements CommentProjectDA{
 
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(CommentProjectDAImpl.class);
 	
 	public CommentProjectDAImpl(){
 		logger.info(" new CommentProjectDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<CommentProject> listAllCommentProjects() throws PersistentException {
 		logger.info("listAllCommentProjects()");
 		
 		return Arrays.asList(listCommentProjectByQuery("CommentProject.projectName = CommentProject.projectName", "ProjectName"));
 		
 	}
+	@Override
 	public List<CommentProject> listAllCommentProjects(String orderBy) throws PersistentException {
 		logger.info("listAllCommentProjects(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

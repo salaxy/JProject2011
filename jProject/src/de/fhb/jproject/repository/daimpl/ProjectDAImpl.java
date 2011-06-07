@@ -25,17 +25,10 @@ import de.fhb.jproject.repository.daoimpl.ProjectDAOImpl;
  * @author MacYser
  */
 public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(ProjectDAImpl.class);
 	
 	public ProjectDAImpl(){
 		logger.info(" new ProjectDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
 	@Override

@@ -19,25 +19,20 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class SourcecodeDAImpl  extends SourcecodeDAOImpl implements SourcecodeDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(SourcecodeDAImpl.class);
 	
 	public SourcecodeDAImpl(){
 		logger.info(" new SourcecodeDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Sourcecode> listAllSourcecodes() throws PersistentException {
 		logger.info("listAllSourcecodes()");
 		
 		return Arrays.asList(listSourcecodeByQuery("Sourcecode.id = Sourcecode.id", "ID"));
 		
 	}
+	@Override
 	public List<Sourcecode> listAllSourcecodes(String orderBy) throws PersistentException {
 		logger.info("listAllSourcecodes(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");

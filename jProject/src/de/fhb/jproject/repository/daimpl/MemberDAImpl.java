@@ -19,24 +19,19 @@ import org.orm.PersistentSession;
  * @author MacYser
  */
 public class MemberDAImpl  extends MemberDAOImpl implements MemberDA {
-	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(MemberDAImpl.class);
 	
 	public MemberDAImpl(){
 		logger.info(" new MemberDAImpl()");
-		try {
-            session = JProjectPersistentManager.instance().getSession();
-        } catch (PersistentException ex) {
-            //Kann session nicht anlegen.
-            logger.fatal("Kann Session nicht anlegen! ", ex);
-        }
 	}
 
+	@Override
 	public List<Member> listAllMembers() throws PersistentException {
 		logger.info("listAllMembers()");
 		
 		return Arrays.asList(listMemberByQuery("Member.projectName = Member.projectName", "ProjectName"));
 	}
+	@Override
 	public List<Member> listAllMembers(String orderBy) throws PersistentException {
 		logger.info("listAllMembers(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");
