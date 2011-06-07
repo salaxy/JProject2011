@@ -45,23 +45,14 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			
 			
 			//TODO in den request packen reciht aus ;D
-			synchronized(session){
-				session.setAttribute("showAllOwnProjects", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
-			}
+			req.setAttribute("ownProjectList", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
+			
 			
 			
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch(NullPointerException e){
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+		}catch(NullPointerException e){			
+			logger.error(e.getMessage());			
 		}
 		
 	}

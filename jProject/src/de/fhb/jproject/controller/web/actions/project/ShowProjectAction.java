@@ -56,6 +56,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			//setzen der Parameter
 			req.setAttribute("project", project);
+			session.setAttribute("aktProject", project);
 			
 			
 

@@ -72,9 +72,22 @@ public class JProjectServlet extends HttpServletControllerBase {
 			throws IOException, ServletException{
 		forwardString = null;
 		if (!getOperation(req).equals("Logout")) {
+			//TODO er sucht hier nach nem PARAMETER nicht nach nem ATTRIBUT :/
+			req.setAttribute("projectName", "ProjectName");//TODO ProjectName ersetzen durch aktUser.ProjectList[0]
+			
+			ShowProjectAction showProjectAction = new ShowProjectAction();
+			showProjectAction.perform(req, resp);
+
+			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
+			showAllOwnProjectsAction.perform(req, resp);
+			//Show all other loggedIn-Stuff...
+
+			//TODO Comments per AJAX
+		
+		
 			if (getOperation(req).equals("ShowProject")) {
-				ShowProjectAction showProjectAction = new ShowProjectAction();
-				showProjectAction.perform(req, resp);
+				ShowProjectAction showProjectAction2 = new ShowProjectAction();
+				showProjectAction2.perform(req, resp);
 				
 				ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
 				showAllMemberAction.perform(req, resp);
@@ -119,11 +132,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 				
 				forwardString = "settings.jsp";
 			}
-			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-			showAllOwnProjectsAction.perform(req, resp);
-			//Show all other loggedIn-Stuff...
 			
-			//TODO Comments per AJAX
 		}
 		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
 		if (forwardString==null) {

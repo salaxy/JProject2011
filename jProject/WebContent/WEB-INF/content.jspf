@@ -6,10 +6,10 @@
 			
 			
 			<div id="topcontent">
-				<a href="JProjectServlet?do=ShowProject&projectName=${project.name}">Project</a>
-				<a href="JProjectServlet?do=ShowAllSource&projectName=${project.name}">Sourcecode</a>
-				<a href="JProjectServlet?do=ShowAllDocu&projectName=${project.name}">Documents</a>
-				<a href="JProjectServlet?do=ShowAllTasks&projectName=${project.name}">Tasks</a>
+				<a class="buttoncontent" href="JProjectServlet?do=ShowProject&projectName=${sessionScope.aktProject}">Project</a>
+				<a class="buttoncontent" href="JProjectServlet?do=ShowAllSource&projectName=${sessionScope.aktProject}">Sourcecode</a>
+				<a class="buttoncontent" href="JProjectServlet?do=ShowAllDocu&projectName=${sessionScope.aktProject.name}">Documents</a>
+				<a class="buttoncontent" href="JProjectServlet?do=ShowAllTasks&projectName=${sessionScope.aktProject.name}">Tasks</a>
 			</div>
 
 

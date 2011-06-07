@@ -110,7 +110,17 @@ img.download {
 	width: 300px;
 	height: 36px;
 }
-
+.buttoncontent {
+	float:left;
+	color: #000000;
+	font-size: 15px;
+	text-align: center;
+	width: 150px;
+	height: 30px;
+	background-color: #807f7f;
+	border-top:1px solid #564b47;
+	border-bottom:1px solid #564b47;
+}
 /* ----------container zentriert das layout-------------- */
 #outercontainer {
 	background-image: url(images/content.png);
