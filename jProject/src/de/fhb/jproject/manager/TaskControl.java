@@ -259,7 +259,67 @@ public class TaskControl {
 		}
 		
 		return Arrays.asList(project.task.toArray());
+	}	
+	
+	
+	/** 
+	 *  Anzeigen einer Aufgabe
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
+	public Task showTask(User aktUser, String projectName,int taskId)
+	throws ProjectException{ 
+			
+		Project project=null;
+		Member memAktUser=null;	
+		Task task=null;
+		
+		//debuglogging
+		logger.info("showAllTasks()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
+			
+		//Projekt-Rolle des aktuellen Users holen
+		try {
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}	
+		
+		//RECHTE-ABFRAGE projekt
+		//Projektteilhaber oder Admin duerfen diese aktion ausfuehren 
+		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))|| 
+				!globalRolesController.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgabe/Task !");
+		}
+		
+		//task holen
+		try {
+			task=taskDA.getTaskByORMID(taskId);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
+		}catch(IllegalArgumentException e){
+			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+		}
+		
+		return task;
 	}		
+	
+	
+	
 	
 	/**
 	 * Alle zugeordneten Aufgaben des aktuellen Users zu einem
