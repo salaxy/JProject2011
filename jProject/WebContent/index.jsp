@@ -73,7 +73,7 @@
 			<div id="container" >
 				<div id="navi" >
 	<!--NAVI -->
-			 		<a class="buttonleft" href="#">Projekte</a>
+			 		<a class="buttonleft" href="/jProject/">Projekte</a>
 			 		<a class="buttonleft" href="#">Content</a>
 			 		<a class="buttonleft" href="#">Wiki</a>
 	<!--NAVI-END -->

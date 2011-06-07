@@ -92,7 +92,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 				req.setAttribute("errorString", ex.getMessage());
 			}
 			//Show all other loggedIn-Stuff...
-			req.setAttribute("ownProjectList", projectList);
+			synchronized(session){
+				session.setAttribute("ownProjectList", projectList);
+			}
+			
 			
 			
 

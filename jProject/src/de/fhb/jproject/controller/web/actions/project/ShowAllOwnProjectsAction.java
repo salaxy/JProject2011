@@ -43,8 +43,8 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
+			session.setAttribute("ownProjectList", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			
-			req.setAttribute("ownProjectList", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			
 			
 			
