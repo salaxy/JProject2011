@@ -48,24 +48,11 @@ public class LogoutAction extends HttpRequestActionBase {
 				session.invalidate();
 			}
 			
-			
-			//forwarden zum JSP
 			//XXX syso entfernen
 			System.out.println("Erfolgreich ausgeloggt!");
-			forward(req, resp, "/index.jsp");
 
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
 		}catch(NullPointerException e){
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			logger.error(e.getMessage());			
 		}
 		
 	}
