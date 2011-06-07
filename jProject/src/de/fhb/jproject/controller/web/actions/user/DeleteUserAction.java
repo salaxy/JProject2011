@@ -47,27 +47,14 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			mainController.getUserController().deleteUser((User)session.getAttribute("aktUser"), 
 														  req.getParameter("loginName"));
 			
-			//forwarden zum JSP
-			forward(req, resp, "/userGeloescht.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 		

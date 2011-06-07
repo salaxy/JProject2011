@@ -39,26 +39,14 @@ public class RegisterAction extends HttpRequestActionBase {
 			//forwarden zum JSP
 			//XXX syso entfernen
 			System.out.println("Erfolgreich registriert!");
-			forward(req, resp, "/index.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 		

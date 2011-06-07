@@ -54,27 +54,14 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 															  req.getParameter("userLoginName"), 
 															  req.getParameter("projectName"));
 			
-			//forwarden zum JSP
-			forward(req, resp, "/DeleteMember.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-            
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-            
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 	}
 }
