@@ -65,27 +65,11 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			
-			//forwarden zum JSP
-			forward(req, resp, "/ShowAllTasks.jsp");
 
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
 		}
 	}
 }

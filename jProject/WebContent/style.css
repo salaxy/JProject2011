@@ -198,9 +198,13 @@ img.download {
 	margin-right:1px;
 }
 /* -----------------Inhalt--------------------- */ 
-#contentcontent{
+#contentcontentsmall{
 	width: 750px;
 	margin-left: 150px;
+}
+#contentcontentsmall{
+	width: 750px;
+	/*margin-left: 150px;*/
 }
 /* ----------container zentriert das layout-------------- */
 #outercontainercontent {

@@ -61,27 +61,11 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("memberList", memberList);
 			
-			//forwarden zum JSP
-			forward(req, resp, "/showAllMember.jsp");
 
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
 		}catch(NullPointerException e){
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			logger.error(e.getMessage());			
 		}
 	}
 }
