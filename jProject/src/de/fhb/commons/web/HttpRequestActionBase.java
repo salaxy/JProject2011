@@ -1,12 +1,9 @@
 package de.fhb.commons.web;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  */
 public abstract class HttpRequestActionBase {
-
 
 	/**
 	 * Standard-Methode, die durch Servlet aufgerufen wird.
@@ -46,18 +42,6 @@ public abstract class HttpRequestActionBase {
 	protected void forward(HttpServletRequest req, HttpServletResponse resp, String forwardName) throws ServletException, IOException {
 		RequestDispatcher reqDis = req.getRequestDispatcher(forwardName);
 		reqDis.forward(req, resp);
-		
-	}
-    protected void errorforward(HttpServletRequest req, HttpServletResponse resp, String message){
-        req.setAttribute("errorMessage", message);
-        try {
-            RequestDispatcher reqDis = req.getRequestDispatcher("/errorExample.jsp");
-            reqDis.forward(req, resp);
-        } catch (ServletException ex) {
-            Logger.getLogger(HttpRequestActionBase.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(HttpRequestActionBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
 		
 	}
 }
