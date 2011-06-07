@@ -118,9 +118,7 @@ public class CommentControl {
 				
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
-			
-				
+			}	
 		}
 		
 		//EIGENTLICHE AKTIONEN
@@ -436,7 +434,20 @@ public class CommentControl {
 		//TODO ANTWORT: Admin, Ersteller und Leader
 	}
 	
-	public void showAllComments41Docu(){}
+	public void showAllComments41Docu(){
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	public void showAllComments41Source(){}
 	
