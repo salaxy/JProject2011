@@ -23,10 +23,10 @@ import de.fhb.jproject.repository.da.TaskDA;
 import de.fhb.jproject.repository.da.TerminDA;
 import de.fhb.jproject.repository.da.UserDA;
 
-public class TaskControl {
+public class TaskManager {
 	
-	private ProjectRolesControl projectRolesController;
-	private GlobalRolesControl globalRolesController;
+	private ProjectRolesManager projectRolesManager;
+	private GlobalRolesManager globalRolesManager;
 	
 	private MemberDA memberDA;
 	private TaskDA taskDA;
@@ -34,16 +34,16 @@ public class TaskControl {
 	private UserDA userDA;
 	private TerminDA terminDA;
 	
-	private static final Logger logger = Logger.getLogger(ProjectControl.class);
+	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public TaskControl(ProjectRolesControl projectRolesController){
+	public TaskManager(ProjectRolesManager projectRolesManager){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		taskDA = DAFactory.getDAFactory().getTaskDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		userDA = DAFactory.getDAFactory().getUserDA();
 		terminDA = DAFactory.getDAFactory().getTerminDA();
-		this.projectRolesController=projectRolesController;
-		//GlobalRolesController is hier noch null
+		this.projectRolesManager=projectRolesManager;
+		//GlobalRolesManager is hier noch null
 	}
 
 	// !!! Task Actions !!!
@@ -87,8 +87,8 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAddNewTaskAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedAddNewTaskAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}			
 
@@ -177,7 +177,7 @@ public class TaskControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesController.isAllowedDeleteTaskAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedDeleteTaskAction(aktUser.getGlobalRole())){
 			
 			//Projekt-Rolle des aktuellen Users holen
 			try {
@@ -187,7 +187,7 @@ public class TaskControl {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesController.isAllowedDeleteTaskAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedDeleteTaskAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte die Aufgabe(Task) zu loeschen!");
 			}	
 		}
@@ -253,8 +253,8 @@ public class TaskControl {
 		
 		//RECHTE-ABFRAGE projekt
 		//Projektteilhaber oder Admin d�rfen diese aktion ausf�hren 
-		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))
-				|| !globalRolesController.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
+		if(!(projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))
+				|| !globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
 		}
 		
@@ -299,8 +299,8 @@ public class TaskControl {
 		
 		//RECHTE-ABFRAGE projekt
 		//Projektteilhaber oder Admin duerfen diese aktion ausfuehren 
-		if(!(projectRolesController.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))|| 
-				!globalRolesController.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
+		if(!(projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))|| 
+				!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgabe/Task !");
 		}
 		
@@ -362,7 +362,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
+		if(!projectRolesManager.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
 
@@ -421,7 +421,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
 		}
 		
@@ -511,7 +511,7 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
+		if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
 		
@@ -591,8 +591,8 @@ public class TaskControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum updaten einer Aufgabe/Task!");
 		}			
 

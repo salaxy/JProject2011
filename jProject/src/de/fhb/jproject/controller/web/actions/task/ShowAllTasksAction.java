@@ -14,7 +14,7 @@ import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Task;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -34,7 +34,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowAllTasksAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowAllTasksAction.class);
 
 	/* (non-Javadoc)
@@ -43,8 +43,8 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Task> taskList=null;
 		
 		try {				
@@ -55,8 +55,8 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
 					
-			//Controller in aktion
-			taskList=mainController.getTaskcontroller().showAllTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+			//Manager in aktion
+			taskList=mainManager.getTaskManager().showAllTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			
 //			for( Task t : taskList){
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());

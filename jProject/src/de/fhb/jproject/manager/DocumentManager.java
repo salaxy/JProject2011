@@ -6,13 +6,13 @@ import de.fhb.jproject.exceptions.ProjectException;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
-public class DocumentControl {
+public class DocumentManager {
 
-	private ProjectRolesControl projectRolesController;
+	private ProjectRolesManager projectRolesManager;
 	
-	public DocumentControl(ProjectRolesControl projectRolesController){
+	public DocumentManager(ProjectRolesManager projectRolesManager){
 		
-		this.projectRolesController=projectRolesController;
+		this.projectRolesManager=projectRolesManager;
 	}
 	
 	// !!! Dokument Actions !!!

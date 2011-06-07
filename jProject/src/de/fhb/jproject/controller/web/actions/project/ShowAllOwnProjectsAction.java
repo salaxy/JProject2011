@@ -8,7 +8,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * @author klay
  */
 public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowAllOwnProjectsAction.class);
 
 	/* (non-Javadoc)
@@ -35,15 +35,15 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			session.setAttribute("ownProjectList", mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser")));
+			session.setAttribute("ownProjectList", mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser")));
 			
 			
 			

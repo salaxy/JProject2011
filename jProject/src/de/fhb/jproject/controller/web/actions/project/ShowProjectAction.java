@@ -12,7 +12,7 @@ import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowProjectAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowProjectAction.class);
 
 	/* (non-Javadoc)
@@ -39,8 +39,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
 		List<Member> memberList = null;
 		
@@ -52,8 +52,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Controller in aktion
-			project=mainController.getProjectContoller().showProject((User)session.getAttribute("aktUser"), 
+			//Manager in aktion
+			project=mainManager.getProjectManager().showProject((User)session.getAttribute("aktUser"), 
 																	 req.getParameter("projectName"));
 			
 			/*TODO DELETE ACTION
@@ -62,7 +62,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			 * 
 			 */
 			try {
-				memberList = mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+				memberList = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage());
 				/*

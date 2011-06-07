@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="de.fhb.jproject.data.Member" table="`Member`" lazy="false">
-		<composite-id>
-			<key-many-to-one name="ORM_User" column="`User`" class="de.fhb.jproject.data.User">
+  <class lazy="false" name="de.fhb.jproject.data.Member" table="`Member`">
+    <composite-id>
+      <key-many-to-one class="de.fhb.jproject.data.User" column="`User`" name="ORM_User">
 			</key-many-to-one>
-			<key-many-to-one name="ORM_Project" column="`Project`" class="de.fhb.jproject.data.Project">
+      <key-many-to-one class="de.fhb.jproject.data.Project" column="`Project`" name="ORM_Project">
 			</key-many-to-one>
-		</composite-id>
-		<property name="projectRole" column="`ProjectRole`" type="string" length="255" not-null="true" lazy="false"/>
-		<set name="ORM_Task" table="`TODO`" lazy="true" cascade="save-update,lock">
-			<key not-null="true">
-				<column name="`MemberUser`"/>
-				<column name="`MemberProject`"/>
-			</key>
-			<many-to-many column="`TaskID`" class="de.fhb.jproject.data.Task">
+    </composite-id>
+    <property column="`ProjectRole`" lazy="false" length="255" name="projectRole" not-null="true" type="string"/>
+    <set cascade="save-update,lock" lazy="true" name="ORM_Task" table="`TODO`">
+      <key not-null="true">
+        <column name="`MemberUser`"/>
+        <column name="`MemberProject`"/>
+      </key>
+      <many-to-many class="de.fhb.jproject.data.Task" column="`TaskID`">
 			</many-to-many>
-		</set>
-	</class>
+    </set>
+  </class>
 </hibernate-mapping>

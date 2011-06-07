@@ -31,10 +31,10 @@ import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
 import org.hibernate.LockMode;
 
-public class CommentControl {
+public class CommentManager {
 	
-	private ProjectRolesControl projectRolesController;
-	private GlobalRolesControl globalRolesController;
+	private ProjectRolesManager projectRolesManager;
+	private GlobalRolesManager globalRolesManager;
 	
 	private DocumentDA documentDA;
 	private MemberDA memberDA;
@@ -47,11 +47,11 @@ public class CommentControl {
 	private ProjectDA projectDA;
 	private CommentProjectDA commentProjectDA;
 	
-	private static final Logger logger = Logger.getLogger(CommentControl.class);
+	private static final Logger logger = Logger.getLogger(CommentManager.class);
 	
 	
 	
-	public CommentControl(ProjectRolesControl projectRolesController,GlobalRolesControl globalRolesController){
+	public CommentManager(ProjectRolesManager projectRolesManager,GlobalRolesManager globalRolesManager){
 		documentDA = DAFactory.getDAFactory().getDocumentDA();
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
@@ -63,8 +63,8 @@ public class CommentControl {
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
 		
-		this.projectRolesController=projectRolesController;
-		this.globalRolesController=globalRolesController;
+		this.projectRolesManager=projectRolesManager;
+		this.globalRolesManager=globalRolesManager;
 	}
 	
 	// !!! Comment Actions !!!
@@ -103,14 +103,14 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesController.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			// TODO HIER IST DAS PROBLEM WARUM ER DIE EINTRAEGE DOPPELT MACHT!!!!!!!!!DER MEMBER IST SCHULD!!!!
 			try {
 				memAktUser=memberDA.loadMemberByORMID(aktUser, document.getProject());
 				//RECHTE-ABFRAGE Projekt
-				if(!(projectRolesController.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
+				if(!(projectRolesManager.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
 					throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
 				}
 				//memberDA.save(memAktUser);
@@ -189,7 +189,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesController.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -199,7 +199,7 @@ public class CommentControl {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesController.isAllowedCommentSourceAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedCommentSourceAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte diesen Sourcecode zu kommentieren!");
 			}	
 		}		
@@ -282,7 +282,7 @@ public class CommentControl {
 		}	
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesController.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -292,7 +292,7 @@ public class CommentControl {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesController.isAllowedCommentTaskAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedCommentTaskAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte diese Aufgabe zu kommentieren!");
 			}	
 		}		
@@ -371,7 +371,7 @@ public class CommentControl {
 		}
 			
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesController.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
 			try {
@@ -381,7 +381,7 @@ public class CommentControl {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesController.isAllowedCommentProjektAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedCommentProjektAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte dieses Projekt zu kommentieren!");
 			}	
 		}		

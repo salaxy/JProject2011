@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(UpdateUserSettingsAction.class);
 
 	/* (non-Javadoc)
@@ -33,16 +33,16 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			//Controller in aktion
-			mainController.getUserController().updateUserSettings((User)session.getAttribute("aktUser"), req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
+			//Manager in aktion
+			mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
 					req.getParameter("neuSkype"), req.getParameter("neutelefon"), req.getParameter("sprache"), req.getParameter("neuesPasswortEins"),
 					req.getParameter("neuesPasswortZwei"), req.getParameter("altesPasswort"));
 			

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowAllUserAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowAllUserAction.class);
 
 	/* (non-Javadoc)
@@ -37,8 +37,8 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 		List <User> userList=null;
 	
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		try {
 			
@@ -46,7 +46,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
 			//UserList holen
-			userList=mainController.getUserController().showAllUser((User)session.getAttribute("aktUser"));
+			userList=mainManager.getUserManager().showAllUser((User)session.getAttribute("aktUser"));
 			
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());

@@ -13,10 +13,10 @@ import org.orm.PersistentException;
  *
  * @author MacYser
  */
-public class ProjectRolesControl {
+public class ProjectRolesManager {
 	
 	
-	private static final Logger logger = Logger.getLogger(ProjectRolesControl.class);
+	private static final Logger logger = Logger.getLogger(ProjectRolesManager.class);
 	
 	public boolean isAllowedCommentDocuAction(String role) throws ProjectException{
 		logger.info("isAllowedCommentDocuAction(String role)");

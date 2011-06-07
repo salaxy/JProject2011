@@ -6,13 +6,13 @@ import de.fhb.jproject.exceptions.ProjectException;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
-public class SourceControl {
+public class SourceManager {
 	
-	private ProjectRolesControl projectRolesController;
+	private ProjectRolesManager projectRolesManager;
 	
-	public SourceControl(ProjectRolesControl projectRolesController){
+	public SourceManager(ProjectRolesManager projectRolesManager){
 		
-		this.projectRolesController=projectRolesController;
+		this.projectRolesManager=projectRolesManager;
 	}
 	
 	// !!! Source Actions !!!

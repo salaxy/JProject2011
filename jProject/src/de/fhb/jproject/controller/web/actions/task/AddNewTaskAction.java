@@ -12,7 +12,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.project.AddMemberAction;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import java.sql.Date;
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AddNewTaskAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(AddNewTaskAction.class);
 
 	/* (non-Javadoc)
@@ -38,8 +38,8 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		try {		
 			
 			//Debugprint
@@ -52,8 +52,8 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					);
 			
 		
-			//Controller in aktion
-			mainController.getTaskcontroller().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
+			//Manager in aktion
+			mainManager.getTaskManager().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
 					req.getParameter("titel"),
 					req.getParameter("aufgabenStellung"),
 					//yyyy-mm-dd <<< muss sooo aussehen

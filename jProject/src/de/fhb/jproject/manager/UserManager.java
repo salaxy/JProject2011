@@ -26,20 +26,20 @@ import org.orm.PersistentTransaction;
  * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>, 
  * 
  */
-public class UserControl {
+public class UserManager {
 	
 	
-	private GlobalRolesControl globalRolesController;
+	private GlobalRolesManager globalRolesManager;
 	
 	private UserDA userDA;
 	
-	private static final Logger logger = Logger.getLogger(UserControl.class);
+	private static final Logger logger = Logger.getLogger(UserManager.class);
     
-    public UserControl(GlobalRolesControl globalRolesController){		
+    public UserManager(GlobalRolesManager globalRolesManager){		
     	//debuglogging
 		logger.info("new UserControl()");
 		userDA = DAFactory.getDAFactory().getUserDA();
-		this.globalRolesController = globalRolesController;
+		this.globalRolesManager = globalRolesManager;
 		
     }
 
@@ -63,7 +63,7 @@ public class UserControl {
 		}
 		
 		//abfrage ob user Rechte hat bzw Eigner ist
-		if(!globalRolesController.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -101,7 +101,7 @@ public class UserControl {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
 		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) || !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
@@ -135,7 +135,7 @@ public class UserControl {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
 		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) || !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
@@ -159,7 +159,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedSearchUserAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum suchen!");
 		}
 		try {
@@ -192,7 +192,7 @@ public class UserControl {
 		
 		//abfrage ob user Rechte hat
 		//TODO || !(aktUser == user)
-		if(!globalRolesController.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum aendern!");
 		}
 		
@@ -231,7 +231,7 @@ public class UserControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
