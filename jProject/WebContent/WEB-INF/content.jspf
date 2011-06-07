@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-		<c:when test="${sessionScope.loggedIn == true}">
+		<c:when test="${sessionScope.aktProject != null}">
 			
 			
 			
@@ -82,7 +82,7 @@
 
 		</c:when>
 		<c:otherwise>
-			Sie sind nicht eingeloggt! oder WelcomePage!
+			Willkommen!!! Sie haben sich erfolgreich eingeloggt!
 		</c:otherwise>
 	</c:choose>
 
