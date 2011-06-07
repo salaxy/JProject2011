@@ -276,7 +276,7 @@ public class TaskControl {
 		Task task=null;
 		
 		//debuglogging
-		logger.info("showAllTasks()");
+		logger.info("showTask()");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
