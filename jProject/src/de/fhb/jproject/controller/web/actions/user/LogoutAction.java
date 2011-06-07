@@ -52,7 +52,7 @@ public class LogoutAction extends HttpRequestActionBase {
 			System.out.println("Erfolgreich ausgeloggt!");
 
 		}catch(NullPointerException e){
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}

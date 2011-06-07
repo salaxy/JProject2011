@@ -87,7 +87,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			try {
 				projectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 			} catch (ProjectException ex) {
-				logger.error(ex.getMessage());
+				logger.error(ex.getMessage(), ex);
 				req.setAttribute("contentFile", "error.jsp");
 				req.setAttribute("errorString", ex.getMessage());
 			}
