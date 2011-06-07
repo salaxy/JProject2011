@@ -76,6 +76,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
 		if (!getOperation(req).equals("Logout")) {
+			
 			/*TODO DELETE ACTION
 			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
 			showAllOwnProjectsAction.perform(req, resp);
@@ -102,10 +103,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 		}
 		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
 		
+		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
-		
-		
 		
 		
 	}
@@ -340,6 +341,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 				session.setAttribute("mainController", mainController);
 			}
 		}
+		req.setAttribute("contentFile", null);
 		super.doPost(req, resp);
 		
 		processRequest(req, resp, session);

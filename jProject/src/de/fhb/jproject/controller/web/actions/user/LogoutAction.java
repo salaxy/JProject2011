@@ -53,7 +53,7 @@ public class LogoutAction extends HttpRequestActionBase {
 
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 		

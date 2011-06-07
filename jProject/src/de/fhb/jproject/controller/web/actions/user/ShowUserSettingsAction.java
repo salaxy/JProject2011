@@ -49,15 +49,15 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			//TODO AKTUSER EIGENTLICH SCHON IN DER SESSION
 			req.setAttribute("user", aktUser);
 			
-			req.setAttribute("contentFile", "showUserSettings.jspf");
+			req.setAttribute("contentFile", "showUserSettings.jsp");
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 		

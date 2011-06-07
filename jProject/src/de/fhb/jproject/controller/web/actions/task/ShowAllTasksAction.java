@@ -71,16 +71,16 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			
-			req.setAttribute("contentFile", "showAllTasks.jspf");
+			req.setAttribute("contentFile", "showAllTasks.jsp");
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 	}
