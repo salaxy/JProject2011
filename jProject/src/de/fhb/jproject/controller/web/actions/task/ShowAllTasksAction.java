@@ -62,7 +62,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
 //			}		
 			
-			/*TODO METHODE IM CONTROLLER ERSTELLEN KEINE ACTION ERSTELLEN
+			/*TODO METHODE IM CONTROLLER ERSTELLEN, KEINE ACTION ERSTELLEN
 			ShowTaskAction showTaskAction = new ShowTaskAction();
 			showTaskAction.perform(req, resp);
 			 * 
@@ -71,16 +71,16 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			
-			req.setAttribute("contentFile", "showAllTasks.jsp");
+			req.setAttribute("contentFile", "showAllTasks.jspf");
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		}
 	}

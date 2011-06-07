@@ -71,17 +71,17 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			req.setAttribute("memberList", memberList);
 			
-			req.setAttribute("contentFile", "showProject.jsp");
+			req.setAttribute("contentFile", "showProject.jspf");
 			
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		}
 	}
