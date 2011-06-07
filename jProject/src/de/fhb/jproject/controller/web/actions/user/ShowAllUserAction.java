@@ -56,11 +56,11 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			req.setAttribute("userList", userList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
