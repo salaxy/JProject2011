@@ -67,7 +67,7 @@
 		<div id="outercontainer" >
 			<div id="navbarback">
 <!--NAVBARBACK -->
-				<%@include file="WEB-INF/login.jspf" %>
+				<%@include file="WEB-INF/jspf/login.jspf" %>
 <!--NAVBARBACK-END -->			
 			</div>
 			<div id="container" >
@@ -85,7 +85,7 @@
 							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
 							</img>Projekte</h2>
 							<div id="projects">
-								<%@include file="WEB-INF/showAllOwnProjects.jspf" %>
+								<%@include file="WEB-INF/jspf/showAllOwnProjects.jspf" %>
 							</div>
 							<br /><br />
 							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
