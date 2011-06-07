@@ -57,6 +57,7 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
+			req.setAttribute("contentFile", "showProject.jspf");
 
 		}catch (ProjectException e) {
 			
