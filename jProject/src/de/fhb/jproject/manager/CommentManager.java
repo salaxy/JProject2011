@@ -1,6 +1,8 @@
 package de.fhb.jproject.manager;
 
-import java.util.logging.Level;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -29,7 +31,6 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
-import org.hibernate.LockMode;
 
 public class CommentManager {
 	
@@ -434,26 +435,314 @@ public class CommentManager {
 		//TODO ANTWORT: Admin, Ersteller und Leader
 	}
 	
-	public void showAllComments41Docu(){
+	/**
+	 * Alle Kommentare eines Dokuments holen
+	 * @param aktUser
+	 * @param projectName
+	 * @param documentId
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<Comment> showAllComments41Docu(User aktUser, String projectName, int documentId)
+	throws ProjectException{
+		
+		List<Comment> list=new ArrayList<Comment>();
+		CommentDocument[] commentDocument=null;
+		Comment c=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("showAllComments41Docu()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+
+			
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
+			}	
+		}	
 		
 		
+		//EIGENTLICHE AKTIONEN
 		
+		//holen der commentDocument
+		try {
+			commentDocument=commentDocumentDA.listCommentDocumentByQuery("DocumentID="+documentId,"CommentID" );
+		} catch (PersistentException e) {
+			System.out.println("Fehler");
+			throw new ProjectException("Kann CommentDocument nicht finden! "+ e.getMessage());
+		}
 		
+		//holen der comments selbst
+		for(int i=0;i<commentDocument.length;i++){
+			try {
+				c=commentDA.getCommentByORMID(commentDocument[i].getCommentId());
+			} catch (PersistentException e) {
+				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
+			}
+			//zur liste hinzufuegen
+			list.add(c);
+		}
 		
-		
-		
-		
-		
-		
-		
-		
+		return list;
 	}
 	
-	public void showAllComments41Source(){}
 	
-	public void showAllComments41Task(){}
+	/**
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param sourcecodeId
+	 * @throws ProjectException
+	 */
+	public List<Comment>  showAllComments41Source(User aktUser, String projectName, int sourcecodeId)
+	throws ProjectException{
+		
+		List<Comment> list=new ArrayList<Comment>();
+		CommentSourcecode[] commentSourcecode=null;
+		Comment c=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("showAllComments41Source()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+
+			
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
+			}	
+		}	
+		
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//holen der CommentSourcecode
+		try {
+			commentSourcecode=commentSourcecodeDA.listCommentSourcecodeByQuery("SourcecodeID="+sourcecodeId,"CommentID" );
+		} catch (PersistentException e) {
+			System.out.println("Fehler");
+			throw new ProjectException("Kann CommentSourcecode nicht finden! "+ e.getMessage());
+		}
+		
+		//holen der comments selbst
+		for(int i=0;i<commentSourcecode.length;i++){
+			try {
+				c=commentDA.getCommentByORMID(commentSourcecode[i].getCommentId());
+			} catch (PersistentException e) {
+				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
+			}
+			//zur liste hinzufuegen
+			list.add(c);
+		}
+		
+		return list;
+	}
 	
-	public void showAllComments41Project(){}
+	/**
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param taskId
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<Comment> showAllComments41Task(User aktUser, String projectName, int taskId)
+	throws ProjectException{
+		
+		List<Comment> list=new ArrayList<Comment>();
+		CommentTask[] commentTask=null;
+		Comment c=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("showAllComments41Task()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+
+			
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){	
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
+			}	
+		}	
+		
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//holen der commentTask
+		try {
+			commentTask=commentTaskDA.listCommentTaskByQuery("TaskID="+taskId,"CommentID" );
+		} catch (PersistentException e) {
+			System.out.println("Fehler");
+			throw new ProjectException("Kann CommentTask nicht finden! "+ e.getMessage());
+		}
+		
+		//holen der comments selbst
+		for(int i=0;i<commentTask.length;i++){
+			try {
+				c=commentDA.getCommentByORMID(commentTask[i].getCommentId());
+			} catch (PersistentException e) {
+				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
+			}
+			//zur liste hinzufuegen
+			list.add(c);
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<Comment> showAllComments41Project(User aktUser, String projectName)
+	throws ProjectException{
+		
+		List<Comment> list=new ArrayList<Comment>();
+		CommentProject[] commentProject=null;
+		Comment c=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("showAllComments41Project()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+			
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
+			}	
+		}	
+		
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//holen der commentDocument
+		try {
+			commentProject=commentProjectDA.listCommentProjectByQuery("Project="+projectName,"CommentID" );
+		} catch (PersistentException e) {
+			System.out.println("Fehler");
+			throw new ProjectException("Kann CommentProject nicht finden! "+ e.getMessage());
+		}
+		
+		//holen der comments selbst
+		for(int i=0;i<commentProject.length;i++){
+			try {
+				c=commentDA.getCommentByORMID(commentProject[i].getCommentId());
+			} catch (PersistentException e) {
+				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
+			}
+			//zur liste hinzufuegen
+			list.add(c);
+		}
+		
+		return list;
+	}
 	
 	
 	private void clearSession() throws PersistentException{
