@@ -5,9 +5,9 @@ import de.fhb.jproject.exceptions.ProjectException;
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 
-public class GlobalRolesControl {
+public class GlobalRolesManager {
 
-	private static final Logger logger = Logger.getLogger(GlobalRolesControl.class);
+	private static final Logger logger = Logger.getLogger(GlobalRolesManager.class);
 
 	public boolean isAllowedAddNewProjectAction(String role) throws ProjectException {
 		logger.info("isAllowedAddNewProjectAction(String role)");

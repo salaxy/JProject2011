@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 public class LogoutAction extends HttpRequestActionBase {
 
 	
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(LoginAction.class);
 //	private JProjectBO logic;
 
@@ -31,18 +31,18 @@ public class LogoutAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			//Controller in aktion
-			//mainController.getUserController().logout();
+			//Manager in aktion
+			//mainManager.getUserManager().logout();
 			synchronized(session){
-				session.setAttribute("mainController", null);
+				session.setAttribute("mainManager", null);
 				session.setAttribute("loggedIn", null);
 				session.setAttribute("aktUser", null);
 				session.invalidate();

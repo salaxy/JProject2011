@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowUserInfoAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowUserInfoAction.class);
 
 	/* (non-Javadoc)
@@ -33,8 +33,8 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		User user=null;
 		
@@ -43,8 +43,8 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			//Controller in aktion
-			user =mainController.getUserController().showUserInfo((User)session.getAttribute("aktUser"), req.getParameter("loginName"));
+			//Manager in aktion
+			user =mainManager.getUserManager().showUserInfo((User)session.getAttribute("aktUser"), req.getParameter("loginName"));
 			
 			//setzen der Parameter
 			req.setAttribute("user", user);

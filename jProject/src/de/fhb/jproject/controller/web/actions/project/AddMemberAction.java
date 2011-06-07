@@ -12,7 +12,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.user.ShowUserInfoAction;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AddMemberAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(AddMemberAction.class);
 
 	/* (non-Javadoc)
@@ -35,8 +35,8 @@ public class AddMemberAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		try {		
 			
 			//Debugprint
@@ -47,8 +47,8 @@ public class AddMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("rolle") + ")"
 					);
 			
-			//Controller in aktion
-			mainController.getProjectContoller().addMember((User)session.getAttribute("aktUser"), 
+			//Manager in aktion
+			mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
 														   req.getParameter("userLoginName"), 
 														   req.getParameter("projectName"), 
 														   req.getParameter("rolle"));

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 
 
 /**
@@ -16,7 +16,7 @@ import de.fhb.jproject.manager.MainControl;
  */
 public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)

@@ -26,10 +26,10 @@ import de.fhb.jproject.repository.da.UserDA;
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  */
-public class ProjectControl {
+public class ProjectManager {
 	
-	private ProjectRolesControl projectRolesController;
-	private GlobalRolesControl globalRolesController;
+	private ProjectRolesManager projectRolesManager;
+	private GlobalRolesManager globalRolesManager;
 	private final String LEADER = "Leader";
 	
 	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
@@ -39,15 +39,15 @@ public class ProjectControl {
 	private ProjectRolesDA projectRolesDA;
 	private UserDA userDA;
 	
-	private static final Logger logger = Logger.getLogger(ProjectControl.class);
+	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public ProjectControl(ProjectRolesControl projectRolesController, GlobalRolesControl globalRolesController){
+	public ProjectManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
 		userDA = DAFactory.getDAFactory().getUserDA();
-		this.projectRolesController=projectRolesController;
-		this.globalRolesController=globalRolesController;
+		this.projectRolesManager=projectRolesManager;
+		this.globalRolesManager=globalRolesManager;
 	}
 	
 
@@ -91,8 +91,8 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedAddMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedAddMemberAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedAddMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedAddMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 		}			
 
@@ -148,7 +148,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(!globalRolesController.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum erstellen eines Projektes!");
 		}
 		
@@ -227,8 +227,8 @@ public class ProjectControl {
 		
 		//RECHTE-ABFRAGE Projekt und Global
 		//Admin und ProjektLeader sind berechtigt 
-		if(!projectRolesController.isAllowedDeleteProjectAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedDeleteProjectAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
 		}	
 		
@@ -281,8 +281,8 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesController.isAllowedDeleteMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedDeleteMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
 		}
 		
@@ -334,7 +334,7 @@ public class ProjectControl {
         }
 		
 		//abfrage ob user Rechte hat
-		if(!globalRolesController.isAllowedShowProjectAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}		
 		
@@ -363,7 +363,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(!globalRolesController.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Scuhen der Projekte!");
 		}	
 		
@@ -399,7 +399,7 @@ public class ProjectControl {
         }
 		
 		//RECHTE-ABFRAGE Global
-		if(!globalRolesController.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}	
 		
@@ -432,7 +432,7 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE Global
-		if(!globalRolesController.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
 		
@@ -485,8 +485,8 @@ public class ProjectControl {
 		}
 		
 		//RECHTE-ABFRAGE projekt
-		if(!projectRolesController.isAllowedShowAllMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesController.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
+		if(!projectRolesManager.isAllowedShowAllMemberAction(memAktUser.getProjectRole())
+				|| !globalRolesManager.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 		}
 

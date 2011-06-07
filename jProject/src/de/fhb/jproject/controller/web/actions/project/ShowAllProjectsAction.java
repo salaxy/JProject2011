@@ -13,7 +13,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowAllProjectsAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowAllProjectsAction.class);
 
 	/* (non-Javadoc)
@@ -38,8 +38,8 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Project> projectList=null;
 		
 		try {
@@ -47,8 +47,8 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			//Controller in aktion
-			projectList=mainController.getProjectContoller().showAllProjects((User)session.getAttribute("aktUser"));
+			//Manager in aktion
+			projectList=mainManager.getProjectManager().showAllProjects((User)session.getAttribute("aktUser"));
 			
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());

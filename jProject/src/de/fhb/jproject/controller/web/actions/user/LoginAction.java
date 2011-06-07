@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class LoginAction extends HttpRequestActionBase {
 
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(LoginAction.class);
 
 	/* (non-Javadoc)
@@ -33,8 +33,8 @@ public class LoginAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 
 		
@@ -47,10 +47,10 @@ public class LoginAction extends HttpRequestActionBase {
 					+ "String password(" + req.getParameter("password") + ")"
 					);
 			
-			//Controller in aktion
+			//Manager in aktion
 			synchronized(session){
 				
-				session.setAttribute("aktUser", mainController.getUserController().login(
+				session.setAttribute("aktUser", mainManager.getUserManager().login(
 						req.getParameter("loginName"),
 						req.getParameter("password")));
 			}

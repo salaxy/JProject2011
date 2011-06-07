@@ -62,7 +62,7 @@ import de.fhb.jproject.controller.web.actions.user.ShowUserSettingsAction;
 import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import org.apache.log4j.Logger;
@@ -70,7 +70,7 @@ import org.apache.log4j.Logger;
 @WebServlet("/JProjectServlet")
 public class JProjectServlet extends HttpServletControllerBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(JProjectServlet.class);
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
@@ -85,7 +85,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			//TODO BO-ACCESS LAYOUT
 			List<Project> projectList = null;
 			try {
-				projectList = mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser"));
+				projectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 			} catch (ProjectException ex) {
 				logger.error(ex.getMessage());
 				req.setAttribute("contentFile", "error.jsp");
@@ -118,7 +118,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * de.fhb.music.controller.web.HttpServletControllerBase#init(javax.servlet
+	 * de.fhb.music.controller.web.HttpServletManagerBase#init(javax.servlet
 	 * .ServletConfig)
 	 */
 	public void init(ServletConfig conf) throws ServletException {
@@ -292,7 +292,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * de.fhb.music.controller.web.HttpServletControllerBase#getOperation(javax
+	 * de.fhb.music.controller.web.HttpServletManagerBase#getOperation(javax
 	 * .servlet.http.HttpServletRequest)
 	 */
 	protected String getOperation(HttpServletRequest req) {
@@ -306,14 +306,14 @@ public class JProjectServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
-			mainController = new MainControl();
+		if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
+			mainManager = new MainManager();
 			
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
 				session.setAttribute("loggedIn", false);
 				session.setAttribute("aktUser", null);
-				session.setAttribute("mainController", mainController);
+				session.setAttribute("mainManager", mainManager);
 			}
 		}
 		super.doGet(req, resp);
@@ -334,14 +334,14 @@ public class JProjectServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 
 		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainController") == null || getOperation(req).equals("Login")) {
-			mainController = new MainControl();
+		if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
+			mainManager = new MainManager();
 			
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
 				session.setAttribute("loggedIn", false);
 				session.setAttribute("aktUser", null);
-				session.setAttribute("mainController", mainController);
+				session.setAttribute("mainManager", mainManager);
 			}
 		}
 		req.setAttribute("contentFile", null);

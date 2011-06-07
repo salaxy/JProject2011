@@ -12,7 +12,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.task.AddNewTaskAction;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.MainControl;
+import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CommentDocuAction extends HttpRequestActionBase {
 
-	private MainControl mainController;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(CommentDocuAction.class);
 
 	/* (non-Javadoc)
@@ -34,8 +34,8 @@ public class CommentDocuAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
-		//Controller holen
-		mainController=(MainControl) session.getAttribute("mainController");
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
 		try {		
 			
 			//Debugprint
@@ -46,14 +46,12 @@ public class CommentDocuAction extends HttpRequestActionBase {
 					);
 			
 		
-			//Controller in aktion
-			mainController.getCommentController().commentDocu((User)session.getAttribute("aktUser"), 
+			//Manager in aktion
+			mainManager.getCommentManager().commentDocu((User)session.getAttribute("aktUser"), 
 															  Integer.valueOf(req.getParameter("documentId")), 
 															  req.getParameter("inhalt"));
 			
 			
-			//forwarden zum JSP
-			//forward(req, resp, "/CommentDocuAction.jsp");
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
