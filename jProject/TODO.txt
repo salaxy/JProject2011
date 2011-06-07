@@ -1,6 +1,2 @@
-
-
-RECHTE
-Global+Project
-AssignTask
-DeAssignTask
+Action:
+	ShowTaskAction

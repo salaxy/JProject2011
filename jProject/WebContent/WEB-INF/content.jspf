@@ -1,39 +1,89 @@
-<div id="topcontent">
-	<form>
-		<textarea cols="93" rows="1">Project		Sourcecode	Documents	Tasks</textarea>
-	</form>
-</div>
-
-
-<div id="leftcontent">
-	<form>
-		<textarea cols="17" rows="10">LEFT AJAX
-		Bla
-		Bla
-		Bla
-		Bla
-		Bla
-		Bla</textarea>
-	</form>
-	<c:choose>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
 		<c:when test="${sessionScope.loggedIn == true}">
-			<c:forEach items="${sessionScope.showAllOwnProjects}" var="project" varStatus="i">
-				<a href="JProjectServlet?do=ShowProject&Name=${project.name}">${project.name}</a><br>
-			</c:forEach>
-		</c:when>
-	</c:choose>
-</div>
+			
+			
+			
+			
+			<div id="topcontent">
+				<a href="JProjectServlet?do=ShowProject&projectName=${project.name}">Project</a>
+				<a href="JProjectServlet?do=ShowAllSource&projectName=${project.name}">Sourcecode</a>
+				<a href="JProjectServlet?do=ShowAllDocu&projectName=${project.name}">Documents</a>
+				<a href="JProjectServlet?do=ShowAllTasks&projectName=${project.name}">Tasks</a>
+			</div>
 
-<div id="contentcontent">
-	<form>
-		<textarea cols="74" rows="10">CONTENT AJAX</textarea>
-	</form>
-</div>
-		
 
 			
-<div id="footercontent">
-	<form>
-		<textarea cols="93" rows="5">COMMENTS AJAX</textarea>
-	</form>
-</div>
+			<c:choose>
+				<c:when test="${project != null}">
+					<div id="contentcontentbig">
+				</c:when>
+				<c:when test="${project == null}">
+					<div id="leftcontent">
+						<!--<form>
+							<textarea cols="17" rows="10">LEFT AJAX
+							Bla
+							Bla
+							Bla
+							Bla
+							Bla
+							Bla</textarea>
+						</form>-->
+						<c:choose>
+							<c:when test="${sourcecodeList != null}">
+								<c:forEach items="${sourcecodeList}" var="sourcecode" varStatus="i">
+									<a href="JProjectServlet?do=ShowSource&sourcecodeID=${sourcecode.id}">${sourcecode.dateiname}</a><br>
+								</c:forEach>
+							</c:when>
+							<c:when test="${documentList != null}">
+								<c:forEach items="${documentList}" var="document" varStatus="i">
+									<a href="JProjectServlet?do=ShowDocu&documentID=${document.id}">${document.dateiname}</a><br>
+								</c:forEach>
+							</c:when>
+							<c:when test="${taskList != null}">
+								<c:forEach items="${taskList}" var="task" varStatus="i">
+									<a href="JProjectServlet?do=ShowTask&documentID=${task.id}">${task.titel}</a><br>
+								</c:forEach>
+							</c:when>
+						</c:choose>
+					</div>
+					<div id="contentcontentsmall">
+				</c:when>
+			</c:choose>	
+			
+				<!--<form>
+					<textarea cols="74" rows="10">CONTENT AJAX</textarea>
+				</form>-->
+				
+				<c:choose>
+					<c:when test="${project != null}">
+						${project.name} ${project.status}<br />
+					</c:when>
+					<c:when test="${sourcecode != null}">
+						${sourcecode.id} ${sourcecode.dateiname}<br />
+					</c:when>
+					<c:when test="${document != null}">
+						${document.id} ${document.dateiname}<br />
+					</c:when>
+					<c:when test="${task != null}">
+						${task.id} ${task.titel}<br /><br />
+						${task.aufgabenstellung}
+					</c:when>
+				</c:choose>
+			</div>
+
+
+
+			<div id="footercontent">
+				<form>
+					<textarea cols="93" rows="5">COMMENTS AJAX</textarea>
+				</form>
+			</div>
+
+		</c:when>
+		<c:otherwise>
+			Sie sind nicht eingeloggt! oder WelcomePage!
+		</c:otherwise>
+	</c:choose>
+
+

@@ -66,10 +66,73 @@ import javax.servlet.RequestDispatcher;
 public class JProjectServlet extends HttpServletControllerBase {
 
 	private MainControl mainController;
+	private String forwardString;
 	
-	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
+	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-	
+		forwardString = null;
+		if (!getOperation(req).equals("Logout")) {
+			if (getOperation(req).equals("ShowProject")) {
+				ShowProjectAction showProjectAction = new ShowProjectAction();
+				showProjectAction.perform(req, resp);
+				
+				ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
+				showAllMemberAction.perform(req, resp);
+				//TODO anzahl documente, anzahl Sourcecode
+				//TODO fähigkeiten addMember, DeleteMember
+			}
+			if (getOperation(req).equals("ShowAllSource") || getOperation(req).equals("ShowSource")) {
+				//projectName muss uebergeben werden
+				ShowAllSourceAction showAllSourceAction = new ShowAllSourceAction();
+				showAllSourceAction.perform(req, resp);
+				if (!getOperation(req).equals("ShowSource")) {
+					req.setAttribute("sourcecodeID", 0);
+					ShowSourceAction showSourceAction = new ShowSourceAction();
+					showSourceAction.perform(req, resp);
+				}
+				
+			}
+			if (getOperation(req).equals("ShowAllDocu") || getOperation(req).equals("ShowDocu")) {
+				//projectName muss uebergeben werden
+				ShowAllDocuAction showAllDocuAction = new ShowAllDocuAction();
+				showAllDocuAction.perform(req, resp);
+				if (!getOperation(req).equals("ShowDocu")) {
+					req.setAttribute("documentID", 0);
+					ShowDocuAction showDocuAction = new ShowDocuAction();
+					showDocuAction.perform(req, resp);
+				}
+				
+			}
+			if (getOperation(req).equals("ShowAllTasks") || getOperation(req).equals("ShowTask")) {
+				//projectName muss uebergeben werden
+				ShowAllTasksAction showAllTasksAction = new ShowAllTasksAction();
+				showAllTasksAction.perform(req, resp);
+				if (!getOperation(req).equals("ShowTask")) {
+					req.setAttribute("taskID", 0);
+					//TODO ShowTaskAction showTaskAction = new ShowTaskAction();
+					//showTaskAction.perform(req, resp);
+				}
+			}
+			if (getOperation(req).equals("ShowSettings")) {
+				ShowUserSettingsAction showUserSettingsAction = new ShowUserSettingsAction();
+				showUserSettingsAction.perform(req, resp);
+				
+				forwardString = "settings.jsp";
+			}
+			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
+			showAllOwnProjectsAction.perform(req, resp);
+			//Show all other loggedIn-Stuff...
+			
+			//TODO Comments per AJAX
+		}
+		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
+		if (forwardString==null) {
+			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+			reqDisp.forward(req, resp);
+		}else{
+			RequestDispatcher reqDisp = req.getRequestDispatcher(forwardString);
+			reqDisp.forward(req, resp);
+		}
 		
 		
 		
@@ -279,15 +342,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		}
 		super.doGet(req, resp);
 		
-		System.out.println("LoggedIn?: "+(Boolean)session.getAttribute("loggedIn"));
-		if ((Boolean)session.getAttribute("loggedIn")) {
-			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-			showAllOwnProjectsAction.perform(req, resp);
-			//Show all other loggedIn-Stuff...
-		}
-		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-        reqDisp.forward(req, resp);
+		processRequest(req, resp, session);
 	}
 
 	/*
@@ -315,14 +370,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		}
 		super.doPost(req, resp);
 		
-		System.out.println("LoggedIn?: "+(Boolean)session.getAttribute("loggedIn"));
-		if ((Boolean)session.getAttribute("loggedIn")) {
-			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-			showAllOwnProjectsAction.perform(req, resp);
-			//Show all other loggedIn-Stuff...
-		}
-		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-        reqDisp.forward(req, resp);
+		processRequest(req, resp, session);
+		
 	}
 }
