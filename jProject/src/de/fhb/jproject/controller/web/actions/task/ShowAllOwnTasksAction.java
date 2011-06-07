@@ -58,27 +58,14 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			
-			//forwarden zum JSP
-			forward(req, resp, "/ShowAllOwnTasks.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 	}
 }

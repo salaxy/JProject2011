@@ -55,27 +55,14 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			//Daten dem Reqest mitgeben
 			req.setAttribute("userList", userList);
 			
-			//forwarden zum JSP
-			forward(req, resp, "ShowAllUser.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-			
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 	}

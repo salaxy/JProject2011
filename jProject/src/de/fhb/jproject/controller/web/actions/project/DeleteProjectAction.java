@@ -52,27 +52,14 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 			mainController.getProjectContoller().deleteProject((User)session.getAttribute("aktUser"), 
 															   req.getParameter("projectName"));
 			
-			//forwarden zum JSP
-			forward(req, resp, "/DeleteProject.jsp");
-
 		}catch (ProjectException e) {
-			
-			
 			logger.error(e.getMessage());
-			errorforward(req, resp, e.getMessage());
-			
-		}catch (IOException e) {
-			
-			
-			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-            
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
-			
-			
 			logger.error(e.getMessage());
-            errorforward(req, resp, e.getMessage());
-            
+			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 	}
