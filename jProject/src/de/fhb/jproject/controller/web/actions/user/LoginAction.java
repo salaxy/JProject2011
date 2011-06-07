@@ -57,15 +57,15 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
-			req.setAttribute("contentFile", "showProject.jspf");
+			//XXX entfernen req.setAttribute("contentFile", "showProject.jsp");
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 		

@@ -1,3 +1,10 @@
+<%-- 
+    Document   : login
+    Created on : 07.06.2011, 18:46:02
+    Author     : MacYser
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:choose>
 	<c:when test="${sessionScope.loggedIn == null}">
 		<form class="buttonright" method="GET" action="JProjectServlet">

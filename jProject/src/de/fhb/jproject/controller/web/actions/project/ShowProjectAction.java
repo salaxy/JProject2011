@@ -61,7 +61,17 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			showAllMemberAction.perform(req, resp);
 			 * 
 			 */
-			memberList = mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+			try {
+				memberList = mainController.getProjectContoller().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+			}catch (ProjectException e) {
+				logger.error(e.getMessage());
+				/*
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", e.getMessage());
+				 * 
+				 */
+			}
+			
 			//TODO anzahl documente, anzahl Sourcecode
 			//TODO fähigkeiten addMember, DeleteMember
 			
@@ -71,17 +81,17 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			req.setAttribute("memberList", memberList);
 			
-			req.setAttribute("contentFile", "showProject.jspf");
+			req.setAttribute("contentFile", "showProject.jsp");
 			
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jspf");
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 	}

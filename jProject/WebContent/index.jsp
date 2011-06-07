@@ -67,7 +67,7 @@
 		<div id="outercontainer" >
 			<div id="navbarback">
 <!--NAVBARBACK -->
-				<%@include file="WEB-INF/jspf/login.jspf" %>
+				<%@include file="WEB-INF/jspf/login.jsp" %>
 <!--NAVBARBACK-END -->			
 			</div>
 			<div id="container" >
@@ -85,7 +85,7 @@
 							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
 							</img>Projekte</h2>
 							<div id="projects">
-								<%@include file="WEB-INF/jspf/showAllOwnProjects.jspf" %>
+								<%@include file="WEB-INF/jspf/showAllOwnProjects.jsp" %>
 							</div>
 							<br /><br />
 							<h2><img src="images/sticky_red.png" alt="" height="15" width="15">
@@ -100,9 +100,22 @@
 						
 						<div id="content" >
 	<!--CONTENT -->
+							<%//Wenn nicht eingeloggt => Startseite%>
 							<c:choose>
+								
 								<c:when test="${sessionScope.loggedIn == true}">
-								<%@include file="WEB-INF/jspf/content.jspf" %>
+									<%//Wenn kein ContentFile => Projectuebersicht%>
+									<c:choose>
+										<c:when test="${contentFile != null}">
+											<jsp:include page='<%= "WEB-INF/jspf/"+(String)request.getAttribute("contentFile") %>' >
+												<jsp:param name="title" value="Main page"/>
+											</jsp:include>
+										</c:when>
+										<c:otherwise>
+											Projectübersicht!
+										</c:otherwise>
+									</c:choose>
+									
 								</c:when>
 								<c:otherwise>
 									WelcomePage! About!

@@ -453,7 +453,7 @@ public class ProjectControl {
 		Member memAktUser=null;
 		
 		//debuglogging
-		logger.info("ShowAllMember()");
+		logger.info("showAllMember()");
 		logger.debug("String name("+projectName+")");
 		
         //abfrage ob user eingeloggt
