@@ -45,13 +45,20 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			//Controller in aktion
 			aktUser =mainController.getUserController().showUserSettings((User)session.getAttribute("aktUser"));
 			
-			//setzen der Parameter
+			//setzen der Attribute
+			//TODO AKTUSER EIGENTLICH SCHON IN DER SESSION
 			req.setAttribute("user", aktUser);
+			
+			req.setAttribute("contentFile", "showUserSettings.jsp");
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
 		
 	}

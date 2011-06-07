@@ -22,7 +22,18 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
+		/*TODO DELETE ACTION
+		ShowDocuAction showDocuAction = new ShowDocuAction();
+		showDocuAction.perform(req, resp);
+		 * 
+		 */
+		req.setAttribute("contentFile", "showAllDocu.jsp");
 		
-		
+		/*
+		 * catch(Exception e){
+		 *	req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		 * }
+		 */
 	}
 }

@@ -62,14 +62,26 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
 //			}		
 			
+			/*TODO METHODE IM CONTROLLER ERSTELLEN KEINE ACTION ERSTELLEN
+			ShowTaskAction showTaskAction = new ShowTaskAction();
+			showTaskAction.perform(req, resp);
+			 * 
+			 */
+			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
+			
+			req.setAttribute("contentFile", "showAllTasks.jsp");
 			
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage());
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
 	}
 }

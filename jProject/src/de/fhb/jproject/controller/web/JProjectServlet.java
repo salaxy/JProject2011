@@ -1,5 +1,6 @@
 package de.fhb.jproject.controller.web;
 
+import de.fhb.jproject.exceptions.ProjectException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -59,99 +60,51 @@ import de.fhb.jproject.controller.web.actions.user.ShowAllUserAction;
 import de.fhb.jproject.controller.web.actions.user.ShowUserInfoAction;
 import de.fhb.jproject.controller.web.actions.user.ShowUserSettingsAction;
 import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
+import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainControl;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
+import org.apache.log4j.Logger;
 
 @WebServlet("/JProjectServlet")
 public class JProjectServlet extends HttpServletControllerBase {
 
 	private MainControl mainController;
-	private String forwardString;
+	private static final Logger logger = Logger.getLogger(JProjectServlet.class);
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		forwardString = null;
 		if (!getOperation(req).equals("Logout")) {
-
+			/*TODO DELETE ACTION
 			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
 			showAllOwnProjectsAction.perform(req, resp);
+			 * 
+			 */
+			//TODO BO-ACCESS LAYOUT
+			List<Project> projectList = null;
+			try {
+				projectList = mainController.getProjectContoller().showAllOwnProjects((User)session.getAttribute("aktUser"));
+			} catch (ProjectException ex) {
+				logger.error(ex.getMessage());
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", ex.getMessage());
+			}
 			//Show all other loggedIn-Stuff...
+			req.setAttribute("ownProjectList", projectList);
+			
+			
 
 			//TODO Comments per AJAX
 		
-		
-			if (getOperation(req).equals("ShowProject")) {
-				/*
-				ShowProjectAction showProjectAction = new ShowProjectAction();
-				showProjectAction.perform(req, resp);
-				 * 
-				 */
-				
-				ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
-				showAllMemberAction.perform(req, resp);
-				//TODO anzahl documente, anzahl Sourcecode
-				//TODO fähigkeiten addMember, DeleteMember
-			}
-			if (getOperation(req).equals("ShowAllSource") || getOperation(req).equals("ShowSource")) {
-				//projectName muss uebergeben werden
-				/*
-				ShowAllSourceAction showAllSourceAction = new ShowAllSourceAction();
-				showAllSourceAction.perform(req, resp);
-				 * 
-				 */
-				if (!getOperation(req).equals("ShowSource")) {
-					req.setAttribute("sourcecodeID", 0);
-					ShowSourceAction showSourceAction = new ShowSourceAction();
-					showSourceAction.perform(req, resp);
-				}
-				
-			}
-			if (getOperation(req).equals("ShowAllDocu") || getOperation(req).equals("ShowDocu")) {
-				//projectName muss uebergeben werden
-				/*
-				ShowAllDocuAction showAllDocuAction = new ShowAllDocuAction();
-				showAllDocuAction.perform(req, resp);
-				 * 
-				 */
-				if (!getOperation(req).equals("ShowDocu")) {
-					req.setAttribute("documentID", 0);
-					ShowDocuAction showDocuAction = new ShowDocuAction();
-					showDocuAction.perform(req, resp);
-				}
-				
-			}
-			if (getOperation(req).equals("ShowAllTasks") || getOperation(req).equals("ShowTask")) {
-				//projectName muss uebergeben werden
-				/*
-				ShowAllTasksAction showAllTasksAction = new ShowAllTasksAction();
-				showAllTasksAction.perform(req, resp);
-				 * 
-				 */
-				if (!getOperation(req).equals("ShowTask")) {
-					req.setAttribute("taskID", 0);
-					//TODO ShowTaskAction showTaskAction = new ShowTaskAction();
-					//showTaskAction.perform(req, resp);
-				}
-			}
-			if (getOperation(req).equals("ShowSettings")) {
-				/*
-				ShowUserSettingsAction showUserSettingsAction = new ShowUserSettingsAction();
-				showUserSettingsAction.perform(req, resp);
-				 * 
-				 */
-				
-				forwardString = "settings.jsp";
-			}
+			
 			
 		}
 		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
-		if (forwardString==null) {
-			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-			reqDisp.forward(req, resp);
-		}else{
-			RequestDispatcher reqDisp = req.getRequestDispatcher(forwardString);
-			reqDisp.forward(req, resp);
-		}
+		
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+		reqDisp.forward(req, resp);
+		
 		
 		
 		
