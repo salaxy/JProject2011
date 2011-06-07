@@ -102,7 +102,7 @@
 	<!--CONTENT -->
 							<c:choose>
 								<c:when test="${sessionScope.loggedIn == true}">
-								<%@include file="WEB-INF/content.jspf" %>
+								<%@include file="WEB-INF/jspf/${contentFile}" %>
 								</c:when>
 								<c:otherwise>
 									WelcomePage! About!

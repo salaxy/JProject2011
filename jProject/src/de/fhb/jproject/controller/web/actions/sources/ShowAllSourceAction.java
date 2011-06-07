@@ -35,12 +35,12 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 		// bo benutzen
 		req.setAttribute("xxx", "yyy");
 		
-		req.setAttribute("contentFile", "showAllSourcecode.jsp");
+		req.setAttribute("contentFile", "showAllSource.jspf");
 		
 		
 		/*
 		 * catch(Exception e){
-		 *	req.setAttribute("contentFile", "error.jsp");
+		 *	req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		 * }
 		 */

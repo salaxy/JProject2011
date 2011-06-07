@@ -27,11 +27,11 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		showDocuAction.perform(req, resp);
 		 * 
 		 */
-		req.setAttribute("contentFile", "showAllDocu.jsp");
+		req.setAttribute("contentFile", "showAllDocu.jspf");
 		
 		/*
 		 * catch(Exception e){
-		 *	req.setAttribute("contentFile", "error.jsp");
+		 *	req.setAttribute("contentFile", "error.jspf");
 			req.setAttribute("errorString", e.getMessage());
 		 * }
 		 */
