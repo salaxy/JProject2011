@@ -246,6 +246,13 @@ public class CommentControl {
 		
 	}
 	
+	/**
+	 * 
+	 * @param aktUser
+	 * @param taskId
+	 * @param inhalt
+	 * @throws ProjectException
+	 */
 	public void commentTask(User aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
 		
@@ -329,13 +336,14 @@ public class CommentControl {
 		}
 	}
 	
-	public void deleteComment(){
-		
-		//wer kann ein aufgabe l�schen
-		//owner/ersteller, admin, projekLEADER
-		//TODO ANTWORT: Admin, Ersteller und Leader
-	}
-	
+
+	/**
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param inhalt
+	 * @throws ProjectException
+	 */
 	public void commentProject(User aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
 		
@@ -418,9 +426,13 @@ public class CommentControl {
 		
 	}
 	
+	public void deleteComment(){
+		
+		//TODO ANTWORT: Admin, Ersteller und project-Leader
+	}
+	
+	
 	public void updateComment(){
-		//wer kann ein comment l�schen
-		//owner/ersteller, admin, projekLEADER
 		//TODO ANTWORT: Admin, Ersteller und Leader
 	}
 	
