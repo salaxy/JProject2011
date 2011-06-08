@@ -1,0 +1,12 @@
+Datenbank
+*********
+
+	//XXX Eintrag im globalRolesManager/DB fehlt
+	Macht es sinn einen Admin Tasks im Project zuzuordnen zu lassen?
+		
+DA-Schicht
+**********
+
+brauche die methoden:
+
+- List<Project> findProjectsLike(String teilName)		(projectDA)
