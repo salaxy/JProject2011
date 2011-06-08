@@ -1,0 +1,14 @@
+
+Deine Aufgaben TINO
+
+ - von mir begonenen DocumentManager fertig stellen und testen
+ - Hauptschwerpunkt:
+   Download und upload anbindung ergänzen
+   (in zusammenarbeit mit Micher)
+ 
+ - dannach SourcecodeManger analog zu DocumentManger fertigstellen
+   (rüberkopieren, modifizieren , testen)
+   
+   
+   mfg
+   Andy
