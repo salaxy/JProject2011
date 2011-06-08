@@ -665,6 +665,7 @@ public class CommentManager {
 		
 		//holen der commentDocument
 		try {
+			//TODO evtl noch inner DA kapseln
 			commentDocument=commentDocumentDA.listCommentDocumentByQuery("DocumentID="+documentId,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
@@ -743,6 +744,7 @@ public class CommentManager {
 		
 		//holen der CommentSourcecode
 		try {
+			//TODO evtl noch inner DA kapseln
 			commentSourcecode=commentSourcecodeDA.listCommentSourcecodeByQuery("SourcecodeID="+sourcecodeId,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
@@ -821,6 +823,7 @@ public class CommentManager {
 		
 		//holen der commentTask
 		try {
+			//TODO evtl noch inner DA kapseln
 			commentTask=commentTaskDA.listCommentTaskByQuery("TaskID="+taskId,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
@@ -897,7 +900,7 @@ public class CommentManager {
 		
 		//holen der commentDocument
 		try {
-			//TODO hier ist noch ein fehler: er findet nix
+			//TODO evtl noch inner DA kapseln
 			commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
