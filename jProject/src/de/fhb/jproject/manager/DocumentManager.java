@@ -9,10 +9,12 @@ import org.orm.PersistentSession;
 public class DocumentManager {
 
 	private ProjectRolesManager projectRolesManager;
+	private GlobalRolesManager globalRolesManager;
 	
-	public DocumentManager(ProjectRolesManager projectRolesManager){
+	public DocumentManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
 		
 		this.projectRolesManager=projectRolesManager;
+		this.globalRolesManager=globalRolesManager;
 	}
 	
 	// !!! Dokument Actions !!!
