@@ -63,6 +63,7 @@ import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainManager;
+import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import org.apache.log4j.Logger;
@@ -75,43 +76,33 @@ public class JProjectServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (!getOperation(req).equals("Logout")) {
-			
-			/*TODO DELETE ACTION
-			ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-			showAllOwnProjectsAction.perform(req, resp);
-			 * 
-			 */
-			//TODO BO-ACCESS LAYOUT
-			List<Project> projectList = null;
-			try {
-				projectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
-			} catch (ProjectException ex) {
-				logger.error(ex.getMessage(), ex);
-				req.setAttribute("contentFile", "error.jsp");
-				req.setAttribute("errorString", ex.getMessage());
-			}
-			//Show all other loggedIn-Stuff...
+		if (!(getOperation(req).equals("Logout")) && session.getAttribute("aktUser")!=null) {	
 			synchronized(session){
-				session.setAttribute("ownProjectList", projectList);
-			}
-			projectList=null;
-			
-			
+				/*TODO DELETE ACTION
+				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
+				showAllOwnProjectsAction.perform(req, resp);
+				 * 
+				 */
+				//TODO BO-ACCESS LAYOUT
 
-			//TODO Comments per AJAX
-		
-			
-			
+				List<Project> ownProjectList = null;
+
+				try {
+					ownProjectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
+				} catch (ProjectException ex) {
+					logger.error(ex.getMessage(), ex);
+					req.setAttribute("contentFile", "error.jsp");
+					req.setAttribute("errorString", ex.getMessage());
+				}
+				//Show all other loggedIn-Stuff...
+				//Session fuer topNaviLinks
+				session.setAttribute("ownProjectList", ownProjectList);
+
+
+
+				//TODO Comments per AJAX
+			}
 		}
-		// wenn req is "project" dann gehe zu index...wenn req is "was anderes" dann zu anderer layout jsp
-		
-		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
-		
-		
 	}
 
 	/*
@@ -311,7 +302,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 			
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
-				session.setAttribute("loggedIn", false);
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
@@ -319,6 +309,12 @@ public class JProjectServlet extends HttpServletControllerBase {
 		super.doGet(req, resp);
 		
 		processRequest(req, resp, session);
+		
+		
+		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+		reqDisp.forward(req, resp);
 	}
 
 	/*
@@ -339,7 +335,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 			
 			//HttpSession ist nicht Threadsave deswegn Synchronized
 			synchronized(session){
-				session.setAttribute("loggedIn", false);
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
@@ -348,6 +343,12 @@ public class JProjectServlet extends HttpServletControllerBase {
 		super.doPost(req, resp);
 		
 		processRequest(req, resp, session);
+		
+		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+		reqDisp.forward(req, resp);
+		
 		
 	}
 }
