@@ -8,3 +8,33 @@ INSERT INTO `User`
   (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
 VALUES 
   ('karl', 'Password', 'Vorname', 'Nachname', 'Sprache');
+  
+  INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('michael', 'Password', 'Vorname', 'Nachname', 'Sprache');
+  
+  
+  
+    INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('eins', 'Password', 'chris', 'Nachname', 'Sprache');
+  
+  
+    INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('zwei', 'Password', 'walter', 'Nachname', 'Sprache');
+  
+  
+    INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('drei', 'Password', 'xperia', 'Nachname', 'Sprache');
+  
+  
+    INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+VALUES 
+  ('vier', 'Password', 'xerses', 'Nachname', 'Sprache');
