@@ -22,6 +22,20 @@
 
 <div id="contentcontentsmall">
 	${document.id} ${document.dateiname}<br />	
+	
+	
+	<form action="JProjectServlet" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="do" value="addNewDocu">
+		Files to upload:
+		<br/>
+		<input type="file" size="50" name="file1">
+		<br/>
+		<input type="file" size="50" name="file2">
+		<br/>
+		<input type="file" size="50" name="file3">
+		<br/>
+		<input type="submit" value="Upload">
+	</form>
 </div>
 
 <div id="footercontent">
