@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.manager.MainManager;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -15,35 +19,46 @@ import de.fhb.commons.web.HttpRequestActionBase;
  */
 public class ShowAllSourceAction extends HttpRequestActionBase {
 
+	private MainManager mainManager;
+	private static final Logger logger = Logger.getLogger(ShowAllSourceAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
-		//TODO ALLE GLOBALEN ACTIONS IN DER ART BEARBEITEN
-		//hier alles rein, was für die Aktion notwendig ist
-		//daten holen
-		//externe API abfragen
+	throws ServletException{	
+		HttpSession session = req.getSession();
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
+		try {		
+			
+			//Debugprint
+			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			/*TODO logger.debug("Parameter: "
+					+ "String documentId(" + req.getParameter("documentId") + "), "
+					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+					);
+			*/
 		
-		/*TODO DELETE ACTION
-		ShowSourceAction showSourceAction = new ShowSourceAction();
-		showSourceAction.perform(req, resp);
-		
-		 * 
-		 */
-		// bo benutzen
-		req.setAttribute("xxx", "yyy");
-		
-		req.setAttribute("contentFile", "showAllSource.jsp");
-		
-		
-		/*
-		 * catch(Exception e){
-		 *	req.setAttribute("contentFile", "error.jsp");
+			
+			try {
+				//Manager in aktion
+				if(false){
+					throw new ProjectException("Dummy");
+				}
+				throw new NullPointerException("Dummy");
+				//TODO Manageroperation here
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			req.setAttribute("contentFile", "showAllSource.jsp");
+		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		 * }
-		 */
+		}
 		
 	}
 }
