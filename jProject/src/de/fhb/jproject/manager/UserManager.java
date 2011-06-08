@@ -410,6 +410,7 @@ public class UserManager {
 	
 	public void register()
 	throws ProjectException{
+		//TODO noch implementieren
 		/*
 		PersistentSession session;
 		DAFactory fa = DAFactory.getDAFactory();			
