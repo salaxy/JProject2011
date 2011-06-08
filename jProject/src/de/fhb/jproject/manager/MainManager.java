@@ -29,9 +29,9 @@ public class MainManager{
 		userManager=new UserManager(globalRolesManager);		
 		
 		projectManager=new ProjectManager(projectRolesManager,globalRolesManager);
-		sourceManager=new SourceManager(projectRolesManager);
-		taskManager=new TaskManager(projectRolesManager);
-		documentManager=new DocumentManager(projectRolesManager);
+		sourceManager=new SourceManager(projectRolesManager,globalRolesManager);
+		taskManager=new TaskManager(projectRolesManager,globalRolesManager);
+		documentManager=new DocumentManager(projectRolesManager,globalRolesManager);
 		commentManager=new CommentManager(projectRolesManager, globalRolesManager);
 		
 	}

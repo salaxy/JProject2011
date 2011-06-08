@@ -23,6 +23,12 @@ import de.fhb.jproject.repository.da.TaskDA;
 import de.fhb.jproject.repository.da.TerminDA;
 import de.fhb.jproject.repository.da.UserDA;
 
+/**
+ *  Manager fuer die Tasks
+ * 
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ */
 public class TaskManager {
 	
 	private ProjectRolesManager projectRolesManager;
@@ -36,17 +42,16 @@ public class TaskManager {
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public TaskManager(ProjectRolesManager projectRolesManager){
+	public TaskManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		taskDA = DAFactory.getDAFactory().getTaskDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		userDA = DAFactory.getDAFactory().getUserDA();
 		terminDA = DAFactory.getDAFactory().getTerminDA();
 		this.projectRolesManager=projectRolesManager;
-		//GlobalRolesManager is hier noch null
+		this.globalRolesManager=globalRolesManager;
 	}
 
-	// !!! Task Actions !!!
 
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
