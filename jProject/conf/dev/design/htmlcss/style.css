@@ -1,0 +1,199 @@
+body {
+	background-color: #ffffff;
+	font-size: 11px;
+	font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+	color:#564b47;
+	padding:0px;
+	margin:0px;
+}
+a {
+	/*
+	color: #DB7093;
+	*/
+}
+a:visited {
+	/*
+	color:#DB7093;
+	*/
+	
+}
+a:hover {
+	/*
+	color: #564b47;
+	*/
+	
+}
+a:active {
+	/*
+	color:#000000;
+	*/
+	
+}
+
+p {
+	padding: 5px 10px;
+	margin:0px; 
+}
+
+pre{
+	font-size: 12px;
+	padding: 5px 10px;
+	margin:0px;
+}
+
+h1 {
+	font-size: 11px;
+	text-transform:uppercase;
+	background-color: #807f7f;
+	border-top:1px solid #564b47;
+	border-bottom:1px solid #564b47;
+	padding:5px 15px;
+	margin:0px
+}
+h2 {
+	font-size:20px;
+	font-weight: normal;
+	padding: 5px 10px;
+	margin:0px;
+}
+/*
+img.download {
+	vertical-align:middle;
+}
+*/
+
+/* ----------banner-------------- */
+#banner {
+	height: 140px;
+	background-color: #000000;
+	background-image: url(images/header.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	border-bottom: 5px solid #f2f2f2;
+	padding: 0px;
+	margin: 0px;
+}
+
+#logo {
+	padding:10px 10px;
+	float: left;
+	width: 205px;
+	height: 126px;
+	margin-right: auto;
+} 
+
+/* ----------navbarback-------------- */
+#navbarback {
+	height: 36px;
+	background-image: url(images/navbar.png);
+	padding: 0px;
+	margin: 0px;
+}
+
+/* ----------navi-------------- */
+#navi {
+	background-image: url(images/navbar.png);
+	background-position: center;
+	height: 36px;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -36px;
+	border-left: 1px solid #ffffff;
+}
+
+.buttonleft {
+	
+	float: left;
+	color: #ffffff;
+	font-size: 20px;
+	text-align: center;
+	width: 180px;
+	height: 36px;
+	border-right: 1px solid #ffffff;
+	padding: 0px;
+	margin: 0px;
+}
+.buttonright {
+	float: right;
+	color: #ffffff;
+	font-size: 20px;
+	text-align: center;
+	width: 180px;
+	height: 36px;
+	padding: 0px;
+	margin: 0px;
+}
+
+/* ----------container zentriert das layout-------------- */
+#outercontainer {
+	background-image: url(images/content.png);
+	background-position: center;
+	background-repeat: repeat-y;
+	padding:0px;
+	margin: 0px;
+	margin-left: auto;
+	margin-right: auto;
+} 
+#container {
+	width: 980px;
+	padding:0px;
+	margin: 0px;
+	margin-left: auto;
+	margin-right: auto;
+} 
+
+/* ----------outer und inner----------------- */
+
+#outer{ 
+	border-left: solid 200px #ffffff; /* linke Menue Spalten Farbe  */ 
+	/*border-right: solid 200px #ffffff; /* rechte Menue Spalten Farbe  */ 
+	background-color: #ffffff; /* Farbe fuer Inhalt Spalten  */
+} 
+
+#inner{
+	margin:0; 
+	width:100%;
+}
+
+/* --------------left und right navigavtion------------- */
+#left {
+	width:200px; 
+	float:left; 
+	position:relative; 
+	margin-left:-200px; 
+	margin-right:1px;
+}
+/*
+#right {
+	width:200px; 
+	float:right; 
+	position:relative; 
+	margin-right:-200px; 
+	margin-left:1px;
+}
+*/
+/* -----------------Inhalt--------------------- */ 
+#content{ 
+	/*width: 550px;*/
+	width: 750px;
+	position: relative; 
+	margin: 0px; 
+}
+
+/*  ----------------footer---------------------- */ 
+#footer {
+	clear:left;
+	padding:0px;
+	margin:0px;
+	text-align: right;
+}
+
+/*  ----------------impressum---------------------- */ 
+#impressum {
+	background-image: url(images/footer.png);
+	background-position: top center;
+	background-repeat: no-repeat;
+	padding:0px;
+	margin:0px;
+	text-align: center;
+}
