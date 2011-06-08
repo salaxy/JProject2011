@@ -355,6 +355,10 @@ public class TaskManager {
 	public List<Task> showAllOwnTasks(User aktUser, String projectName)
 	throws ProjectException{
 		
+		//TODO ALLE Tasks von allen projekten anzeigen
+		//Alle member durchitterien und tasks zusammen ziehen in eine liste
+		//paramter projektname ist überflüssig
+		//global rechte einbauen!!! projektrechte weg machen!!
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -378,7 +382,7 @@ public class TaskManager {
 		}	
 			
 
-		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht moeglich
+		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht möglich
 		//es sei denn wir machen eine ShowTaskFromUserInProject oder sowas???
 		//Projekt-Rolle des aktuellen Users holen
 		try {
@@ -388,7 +392,7 @@ public class TaskManager {
 		}
 		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
+		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
 
@@ -438,22 +442,18 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 		
-		//RECHTE-ABFRAGE Global
-		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Tasks im Project zuzuordnen zu lassen?
-//		if(!globalRolesManager.isAllowedAssignTaskAction(aktUser.getGlobalRole())){	
-			
-			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
-			}
-//		}
+
+		//Member des aktuellen Users holen
+		try {
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
+		}
 		
 		//zuzuordnenden user holen
 		try {
@@ -532,21 +532,18 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//RECHTE-ABFRAGE Global
-		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Tasks im Project zuzuorden zu lassen?
-//		if(!globalRolesManager.isAllowedDeAssignTaskAction(aktUser.getGlobalRole())){	
+
 		//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
-			}
-//		}
+		try {
+			memAktUser=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		
+		//RECHTE-ABFRAGE Projekt
+		if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
+			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+		}
 		
 		//zugeordneten user holen
 		try {
