@@ -1,7 +1,5 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +14,11 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action die angesprochen wird wenn eine User gesucht wird
  * 
- * @author klay
+ * STATUS:	NICHT FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=UpdateUserSettings&nachname=MeinNeuerNachname
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
 
