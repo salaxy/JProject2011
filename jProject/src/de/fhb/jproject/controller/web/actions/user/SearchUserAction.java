@@ -18,8 +18,8 @@ import de.fhb.jproject.manager.MainManager;
 /**
  * Action die angesprochen wird wenn eine User gesucht wird
  * 
- * STATUS:	NICHT FREIGEGEBEN 
- * URL: 	JProjectServlet?do=SearchUser&searchValue=ael!
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=SearchUser&searchValue=a
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class SearchUserAction extends HttpRequestActionBase {
@@ -46,17 +46,23 @@ public class SearchUserAction extends HttpRequestActionBase {
 			
 			try {
 				//UserList holen
+				System.out.println(req.getParameter("searchValue"));
 				userList = mainManager.getUserManager().searchUser((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			for( User user : userList){
-				System.out.println("User: "+user.getLoginName());
-			}
+			
+//			for( User user : userList){
+//				System.out.println("User: "+user.getLoginName());
+//			}
 
 			//Daten dem Reqest mitgeben
 			req.setAttribute("userList", userList);
+			
+			//setzen der Parameter
+			req.setAttribute("userList", userList);
+			req.setAttribute("contentFile", "content.jsp");
 			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
