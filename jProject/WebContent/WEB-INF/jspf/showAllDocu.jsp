@@ -23,14 +23,10 @@
 <div id="contentcontentsmall">
 	${document.id} ${document.dateiname}<br />	
 	
-	
-	<form action="JProjectServlet" method="POST" enctype="multipart/form-data">
-		<input type="hidden" name="do" value="AddNewDocu">
-		Files to upload:
-		<br/>
+	<form method="POST" action="JProjectServlet" enctype="multipart/form-data">
+		<input type="hidden" name="do" value="AddNewDocu" />
 		<input type="file" size="50" name="file1">
-		<br/>
-		<input type="submit" value="Upload">
+		<input type="submit" value="Upload" />
 	</form>
 </div>
 

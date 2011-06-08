@@ -34,7 +34,7 @@ public class LoginAction extends HttpRequestActionBase {
 		
 		HttpSession session = req.getSession();
 		//Manager holen
-		mainManager=(MainManager) session.getAttribute("mainManager");
+		mainManager = new MainManager()/*(MainManager) session.getAttribute("mainManager")*/;
 		
 
 		
@@ -53,6 +53,7 @@ public class LoginAction extends HttpRequestActionBase {
 				session.setAttribute("aktUser", mainManager.getUserManager().login(
 						req.getParameter("loginName"),
 						req.getParameter("password")));
+				session.setAttribute("mainManager", mainManager);
 			}
 			
 			//XXX syso entfernen

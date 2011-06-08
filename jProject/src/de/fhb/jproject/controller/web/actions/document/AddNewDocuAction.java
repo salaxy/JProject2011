@@ -52,31 +52,20 @@ private MainManager mainManager;
 			 * 
 			 */
 			System.out.println("Iam in the action");
-			isMultipartContent = ServletFileUpload.isMultipartContent(req);
 			
-			if (!isMultipartContent) {
-				throw new ProjectException("Kein File ausgewaehlt!");
-			}
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			try {
-				fields = upload.parseRequest(req);
-			} catch (FileUploadException e) {
-				throw new ProjectException("Parsen fehlgeschlagen!");
-			}
 			
 			synchronized(session){
 				aktProject = (Project)session.getAttribute("aktProject");
 			}
 			try {
 				//Manager in aktion
-				mainManager.getDocumentManager().addNewDocu(aktProject, fields);
+				mainManager.getDocumentManager().addNewDocu(aktProject, (List<FileItem>)req.getAttribute("data"));
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
 			
-			req.setAttribute("contentFile", "showAllSource.jsp");
+			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

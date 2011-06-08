@@ -12,7 +12,7 @@
 			<input name="do" value="Login" type="hidden" />
 			<input value="Benutzername" name="loginName"	type="text"		size="15" maxlength="50">
 			<input value="Password"		name="password"		type="password" size="10" maxlength="30">
-			<input value="Login" type="submit" />
+			<input value="login" type="submit" />
 		</form>
 	</c:when>
 	<c:otherwise>
