@@ -80,7 +80,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (!(getOperation(req).equals("Logout")) && session.getAttribute("aktUser")!=null) {	
+		if (/*TODO !getOperation(req).equals("Logout") ||*/ session.getAttribute("aktUser")!=null) {	
 			synchronized(session){
 				/*TODO DELETE ACTION
 				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
@@ -330,8 +330,25 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		
+		System.out.println("OP: "+req.getParameter("do"));
+		//Session holen
+		HttpSession session = req.getSession();
+		synchronized(session){
+			//Player fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+				mainManager = new MainManager();
+
+				//HttpSession ist nicht Threadsave deswegn Synchronized
+
+				session.setAttribute("aktUser", null);
+				session.setAttribute("mainManager", mainManager);
+			}
+		}
+		
 		boolean isMultipartContent = ServletFileUpload.isMultipartContent(req);
 		List<FileItem> fields = null;
+		String ops = "";
 		if (isMultipartContent) {
 				
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -342,22 +359,29 @@ public class JProjectServlet extends HttpServletControllerBase {
 			} catch (FileUploadException e) {
 				System.out.println("FAIL");
 			}
-		}
-		System.out.println("OP: "+req.getParameter("do"));
-		//Session holen
-		HttpSession session = req.getSession();
-		synchronized(session){
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
-				mainManager = new MainManager();
+			for (FileItem fileItem : fields) {
+				System.out.println("FieldName: "+fileItem.getFieldName());
+				if (fileItem.getFieldName().equals("do")) {
+					System.out.println("name: "+fileItem.getString());
+					ops = fileItem.getString();
+				}
 
-				//HttpSession ist nicht Threadsave deswegn Synchronized
-
-				session.setAttribute("aktUser", null);
-				session.setAttribute("mainManager", mainManager);
 			}
+			req.setAttribute("data", fields);
+			// Zunaechst wird die URL analysiert,
+			// um die Operation, die ausgefueht werden soll zu bestimmen
+			String op = ops;
+			// dann wird die entsprechende Aktion aus der Map geholt ...
+			HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
+			// ... und angestossen
+			action.perform(req, resp);
+			
+		}else{
+			super.doPost(req, resp);
 		}
-		super.doPost(req, resp);
+		
+		
+		
 		
 		processRequest(req, resp, session);
 		
