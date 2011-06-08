@@ -89,19 +89,21 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedAddMemberAction(aktUser.getGlobalRole())){
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedAddMemberAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
+			}			
 		}
 		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedAddMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedAddMemberAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
-		}			
-
 		//EIGENTLICHE AKTIONEN
 		
 		//member erzeugen und parameter setzen
@@ -134,6 +136,7 @@ public class ProjectManager {
 	/**
 	 * ein user erstellt ein neues Projekt
 	 * und wird als erster Leader eingetragen
+	 * @param aktUser
 	 * @param name
 	 * @param status
 	 * @throws ProjectException
@@ -198,7 +201,7 @@ public class ProjectManager {
 	
 	/**
 	 * loeschen eines Projektes
-	 * @param name
+	 * @param aktUser
 	 * @throws ProjectException
 	 */
 	public void deleteProject(User aktUser, String projectName)
@@ -224,19 +227,22 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
+				
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			//Admin und ProjektLeader sind berechtigt 
+			if(!projectRolesManager.isAllowedDeleteProjectAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
+			}	
 		}
-		
-		//RECHTE-ABFRAGE Projekt und Global
-		//Admin und ProjektLeader sind berechtigt 
-		if(!projectRolesManager.isAllowedDeleteProjectAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
-		}	
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -251,7 +257,7 @@ public class ProjectManager {
 	
 	/**
 	 *  Member aus einen Projekt entfernen
-	 * @param userLoginName
+	 * @param aktUser
 	 * @param projectName
 	 * @throws ProjectException
 	 */
@@ -278,18 +284,21 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
-			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
 		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedDeleteMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
+				
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedDeleteMemberAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
+			}
 		}
 		
 		//EIGENTLICHE AKTIONEN
@@ -339,7 +348,7 @@ public class ProjectManager {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//abfrage ob user Rechte hat
+		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedShowProjectAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}		
@@ -354,14 +363,21 @@ public class ProjectManager {
 		return project;
 	}
 	
-	public List<Project> searchProjects(User aktUser, String loginName)
+	/**
+	 *  Projekte suchen
+	 * @param aktUser
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<Project> searchProjects(User aktUser, String searchValue)
 	throws ProjectException{
 		
 		List<Project> list=null;
 		
 		//debuglogging
 		logger.info("searchProjects()");
-		logger.debug("String loginName("+loginName+")");
+		logger.debug("String loginName("+searchValue+")");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -370,7 +386,7 @@ public class ProjectManager {
 		
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Scuhen der Projekte!");
+			throw new ProjectException("Sie haben keine Rechte zum Suchen der Projekte!");
 		}	
 		
 		//holen der Daten
@@ -387,7 +403,9 @@ public class ProjectManager {
 	}
 	
 	/**
-	 * anzeigen aller existierenden Projekte
+	 *  anzeigen aller existierenden Projekte
+	 * 
+	 * @param aktUser
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -442,7 +460,7 @@ public class ProjectManager {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
 		
-		//XXX user neu holen um seiten effekte zu vermeiden  (statt aktUser zu nutzen)>>>loest das problem endlich
+		// user neu holen um seiten effekte zu vermeiden
 		try {
 			//user suchen
 			user = userDA.loadUserByORMID(aktUser.getLoginName());
@@ -458,6 +476,14 @@ public class ProjectManager {
 		return list;
 	}
 	
+	/**
+	 * Anzeigen aller Member eines Projektes
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public List<Member> showAllMember(User aktUser, String projectName)
 	throws ProjectException{
 		
@@ -481,19 +507,20 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 		
-		
-		//Projekt-Rolle des aktuellen Users holen
-		try {	
-
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		
-		//RECHTE-ABFRAGE projekt
-		if(!projectRolesManager.isAllowedShowAllMemberAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
+			
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE projekt
+			if(!projectRolesManager.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
+			}
 		}
 
 		//TODO hier ist immer noch 1 null eintrag der bleibt!! woher?
