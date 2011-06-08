@@ -343,6 +343,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 				System.out.println("FAIL");
 			}
 		}
+		System.out.println("OP: "+req.getParameter("do"));
 		//Session holen
 		HttpSession session = req.getSession();
 		synchronized(session){
