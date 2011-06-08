@@ -8,7 +8,9 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 import de.fhb.jproject.data.DAFactory;
+import de.fhb.jproject.data.ICQ;
 import de.fhb.jproject.data.JProjectPersistentManager;
+import de.fhb.jproject.data.Skype;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.repository.da.UserDA;
@@ -194,8 +196,27 @@ public class UserManager {
 		return Arrays.asList(array);	
     }
 	
+	/**
+	 *  Updaten eines Users
+	 *  
+	 * @param aktUser
+	 * @param nachName
+	 * @param vorname
+	 * @param icq
+	 * @param skype
+	 * @param telefon
+	 * @param sprache
+	 * @param neuesPasswortEins
+	 * @param neuesPasswortZwei
+	 * @param altesPasswort
+	 * @throws ProjectException
+	 */
 	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
+		
+		//TODO noch nicht fertig
+		
+		User user=null;
 		
 		//debuglogging
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
@@ -211,27 +232,101 @@ public class UserManager {
         }
 		
 		//abfrage ob user Rechte hat
-		//TODO || !(aktUser == user)
-		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum aendern!");
+		// || !(aktUser == user)
+//		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
+//			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
+//		}
+	
+		//EIGENTLICHE AKTIONEN
+		
+		//User neu holen
+		try {
+			user=userDA.getUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
 		}
+		
+		
 		
 		//aendern der user einstellungen
 		//wenn nicht leerer String und ge�ndert
-		if(!(nachName.isEmpty())&&!(nachName.equals(aktUser.getNachname()))){
-			//�ndern
+		//nachname
+		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(aktUser.getNachname()))){
+			//aendern
+			user.setNachname(nachName);
 		}
 		
-		if(!(vorname.isEmpty())&&!(vorname.equals(aktUser.getVorname()))){
-			//�ndern
+		//vorname
+		if(!(vorname==null)&&!(vorname.isEmpty())&&!(vorname.equals(aktUser.getVorname()))){
+			//aendern
+			user.setVorname(vorname);
 		}
 		
-		//TODO noch nicht fertig
+		//ICQ
 		
-//		if(neuesPasswortEins!=null){
-//			//�ndern
+//		if(icq!=null&&!icq.isEmpty()){
+//			
+//			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
+//			i.setUserLoginName(user);
+//			i.setIcqNumber(Integer.valueOf(icq));
+//			
+//			
+//			
+//			
+//		}
+
+		
+		
+		//Skype
+		if(skype!=null&&!skype.isEmpty()){
+			
+			Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();
+			s.setUserLoginName(user);
+			s.setSkypeName(skype);
+			
+			//wenn bereits enthalten
+			if(!user.skype.contains(s)){
+				user.skype.add(s);
+			}	
+		}
+		
+		//telefon
+//		if(telefon!=null&&!telefon.isEmpty()){
+//			
+//			Telefon s =DAFactory.getDAFactory().getTelefonDA().createTelefon();
+//			s.setUserLoginName(user);
+//			s.setSkypeName(skype);
+//			
+//			//wenn bereits enthalten
+//			if(!user.skype.contains(s)){
+//				user.skype.add(s);
+//			}	
 //		}
 		
+		
+		//sprache
+		
+		//passwort
+		
+		
+//		ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
+//		
+//		
+//		if(user.iCQ.c.contains(icq))
+		
+//		if(neuesPasswortEins!=null){
+//			//aendern
+//		}
+		
+		
+		//user speichern/updaten
+		try {		
+			clearSession();
+			//Member speichern
+			userDA.save(user);
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
+		}
 	}
 	
 	/**
