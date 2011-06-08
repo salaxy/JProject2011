@@ -49,10 +49,14 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
 			
-		
-			//Manager in aktion
-			memberList=mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), 
-																		  req.getParameter("projectName"));
+			try {
+				//Manager in aktion
+				memberList=mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), 
+																			  req.getParameter("projectName"));
+
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 			for( Member m : memberList){
 				System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
@@ -63,10 +67,6 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

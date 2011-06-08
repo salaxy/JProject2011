@@ -31,6 +31,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
@@ -38,21 +39,22 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
+		List<Project> ownProjectList = null;
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			session.setAttribute("ownProjectList", mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser")));
+			try {
+				ownProjectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 			
-			
+			}catch(NullPointerException e){			
+				logger.error(e.getMessage(), e);
+			}
+			session.setAttribute("ownProjectList", ownProjectList);
 			
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){			
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
