@@ -357,7 +357,7 @@ public class TaskManager {
 		
 		//TODO ALLE Tasks von allen projekten anzeigen
 		//Alle member durchitterien und tasks zusammen ziehen in eine liste
-		//paramter projektname ist überflüssig
+		//paramter projektname ist ueberfluessig
 		//global rechte einbauen!!! projektrechte weg machen!!
 		Project project=null;
 		Member memAktUser=null;	
@@ -382,7 +382,7 @@ public class TaskManager {
 		}	
 			
 
-		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht möglich
+		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht moeglich
 		//es sei denn wir machen eine ShowTaskFromUserInProject oder sowas???
 		//Projekt-Rolle des aktuellen Users holen
 		try {
