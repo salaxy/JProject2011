@@ -3,7 +3,7 @@ Datenbank
 
 
 
-
+		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Member ins Project hinzuzufuegen?
 
 DA-Schicht
 **********
