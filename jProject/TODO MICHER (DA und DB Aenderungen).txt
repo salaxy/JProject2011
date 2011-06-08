@@ -1,10 +1,9 @@
 Datenbank
 *********
 
-
-
-		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Member ins Project hinzuzufuegen?
-
+	//XXX Eintrag im globalRolesManager/DB fehlt
+	Macht es sinn einen Admin Tasks im Project zuzuordnen zu lassen?
+		
 DA-Schicht
 **********
 
