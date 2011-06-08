@@ -1,8 +1,11 @@
 package de.fhb.jproject.manager;
 
 import de.fhb.jproject.data.JProjectPersistentManager;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import java.util.List;
+import org.apache.commons.fileupload.FileItem;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -19,7 +22,7 @@ public class DocumentManager {
 	
 	// !!! Dokument Actions !!!
 	
-	public void addNewDocu(){}
+	public void addNewDocu(Project aktProject, List<FileItem> fields)throws ProjectException{}
 		
 	public void deleteDocu(){}
 	
