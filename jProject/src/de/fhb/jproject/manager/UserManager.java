@@ -1,24 +1,17 @@
 package de.fhb.jproject.manager;
 
-import de.fhb.jproject.data.Comment;
-import de.fhb.jproject.exceptions.ProjectException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
-
-import de.fhb.jproject.data.DAFactory;
-import de.fhb.jproject.data.ICQ;
-import de.fhb.jproject.data.JProjectPersistentManager;
-import de.fhb.jproject.data.Member;
-import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.Skype;
-import de.fhb.jproject.data.Telefon;
-import de.fhb.jproject.data.User;
-import de.fhb.jproject.repository.da.UserDA;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
-import org.orm.PersistentTransaction;
+
+import de.fhb.jproject.data.DAFactory;
+import de.fhb.jproject.data.JProjectPersistentManager;
+import de.fhb.jproject.data.User;
+import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.repository.da.UserDA;
 
 /**
  * Manager fuer die User Aktionen
@@ -163,36 +156,42 @@ public class UserManager {
 		return user;	
 	}
 	
-
+	/**
+	 * Suchen eines User nach Vornamen und Nachnamen
+	 * 
+	 * @param aktUser
+	 * @param searchValue
+	 * @return
+	 * @throws ProjectException
+	 */
 	public List <User>  searchUser(User aktUser, String searchValue) 
     throws ProjectException{
 	
-		List <User> list=null;
+		User[] array=null;
 		
-//		//debuglogging
-//		logger.info("searchUser(String loginName)");
-//		logger.debug("String loginName("+searchValue+")");
-//		
-//        //abfrage ob user eingeloggt
-//		if(aktUser == null){
-//            throw new ProjectException("Sie sind nicht eingeloggt!");
-//        }
-//		
-//		//abfrage ob user Rechte hat
-//		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
-//			throw new ProjectException("Sie haben keine Rechte zum suchen!");
-//		}
-//		try {
-//			//holen der daten
-//			list= userDA.listUserByQuery("Vorname=%"+searchValue+"%", );
-//		} catch (PersistentException ex) {
-//			throw new ProjectException("Kann User nicht finden! "+ ex);
-//		}
-//		//TODO LIKE QUERY IN DER DA SCHICHT
-//		user.setPassword(null);
-////		SELECT Autor, Buchtitel FROM Buecher WHERE Buchtitel LIKE '%Geld%';
-//		
-		return list;	
+		//debuglogging
+		logger.info("searchUser(String loginName)");
+		logger.debug("String loginName("+searchValue+")");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//abfrage ob user Rechte hat
+		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte zum suchen!");
+		}
+		
+		//holen der daten
+		try {
+			//TODO LIKE QUERY IN DER DA SCHICHT
+			array= userDA.listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname");
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);	
+		}
+		
+		return Arrays.asList(array);	
     }
 	
 	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
@@ -341,6 +340,15 @@ public class UserManager {
 		}
 		
 		*/
+	}
+	
+	
+	private void clearSession() throws PersistentException{
+		PersistentSession session;		
+		//Session holen
+		session = JProjectPersistentManager.instance().getSession();
+		//und bereinigen
+		session.clear();
 	}
     
 	
