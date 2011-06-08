@@ -31,9 +31,8 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
-		HttpSession session = req.getSession();
-		logger.setLevel(Level.ALL);
 		
+		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		try {		
@@ -48,9 +47,9 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 		
 			//Manager in aktion
 			mainManager.getCommentManager().deleteComment((User)session.getAttribute("aktUser"), 
-																req.getParameter("projectName"), 
-																Integer.valueOf(req.getParameter("commentId"))
-																);
+					req.getParameter("projectName")
+					, Integer.valueOf(req.getParameter("commentId"))
+					);
 			
 			
 
