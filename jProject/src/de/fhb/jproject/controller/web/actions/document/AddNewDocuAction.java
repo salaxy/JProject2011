@@ -43,7 +43,7 @@ private MainManager mainManager;
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			/*TODOlogger.debug("Parameter: "
+			/*TODO logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
