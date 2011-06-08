@@ -17,7 +17,7 @@ import de.fhb.jproject.manager.MainManager;
 /**
  * Action die angesprochen wird wenn ein Kommentar geloescht werden soll
  * 
- * STATUS:	NICHT FREIGEGEBEN 
+ * STATUS:	FREIGEGEBEN 
  * URL: 	JProjectServlet?do=DeleteComment&projectName=ProjectName&commentId=1
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */

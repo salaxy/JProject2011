@@ -20,7 +20,7 @@ import de.fhb.jproject.manager.MainManager;
  * Action die angesprochen wenn zu einem Task alle Kommentare angezeigt werden
  * 
  * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=ShowAllComments41Task&taskId=1
+ * URL: 	JProjectServlet?do=ShowAllComments41Task&taskId=1&projectName=ProjectName
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class ShowAllComments41TaskAction extends HttpRequestActionBase {
