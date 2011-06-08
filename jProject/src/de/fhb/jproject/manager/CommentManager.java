@@ -902,7 +902,6 @@ public class CommentManager {
 			//TODO evtl noch inner DA kapseln
 			commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
 		} catch (PersistentException e) {
-			System.out.println("Fehler");
 			throw new ProjectException("Kann CommentProject nicht finden! "+ e.getMessage());
 		}
 		
