@@ -1,19 +1,16 @@
 package de.fhb.jproject.controller.web.actions.comment;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.controller.web.actions.task.AddNewTaskAction;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import javax.servlet.http.HttpSession;
 
 
 /**

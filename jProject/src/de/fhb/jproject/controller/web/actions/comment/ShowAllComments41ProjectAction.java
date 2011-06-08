@@ -19,7 +19,7 @@ import de.fhb.jproject.manager.MainManager;
 /**
  * Action die angesprochen wenn zu einem Projekt alle Kommentare angezeigt werden
  * 
- * STATUS:	NICHT FREIGEGEBEN 
+ * STATUS:	FREIGEGEBEN 
  * URL: 	JProjectServlet?do=ShowAllComments41Project&projectName=ProjectName
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */

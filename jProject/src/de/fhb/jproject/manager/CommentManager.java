@@ -32,6 +32,12 @@ import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
 
+/**
+ *  Manager fuer die Kommentare
+ * 
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ */
 public class CommentManager {
 	
 	private ProjectRolesManager projectRolesManager;
@@ -68,10 +74,14 @@ public class CommentManager {
 		this.globalRolesManager=globalRolesManager;
 	}
 	
-	// !!! Comment Actions !!!
 	
 	/**
 	 * kommentieren eines Dokuments
+	 * 
+	 * @param aktUser
+	 * @param documentId
+	 * @param inhalt
+	 * @throws ProjectException
 	 */
 	public void commentDocu(User aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
@@ -107,14 +117,12 @@ public class CommentManager {
 		if(!globalRolesManager.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			// TODO HIER IST DAS PROBLEM WARUM ER DIE EINTRAEGE DOPPELT MACHT!!!!!!!!!DER MEMBER IST SCHULD!!!!
 			try {
 				memAktUser=memberDA.loadMemberByORMID(aktUser, document.getProject());
 				//RECHTE-ABFRAGE Projekt
 				if(!(projectRolesManager.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
 					throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
 				}
-				//memberDA.save(memAktUser);
 				//System.out.println("Member: "+memAktUser.getUserId());
 				
 			} catch (PersistentException e1) {
@@ -154,6 +162,7 @@ public class CommentManager {
 	}
 			
 	/**
+	 * kommentieren eines Sourcecodes
 	 * 
 	 * @param sourcecodeId
 	 * @param inhalt
@@ -246,6 +255,7 @@ public class CommentManager {
 	}
 	
 	/**
+	 * kommentieren eines Task
 	 * 
 	 * @param aktUser
 	 * @param taskId
@@ -337,6 +347,7 @@ public class CommentManager {
 	
 
 	/**
+	 * kommentieren eines Projects
 	 * 
 	 * @param aktUser
 	 * @param projectName
@@ -508,13 +519,97 @@ public class CommentManager {
 		}
 	}
 	
-	
-	public void updateComment(){
-		//TODO ANTWORT: Admin, Ersteller und Leader
+	/**
+	 * Updaten des Inhalts eines Kommentars
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param commentId
+	 * @param neuerInhalt
+	 * @throws ProjectException
+	 */
+	public void updateComment(User aktUser, String projectName, int commentId, String neuerInhalt)
+	throws ProjectException{ 	
+		
+		Comment comment=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("updateComment()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedUpdateCommentAction(aktUser.getGlobalRole())){
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedUpdateCommentAction(memAktUser.getProjectRole()))){
+				
+				//Pruefen ob User Rechte hat weil er den Kommentar selbst erstellt hat!
+				
+				//comment holen
+				try {
+					comment=commentDA.getCommentByORMID(commentId);
+					System.out.println("Comment:"+commentId);
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Comment nicht finden!");
+				}
+				
+				//stimmt Ersteller des Comments nicht mit dem aktUser ueberein?
+				if(!(comment.getUser().getLoginName().equals(aktUser.getLoginName())))
+				{	
+					throw new ProjectException("Sie haben keine Rechte diesen Comment zu updaten!");					
+				}
+			}	
+		}	
+		
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//comment holen
+		try {
+			//if(comment==null)
+			comment=commentDA.getCommentByORMID(commentId);
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Comment nicht finden!");
+		}
+
+		//setzen der aenderung
+		comment.setEntry(neuerInhalt);
+		
+		//speichern des comments
+		try {
+			this.clearSession();
+			commentDA.save(comment);
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Comment nicht speichern!");
+		}	
 	}
 	
 	/**
 	 * Alle Kommentare eines Dokuments holen
+	 * 
 	 * @param aktUser
 	 * @param projectName
 	 * @param documentId
@@ -592,6 +687,7 @@ public class CommentManager {
 	
 	
 	/**
+	 * Alle Kommentare eines Sourcecodes holen
 	 * 
 	 * @param aktUser
 	 * @param projectName
@@ -668,6 +764,7 @@ public class CommentManager {
 	}
 	
 	/**
+	 * Alle Kommentare eines Tasks holen
 	 * 
 	 * @param aktUser
 	 * @param projectName
@@ -745,6 +842,7 @@ public class CommentManager {
 	}
 	
 	/**
+	 * Alle Kommentare eines Projektes holen
 	 * 
 	 * @param aktUser
 	 * @param projectName
@@ -800,7 +898,7 @@ public class CommentManager {
 		//holen der commentDocument
 		try {
 			//TODO hier ist noch ein fehler: er findet nix
-			commentProject=commentProjectDA.listCommentProjectByQuery("Project="+projectName,"CommentID" );
+			commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
 			throw new ProjectException("Kann CommentProject nicht finden! "+ e.getMessage());
