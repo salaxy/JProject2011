@@ -163,43 +163,36 @@ public class UserManager {
 		return user;	
 	}
 	
-	/**
-	 * User suchen
-	 * 
-	 * @param aktUser
-	 * @param loginName
-	 * @return
-	 * @throws ProjectException
-	 */
-	public User searchUser(User aktUser, String loginName) 
+
+	public List <User>  searchUser(User aktUser, String searchValue) 
     throws ProjectException{
+	
+		List <User> list=null;
 		
-		User user=null;
-		
-		//debuglogging
-		logger.info("searchUser(String loginName)");
-		logger.debug("String loginName("+loginName+")");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum suchen!");
-		}
-		try {
-			//holen der daten
-			user= userDA.loadUserByORMID(loginName);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
-		//TODO LIKE QUERY IN DER DA SCHICHT
-		user.setPassword(null);
-//		SELECT Autor, Buchtitel FROM Buecher WHERE Buchtitel LIKE '%Geld%';
-		
-		return user;	
+//		//debuglogging
+//		logger.info("searchUser(String loginName)");
+//		logger.debug("String loginName("+searchValue+")");
+//		
+//        //abfrage ob user eingeloggt
+//		if(aktUser == null){
+//            throw new ProjectException("Sie sind nicht eingeloggt!");
+//        }
+//		
+//		//abfrage ob user Rechte hat
+//		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
+//			throw new ProjectException("Sie haben keine Rechte zum suchen!");
+//		}
+//		try {
+//			//holen der daten
+//			list= userDA.listUserByQuery("Vorname=%"+searchValue+"%", );
+//		} catch (PersistentException ex) {
+//			throw new ProjectException("Kann User nicht finden! "+ ex);
+//		}
+//		//TODO LIKE QUERY IN DER DA SCHICHT
+//		user.setPassword(null);
+////		SELECT Autor, Buchtitel FROM Buecher WHERE Buchtitel LIKE '%Geld%';
+//		
+		return list;	
     }
 	
 	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
