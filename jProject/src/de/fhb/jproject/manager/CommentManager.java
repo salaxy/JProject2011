@@ -425,9 +425,87 @@ public class CommentManager {
 		
 	}
 	
-	public void deleteComment(){
+	/**
+	 * Loeschen eines Kommentars
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param commentId
+	 * @throws ProjectException
+	 */
+	public void deleteComment(User aktUser, String projectName, int commentId)
+	throws ProjectException{ 	
 		
-		//TODO ANTWORT: Admin, Ersteller und project-Leader
+		Comment comment=null;
+		Project project=null;
+		Member memAktUser=null;	
+		
+		//debuglogging
+		logger.info("deleteComment()");
+		
+        //abfrage ob user eingeloggt
+		if(aktUser == null){
+            throw new ProjectException("Sie sind nicht eingeloggt!");
+        }
+		
+		//RECHTE-ABFRAGE Global
+		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
+		if(!globalRolesManager.isAllowedDeleteCommentAction(aktUser.getGlobalRole())){
+			
+			//Project holen
+			try {
+				project=projectDA.getProjectByORMID(projectName);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+			}
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!(projectRolesManager.isAllowedDeleteCommentAction(memAktUser.getProjectRole()))){
+				
+				//Pruefen ob User Rechte hat weil er den Kommentar selbst erstellt hat!
+				
+				//comment holen
+				try {
+					comment=commentDA.getCommentByORMID(commentId);
+					System.out.println("Comment:"+commentId);
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Comment nicht finden!");
+				}
+				
+				//stimmt Ersteller des Comments nicht mit dem aktUser ueberein?
+				if(!(comment.getUser().getLoginName().equals(aktUser.getLoginName())))
+				{	
+					throw new ProjectException("Sie haben keine Rechte diesen Comment zu loeschen!");					
+				}
+			}	
+		}	
+		
+		//EIGENTLICHE AKTIONEN
+		
+		//comment holen
+		try {
+			//if(comment==null)
+			comment=commentDA.getCommentByORMID(commentId);
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Comment nicht finden!");
+		}
+
+		//loeschen des comments
+		try {
+			this.clearSession();
+			commentDA.delete(comment);
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Comment nicht loeschen!");
+		}
 	}
 	
 	
