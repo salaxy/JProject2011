@@ -30,6 +30,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		
@@ -46,8 +47,12 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
 			//UserList holen
-			userList=mainManager.getUserManager().showAllUser((User)session.getAttribute("aktUser"));
+			try {
+				userList=mainManager.getUserManager().showAllUser((User)session.getAttribute("aktUser"));
 			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}	
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
 //			}
@@ -56,10 +61,6 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			req.setAttribute("userList", userList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
