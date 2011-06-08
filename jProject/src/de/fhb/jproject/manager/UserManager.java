@@ -264,16 +264,16 @@ public class UserManager {
 		
 		//ICQ
 		
-//		if(icq!=null&&!icq.isEmpty()){
-//			
-//			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
-//			i.setUserLoginName(user);
-//			i.setIcqNumber(Integer.valueOf(icq));
-//			
-//			
-//			
-//			
-//		}
+		if(icq!=null&&!icq.isEmpty()){
+			
+			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
+			i.setUserLoginName(user);
+			i.setIcqNumber(icq);
+			
+			
+			
+			
+		}
 
 		
 		
