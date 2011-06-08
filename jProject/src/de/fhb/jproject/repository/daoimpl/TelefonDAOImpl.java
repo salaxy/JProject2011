@@ -17,86 +17,86 @@ import de.fhb.jproject.data.*;
 
 public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(TelefonDAOImpl.class);
-	public Telefon loadTelefonByORMID(int telNumber) throws PersistentException {
+	public Telefon loadTelefonByORMID(String telNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return loadTelefonByORMID(session, telNumber);
 		}
 		catch (Exception e) {
-			_logger.error("loadTelefonByORMID(int telNumber)", e);
+			_logger.error("loadTelefonByORMID(String telNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon getTelefonByORMID(int telNumber) throws PersistentException {
+	public Telefon getTelefonByORMID(String telNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return getTelefonByORMID(session, telNumber);
 		}
 		catch (Exception e) {
-			_logger.error("getTelefonByORMID(int telNumber)", e);
+			_logger.error("getTelefonByORMID(String telNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon loadTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public Telefon loadTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return loadTelefonByORMID(session, telNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("loadTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("loadTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon getTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public Telefon getTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return getTelefonByORMID(session, telNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("getTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("getTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon loadTelefonByORMID(PersistentSession session, int telNumber) throws PersistentException {
+	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException {
 		try {
-			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, new Integer(telNumber));
+			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, telNumber);
 		}
 		catch (Exception e) {
-			_logger.error("loadTelefonByORMID(PersistentSession session, int telNumber)", e);
+			_logger.error("loadTelefonByORMID(PersistentSession session, String telNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon getTelefonByORMID(PersistentSession session, int telNumber) throws PersistentException {
+	public Telefon getTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException {
 		try {
-			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, new Integer(telNumber));
+			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, telNumber);
 		}
 		catch (Exception e) {
-			_logger.error("getTelefonByORMID(PersistentSession session, int telNumber)", e);
+			_logger.error("getTelefonByORMID(PersistentSession session, String telNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon loadTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, new Integer(telNumber), lockMode);
+			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, telNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("loadTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("loadTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public Telefon getTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public Telefon getTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, new Integer(telNumber), lockMode);
+			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, telNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("getTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("getTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}

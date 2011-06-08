@@ -32,17 +32,17 @@ public class ICQ {
 	
 	private de.fhb.jproject.data.User userLoginName;
 	
-	private int icqNumber;
+	private String icqNumber;
 	
-	private void setIcqNumber(int value) {
+	public void setIcqNumber(String value) {
 		this.icqNumber = value;
 	}
 	
-	public int getIcqNumber() {
+	public String getIcqNumber() {
 		return icqNumber;
 	}
 	
-	public int getORMID() {
+	public String getORMID() {
 		return getIcqNumber();
 	}
 	

@@ -23,7 +23,7 @@ CREATE TABLE `Document` (
   PRIMARY KEY (`ID`), 
   UNIQUE INDEX (`ID`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `ICQ` (
-  `ICQNumber`     int(10) NOT NULL AUTO_INCREMENT, 
+  `ICQNumber`     varchar(255) NOT NULL, 
   `UserLoginName` varchar(255) NOT NULL, 
   PRIMARY KEY (`ICQNumber`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `Skype` (
@@ -31,7 +31,7 @@ CREATE TABLE `Skype` (
   `UserLoginName` varchar(255) NOT NULL, 
   PRIMARY KEY (`SkypeName`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `Telefon` (
-  `TelNumber`     int(10) NOT NULL AUTO_INCREMENT, 
+  `TelNumber`     varchar(255) NOT NULL, 
   `UserLoginName` varchar(255) NOT NULL, 
   PRIMARY KEY (`TelNumber`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `Comment` (
@@ -204,7 +204,7 @@ VALUES
 INSERT INTO `ICQ`
   (`UserLoginName`, `ICQNumber`) 
 VALUES 
-  ('UserLoginName', 123456789);
+  ('UserLoginName', '123456789');
 INSERT INTO `Skype`
   (`UserLoginName`, `SkypeName`) 
 VALUES 
@@ -212,7 +212,7 @@ VALUES
 INSERT INTO `Telefon`
   (`UserLoginName`, `TelNumber`) 
 VALUES 
-  ('UserLoginName', 12345678);
+  ('UserLoginName', '12345678');
 INSERT INTO `Comment`
   (`ID`, `User`, `Entry`) 
 VALUES 

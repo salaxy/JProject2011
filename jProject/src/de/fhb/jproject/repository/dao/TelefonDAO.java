@@ -14,14 +14,14 @@ import org.orm.*;
 import de.fhb.jproject.data.*;
 
 public interface TelefonDAO {
-	public Telefon loadTelefonByORMID(int telNumber) throws PersistentException;
-	public Telefon getTelefonByORMID(int telNumber) throws PersistentException;
-	public Telefon loadTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Telefon getTelefonByORMID(int telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Telefon loadTelefonByORMID(PersistentSession session, int telNumber) throws PersistentException;
-	public Telefon getTelefonByORMID(PersistentSession session, int telNumber) throws PersistentException;
-	public Telefon loadTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public Telefon getTelefonByORMID(PersistentSession session, int telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Telefon loadTelefonByORMID(String telNumber) throws PersistentException;
+	public Telefon getTelefonByORMID(String telNumber) throws PersistentException;
+	public Telefon loadTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Telefon getTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException;
+	public Telefon getTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException;
+	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public Telefon getTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException;
 	public Telefon[] listTelefonByQuery(String condition, String orderBy) throws PersistentException;
 	public Telefon[] listTelefonByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException;
 	public Telefon[] listTelefonByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException;

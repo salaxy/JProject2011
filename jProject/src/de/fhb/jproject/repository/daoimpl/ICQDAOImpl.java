@@ -17,86 +17,86 @@ import de.fhb.jproject.data.*;
 
 public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(ICQDAOImpl.class);
-	public ICQ loadICQByORMID(int icqNumber) throws PersistentException {
+	public ICQ loadICQByORMID(String icqNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return loadICQByORMID(session, icqNumber);
 		}
 		catch (Exception e) {
-			_logger.error("loadICQByORMID(int icqNumber)", e);
+			_logger.error("loadICQByORMID(String icqNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ getICQByORMID(int icqNumber) throws PersistentException {
+	public ICQ getICQByORMID(String icqNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return getICQByORMID(session, icqNumber);
 		}
 		catch (Exception e) {
-			_logger.error("getICQByORMID(int icqNumber)", e);
+			_logger.error("getICQByORMID(String icqNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ loadICQByORMID(int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public ICQ loadICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return loadICQByORMID(session, icqNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("loadICQByORMID(int icqNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("loadICQByORMID(String icqNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ getICQByORMID(int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public ICQ getICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
 			return getICQByORMID(session, icqNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("getICQByORMID(int icqNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("getICQByORMID(String icqNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ loadICQByORMID(PersistentSession session, int icqNumber) throws PersistentException {
+	public ICQ loadICQByORMID(PersistentSession session, String icqNumber) throws PersistentException {
 		try {
-			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, new Integer(icqNumber));
+			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, icqNumber);
 		}
 		catch (Exception e) {
-			_logger.error("loadICQByORMID(PersistentSession session, int icqNumber)", e);
+			_logger.error("loadICQByORMID(PersistentSession session, String icqNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ getICQByORMID(PersistentSession session, int icqNumber) throws PersistentException {
+	public ICQ getICQByORMID(PersistentSession session, String icqNumber) throws PersistentException {
 		try {
-			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, new Integer(icqNumber));
+			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, icqNumber);
 		}
 		catch (Exception e) {
-			_logger.error("getICQByORMID(PersistentSession session, int icqNumber)", e);
+			_logger.error("getICQByORMID(PersistentSession session, String icqNumber)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ loadICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public ICQ loadICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, new Integer(icqNumber), lockMode);
+			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, icqNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("loadICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("loadICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}
 	
-	public ICQ getICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
+	public ICQ getICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, new Integer(icqNumber), lockMode);
+			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, icqNumber, lockMode);
 		}
 		catch (Exception e) {
-			_logger.error("getICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode)", e);
+			_logger.error("getICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode)", e);
 			throw new PersistentException(e);
 		}
 	}

@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.Sourcecode" table="`Sourcecode`">
-    <id column="`ID`" name="id" type="integer" unsaved-value="0">
-      <generator class="native">
+	<class name="de.fhb.jproject.data.Sourcecode" table="`Sourcecode`" lazy="false">
+		<id name="id" column="`ID`" type="integer" unsaved-value="0">
+			<generator class="native">
 			</generator>
-    </id>
-    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Project" column="`Project`" lazy="no-proxy" name="project" not-null="true">
+		</id>
+		<many-to-one name="project" cascade="lock" column="`Project`" class="de.fhb.jproject.data.Project" not-null="true" lazy="no-proxy" access="field">
 		</many-to-one>
-    <property column="`Dateiname`" lazy="false" length="255" name="dateiname" not-null="true" type="string"/>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_CommentSourcecode">
-      <key column="`SourcecodeID`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.CommentSourcecode"/>
-    </set>
-  </class>
+		<property name="dateiname" column="`Dateiname`" type="string" length="255" not-null="true" lazy="false"/>
+		<set name="ORM_CommentSourcecode" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`SourcecodeID`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.CommentSourcecode"/>
+		</set>
+	</class>
 </hibernate-mapping>

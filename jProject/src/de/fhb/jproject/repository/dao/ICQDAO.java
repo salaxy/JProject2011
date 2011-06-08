@@ -14,14 +14,14 @@ import org.orm.*;
 import de.fhb.jproject.data.*;
 
 public interface ICQDAO {
-	public ICQ loadICQByORMID(int icqNumber) throws PersistentException;
-	public ICQ getICQByORMID(int icqNumber) throws PersistentException;
-	public ICQ loadICQByORMID(int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public ICQ getICQByORMID(int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public ICQ loadICQByORMID(PersistentSession session, int icqNumber) throws PersistentException;
-	public ICQ getICQByORMID(PersistentSession session, int icqNumber) throws PersistentException;
-	public ICQ loadICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
-	public ICQ getICQByORMID(PersistentSession session, int icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public ICQ loadICQByORMID(String icqNumber) throws PersistentException;
+	public ICQ getICQByORMID(String icqNumber) throws PersistentException;
+	public ICQ loadICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public ICQ getICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public ICQ loadICQByORMID(PersistentSession session, String icqNumber) throws PersistentException;
+	public ICQ getICQByORMID(PersistentSession session, String icqNumber) throws PersistentException;
+	public ICQ loadICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
+	public ICQ getICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException;
 	public ICQ[] listICQByQuery(String condition, String orderBy) throws PersistentException;
 	public ICQ[] listICQByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException;
 	public ICQ[] listICQByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException;
