@@ -21,9 +21,9 @@ import org.orm.PersistentSession;
 import org.orm.PersistentTransaction;
 
 /**
- * Contoller Klasse f�r die UserActions
+ * Manager fuer die User Aktionen
  * 
- * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>, 
+ * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>
  * 
  */
 public class UserManager {
@@ -35,6 +35,10 @@ public class UserManager {
 	
 	private static final Logger logger = Logger.getLogger(UserManager.class);
     
+	/**
+	 * UserManager Konstruktor
+	 * @param globalRolesManager
+	 */
     public UserManager(GlobalRolesManager globalRolesManager){		
     	//debuglogging
 		logger.info("new UserControl()");
@@ -42,7 +46,15 @@ public class UserManager {
 		this.globalRolesManager = globalRolesManager;
 		
     }
+    
 
+    /**
+     * User loeschen
+     * 
+     * @param aktUser
+     * @param loginName
+     * @throws ProjectException
+     */
 	public void deleteUser(User aktUser, String loginName)
 	throws ProjectException{
 		User user = null;
@@ -78,10 +90,12 @@ public class UserManager {
 	
 	/**
 	 * Anzeigen der eigenen Daten zum �ndern
-	 * @return
+	 * 
+	 * @param aktUser
+	 * @return User
 	 * @throws ProjectException
 	 */
-	public User showUserSettings(User aktUser/*, String loginName???*/)
+	public User showUserSettings(User aktUser)
 	throws ProjectException{
 		
 		//debuglogging
@@ -111,8 +125,11 @@ public class UserManager {
 	
 	
 	/**
-	 * Anezwigen von Kontaktdaten eines anderen Users
-	 * @return
+	 * Anzeigen von Kontaktdaten eines anderen Users
+	 * 
+	 * @param aktUser
+	 * @param loginName
+	 * @return User
 	 * @throws ProjectException
 	 */
 	public User showUserInfo(User aktUser, String loginName)
@@ -127,23 +144,33 @@ public class UserManager {
         //abfrage ob user eingeloggt
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+        }		
+
+		
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
+
 		//abfrage ob user Rechte hat
 		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) || !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
 		
-		
 		return user;	
 	}
 	
+	/**
+	 * User suchen
+	 * 
+	 * @param aktUser
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public User searchUser(User aktUser, String loginName) 
     throws ProjectException{
 		
@@ -216,8 +243,10 @@ public class UserManager {
 	}
 	
 	/**
+	 * Alle User Anzeigen
 	 * 
-	 * @return
+	 * @param aktUser
+	 * @return List<User>
 	 * @throws ProjectException
 	 */
 	public List<User> showAllUser(User aktUser)
@@ -244,7 +273,14 @@ public class UserManager {
 	}
 	
 	
-	
+	/**
+	 * Einloggen
+	 * 
+	 * @param loginName
+	 * @param password
+	 * @return User
+	 * @throws ProjectException
+	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
 		
@@ -275,6 +311,9 @@ public class UserManager {
 	}
 	
 	
+	/**
+	 * Ausloggen
+	 */
 	public void logout(){
 		
 		//debuglogging
@@ -282,7 +321,8 @@ public class UserManager {
 		
     }
 	
-	public void register()throws ProjectException{
+	public void register()
+	throws ProjectException{
 		/*
 		PersistentSession session;
 		DAFactory fa = DAFactory.getDAFactory();			
