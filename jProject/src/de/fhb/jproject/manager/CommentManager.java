@@ -537,7 +537,6 @@ public class CommentManager {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
 
 			
 		//RECHTE-ABFRAGE Global
@@ -615,12 +614,11 @@ public class CommentManager {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
 
 			
 		//RECHTE-ABFRAGE Global
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowAllComments41SourceAction(aktUser.getGlobalRole())){
 			
 			//Project holen
 			try {
@@ -639,7 +637,7 @@ public class CommentManager {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedShowAllComments41SourceAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
 			}	
 		}	
@@ -694,11 +692,10 @@ public class CommentManager {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-
 			
 		//RECHTE-ABFRAGE Global
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){	
+		if(!globalRolesManager.isAllowedShowAllComments41TaskAction(aktUser.getGlobalRole())){	
 			
 			//Project holen
 			try {
@@ -717,7 +714,7 @@ public class CommentManager {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedShowAllComments41TaskAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
 			}	
 		}	
@@ -773,7 +770,7 @@ public class CommentManager {
 			
 		//RECHTE-ABFRAGE Global
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
+		if(!globalRolesManager.isAllowedShowAllComments41ProjectAction(aktUser.getGlobalRole())){
 			
 			//Project holen
 			try {
@@ -792,7 +789,7 @@ public class CommentManager {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
+			if(!(projectRolesManager.isAllowedShowAllComments42ProjektAction(memAktUser.getProjectRole()))){
 				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
 			}	
 		}	
@@ -802,6 +799,7 @@ public class CommentManager {
 		
 		//holen der commentDocument
 		try {
+			//TODO hier ist noch ein fehler: er findet nix
 			commentProject=commentProjectDA.listCommentProjectByQuery("Project="+projectName,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
