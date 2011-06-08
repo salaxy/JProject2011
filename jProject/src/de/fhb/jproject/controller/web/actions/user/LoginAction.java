@@ -58,19 +58,16 @@ public class LoginAction extends HttpRequestActionBase {
 			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
 			//XXX entfernen req.setAttribute("contentFile", "showProject.jsp");
-
+			req.setAttribute("triedLogin", false);
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
+			req.setAttribute("triedLogin", true);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}
-		
-		synchronized(session){
-			session.setAttribute("loggedIn", true);
 		}
 		
 	}
