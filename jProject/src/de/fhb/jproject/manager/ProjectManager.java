@@ -21,7 +21,7 @@ import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
 
 /**
- * Contoller Klasse fuer die ProjectActions
+ * Manager fuer die ProjectActions
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
@@ -52,8 +52,14 @@ public class ProjectManager {
 	
 
 	/**
-	 *  Hinzufuegen eines Users zu einem Projekt
-	 *  Notiz: Methode Funktioniert auch zum updaten
+	 * 	 Hinzufuegen eines Users zu einem Projekt
+	 *  (Methode Funktioniert auch zum updaten der Rolle)
+	 * 
+	 * @param aktUser
+	 * @param userLoginName
+	 * @param projectName
+	 * @param rolle
+	 * @throws ProjectException
 	 */
 	public void addMember(User aktUser, String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
