@@ -14,6 +14,8 @@ import de.fhb.jproject.data.Comment;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -31,6 +33,7 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
 		
@@ -39,7 +42,6 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 		
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-
 		try {				
 			
 			//Debugprint
@@ -58,6 +60,8 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 				
 			}catch(IllegalArgumentException e){
 				throw new ProjectException("DokumentId fehlerhaft! "+ e.getMessage());
+			}catch(NullPointerException e){
+				logger.error(e.getMessage());
 			}
 			
 //			for( Comment c : commentList){
@@ -74,12 +78,6 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 			
 			logger.error(e.getMessage());
 			req.setAttribute("contentFile", e.getMessage());
-			req.setAttribute("errorString", e.getMessage());
-			
-		}catch(NullPointerException e){
-			
-			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 			
 		}

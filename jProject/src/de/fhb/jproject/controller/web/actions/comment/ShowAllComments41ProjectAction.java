@@ -14,6 +14,8 @@ import de.fhb.jproject.data.Comment;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -31,6 +33,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
 		
@@ -48,10 +51,14 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
 					
-			//Manager in aktion
-			commentList=mainManager.getCommentManager().showAllComments41Project((User)session.getAttribute("aktUser"),
-					req.getParameter("projectName"));
-					
+			
+			try {
+				//Manager in aktion
+				commentList=mainManager.getCommentManager().showAllComments41Project((User)session.getAttribute("aktUser"),
+						req.getParameter("projectName"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}	
 //			for( Comment c : commentList){
 //				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
 //			}		
@@ -64,11 +71,6 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			
 			logger.error(e.getMessage());
 			req.setAttribute("contentFile", e.getMessage());
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
-			
-			logger.error(e.getMessage());
-			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 		

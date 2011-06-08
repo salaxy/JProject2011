@@ -30,6 +30,7 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
 		
@@ -43,8 +44,14 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
+			try {
+				//Manager in aktion
+				projectList=mainManager.getProjectManager().searchProjects((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
+			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			//Manager in aktion
-			projectList=mainManager.getProjectManager().searchProjects((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
 			
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());
@@ -54,10 +61,6 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 			req.setAttribute("projectList", projectList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
