@@ -47,9 +47,13 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
-		
+			try {
+				taskList=mainManager.getTaskManager().showAllOwnTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			//Manager in aktion
-			taskList=mainManager.getTaskManager().showAllOwnTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
 			
 //			for( Task t : taskList){
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
@@ -59,10 +63,6 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			req.setAttribute("taskList", taskList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

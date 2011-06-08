@@ -105,9 +105,9 @@ img.download {
 .buttonright {
 	float: right;
 	color: #ffffff;
-	font-size: 20px;
-	text-align: center;
-	width: 300px;
+	font-size: 15px;
+	text-align: right;
+	width: 380px;
 	height: 36px;
 }
 .buttoncontent {

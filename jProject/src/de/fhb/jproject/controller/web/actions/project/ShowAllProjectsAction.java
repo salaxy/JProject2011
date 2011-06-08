@@ -48,7 +48,12 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Manager in aktion
-			projectList=mainManager.getProjectManager().showAllProjects((User)session.getAttribute("aktUser"));
+			try {
+				projectList=mainManager.getProjectManager().showAllProjects((User)session.getAttribute("aktUser"));
+			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());
@@ -58,10 +63,6 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			req.setAttribute("projectList", projectList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
