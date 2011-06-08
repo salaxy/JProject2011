@@ -1,0 +1,13 @@
+Datenbank
+*********
+
+
+
+
+
+DA-Schicht
+**********
+
+brauche die methoden:
+
+- List<Project> findProjectsLike(String teilName)		(projectDA)
