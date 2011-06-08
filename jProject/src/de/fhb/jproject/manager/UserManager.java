@@ -287,7 +287,7 @@ public class UserManager {
 
 		//eingabefehler abfangen
 		if(loginName==null||password==null||password.equals("")){
-			throw new ProjectException("ungueltige parameter");
+			throw new ProjectException("Ungueltige Eingabe");
 		}
 
 		try {
@@ -295,10 +295,10 @@ public class UserManager {
 			user = userDA.loadUserByORMID(loginName);
 			
 		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);
+			throw new ProjectException("Falscher Benutzername! ");
 		}
-		if(user.getPassword().equals(password)){
-			
+		if(!user.getPassword().equals(password)){
+			throw new ProjectException("Falsches Passwort!");
 		}
 		return user;
 	}
