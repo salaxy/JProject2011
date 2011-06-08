@@ -75,7 +75,7 @@ private MainManager mainManager;
 			}
 			
 			
-			
+			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
