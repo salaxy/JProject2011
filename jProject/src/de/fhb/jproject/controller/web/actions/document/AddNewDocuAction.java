@@ -51,6 +51,7 @@ private MainManager mainManager;
 					);
 			 * 
 			 */
+			System.out.println("Iam in the action");
 			isMultipartContent = ServletFileUpload.isMultipartContent(req);
 			
 			if (!isMultipartContent) {

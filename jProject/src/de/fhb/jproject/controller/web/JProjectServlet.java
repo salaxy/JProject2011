@@ -63,9 +63,13 @@ import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainManager;
-import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 @WebServlet("/JProjectServlet")
@@ -295,13 +299,13 @@ public class JProjectServlet extends HttpServletControllerBase {
 			throws IOException, ServletException {
 		//Session holen
 		HttpSession session = req.getSession();
+		synchronized(session){
+			//Player fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
+				mainManager = new MainManager();
 
-		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
-			mainManager = new MainManager();
-			
-			//HttpSession ist nicht Threadsave deswegn Synchronized
-			synchronized(session){
+				//HttpSession ist nicht Threadsave deswegn Synchronized
+
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
@@ -326,29 +330,40 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		boolean isMultipartContent = ServletFileUpload.isMultipartContent(req);
+		List<FileItem> fields = null;
+		if (isMultipartContent) {
+				
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			try {
+				
+				fields = upload.parseRequest(req);
+			} catch (FileUploadException e) {
+				System.out.println("FAIL");
+			}
+		}
 		//Session holen
 		HttpSession session = req.getSession();
+		synchronized(session){
+			//Player fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
+				mainManager = new MainManager();
 
-		//Player fuer die Session erzeugen falls noch nicht erzeugt
-		if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
-			mainManager = new MainManager();
-			
-			//HttpSession ist nicht Threadsave deswegn Synchronized
-			synchronized(session){
+				//HttpSession ist nicht Threadsave deswegn Synchronized
+
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
 		}
-		req.setAttribute("contentFile", null);
 		super.doPost(req, resp);
 		
 		processRequest(req, resp, session);
+		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
-		
-		
 	}
 }

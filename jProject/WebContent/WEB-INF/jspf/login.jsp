@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:choose>
 	<c:when test="${sessionScope.aktUser == null}">
-		<form class="buttonright" method="GET" action="JProjectServlet">
+		<form class="buttonright" method="POST" action="JProjectServlet">
 			<input name="do" value="Login" type="hidden" />
 			<input value="Benutzername" name="loginName"	type="text"		size="15" maxlength="50">
 			<input value="Password"		name="password"		type="password" size="10" maxlength="30">
