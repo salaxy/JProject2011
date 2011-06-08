@@ -571,7 +571,6 @@ public class CommentManager {
 				//comment holen
 				try {
 					comment=commentDA.getCommentByORMID(commentId);
-					System.out.println("Comment:"+commentId);
 				} catch (PersistentException e) {
 					throw new ProjectException("Konnte Comment nicht finden!");
 				}
