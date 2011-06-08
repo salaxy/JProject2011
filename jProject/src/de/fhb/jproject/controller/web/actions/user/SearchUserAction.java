@@ -44,9 +44,13 @@ public class SearchUserAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
-			//UserList holen
-			userList=mainManager.getUserManager().searchUser((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
+			try {
+				//UserList holen
+				userList = mainManager.getUserManager().searchUser((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
 			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			for( User user : userList){
 				System.out.println("User: "+user.getLoginName());
 			}
@@ -55,10 +59,6 @@ public class SearchUserAction extends HttpRequestActionBase {
 			req.setAttribute("userList", userList);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
