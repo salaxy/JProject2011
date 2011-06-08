@@ -32,17 +32,17 @@ public class Telefon {
 	
 	private de.fhb.jproject.data.User userLoginName;
 	
-	private int telNumber;
+	private String telNumber;
 	
-	private void setTelNumber(int value) {
+	public void setTelNumber(String value) {
 		this.telNumber = value;
 	}
 	
-	public int getTelNumber() {
+	public String getTelNumber() {
 		return telNumber;
 	}
 	
-	public int getORMID() {
+	public String getORMID() {
 		return getTelNumber();
 	}
 	
