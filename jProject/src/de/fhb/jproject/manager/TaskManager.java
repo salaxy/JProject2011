@@ -24,7 +24,7 @@ import de.fhb.jproject.repository.da.TerminDA;
 import de.fhb.jproject.repository.da.UserDA;
 
 /**
- *  Manager fuer die Tasks
+ * Manager fuer die Tasks
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
@@ -55,6 +55,13 @@ public class TaskManager {
 
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @param titel
+	 * @param aufgabenStellung
+	 * @param date
+	 * @throws ProjectException
 	 */
 	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
@@ -84,18 +91,20 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+			}		
 		}
-		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedAddNewTaskAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
-		}			
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -106,13 +115,11 @@ public class TaskManager {
 		//setzen weiterer attribute
 		task.setAufgabenstellung(aufgabenStellung);
 		task.setTitel(titel);
-		//Hinweis: dieser block hier drï¿½ber muss vor dem termin setten ausgefï¿½hrt werden sonst
-		// gibt es eine LazyIn....Ecxpetion bei... setProject 
 		
 		// Termin erzeugen und setzen
 		termin =terminDA.createTermin();
 		
-		//datum in der Form >>>yyyy-mm-dd	als	Date erzeugen und setzen
+		//Date setzen
 		try {	
 			termin.setTermin(date);
 		} catch (IllegalArgumentException e) {
@@ -154,6 +161,10 @@ public class TaskManager {
 	/**
 	 * loeschen eines Taks eines Projektes
 	 * 
+	 * @param aktUser
+	 * @param taskId
+	 * @param projectName
+	 * @throws ProjectException
 	 */
 	public void  deleteTask(User aktUser, int taskId, String projectName)
 	throws ProjectException{ 
@@ -181,6 +192,7 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
+		//RECHTE-ABFRAGE Global
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
 		if(!globalRolesManager.isAllowedDeleteTaskAction(aktUser.getGlobalRole())){
 			
@@ -192,13 +204,12 @@ public class TaskManager {
 			}
 			
 			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedDeleteTaskAction(memAktUser.getProjectRole()))){
+			if(!projectRolesManager.isAllowedDeleteTaskAction(memAktUser.getProjectRole())){
 				throw new ProjectException("Sie haben keine Rechte die Aufgabe(Task) zu loeschen!");
 			}	
 		}
 		
 
-		
 		//EIGENTLICHE AKTIONEN
 		
 		//hole den task
@@ -222,8 +233,10 @@ public class TaskManager {
 		}	
 	}		
 	
-	/** 
-	 *  Anzeigen aller Aufgaben
+	/**
+	 * Holen aller Aufgaben zu einem Projekt
+	 * 
+	 * @param aktUser
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException
@@ -249,18 +262,20 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}	
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
 		
-		//RECHTE-ABFRAGE projekt
-		//Projektteilhaber oder Admin dï¿½rfen diese aktion ausfï¿½hren 
-		if(!(projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))
-				|| !globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}	
+			
+			//RECHTE-ABFRAGE projekt
+			if(!projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
+			}
 		}
 		
 		return Arrays.asList(project.task.toArray());
@@ -269,6 +284,7 @@ public class TaskManager {
 	
 	/** 
 	 *  Anzeigen einer Aufgabe
+	 *  
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException
@@ -295,18 +311,20 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}	
-		
-		//RECHTE-ABFRAGE projekt
-		//Projektteilhaber oder Admin duerfen diese aktion ausfuehren 
-		if(!(projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole()))|| 
-				!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgabe/Task !");
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}	
+			
+			//RECHTE-ABFRAGE projekt
+			//Projektteilhaber oder Admin duerfen diese aktion ausfuehren 
+			if(!projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgabe/Task !");
+			}
 		}
 		
 		//task holen
@@ -359,6 +377,9 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
+
+		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht möglich
+		//es sei denn wir machen eine ShowTaskFromUserInProject oder sowas???
 		//Projekt-Rolle des aktuellen Users holen
 		try {
 			memAktUser=memberDA.getMemberByORMID(aktUser, project);
@@ -382,7 +403,6 @@ public class TaskManager {
 	
 	/**
 	 * Einem Member eines Projektes eine Aufgabe/Task zuordnen
-	 * (TODO eintrag erzeugen)
 	 * 
 	 * @param userLoginName
 	 * @param projectName
@@ -417,18 +437,23 @@ public class TaskManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
-			
-		//Member des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
 		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
-		}
+		//RECHTE-ABFRAGE Global
+		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Tasks im Project zuzuordnen zu lassen?
+//		if(!globalRolesManager.isAllowedAssignTaskAction(aktUser.getGlobalRole())){	
+			
+			//Member des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
+			}
+//		}
 		
 		//zuzuordnenden user holen
 		try {
@@ -472,7 +497,6 @@ public class TaskManager {
 	
 	/**
 	 * User von einer Aufgabe abordern 
-	 * (TODO eintrag loeschen)
 	 * 
 	 * @param userLoginName
 	 * @param projectName
@@ -508,17 +532,21 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
+		//RECHTE-ABFRAGE Global
+		//XXX Eintrag im globalRolesManager/DB fehlt Macht es sinn einen Admin Tasks im Project zuzuorden zu lassen?
+//		if(!globalRolesManager.isAllowedDeAssignTaskAction(aktUser.getGlobalRole())){	
 		//Member des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		
-		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
-		}
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
+				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+			}
+//		}
 		
 		//zugeordneten user holen
 		try {
@@ -560,7 +588,18 @@ public class TaskManager {
 	}
 	
 	
-	
+	/**
+	 *  Updaten eines Tasks
+	 *  
+	 * @param aktUser
+	 * @param projectName
+	 * @param taskId
+	 * @param titel
+	 * @param aufgabenStellung
+	 * @param date
+	 * @param done
+	 * @throws ProjectException
+	 */
 	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
 		
@@ -571,9 +610,12 @@ public class TaskManager {
 		//debuglogging
 		logger.info("updateTask()");
 		logger.debug("String projectName("+projectName+")"
-				//TODO
-//				+"String titel("+titel+")"
-//				+"String date("+date+")"
+				+"String titel("+titel+")"
+				+"int taskId("+taskId+")"
+				+"String aufgabenStellung("+aufgabenStellung+")"
+				+"String titel("+titel+")"
+				+"String date("+date+")"
+				+"boolean done("+titel+")"
 				);	
 		
         //abfrage ob user eingeloggt
@@ -588,18 +630,22 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		
 		//RECHTE-ABFRAGE Projekt
-		if(!projectRolesManager.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
-				|| !globalRolesManager.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum updaten einer Aufgabe/Task!");
-		}			
+		if(!globalRolesManager.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
+			
+			//Projekt-Rolle des aktuellen Users holen
+			try {
+				memAktUser=memberDA.getMemberByORMID(aktUser, project);
+			} catch (PersistentException e1) {
+				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+			}
+			
+			//RECHTE-ABFRAGE Projekt
+			if(!projectRolesManager.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
+					|| !globalRolesManager.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
+				throw new ProjectException("Sie haben keine Rechte zum updaten einer Aufgabe/Task!");
+			}			
+		}
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -641,7 +687,7 @@ public class TaskManager {
 				//wenn noch kein termin eintrag existiert
 				try{
 					termin=terminDA.createTermin();
-					termin.setTermin(date);//TODO Date-Parsen in der Action
+					termin.setTermin(date);
 					task.setTermin(termin);
 				} catch (IllegalArgumentException e){
 					throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());

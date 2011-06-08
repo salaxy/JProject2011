@@ -170,6 +170,7 @@ public class UserManager {
 		}
 		//TODO LIKE QUERY IN DER DA SCHICHT
 		user.setPassword(null);
+//		SELECT Autor, Buchtitel FROM Buecher WHERE Buchtitel LIKE '%Geld%';
 		
 		return user;	
     }
