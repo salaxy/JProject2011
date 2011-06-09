@@ -64,21 +64,21 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 					+ "boolean done(" + req.getParameter("done") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getTaskManager().updateTask((User)session.getAttribute("aktUser"), 
-														  req.getParameter("projectName"), 
-														  Integer.valueOf(req.getParameter("taskId")), 
-														  req.getParameter("titel"), 
-														  req.getParameter("aufgabenStellung"), 
-														  Date.valueOf(req.getParameter("date")), 
-														  Boolean.getBoolean(req.getParameter("done")));
+			try{
+				//Manager in aktion
+				mainManager.getTaskManager().updateTask((User)session.getAttribute("aktUser"), 
+															  req.getParameter("projectName"), 
+															  Integer.valueOf(req.getParameter("taskId")), 
+															  req.getParameter("titel"), 
+															  req.getParameter("aufgabenStellung"), 
+															  Date.valueOf(req.getParameter("date")), 
+															  Boolean.getBoolean(req.getParameter("done")));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}/*TODO IllegalArgumentE*/
+				
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

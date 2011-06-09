@@ -51,17 +51,17 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getTaskManager().deleteTask((User)session.getAttribute("aktUser"), 
-														  Integer.valueOf(req.getParameter("taskId")), 
-														  req.getParameter("projectName"));
+			try{
+				//Manager in aktion
+				mainManager.getTaskManager().deleteTask((User)session.getAttribute("aktUser"), 
+															  Integer.valueOf(req.getParameter("taskId")), 
+															  req.getParameter("projectName"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}/*TODO IllegalArgumentE*/
+				
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
