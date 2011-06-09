@@ -46,18 +46,18 @@ public class AssignTaskAction extends HttpRequestActionBase {
 					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getTaskManager().assignTask((User)session.getAttribute("aktUser"), 
-														  req.getParameter("userLoginName"), 
-														  req.getParameter("projectName") ,  
-														  Integer.valueOf(req.getParameter("taskId")));
+			try{
+				//Manager in aktion
+				mainManager.getTaskManager().assignTask((User)session.getAttribute("aktUser"), 
+															  req.getParameter("userLoginName"), 
+															  req.getParameter("projectName") ,  
+															  Integer.valueOf(req.getParameter("taskId")));
+			
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}/*TODO IllegalArgumentE*/
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

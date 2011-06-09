@@ -51,21 +51,19 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					+ "Date date(" + req.getParameter("date") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getTaskManager().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
-					req.getParameter("titel"),
-					req.getParameter("aufgabenStellung"),
-					//yyyy-mm-dd <<< muss sooo aussehen
-					Date.valueOf(req.getParameter("date"))
-					);
-			
+			try{
+				//Manager in aktion
+				mainManager.getTaskManager().addNewTask((User)session.getAttribute("aktUser"), req.getParameter("projectName"),
+						req.getParameter("titel"),
+						req.getParameter("aufgabenStellung"),
+						//yyyy-mm-dd <<< muss sooo aussehen
+						Date.valueOf(req.getParameter("date"))
+						);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}/*TODO IllegalArgumentE*/
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

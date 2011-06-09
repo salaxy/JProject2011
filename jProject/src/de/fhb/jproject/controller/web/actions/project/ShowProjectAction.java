@@ -69,6 +69,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				memberList = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
+			}catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
 			}
 			
 			//TODO anzahl documente, anzahl Sourcecode
