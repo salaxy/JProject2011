@@ -373,7 +373,8 @@ public class ProjectManager {
 	public List<Project> searchProjects(User aktUser, String searchValue)
 	throws ProjectException{
 		
-		List<Project> list=null;
+//		List<Project> list=null;
+		Project[] array=null;
 		
 		//debuglogging
 		logger.info("searchProjects()");
@@ -387,19 +388,18 @@ public class ProjectManager {
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Suchen der Projekte!");
-		}	
+		}		
 		
-		//holen der Daten
-		//TODO suche implementieren in der DA..... List<Project> findProjectsLike(String loginName)
-		//
-//		try {
-//			list=projectDA.listAllProjects();
-//		} catch (PersistentException e) {
-//			
-//			throw new ProjectException("Kann kein Projekt finden! "+ e.getMessage());
-//		}		
+		//holen der daten
+		try {
+			//TODO LIKE QUERY IN DER DA SCHICHT
+			array= projectDA.listProjectByQuery("ProjectName LIKE '%"+searchValue+"%'","ProjectName");
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);	
+		}
 		
-		return list;	
+		return Arrays.asList(array);
+//		return list;	
 	}
 	
 	/**
