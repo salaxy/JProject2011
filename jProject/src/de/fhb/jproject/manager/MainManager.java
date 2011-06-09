@@ -21,7 +21,7 @@ public class MainManager{
 	
 
 	public MainManager() {
-		rootLogger.setLevel(Level.OFF);
+		rootLogger.setLevel(Level.INFO);
 		
 		globalRolesManager=new GlobalRolesManager();	
 		projectRolesManager= new ProjectRolesManager();

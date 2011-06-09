@@ -43,21 +43,19 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 					+ "String commentId(" + req.getParameter("commentId") + ")"
 					+ "int inhalt(" + req.getParameter("inhalt") + "), "
 					);
-			
-			//Manager in aktion
-			mainManager.getCommentManager().updateComment((User)session.getAttribute("aktUser")
-					, req.getParameter("projectName")
-					, Integer.valueOf(req.getParameter("commentId"))
-					, req.getParameter("inhalt")
-					);
-			
+			try{
+				//Manager in aktion
+				mainManager.getCommentManager().updateComment((User)session.getAttribute("aktUser")
+						, req.getParameter("projectName")
+						, Integer.valueOf(req.getParameter("commentId"))
+						, req.getParameter("inhalt")
+						);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

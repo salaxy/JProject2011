@@ -42,19 +42,17 @@ public class CommentTaskAction extends HttpRequestActionBase {
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getCommentManager().commentTask((User)session.getAttribute("aktUser"), 
-															  Integer.valueOf(req.getParameter("taskId")), 
-															  req.getParameter("inhalt"));
-			
+			try{
+				//Manager in aktion
+				mainManager.getCommentManager().commentTask((User)session.getAttribute("aktUser"), 
+																  Integer.valueOf(req.getParameter("taskId")), 
+																  req.getParameter("inhalt"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

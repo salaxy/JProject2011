@@ -22,6 +22,8 @@ License Type: Purchased
 		<property name="hibernate.c3p0.timeout">0</property>
 		<property name="show_sql">false</property>
 		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
 		<!-- mapping files -->
 		<mapping resource="ormmapping/tables/Comment.hbm.xml" />
 		<mapping resource="ormmapping/tables/CommentDocument.hbm.xml" />

@@ -56,7 +56,9 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
-        logger.debug("String loginName("+loginName+")");
+        logger.debug("User aktUser("+aktUser+")"+
+				"String loginName("+loginName+")"
+				);
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -424,12 +426,12 @@ public class UserManager {
 	 * @param vorname
 	 * @throws ProjectException
 	 */
-	public void register(String loginName, String loginNameWdhl,String passwort, String passwortWdhl, String nachname, String vorname)
+	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
 		//XXX k.a wie wir das machen nachm registriren mit dem Freigebn des users 
-		//Könnte man aber einfacherweise über eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
+		//Koennte man aber einfacherweise ueber eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
 		// d.h jemand sich erfolgreich registriert hat kann sich auch gleich einloggen, aber nix machen bis er freigegebn wird
-		//TODO @ micher konnte nicht testen, musst im Servlet noch was ändern!!
+		//TODO @ micher konnte nicht testen, musst im Servlet noch was aendern!!
 		// das hier noch daszu || getOperation(req).equals("Register") ..das allein hatte aber allien nicht geholfen!
 		
 		//Rechteabfrage entfaellt
@@ -438,7 +440,7 @@ public class UserManager {
 		//eingabe fehler abfangen
 		
 		//betreffen loginName
-		if(loginName==null||loginNameWdhl==null){
+		if(loginName==null){
 			throw new ProjectException("kein loginName oder loginNameWdhl mitgegeben!");
 		}
 		
@@ -446,9 +448,6 @@ public class UserManager {
 			throw new ProjectException("Leerer loginName!");
 		}
 		
-		if(!loginName.equals(loginNameWdhl)){
-			throw new ProjectException("loginName neu eingeben!!");
-		}
 		
 		//mindestlaenge 5 zeichen
 		if(loginName.length()<5){
