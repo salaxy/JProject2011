@@ -144,7 +144,12 @@ public class UserManager {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }		
 
-		
+		try {
+			//holen der daten
+			aktUser= userDA.loadUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(loginName);
@@ -153,7 +158,7 @@ public class UserManager {
 		}
 
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) && !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
