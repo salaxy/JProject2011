@@ -408,34 +408,100 @@ public class UserManager {
 		
     }
 	
-	public void register()
+	/**
+	 * einfache Registrieren
+	 * nur loginame, vorname, Name, passwort
+	 * weitere einstellungen aknn der user dann machen wenn er sich eingeloggt hat
+	 * ueber die usereinstellungen
+	 * 
+	 * 
+	 * 
+	 * @param loginName
+	 * @param loginNameWdhl
+	 * @param passwort
+	 * @param passwortWdhl
+	 * @param nachName
+	 * @param vorname
+	 * @throws ProjectException
+	 */
+	public void register(String loginName, String loginNameWdhl,String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
-		//TODO noch implementieren
-		/*
-		PersistentSession session;
-		DAFactory fa = DAFactory.getDAFactory();			
+		//XXX k.a wie wir das machen nachm registriren mit dem Freigebn des users 
+		//Könnte man aber einfacherweise über eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
+		// d.h jemand sich erfolgreich registriert hat kann sich auch gleich einloggen, aber nix machen bis er freigegebn wird
 		
-		try {
-			session = JProjectPersistentManager.instance().getSession();
-			Member tempMember = fa.getMemberDA().createMember();
-			tempMember.setProjectRole("Member");
-			//project setzen (impliziert hier auch das adden zum project ) >>> project.member.add(member); ist unï¿½tig
-			Project project = fa.getProjectDA().getProjectByORMID("ProjectName");
-			tempMember.setProject(project);
-
-			//rolle setzen
-
-			User tempUser = fa.getUserDA().getUserByORMID("Bla");
-			tempMember.setUser(tempUser);
-
-			session.clear();
-			fa.getMemberDA().save(tempMember);
-		} catch (PersistentException e) {
-			
-			throw new ProjectException("Konnte User/Project nicht laden! "+ e);
+		//Rechteabfrage entfaellt
+		User user=null;
+		
+		//eingabe fehler abfangen
+		
+		//betreffen loginName
+		if(loginName==null||loginNameWdhl==null){
+			throw new ProjectException("kein loginName oder loginNameWdhl mitgegeben!");
 		}
 		
-		*/
+		if(loginName.isEmpty()){
+			throw new ProjectException("Leerer loginName!");
+		}
+		
+		if(!loginName.equals(loginNameWdhl)){
+			throw new ProjectException("loginName neu eingeben!!");
+		}
+		
+		//mindestlaenge 5 zeichen
+		if(loginName.length()<5){
+			throw new ProjectException("loginName mind. 5 zeichen!!");
+		}
+		
+		
+		//betreffend passwort
+		if(passwort==null||passwortWdhl==null){
+			throw new ProjectException("kein passwort oder passwortWdhl mitgegeben!");
+		}
+		
+		if(passwort.isEmpty()){
+			throw new ProjectException("Leeres Passwort!");
+		}
+		
+		if(!passwort.equals(passwortWdhl)){
+			throw new ProjectException("Passwort neu eingeben!!");
+		}
+		
+		//mindestlaenge 5 zeichen
+		if(passwort.length()<5){
+			throw new ProjectException("passwort mind. 5 zeichen!!");
+		}
+		
+		
+		
+		if(vorname==null||nachname==null){
+			throw new ProjectException("kein vorname oder nachname mitgegeben!");
+		}
+		
+		if(vorname.isEmpty()){
+			throw new ProjectException("Leerer Vorname!");
+		}
+		
+		if(nachname.isEmpty()){
+			throw new ProjectException("Leerer Nachname!");
+		}
+		
+		
+		//setzen der parameter des users
+		user=userDA.createUser();
+		user.setGlobalRole("Member");
+		user.setSprache("Deutsch");
+		user.setVorname(vorname);
+		user.setNachname(nachname);
+		user.setLoginName(loginName);
+			
+		//speichern des users
+		try {
+			userDA.save(user);
+		} catch (PersistentException e) {
+			throw new ProjectException("User konnte nicht gespeichert werden!");
+		}
+
 	}
 	
 	
