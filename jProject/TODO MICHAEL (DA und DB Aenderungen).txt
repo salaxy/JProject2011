@@ -1,9 +1,5 @@
 Datenbank
 *********
-
-	//XXX Eintrag im globalRolesManager/DB fehlt
-	Macht es sinn einen Admin Tasks im Project zuzuordnen zu lassen?
-	
 	
 		
 DA-Schicht
@@ -12,10 +8,12 @@ DA-Schicht
 brauche die methoden:
 
 - List<User> findUserLike(String teilName)		(projectDA)
-kapseln von>>>array= userDA.listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname");
+kapseln von>>>
+array= userDA.listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname");
 
 analog dazu bitte
 - List<Project> findProjectsLike(String teilName)		(projectDA)
+array= projectDA.listProjectByQuery("Name LIKE '%"+searchValue+"%'","Name");
 
 
 DAmethoden von:
