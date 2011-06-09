@@ -48,8 +48,6 @@ public class DocumentManager {
 	public void addNewDocu(User aktUser, Project aktProject, List<FileItem> fields)throws ProjectException{
 		clearSession();
 		
-		System.out.println("Bla"+fields.get(1).toString());
-		
 		logger.info("addNewDocu()");
 		//logger.debug("String projectName("+aktProject.getName()+")");//TODO
 		
@@ -99,7 +97,6 @@ public class DocumentManager {
 				fileItem = it.next();
 			}
 			
-			System.out.println("Test:"+ fileItem.toString());
 			logger.debug("File "+ fileItem.getName());
 			//docu erzeugen und parameter setzen
 			docu=docuDA.createDocument();
@@ -107,7 +104,6 @@ public class DocumentManager {
 			docu.setProject(project);
 			//setzen weiterer attribute
 			docu.setDateiname(fileItem.getName());
-			System.out.println("Name:"+docu.getDateiname());
 			
 			//docu speichern
 			try {
@@ -168,7 +164,9 @@ public class DocumentManager {
 	    while ((length=in.read(data))== 1024){
 	    	out.write(data, offset, length);
 	    	offset +=1024;
+	    	System.out.println("Test:"+new String(data));
 	    }
+	    System.out.println("Test:"+ new String(data));
 	    out.write(data,offset,length);	
 	}
 	
