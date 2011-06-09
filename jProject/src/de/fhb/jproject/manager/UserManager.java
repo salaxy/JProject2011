@@ -52,6 +52,7 @@ public class UserManager {
      */
 	public void deleteUser(User aktUser, String loginName)
 	throws ProjectException{
+		clearSession();
 		User user = null;
 		
 		//debuglogging
@@ -94,7 +95,7 @@ public class UserManager {
 	 */
 	public User showUserSettings(User aktUser)
 	throws ProjectException{
-		
+		clearSession();
 		//debuglogging
 		logger.info("showUserSettings()");
 		
@@ -131,7 +132,7 @@ public class UserManager {
 	 */
 	public User showUserInfo(User aktUser, String loginName)
 	throws ProjectException{
-		
+		clearSession();
 		User user=null;
 		
 		//debuglogging
@@ -170,7 +171,7 @@ public class UserManager {
 	 */
 	public List <User>  searchUser(User aktUser, String searchValue) 
     throws ProjectException{
-	
+		clearSession();
 		User[] array=null;
 		
 		//debuglogging
@@ -215,7 +216,7 @@ public class UserManager {
 	 */
 	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
-		
+		clearSession();
 		//TODO noch nicht fertig
 		
 		User user=null;
@@ -322,8 +323,7 @@ public class UserManager {
 		
 		
 		//user speichern/updaten
-		try {		
-			clearSession();
+		try {
 			//Member speichern
 			userDA.save(user);
 		} catch (PersistentException e) {
@@ -340,7 +340,7 @@ public class UserManager {
 	 */
 	public List<User> showAllUser(User aktUser)
 	throws ProjectException{ 
-		
+		clearSession();
 		//debuglogging
 		logger.info("showAllUser()");
 		
@@ -372,6 +372,7 @@ public class UserManager {
 	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
+		clearSession();
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
@@ -428,6 +429,8 @@ public class UserManager {
 	 */
 	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
+		clearSession();
+		
 		//XXX k.a wie wir das machen nachm registriren mit dem Freigebn des users 
 		//Koennte man aber einfacherweise ueber eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
 		// d.h jemand sich erfolgreich registriert hat kann sich auch gleich einloggen, aber nix machen bis er freigegebn wird
@@ -504,13 +507,18 @@ public class UserManager {
 		}
 	}
 	
-	
-	private void clearSession() throws PersistentException{
-		PersistentSession session;		
-		//Session holen
-		session = JProjectPersistentManager.instance().getSession();
-		//und bereinigen
-		session.clear();
+		
+	private void clearSession() throws ProjectException{
+		try {
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+		}
+		
 	}
     
 	
