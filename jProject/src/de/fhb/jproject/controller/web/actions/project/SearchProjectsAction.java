@@ -19,7 +19,7 @@ import de.fhb.jproject.manager.MainManager;
 /**
  * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
  * 
- * STATUS:	NICHT FREIGEGEBEN 
+ * STATUS:	FREIGEGEBEN 
  * URL: 	http://localhost:8080/jProject/JProjectServlet?do=SearchProjects&searchValue=a
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */
