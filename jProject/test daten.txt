@@ -38,3 +38,61 @@ VALUES
   (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
 VALUES 
   ('vier', 'Password', 'xerses', 'Nachname', 'Sprache');
+  
+  
+  
+  
+  
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('Blubb', 'Status');
+  
+  
+    
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('Heyho', 'Status');
+  
+    
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('Lamborghini', 'Status');
+  
+    
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('afilm', 'Status');
+  
+    
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('JProject', 'Status');
+  
+    
+  INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('StraightsCS', 'Status');
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
