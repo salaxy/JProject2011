@@ -53,7 +53,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 				
 			//setzen der Parameter
 			req.setAttribute("user", user);
-			
+			req.setAttribute("contentFile", "showUserInfo.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

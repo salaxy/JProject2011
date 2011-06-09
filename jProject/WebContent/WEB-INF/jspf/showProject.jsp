@@ -6,19 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-		
-<h2>showProject</h2>
-
-<!--TODO Include Header JSP-->
 <div id="topcontent">
-	<a class="buttoncontent" href="JProjectServlet?do=ShowProject&projectName=${sessionScope.aktProject}">Project</a>
-	<a class="buttoncontent" href="JProjectServlet?do=ShowAllSource&projectName=${sessionScope.aktProject}">Sourcecode</a>
-	<a class="buttoncontent" href="JProjectServlet?do=ShowAllDocu&projectName=${sessionScope.aktProject}">Documents</a>
-	<a class="buttoncontent" href="JProjectServlet?do=ShowAllTasks&projectName=${sessionScope.aktProject}">Tasks</a>
+	<jsp:include page='projectnavi.jsp' />
 </div>
 
 <div id="contentcontentbig">
-	${project} ${project.status}<br />
+	<h2>${project} ${project.status}</h2><br />
+	<c:forEach items="${memberList}" var="member" varStatus="i">
+		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">${member.user}</a><br>
+	</c:forEach>
 </div>
 
 <div id="footercontent">
