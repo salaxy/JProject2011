@@ -356,7 +356,6 @@ public class TaskManager {
 	public List<Task> showAllOwnTasks(User aktUser)
 	throws ProjectException{
 		
-		//XXX gerade in bearbeitung
 		User user=null;
 		List<Task> list=new ArrayList<Task>();
 		
