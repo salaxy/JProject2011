@@ -393,9 +393,9 @@ public class ProjectManager {
 		//holen der daten
 		try {
 			//TODO LIKE QUERY IN DER DA SCHICHT
-			array= projectDA.listProjectByQuery("ProjectName LIKE '%"+searchValue+"%'","ProjectName");
+			array= projectDA.listProjectByQuery("Name LIKE '%"+searchValue+"%'","Name");
 		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);	
+			throw new ProjectException("Kann Projekte nicht finden! "+ ex.getMessage());	
 		}
 		
 		return Arrays.asList(array);
