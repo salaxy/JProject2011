@@ -110,17 +110,7 @@ img.download {
 	width: 380px;
 	height: 36px;
 }
-.buttoncontent {
-	float:left;
-	color: #000000;
-	font-size: 15px;
-	text-align: center;
-	width: 150px;
-	height: 30px;
-	background-color: #807f7f;
-	border-top:1px solid #564b47;
-	border-bottom:1px solid #564b47;
-}
+
 /* ----------container zentriert das layout-------------- */
 #outercontainer {
 	background-image: url(images/content.png);
@@ -198,7 +188,18 @@ img.download {
 /* ----------topcontent-------------- */
 #topcontent {
 	width: 750px;
-	height: 40px;
+	height: 25px;
+}
+.buttoncontent {
+	float:left;
+	color: #000000;
+	font-size: 15px;
+	text-align: center;
+	width: 150px;
+	height: 20px;
+	background-color: #807f7f;
+	border-top:1px solid #564b47;
+	border-bottom:1px solid #564b47;
 }
 
 /* --------------left content navigation------------- */
@@ -224,43 +225,6 @@ img.download {
 #footercontent { 
 	width: 750px;
 	clear: both;
-}	
-	
-/*	
-#wrapper { 
- margin: 0 auto;
- width: 750px;
+}
 
-}
-#header {
- color: #333;
- width: 750px;
- float: left;
- border: 1px solid #ccc;
- height: 100px;
- background: #BD9C8C;
-}
-#leftcolumn { 
- color: #333;
- border: 1px solid #ccc;
- background: #E7DBD5;
- height: 350px;
- width: 240px;
- float: left;
-}
-#rightcolumn { 
- float: right;
- color: #333;
- border: 1px solid #ccc;
- background: #F2F2E6;
- height: 350px;
- width: 500px;
- display: inline;
-}
-#footer { 
- width: 750px;
- clear: both;
- color: #333;
- border: 1px solid #ccc;
- background: #BD9C8C;
-}*/
+	
