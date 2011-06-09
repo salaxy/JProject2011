@@ -73,7 +73,8 @@ public class UserManager {
 		}
 		
 		//abfrage ob user Rechte hat bzw Eigner ist
-		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) && !(aktUser == user)){
+		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) 
+				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -113,7 +114,8 @@ public class UserManager {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) && !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) 
+				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
@@ -151,7 +153,8 @@ public class UserManager {
 		}
 
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) && !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) 
+				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
@@ -218,6 +221,8 @@ public class UserManager {
 		//TODO noch nicht fertig
 		
 		User user=null;
+		//TODO PerformenceBOOL
+		boolean changed = false;
 		
 		//debuglogging
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
@@ -240,7 +245,8 @@ public class UserManager {
 		}
 		
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) && !(aktUser == user)){
+		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
+				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
 		}
 	
@@ -262,12 +268,14 @@ public class UserManager {
 		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(aktUser.getNachname()))){
 			//aendern
 			user.setNachname(nachName);
+			changed = true;
 		}
 		
 		//vorname
 		if(!(vorname==null)&&!(vorname.isEmpty())&&!(vorname.equals(aktUser.getVorname()))){
 			//aendern
 			user.setVorname(vorname);
+			changed = true;
 		}
 		
 		//ICQ
@@ -280,7 +288,7 @@ public class UserManager {
 			
 			
 			
-			
+			changed = true;
 		}
 
 		
@@ -295,7 +303,8 @@ public class UserManager {
 			//wenn bereits enthalten
 			if(!user.skype.contains(s)){
 				user.skype.add(s);
-			}	
+			}
+			changed = true;
 		}
 		
 		//telefon
@@ -308,7 +317,8 @@ public class UserManager {
 //			//wenn bereits enthalten
 //			if(!user.skype.contains(s)){
 //				user.skype.add(s);
-//			}	
+//			}
+//			changed = true;
 //		}
 		
 		
@@ -328,12 +338,15 @@ public class UserManager {
 		
 		
 		//user speichern/updaten
-		try {
-			//Member speichern
-			userDA.save(user);
-		} catch (PersistentException e) {
-			throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
+		if (changed) {
+			try {
+				//Member speichern
+				userDA.save(user);
+			} catch (PersistentException e) {
+				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
+			}
 		}
+		
 	}
 	
 	/**

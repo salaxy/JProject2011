@@ -16,7 +16,7 @@
 				<jsp:include page='<%= ""+(String)request.getAttribute("contentFile") %>' />
 			</c:when>
 			<c:otherwise>
-				Projectübersicht!
+				<jsp:include page='overview.jsp' />
 			</c:otherwise>
 		</c:choose>
 
@@ -27,6 +27,6 @@
 
 	</c:when>
 	<c:otherwise>
-		<jsp:include page='welcome.jsp' />
+		<jsp:include page='layout/welcome.jsp' />
 	</c:otherwise>
 </c:choose>
