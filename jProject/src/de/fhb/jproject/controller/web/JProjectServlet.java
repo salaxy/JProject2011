@@ -80,7 +80,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (!getOperation(req).equals("Logout") || session.getAttribute("aktUser")!=null) {	
+		if (!(getOperation(req).equals("Logout") || (session.getAttribute("aktUser")==null))) {	
 			synchronized(session){
 				/*TODO DELETE ACTION
 				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
