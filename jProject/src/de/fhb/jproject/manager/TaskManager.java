@@ -357,28 +357,28 @@ public class TaskManager {
 	throws ProjectException{
 		
 		//XXX gerade in bearbeitung
-		
 		User user=null;
-		
 		List<Task> list=new ArrayList<Task>();
 		
 		//debuglogging
-		logger.info("addNewTask()");
+		logger.info("showAllOwnTasks()");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//RECHTE-ABFRAGE Projekt
-		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
-		}
+//		//RECHTE-ABFRAGE Global
+//		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(aktUser.getGlobalRole())){
+//			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
+//		}
 		
+		//EIGENTLICHE AKTIONEN
 		
 		//user neu holen (praeventiv wegn moegl Seiten effekte)
 		try {
-			user=userDA.getUserByORMID(aktUser.getLoginName());
+			this.clearSession();
+			user=userDA.loadUserByORMID(aktUser.getLoginName());
 		} catch (PersistentException e) {
 			throw new ProjectException("User wurde nicht gefunden!");
 		}
@@ -391,12 +391,16 @@ public class TaskManager {
 			Iterator<Task> taskIterator=null;
 			taskIterator=memberIterator.next().task.getIterator();
 			
+			int i=0;
 			//alle tasks zu einem Member durchlaufen
 			while(taskIterator.hasNext()){
 				//task hinzufuegen
 				list.add(taskIterator.next());
+				System.out.println(i++);
 			}		
 		}
+		
+
 		
 		
 //		Projekt-Rolle des aktuellen Users holen
