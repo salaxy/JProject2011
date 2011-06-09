@@ -3,6 +3,7 @@ package de.fhb.jproject.manager;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -345,61 +346,70 @@ public class TaskManager {
 	
 	
 	/**
-	 * Alle zugeordneten Aufgaben des aktuellen Users zu einem
-	 * angegeben Projekt holen (in dem der User Member ist)
+	 * Alle zugeordneten Aufgaben des aktuellen Users holen
+	 * (von allen Projekten)
 	 * 
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Task> showAllOwnTasks(User aktUser, String projectName)
+	public List<Task> showAllOwnTasks(User aktUser)
 	throws ProjectException{
 		
-		//TODO ALLE Tasks von allen projekten anzeigen
-		//Alle member durchitterien und tasks zusammen ziehen in eine liste
-		//paramter projektname ist ueberfluessig
-		//global rechte einbauen!!! projektrechte weg machen!!
-		Project project=null;
-		Member memAktUser=null;	
+		//XXX gerade in bearbeitung
+		
+		User user=null;
 		
 		List<Task> list=new ArrayList<Task>();
 		
 		//debuglogging
 		logger.info("addNewTask()");
-		logger.debug("String projectName("+projectName+")");
-		//wenn projectname null ist dann zeige alle aufgaben???
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-
-		//XXX Globale Rechte lassen sich hier nicht einbauen, es macht kein sinn und ist nicht moeglich
-		//es sei denn wir machen eine ShowTaskFromUserInProject oder sowas???
-		//Projekt-Rolle des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		//RECHTE-ABFRAGE Projekt
+		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
 		}
 		
-		//RECHTE-ABFRAGE Projekt
-		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(memAktUser.getProjectRole())){
-			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
+		
+		//user neu holen (praeventiv wegn moegl Seiten effekte)
+		try {
+			user=userDA.getUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException e) {
+			throw new ProjectException("User wurde nicht gefunden!");
 		}
-
+		
+		//Iterator fuer MemberSet holen
+		Iterator<Member> memberIterator=user.member.getIterator();
+		
+		//alle member durchlaufen
+		while(memberIterator.hasNext()){
+			Iterator<Task> taskIterator=null;
+			taskIterator=memberIterator.next().task.getIterator();
+			
+			//alle tasks zu einem Member durchlaufen
+			while(taskIterator.hasNext()){
+				//task hinzufuegen
+				list.add(taskIterator.next());
+			}		
+		}
+		
+		
+//		Projekt-Rolle des aktuellen Users holen
+//		try {
+//			memAktUser=memberDA.getMemberByORMID(aktUser, project);
+//		} catch (PersistentException e1) {
+//			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+//		}
+		
 		//Array zu liste umformen
-		for (Task aktTask : memAktUser.task.toArray()) {
-			list.add(aktTask);
-		}
+//		for (Task aktTask : memAktUser.task.toArray()) {
+//			list.add(aktTask);
+//		}
 		
 		return list;
 	}	
