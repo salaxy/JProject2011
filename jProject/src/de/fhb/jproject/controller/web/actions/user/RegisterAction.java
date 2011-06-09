@@ -27,32 +27,41 @@ public class RegisterAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
-		
+	throws ServletException{	
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		
-		try {
+		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			/*TODO logger.debug("Parameter: "
+					+ "String documentId(" + req.getParameter("documentId") + "), "
+					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+					);
+			*/
+		
 			
-			//Manager in aktion
-			mainManager.getUserManager().register(req.getParameter("loginName"), req.getParameter("passwort"), req.getParameter("passwortWdhl"),req.getParameter("nachname"), req.getParameter("vorname"));
-			
+			try {
+				//Manager in aktion
+				mainManager.getUserManager().register(req.getParameter("loginName"), 
+													  req.getParameter("passwort"), 
+													  req.getParameter("passwortWdhl"), 
+													  req.getParameter("nachname"), 
+													  req.getParameter("vorname"));
+	
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}
 		
 	}
-
 }
+		

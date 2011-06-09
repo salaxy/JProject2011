@@ -42,16 +42,14 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String loginName(" + req.getParameter("loginName") + ")"
 					);
-			
-			//Manager in aktion			
-			mainManager.getUserManager().deleteUser((User)session.getAttribute("aktUser"), 
-														  req.getParameter("loginName"));
-			
+			try{
+				//Manager in aktion			
+				mainManager.getUserManager().deleteUser((User)session.getAttribute("aktUser"), 
+															  req.getParameter("loginName"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
