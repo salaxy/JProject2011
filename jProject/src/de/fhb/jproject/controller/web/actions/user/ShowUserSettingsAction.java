@@ -41,10 +41,14 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			
-			//Manager in aktion
-			aktUser =mainManager.getUserManager().showUserSettings((User)session.getAttribute("aktUser"));
-			
+			try {
+				//Manager in aktion
+				aktUser =mainManager.getUserManager().showUserSettings((User)session.getAttribute("aktUser"));
+
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+				
 			//setzen der Attribute
 			//TODO AKTUSER EIGENTLICH SCHON IN DER SESSION
 			req.setAttribute("user", aktUser);
@@ -52,10 +56,6 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			req.setAttribute("contentFile", "showUserSettings.jsp");
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

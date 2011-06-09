@@ -40,7 +40,7 @@ public class LogoutAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Manager in aktion
-			//mainManager.getUserManager().logout();
+			mainManager.getUserManager().logout();
 			synchronized(session){
 				session.setAttribute("mainManager", null);
 				session.setAttribute("loggedIn", null);

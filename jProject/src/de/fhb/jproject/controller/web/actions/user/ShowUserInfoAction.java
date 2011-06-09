@@ -42,18 +42,19 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			
-			//Manager in aktion
-			user =mainManager.getUserManager().showUserInfo((User)session.getAttribute("aktUser"), req.getParameter("loginName"));
-			
+			try {
+				//Manager in aktion
+				user =mainManager.getUserManager().showUserInfo((User)session.getAttribute("aktUser"), 
+																req.getParameter("loginName"));
+
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+				
 			//setzen der Parameter
 			req.setAttribute("user", user);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

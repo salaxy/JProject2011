@@ -46,15 +46,19 @@ public class LoginAction extends HttpRequestActionBase {
 					+ "String loginName(" + req.getParameter("loginName") + "), "
 					+ "String password(" + req.getParameter("password") + ")"
 					);
-			
-			//Manager in aktion
-			synchronized(session){
-				
-				session.setAttribute("aktUser", mainManager.getUserManager().login(
-						req.getParameter("loginName"),
-						req.getParameter("password")));
-				session.setAttribute("mainManager", mainManager);
+			try{
+				//Manager in aktion
+				synchronized(session){
+
+					session.setAttribute("aktUser", mainManager.getUserManager().login(
+							req.getParameter("loginName"),
+							req.getParameter("password")));
+					session.setAttribute("mainManager", mainManager);
+				}
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
 			}
+				
 			
 			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
@@ -63,10 +67,6 @@ public class LoginAction extends HttpRequestActionBase {
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("triedLogin", true);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
-			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
 		}

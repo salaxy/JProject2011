@@ -40,17 +40,18 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			//Manager in aktion
-			mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
-					req.getParameter("neuSkype"), req.getParameter("neutelefon"), req.getParameter("sprache"), req.getParameter("neuesPasswortEins"),
-					req.getParameter("neuesPasswortZwei"), req.getParameter("altesPasswort"));
-			
+			try {
+				//Manager in aktion
+				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), req.getParameter("nachname"), req.getParameter("vorname"), req.getParameter("neuIcq"),
+						req.getParameter("neuSkype"), req.getParameter("neutelefon"), req.getParameter("sprache"), req.getParameter("neuesPasswortEins"),
+						req.getParameter("neuesPasswortZwei"), req.getParameter("altesPasswort"));
+
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+				
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

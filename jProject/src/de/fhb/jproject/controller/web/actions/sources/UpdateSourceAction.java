@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * @author klay
  */
 public class UpdateSourceAction extends HttpRequestActionBase {
-private MainManager mainManager;
+	private MainManager mainManager;
 	private static final Logger logger = Logger.getLogger(ShowAllDocuAction.class);
 
 	/* (non-Javadoc)
@@ -53,7 +53,6 @@ private MainManager mainManager;
 				logger.error(e.getMessage(), e);
 			}
 			
-			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
