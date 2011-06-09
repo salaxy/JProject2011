@@ -70,24 +70,24 @@ public class DocumentManager {
 			
 			FileItem fileItem = it.next();	
 			logger.debug("File "+ fileItem.getName());
-		//docu erzeugen und parameter setzen
-		docu=docuDA.createDocument();
-		//project setzen
-		docu.setProject(aktProject);
-		//setzen weiterer attribute
-		docu.setDateiname(getFilename(fileItem.getName()));
-					
-		//docu speichern
-		try {
-			// alles speichern
-			docuDA.save(docu);
-			saveDocument(fileItem);
-		} catch (PersistentException e) {
-			throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
-		}
-		catch (IOException e) {
-			throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
-		}
+			//docu erzeugen und parameter setzen
+			docu=docuDA.createDocument();
+			//project setzen
+			docu.setProject(aktProject);
+			//setzen weiterer attribute
+			docu.setDateiname(getFilename(fileItem.getName()));
+			
+			//docu speichern
+			try {
+				// alles speichern
+				docuDA.save(docu);
+				saveDocument(fileItem);
+			} catch (PersistentException e) {
+				throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
+			}
+			catch (IOException e) {
+				throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
+			}
 		}
 		
 	}
