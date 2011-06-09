@@ -9,6 +9,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.repository.da.DocumentDA;
 import de.fhb.jproject.repository.da.MemberDA;
+import de.fhb.jproject.repository.da.ProjectDA;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,8 +26,10 @@ public class DocumentManager {
 
 	private ProjectRolesManager projectRolesManager;
 	private GlobalRolesManager globalRolesManager;
+	
 	private MemberDA memberDA;
-	private DocumentDA docuDA; 
+	private DocumentDA docuDA;
+	private ProjectDA projectDA;
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
@@ -34,6 +37,8 @@ public class DocumentManager {
 		
 		this.projectRolesManager=projectRolesManager;
 		this.globalRolesManager=globalRolesManager;
+		
+		projectDA = DAFactory.getDAFactory().getProjectDA();
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		docuDA = DAFactory.getDAFactory().getDocumentDA();
 	}
@@ -41,20 +46,31 @@ public class DocumentManager {
 	// !!! Dokument Actions !!!
 	
 	public void addNewDocu(User aktUser, Project aktProject, List<FileItem> fields)throws ProjectException{
-		clearSession();
-		Member memAktUser=null;	
-		Document docu=null;
+		//clearSession();
 		
 		logger.info("addNewDocu()");
-		logger.debug("String projectName("+aktProject.getName()+")");
+		logger.debug("String projectName("+aktProject.getName()+")");//TODO
 		
+		Member memAktUser=null;	
+		Document docu=null;
+		Project project = null;
+		
+				
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
+		try {
+			project=projectDA.getProjectByORMID(aktProject.getName());
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+		}
+		
 		if(!globalRolesManager.isAllowedAddNewDocuAction(aktUser.getGlobalRole())){
 			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, aktProject);
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!projectRolesManager.isAllowedAddNewDocuAction(memAktUser.getProjectRole())){
@@ -64,6 +80,13 @@ public class DocumentManager {
 		
 		clearSession();
 		//EIGENTLICHE AKTIONEN
+		try {
+			project=projectDA.getProjectByORMID(aktProject.getName());
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
+		}
 		
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
@@ -73,7 +96,7 @@ public class DocumentManager {
 			//docu erzeugen und parameter setzen
 			docu=docuDA.createDocument();
 			//project setzen
-			docu.setProject(aktProject);
+			docu.setProject(project);
 			//setzen weiterer attribute
 			docu.setDateiname(getFilename(fileItem.getName()));
 			
