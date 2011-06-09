@@ -5,17 +5,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
+/**
+* Action die angesprochen wird wenn sich jemand sich registriert
+* 
+* STATUS:	FREIGEGEBEN konnte aber nicht testen
+* URL: 		http://localhost:8080/jProject/JProjectServlet?do=Register&loginName=neuerUser&loginNameWdhl=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
+* @author  	Andy Klay <klay@fh-brandenburg.de>
+*/
 public class RegisterAction extends HttpRequestActionBase {
 
-
 	private MainManager mainManager;
-	private static final Logger logger = Logger.getLogger(LoginAction.class);
+	private static final Logger logger = Logger.getLogger(RegisterAction.class);
 
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -33,12 +40,9 @@ public class RegisterAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Manager in aktion
-			mainManager.getUserManager().register();
+			mainManager.getUserManager().register(req.getParameter("loginName"), req.getParameter("loginNameWdhl"), req.getParameter("passwort"), req.getParameter("passwortWdhl"),req.getParameter("nachname"), req.getParameter("vorname"));
 			
 			
-			//forwarden zum JSP
-			//XXX syso entfernen
-			System.out.println("Erfolgreich registriert!");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
@@ -49,6 +53,6 @@ public class RegisterAction extends HttpRequestActionBase {
 			req.setAttribute("errorString", e.getMessage());
 		}
 		
-		
 	}
+
 }
