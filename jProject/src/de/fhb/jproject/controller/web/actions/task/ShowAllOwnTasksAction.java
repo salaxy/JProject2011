@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  * Aktion die ausgefuehrt wird, wenn die eigenen Tasks/Aufgaben
  * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
  * 
- * STATUS:	FREIGEGEBEN
+ * STATUS:	NICHT FREIGEGEBEN
  * URL:		JProjectServlet?do=ShowAllOwnTasks&projectName=ProjectName
  * @author	Andy Klay <klay@fh-brandenburg.de>
  */
@@ -44,11 +44,9 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
-					);
+			
 			try {
-				taskList=mainManager.getTaskManager().showAllOwnTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+				taskList=mainManager.getTaskManager().showAllOwnTasks((User)session.getAttribute("aktUser"));
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
