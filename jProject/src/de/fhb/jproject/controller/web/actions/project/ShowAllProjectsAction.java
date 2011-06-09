@@ -18,14 +18,12 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
  * 
+ * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
+ * 
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	http://localhost:8080/jProject/JProjectServlet?do=ShowAllProjects
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
- * 
- * http://localhost:8080/jProject/JProjectServlet?do=ShowAllProjects
  */
 public class ShowAllProjectsAction extends HttpRequestActionBase {
 
@@ -36,11 +34,14 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
-		HttpSession session = req.getSession();
+throws ServletException {
+		
+		HttpSession session = req.getSession();		
+		List<Project> projectList=null;
+		
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		List<Project> projectList=null;
+
 		
 		try {
 		
