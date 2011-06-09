@@ -80,7 +80,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (/*TODO !getOperation(req).equals("Logout") ||*/ session.getAttribute("aktUser")!=null) {	
+		if (!getOperation(req).equals("Logout") || session.getAttribute("aktUser")!=null) {	
 			synchronized(session){
 				/*TODO DELETE ACTION
 				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
@@ -108,7 +108,81 @@ public class JProjectServlet extends HttpServletControllerBase {
 			}
 		}
 	}
+	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		//Session holen
+		HttpSession session = req.getSession();
+		synchronized(session){
+			mainManager = (MainManager)session.getAttribute("mainManager");
+			//Player fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+				mainManager = new MainManager();
 
+				//HttpSession ist nicht Threadsave deswegn Synchronized
+
+				session.setAttribute("aktUser", null);
+				session.setAttribute("mainManager", mainManager);
+			}
+		}
+		super.doGet(req, resp);
+		
+		processRequest(req, resp, session);
+		
+		
+		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+		reqDisp.forward(req, resp);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
+	 * , javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		
+		System.out.println("OP: "+req.getParameter("do"));
+		//Session holen
+		HttpSession session = req.getSession();
+		synchronized(session){
+			mainManager = (MainManager)session.getAttribute("mainManager");
+			//Player fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+				mainManager = new MainManager();
+
+				//HttpSession ist nicht Threadsave deswegn Synchronized
+
+				session.setAttribute("aktUser", null);
+				session.setAttribute("mainManager", mainManager);
+			}
+		}
+		
+		super.doPost(req, resp);
+		
+		processRequest(req, resp, session);
+		
+		
+		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+		reqDisp.forward(req, resp);
+	}
+
+
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/** 
+	 * Returns a short description of the servlet.
+	 * @return a String containing servlet description
+	 */
+	public String getServletInfo() {
+		return "Short description";
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -159,20 +233,11 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		// !!! Dokument Actions !!!
 		
-		action = new AddNewDocuAction();
-		actions.put("AddNewDocu", action);
-			
 		action = new DeleteDocuAction();
 		actions.put("DeleteDocu", action);
 		
-		action = new DownloadDocuAction();
-		actions.put("DownloadDocu", action);
-		
 		action = new ShowAllDocuAction();
 		actions.put("ShowAllDocu", action);
-		
-		action = new UpdateDocuAction();
-		actions.put("UpdateDocu", action);
 		
 		action = new ShowDocuAction();
 		actions.put("ShowDocu", action);
@@ -208,25 +273,15 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		
 		// !!! Source Actions !!!
-		
-		
-		action = new AddNewSourceAction();
-		actions.put("AddNewSource", action);		
-		
+				
 		action = new DeleteSourceAction();
-		actions.put("DeleteSource", action);		
-		
-		action = new DownloadSourceAction();
-		actions.put("DownloadSource", action);		
+		actions.put("DeleteSource", action);	
 		
 		action = new ShowSourceAction();
 		actions.put("ShowSource", action);		
 		
 		action = new ShowAllSourceAction();
 		actions.put("ShowAllSource", action);	
-		
-		action = new UpdateSourceAction();
-		actions.put("UpdateSource", action);	
 		
 		
 		// !!! Task Actions !!!
@@ -293,102 +348,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 	protected String getOperation(HttpServletRequest req) {
 		// do ist in diesem Fall der Steuerbefahl z.B. ?do=selectCD&cdId=1
 		return req.getParameter("do");
-	}
+	}// </editor-fold>
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		//Session holen
-		HttpSession session = req.getSession();
-		synchronized(session){
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null || getOperation(req).equals("Login")) {
-				mainManager = new MainManager();
-
-				//HttpSession ist nicht Threadsave deswegn Synchronized
-
-				session.setAttribute("aktUser", null);
-				session.setAttribute("mainManager", mainManager);
-			}
-		}
-		super.doGet(req, resp);
-		
-		processRequest(req, resp, session);
-		
-		
-		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
-		System.out.println("OP: "+req.getParameter("do"));
-		//Session holen
-		HttpSession session = req.getSession();
-		synchronized(session){
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
-				mainManager = new MainManager();
-
-				//HttpSession ist nicht Threadsave deswegn Synchronized
-
-				session.setAttribute("aktUser", null);
-				session.setAttribute("mainManager", mainManager);
-			}
-		}
-		
-		boolean isMultipartContent = ServletFileUpload.isMultipartContent(req);
-		List<FileItem> fields = null;
-		String ops = "";
-		if (isMultipartContent) {
-				
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			try {
-				
-				fields = upload.parseRequest(req);
-			} catch (FileUploadException e) {
-				System.out.println("FAIL");
-			}
-			for (FileItem fileItem : fields) {
-				System.out.println("FieldName: "+fileItem.getFieldName());
-				if (fileItem.getFieldName().equals("do")) {
-					System.out.println("name: "+fileItem.getString());
-					ops = fileItem.getString();
-				}
-
-			}
-			req.setAttribute("data", fields);
-			// Zunaechst wird die URL analysiert,
-			// um die Operation, die ausgefueht werden soll zu bestimmen
-			String op = ops;
-			// dann wird die entsprechende Aktion aus der Map geholt ...
-			HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
-			// ... und angestossen
-			action.perform(req, resp);
-			
-		}else{
-			super.doPost(req, resp);
-		}
-		
-		
-		
-		
-		processRequest(req, resp, session);
-		
-		
-		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
-	}
-}
+}	
