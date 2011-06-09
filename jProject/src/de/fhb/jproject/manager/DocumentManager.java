@@ -40,8 +40,8 @@ public class DocumentManager {
 	
 	// !!! Dokument Actions !!!
 	
-	public void addNewDocu(Project aktProject, List<FileItem> fields, User aktUser)throws ProjectException{
-		
+	public void addNewDocu(User aktUser, Project aktProject, List<FileItem> fields)throws ProjectException{
+		clearSession();
 		Member memAktUser=null;	
 		Document docu=null;
 		
@@ -54,11 +54,7 @@ public class DocumentManager {
 		
 		if(!globalRolesManager.isAllowedAddNewDocuAction(aktUser.getGlobalRole())){
 			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, aktProject);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, aktProject);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!projectRolesManager.isAllowedAddNewDocuAction(memAktUser.getProjectRole())){
@@ -66,7 +62,9 @@ public class DocumentManager {
 			}		
 		}
 		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
+		
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
 			
@@ -80,8 +78,7 @@ public class DocumentManager {
 		docu.setDateiname(getFilename(fileItem.getName()));
 					
 		//docu speichern
-		try {		
-			clearSession();
+		try {
 			// alles speichern
 			docuDA.save(docu);
 			saveDocument(fileItem);
@@ -105,12 +102,26 @@ public class DocumentManager {
 	
 	public void showDocu(){}
 	
-	private void clearSession() throws PersistentException{
-		PersistentSession session;		
-		//Session holen
-		session = JProjectPersistentManager.instance().getSession();
-		//und bereinigen
-		session.clear();
+	private void clearSession() throws ProjectException{
+		try {
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+		}
+		
+	}
+	private Member getMember(User aktUser, Project project)throws ProjectException{
+		Member aktMember = null;
+		try {
+			aktMember=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		return aktMember;
 	}
 	
 	private void saveDocument(FileItem fileItem) throws IOException{
