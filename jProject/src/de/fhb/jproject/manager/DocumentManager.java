@@ -48,8 +48,10 @@ public class DocumentManager {
 	public void addNewDocu(User aktUser, Project aktProject, List<FileItem> fields)throws ProjectException{
 		clearSession();
 		
+		System.out.println("Bla"+fields.get(1).toString());
+		
 		logger.info("addNewDocu()");
-		logger.debug("String projectName("+aktProject.getName()+")");//TODO
+		//logger.debug("String projectName("+aktProject.getName()+")");//TODO
 		
 		Member memAktUser=null;	
 		Document docu=null;
@@ -92,13 +94,20 @@ public class DocumentManager {
 		while (it.hasNext()) {
 			
 			FileItem fileItem = it.next();	
+			
+			if (fileItem.getFieldName().equals("do")){
+				fileItem = it.next();
+			}
+			
+			System.out.println("Test:"+ fileItem.toString());
 			logger.debug("File "+ fileItem.getName());
 			//docu erzeugen und parameter setzen
 			docu=docuDA.createDocument();
 			//project setzen
 			docu.setProject(project);
 			//setzen weiterer attribute
-			docu.setDateiname(getFilename(fileItem.getName()));
+			docu.setDateiname(fileItem.getName());
+			System.out.println("Name:"+docu.getDateiname());
 			
 			//docu speichern
 			try {
@@ -148,7 +157,7 @@ public class DocumentManager {
 	}
 	
 	private void saveDocument(FileItem fileItem) throws IOException{
-		File file = new File(getFilename(fileItem.getName()));
+		File file = new File(fileItem.getName());
 		FileOutputStream out = new FileOutputStream(file);
 		byte[] data = new byte[1024];
 	    int offset = 0;
@@ -161,17 +170,6 @@ public class DocumentManager {
 	    	offset +=1024;
 	    }
 	    out.write(data,offset,length);	
-	}
-	
-	private String getFilename(String pfad){
-		int tempi=0;
-		// suche '\'
-		for (int i=pfad.length(); i>0; i--){
-			if (pfad.charAt(i)==92){
-				tempi=i;
-			}
-		}
-		return pfad.substring(tempi+1);
 	}
 	
 }
