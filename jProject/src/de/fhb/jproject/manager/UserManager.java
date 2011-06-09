@@ -142,14 +142,7 @@ public class UserManager {
         //abfrage ob user eingeloggt
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
-        }		
-
-		try {
-			//holen der daten
-			aktUser= userDA.loadUserByORMID(aktUser.getLoginName());
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
+        }
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(loginName);
