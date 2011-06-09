@@ -55,7 +55,7 @@ public class DeleteSourceAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-			req.setAttribute("contentFile", "showAllDocu.jsp");
+			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
