@@ -73,7 +73,7 @@ public class UserManager {
 		}
 		
 		//abfrage ob user Rechte hat bzw Eigner ist
-		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) && !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
 		}
 		try {
@@ -113,7 +113,7 @@ public class UserManager {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) || !(aktUser == user)){
+		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) && !(aktUser == user)){
 			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
@@ -232,12 +232,19 @@ public class UserManager {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
+		//User neu holen
+		try {
+			user=userDA.getUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
+		}
+		
 		//abfrage ob user Rechte hat
-		// || !(aktUser == user)
-//		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole())){
-//			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
-//		}
+		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) && !(aktUser == user)){
+			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
+		}
 	
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//User neu holen
