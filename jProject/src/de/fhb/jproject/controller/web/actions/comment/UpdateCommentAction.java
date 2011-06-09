@@ -52,7 +52,7 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 						);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}
+			}/*TODO IllegalArgumentE*/
 			
 
 		}catch (ProjectException e) {
