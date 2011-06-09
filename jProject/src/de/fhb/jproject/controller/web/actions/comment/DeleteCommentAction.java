@@ -44,20 +44,18 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 					+ "String commentId(" + req.getParameter("commentId") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getCommentManager().deleteComment((User)session.getAttribute("aktUser"), 
-					req.getParameter("projectName")
-					, Integer.valueOf(req.getParameter("commentId"))
-					);
-			
+			try{
+				//Manager in aktion
+				mainManager.getCommentManager().deleteComment((User)session.getAttribute("aktUser"), 
+						req.getParameter("projectName")
+						, Integer.valueOf(req.getParameter("commentId"))
+						);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

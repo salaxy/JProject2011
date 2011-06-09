@@ -52,10 +52,14 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-			//Manager in aktion
-			project=mainManager.getProjectManager().showProject((User)session.getAttribute("aktUser"), 
-																	 req.getParameter("projectName"));
 			
+			try {
+				//Manager in aktion
+				project=mainManager.getProjectManager().showProject((User)session.getAttribute("aktUser"), 
+																		 req.getParameter("projectName"));
+			}catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
+			}
 			/*TODO DELETE ACTION
 			ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
 			showAllMemberAction.perform(req, resp);
@@ -65,11 +69,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				memberList = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
-				/*
-				req.setAttribute("contentFile", "error.jsp");
-				req.setAttribute("errorString", e.getMessage());
-				 * 
-				 */
 			}
 			
 			//TODO anzahl documente, anzahl Sourcecode
@@ -77,7 +76,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			//setzen der Parameter
 			req.setAttribute("project", project);
-			session.setAttribute("aktProject", project);//TODO PRUEFEN OB NOCH GEBRAUCHT
+			session.setAttribute("aktProject", project);
 			
 			req.setAttribute("memberList", memberList);
 			
@@ -86,10 +85,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

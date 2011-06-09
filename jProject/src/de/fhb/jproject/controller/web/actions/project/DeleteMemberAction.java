@@ -48,17 +48,15 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getProjectManager().deleteMember((User)session.getAttribute("aktUser"), 
-															  req.getParameter("userLoginName"), 
-															  req.getParameter("projectName"));
-			
+			try{
+				//Manager in aktion
+				mainManager.getProjectManager().deleteMember((User)session.getAttribute("aktUser"), 
+																  req.getParameter("userLoginName"), 
+																  req.getParameter("projectName"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

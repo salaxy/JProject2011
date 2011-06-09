@@ -48,18 +48,16 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("") + ")"
 					);
 			
-		
-			//Manager in aktion
-			mainManager.getProjectManager().addNewProject((User)session.getAttribute("aktUser"), 
-															   req.getParameter("projectName"), 
-															   req.getParameter("status"));
-			
+			try{
+				//Manager in aktion
+				mainManager.getProjectManager().addNewProject((User)session.getAttribute("aktUser"), 
+																   req.getParameter("projectName"), 
+																   req.getParameter("status"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

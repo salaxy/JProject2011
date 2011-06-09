@@ -40,7 +40,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Manager in aktion
-			mainManager.getUserManager().register(req.getParameter("loginName"), req.getParameter("loginNameWdhl"), req.getParameter("passwort"), req.getParameter("passwortWdhl"),req.getParameter("nachname"), req.getParameter("vorname"));
+			mainManager.getUserManager().register(req.getParameter("loginName"), req.getParameter("passwort"), req.getParameter("passwortWdhl"),req.getParameter("nachname"), req.getParameter("vorname"));
 			
 			
 		}catch (ProjectException e) {

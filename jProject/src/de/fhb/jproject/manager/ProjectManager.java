@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
@@ -32,7 +33,7 @@ public class ProjectManager {
 	private GlobalRolesManager globalRolesManager;
 	private final String LEADER = "Leader";
 	
-	//Notiz: Get>>>komplett neu aus der DB, LOAD>> schon vorgehalten
+	//Notiz: Get>>>komplett neu aus der DB, get>> schon vorgehalten
 	
 	private MemberDA memberDA;
 	private ProjectDA projectDA;
@@ -463,7 +464,8 @@ public class ProjectManager {
 		// user neu holen um seiten effekte zu vermeiden
 		try {
 			//user suchen
-			user = userDA.loadUserByORMID(aktUser.getLoginName());
+			clearSession();
+			user = userDA.getUserByORMID(aktUser.getLoginName());
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
@@ -486,7 +488,8 @@ public class ProjectManager {
 	 */
 	public List<Member> showAllMember(User aktUser, String projectName)
 	throws ProjectException{
-		
+		//TODO BEISPIELMETHODE
+		clearSession();
 		Project project=null;
 		Member memAktUser=null;
 		
@@ -494,45 +497,70 @@ public class ProjectManager {
 		logger.info("showAllMember()");
 		logger.debug("String name("+projectName+")");
 		
+		
+		globalRolesManager.isAllowedAddNewProjectAction("Member"); 
+		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
 		//projekt holen
+		
 		try {
-			JProjectPersistentManager.instance().getSession().clear();
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 		
+		
+			
 		//RECHTE-ABFRAGE Global
+		
 		if(!globalRolesManager.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
 			
 			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
-			
+			memAktUser = getMember(aktUser, project);
 			//RECHTE-ABFRAGE projekt
 			if(!projectRolesManager.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
 				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
 			}
 		}
-
-		//TODO hier ist immer noch 1 null eintrag der bleibt!! woher?
+		clearSession();
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}
+		System.out.println("Size: "+project.member.getCollection().size());
+		for (Object o : project.member.getCollection()) {
+			Member mem = (Member)o;
+			System.out.println("Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
+			
+		}
 		return Arrays.asList(project.member.toArray());
 	}
 	
-	private void clearSession() throws PersistentException{
-		PersistentSession session;		
-		//Session holen
-		session = JProjectPersistentManager.instance().getSession();
-		//und bereinigen
-		session.clear();
+	private void clearSession() throws ProjectException{
+		try {
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+		}
+		
+	}
+	private Member getMember(User aktUser, Project project)throws ProjectException{
+		Member aktMember = null;
+		try {
+			aktMember=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		return aktMember;
 	}
 	
 	

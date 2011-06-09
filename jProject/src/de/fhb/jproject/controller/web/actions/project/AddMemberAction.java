@@ -46,19 +46,17 @@ public class AddMemberAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					+ "String projectName(" + req.getParameter("rolle") + ")"
 					);
-			
-			//Manager in aktion
-			mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
-														   req.getParameter("userLoginName"), 
-														   req.getParameter("projectName"), 
-														   req.getParameter("rolle"));
-			
+			try{
+				//Manager in aktion
+				mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
+															   req.getParameter("userLoginName"), 
+															   req.getParameter("projectName"), 
+															   req.getParameter("rolle"));
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
