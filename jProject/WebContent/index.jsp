@@ -17,7 +17,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>jProject</title>
 		<link rel="stylesheet" href="style.css" type="text/css" />
-		<%@include file="WEB-INF/jspf/javascript.jsp" %>
+		<%@include file="WEB-INF/jspf/layout/javascript.jsp" %>
     </head>
     <body>
         <div id="banner">
@@ -46,7 +46,7 @@
 			 		<div id="inner">
 			 			<div id="left" >
 	<!--LEFT-->
-							<jsp:include page='WEB-INF/jspf/leftnavi.jsp' />	
+							<jsp:include page='WEB-INF/jspf/layout/leftnavi.jsp' />	
 	<!--LEFT-END-->
 			   			</div>
 	<!--RIGHT-->		<!--<div id="right" >
@@ -67,7 +67,7 @@
 											<jsp:include page='<%= "WEB-INF/jspf/"+(String)request.getAttribute("contentFile") %>' />
 										</c:when>
 										<c:otherwise>
-											Projectübersicht!
+											<jsp:include page='WEB-INF/jspf/overview.jsp' />
 										</c:otherwise>
 									</c:choose>
 
@@ -78,7 +78,7 @@
 
 								</c:when>
 								<c:otherwise>
-									<jsp:include page='WEB-INF/jspf/welcome.jsp' />
+									<jsp:include page='WEB-INF/jspf/layout/welcome.jsp' />
 								</c:otherwise>
 							</c:choose>		
 	<!--CONTENT-END-->
@@ -93,7 +93,7 @@
 		</div><!--end outercontainer-->
 		<div id="impressum">
 	<!--IMPRESSUM-->	
-			<jsp:include page='WEB-INF/jspf/impressum.jsp' />
+			<jsp:include page='WEB-INF/jspf/layout/impressum.jsp' />
 	<!--IMPRESSUM-->	
 		</div>
     </body>

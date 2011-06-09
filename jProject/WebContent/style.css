@@ -8,14 +8,14 @@ body {
 	margin:0px;
 }
 a {
-	/*
-	color: #DB7093;
-	*/
+	
+	color: silver;
+	
 }
 a:visited {
-	/*
-	color:#DB7093;
-	*/
+	
+	color: silver;
+	
 	
 }
 a:hover {
@@ -145,8 +145,9 @@ img.download {
 	position:relative; 
 	margin-left:-200px; 
 	margin-right:1px;
+	border-right:1px solid grey;
 }
-#projects {
+#naviliste {
 	margin-left:20px;
 }
 /* --------------right navigation------------- */
@@ -162,7 +163,7 @@ img.download {
 /* -----------------Inhalt--------------------- */ 
 #content{ 
 	/*width: 550px;*/
-	width: 750px;
+	width: 781px;
 	position: relative; 
 	margin: 0px;
 }
@@ -187,19 +188,12 @@ img.download {
 /*  ----------------CONTENT---------------------- */ 
 /* ----------topcontent-------------- */
 #topcontent {
-	width: 750px;
-	height: 25px;
+	width: 781px;
+	height: 30px;
 }
 .buttoncontent {
 	float:left;
-	color: #000000;
-	font-size: 15px;
-	text-align: center;
 	width: 150px;
-	height: 20px;
-	background-color: #807f7f;
-	border-top:1px solid #564b47;
-	border-bottom:1px solid #564b47;
 }
 
 /* --------------left content navigation------------- */
@@ -210,11 +204,11 @@ img.download {
 }
 /* -----------------Inhalt--------------------- */ 
 #contentcontentsmall{
-	width: 750px;
+	width: 781px;
 	margin-left: 150px;
 }
-#contentcontentsmall{
-	width: 750px;
+#contentcontentbig{
+	width: 781px;
 	/*margin-left: 150px;*/
 }
 /* ----------container zentriert das layout-------------- */
@@ -223,7 +217,7 @@ img.download {
 	margin-right: auto;
 }
 #footercontent { 
-	width: 750px;
+	width: 781px;
 	clear: both;
 }
 
