@@ -368,10 +368,10 @@ public class TaskManager {
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
 		
-//		//RECHTE-ABFRAGE Global
-//		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(aktUser.getGlobalRole())){
-//			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
-//		}
+		//RECHTE-ABFRAGE Global
+		if(!globalRolesManager.isAllowedShowAllOwnTasksAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
+		}
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -384,12 +384,12 @@ public class TaskManager {
 		}
 		
 		//Iterator fuer MemberSet holen
-		Iterator<Member> memberIterator=user.member.getIterator();
+		Iterator<Member> memberIterator=user.member.getCollection().iterator();
 		
 		//alle member durchlaufen
 		while(memberIterator.hasNext()){
 			Iterator<Task> taskIterator=null;
-			taskIterator=memberIterator.next().task.getIterator();
+			taskIterator=memberIterator.next().task.getCollection().iterator();
 			
 			int i=0;
 			//alle tasks zu einem Member durchlaufen
@@ -399,21 +399,6 @@ public class TaskManager {
 				System.out.println(i++);
 			}		
 		}
-		
-
-		
-		
-//		Projekt-Rolle des aktuellen Users holen
-//		try {
-//			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-//		} catch (PersistentException e1) {
-//			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-//		}
-		
-		//Array zu liste umformen
-//		for (Task aktTask : memAktUser.task.toArray()) {
-//			list.add(aktTask);
-//		}
 		
 		return list;
 	}	
