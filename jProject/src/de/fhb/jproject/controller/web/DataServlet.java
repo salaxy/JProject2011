@@ -135,11 +135,17 @@ public class DataServlet extends HttpServletControllerBase {
 			// dann wird die entsprechende Aktion aus der Map geholt ...
 			HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 			// ... und angestossen
-			action.perform(req, resp);
+			try {
+				action.perform(req, resp);
+				processRequest(req, resp, session);
+			} catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
+				req.setAttribute("triedLogin", true);
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+			}
 			
 		}
-		
-		processRequest(req, resp, session);
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		
@@ -203,11 +209,17 @@ public class DataServlet extends HttpServletControllerBase {
 			// dann wird die entsprechende Aktion aus der Map geholt ...
 			HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 			// ... und angestossen
-			action.perform(req, resp);
+			try {
+				action.perform(req, resp);
+				processRequest(req, resp, session);
+			} catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
+				req.setAttribute("triedLogin", true);
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+			}
 			
 		}
-		
-		processRequest(req, resp, session);
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		

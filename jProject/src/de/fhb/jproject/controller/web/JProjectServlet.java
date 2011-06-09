@@ -111,6 +111,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		
 		//Session holen
 		HttpSession session = req.getSession();
 		synchronized(session){
@@ -125,9 +126,15 @@ public class JProjectServlet extends HttpServletControllerBase {
 				session.setAttribute("mainManager", mainManager);
 			}
 		}
-		super.doGet(req, resp);
-		
-		processRequest(req, resp, session);
+		try {
+			super.doGet(req, resp);
+			processRequest(req, resp, session);
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("triedLogin", true);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+		}
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
@@ -147,7 +154,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		System.out.println("OP: "+req.getParameter("do"));
 		//Session holen
 		HttpSession session = req.getSession();
 		synchronized(session){
@@ -162,10 +168,15 @@ public class JProjectServlet extends HttpServletControllerBase {
 				session.setAttribute("mainManager", mainManager);
 			}
 		}
-		
-		super.doPost(req, resp);
-		
-		processRequest(req, resp, session);
+		try {
+			super.doPost(req, resp);
+			processRequest(req, resp, session);
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("triedLogin", true);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+		}
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));

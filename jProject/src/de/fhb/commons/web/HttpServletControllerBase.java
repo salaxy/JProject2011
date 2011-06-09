@@ -50,7 +50,9 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	    // dann wird die entsprechende Aktion aus der Map geholt ...
 	    HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 	    // ... und angestossen
-	    action.perform(req, resp);
+		
+		action.perform(req, resp);
+	    
 	}
 	  
 	/* (non-Javadoc)
@@ -65,7 +67,8 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	    // dann wird die entsprechende Aktion aus der Map geholt ...
 	    HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 	    // ... und angestossen
-	    action.perform(req, resp);
+	    
+		action.perform(req, resp);
 	}
 	
 	/** Methode muss noch definiert werden, um die Kennung der 
