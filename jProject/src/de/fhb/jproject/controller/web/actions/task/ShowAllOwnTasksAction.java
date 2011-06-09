@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
  * Aktion die ausgefuehrt wird, wenn die eigenen Tasks/Aufgaben
  * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
  * 
- * STATUS:	NICHT FREIGEGEBEN
- * URL:		JProjectServlet?do=ShowAllOwnTasks&projectName=ProjectName
+ * STATUS:	FREIGEGEBEN und getestet
+ * URL:		JProjectServlet?do=ShowAllOwnTasks
  * @author	Andy Klay <klay@fh-brandenburg.de>
  */
 public class ShowAllOwnTasksAction extends HttpRequestActionBase {
@@ -34,12 +34,14 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
-		HttpSession session = req.getSession();
-		//Manager holen
-		mainManager=(MainManager) session.getAttribute("mainManager");
+	throws ServletException {
+		
+		HttpSession session = req.getSession();		
 		List<Task> taskList=null;
 		
+		//Manager holen
+		mainManager=(MainManager) session.getAttribute("mainManager");
+
 		try {				
 			
 			//Debugprint
@@ -51,8 +53,8 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			//Manager in aktion
 			
+			//Manager in aktion
 //			for( Task t : taskList){
 //				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
 //			}	
