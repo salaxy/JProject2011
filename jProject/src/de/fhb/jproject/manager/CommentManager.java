@@ -85,7 +85,7 @@ public class CommentManager {
 	 */
 	public void commentDocu(User aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentDocument commentDocu=null;
 		Comment comment=null;
@@ -117,19 +117,14 @@ public class CommentManager {
 		if(!globalRolesManager.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.loadMemberByORMID(aktUser, document.getProject());
-				//RECHTE-ABFRAGE Projekt
-				if(!(projectRolesManager.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
-					throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
-				}
-				//System.out.println("Member: "+memAktUser.getUserId());
-				
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}	
+			memAktUser = getMember(aktUser, document.getProject());
+			
+			if(!(projectRolesManager.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
+				throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
+			}
 		}
 		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -143,8 +138,7 @@ public class CommentManager {
 		comment.setCommentDocument(commentDocu);
 		
 		//Comment speichern
-		try {		
-			clearSession();
+		try {
 			
 			//Referenz auf Comment setzen
 			commentDocu.setComment(comment);
@@ -153,7 +147,6 @@ public class CommentManager {
 			
 			//CommentDocu speichern
 			commentDocumentDA.save(commentDocu);
-			clearSession();
 		} catch (PersistentException e) {
 			
 			throw new ProjectException("Konnte comment nicht speichern! "+ e.getMessage());
@@ -170,7 +163,7 @@ public class CommentManager {
 	 */
 	public void commentSource(User aktUser, int sourcecodeId, String inhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentSourcecode commentSource=null;
 		Comment comment=null;
@@ -202,11 +195,7 @@ public class CommentManager {
 		if(!globalRolesManager.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, sourcecode.getProject());
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, sourcecode.getProject()); 
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedCommentSourceAction(memAktUser.getProjectRole()))){
@@ -214,7 +203,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//CommentSourcecode erstellen
@@ -228,8 +217,7 @@ public class CommentManager {
 		comment.setCommentSourcecode(commentSource);
 		
 		//Comment speichern
-		try {		
-			clearSession();
+		try {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
@@ -241,8 +229,7 @@ public class CommentManager {
 		commentSource.setComment(comment);
 		
 		//und CommentSourcecode speichern
-		try {		
-			clearSession();
+		try {
 			// speichern
 			commentSourcecodeDA.save(commentSource);
 		} catch (PersistentException e) {
@@ -264,7 +251,7 @@ public class CommentManager {
 	 */
 	public void commentTask(User aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentTask commentTask=null;
 		Comment comment=null;
@@ -296,11 +283,7 @@ public class CommentManager {
 		if(!globalRolesManager.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, task.getProject());
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, task.getProject());
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedCommentTaskAction(memAktUser.getProjectRole()))){
@@ -308,7 +291,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -322,8 +305,7 @@ public class CommentManager {
 		comment.setCommentTask(commentTask);
 		
 		//Comment speichern
-		try {		
-			clearSession();
+		try {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
@@ -335,8 +317,7 @@ public class CommentManager {
 		commentTask.setComment(comment);
 		
 		//und CommentTaskspeichern
-		try {		
-			clearSession();
+		try {
 			// speichern
 			commentTaskDA.save(commentTask);
 		} catch (PersistentException e) {
@@ -356,7 +337,7 @@ public class CommentManager {
 	 */
 	public void commentProject(User aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentProject commentProject=null;
 		Comment comment=null;
@@ -386,11 +367,7 @@ public class CommentManager {
 		if(!globalRolesManager.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedCommentProjektAction(memAktUser.getProjectRole()))){
@@ -398,7 +375,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -412,8 +389,7 @@ public class CommentManager {
 		comment.setCommentProject(commentProject);
 		
 		//Comment speichern
-		try {		
-			clearSession();
+		try {
 			//Member speichern
 			commentDA.save(comment);
 		} catch (PersistentException e) {
@@ -425,8 +401,7 @@ public class CommentManager {
 		commentProject.setComment(comment);
 		
 		//und CommentProject speichern
-		try {		
-			clearSession();
+		try {
 			// speichern
 			commentProjectDA.save(commentProject);
 		} catch (PersistentException e) {
@@ -446,7 +421,7 @@ public class CommentManager {
 	 */
 	public void deleteComment(User aktUser, String projectName, int commentId)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Comment comment=null;
 		Project project=null;
 		Member memAktUser=null;	
@@ -458,6 +433,8 @@ public class CommentManager {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
+		
+		
 		
 		//RECHTE-ABFRAGE Global
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
@@ -473,17 +450,12 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedDeleteCommentAction(memAktUser.getProjectRole()))){
 				
 				//Pruefen ob User Rechte hat weil er den Kommentar selbst erstellt hat!
-				
 				//comment holen
 				try {
 					comment=commentDA.getCommentByORMID(commentId);
@@ -500,11 +472,12 @@ public class CommentManager {
 			}	
 		}	
 		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//comment holen
+		//TODO if(comment==null)
 		try {
-			//if(comment==null)
 			comment=commentDA.getCommentByORMID(commentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht finden!");
@@ -512,7 +485,6 @@ public class CommentManager {
 
 		//loeschen des comments
 		try {
-			this.clearSession();
 			commentDA.delete(comment);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht loeschen!");
@@ -530,7 +502,7 @@ public class CommentManager {
 	 */
 	public void updateComment(User aktUser, String projectName, int commentId, String neuerInhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Comment comment=null;
 		Project project=null;
 		Member memAktUser=null;	
@@ -557,11 +529,7 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedUpdateCommentAction(memAktUser.getProjectRole()))){
@@ -587,8 +555,8 @@ public class CommentManager {
 		//EIGENTLICHE AKTIONEN
 		
 		//comment holen
+		//TODO if(comment==null)
 		try {
-			//if(comment==null)
 			comment=commentDA.getCommentByORMID(commentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht finden!");
@@ -599,7 +567,6 @@ public class CommentManager {
 		
 		//speichern des comments
 		try {
-			this.clearSession();
 			commentDA.save(comment);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht speichern!");
@@ -617,7 +584,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Docu(User aktUser, String projectName, int documentId)
 	throws ProjectException{
-		
+		clearSession();
 		List<Comment> list=new ArrayList<Comment>();
 		CommentDocument[] commentDocument=null;
 		Comment c=null;
@@ -647,11 +614,7 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
@@ -659,12 +622,12 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der commentDocument
 		try {
-			//TODO evtl noch inner DA kapseln
+			//TODO noch inner DA kapseln
 			commentDocument=commentDocumentDA.listCommentDocumentByQuery("DocumentID="+documentId,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
@@ -696,7 +659,7 @@ public class CommentManager {
 	 */
 	public List<Comment>  showAllComments41Source(User aktUser, String projectName, int sourcecodeId)
 	throws ProjectException{
-		
+		clearSession();
 		List<Comment> list=new ArrayList<Comment>();
 		CommentSourcecode[] commentSourcecode=null;
 		Comment c=null;
@@ -726,11 +689,7 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedShowAllComments41SourceAction(memAktUser.getProjectRole()))){
@@ -775,7 +734,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Task(User aktUser, String projectName, int taskId)
 	throws ProjectException{
-		
+		clearSession();
 		List<Comment> list=new ArrayList<Comment>();
 		CommentTask[] commentTask=null;
 		Comment c=null;
@@ -805,11 +764,7 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedShowAllComments41TaskAction(memAktUser.getProjectRole()))){
@@ -817,12 +772,12 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der commentTask
 		try {
-			//TODO evtl noch inner DA kapseln
+			//TODO noch inner DA kapseln
 			commentTask=commentTaskDA.listCommentTaskByQuery("TaskID="+taskId,"CommentID" );
 		} catch (PersistentException e) {
 			System.out.println("Fehler");
@@ -853,7 +808,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Project(User aktUser, String projectName)
 	throws ProjectException{
-		
+		clearSession();
 		List<Comment> list=new ArrayList<Comment>();
 		CommentProject[] commentProject=null;
 		Comment c=null;
@@ -882,11 +837,7 @@ public class CommentManager {
 			}
 			
 			//Member des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!(projectRolesManager.isAllowedShowAllComments42ProjektAction(memAktUser.getProjectRole()))){
@@ -894,12 +845,12 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der commentDocument
 		try {
-			//TODO evtl noch inner DA kapseln
+			//TODO noch inner DA kapseln
 			commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann CommentProject nicht finden! "+ e.getMessage());
@@ -920,11 +871,26 @@ public class CommentManager {
 	}
 	
 	
-	private void clearSession() throws PersistentException{
-		PersistentSession session;		
-		//Session holen
-		session = JProjectPersistentManager.instance().getSession();
-		//und bereinigen
-		session.clear();
+		
+	private void clearSession() throws ProjectException{
+		try {
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+		}
+		
+	}
+	private Member getMember(User aktUser, Project project)throws ProjectException{
+		Member aktMember = null;
+		try {
+			aktMember=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		return aktMember;
 	}
 }
