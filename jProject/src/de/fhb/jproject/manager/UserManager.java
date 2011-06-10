@@ -1,6 +1,5 @@
 package de.fhb.jproject.manager;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +10,7 @@ import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.ICQ;
 import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Skype;
+import de.fhb.jproject.data.Telefon;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.repository.da.UserDA;
@@ -217,8 +217,8 @@ public class UserManager {
 	 * @param altesPasswort
 	 * @throws ProjectException
 	 */
-	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String[] skype,
-			String[] telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
+	public void updateUserSettings(User aktUser, String nachName, String vorname, String[] icqArray, String[] skypeArray,
+			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		clearSession();
 		//TODO noch nicht fertig
@@ -231,8 +231,8 @@ public class UserManager {
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
 				"String skype,String telefon, String sprache, " +
 				"String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)");
-        logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icq+", String "+skype
-        		+",String "+telefon+", String "+sprache
+        logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
+        		+",String "+telefonArray+", String "+sprache
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei+", String "+altesPasswort+")");
 		
         //abfrage ob user eingeloggt
@@ -282,47 +282,69 @@ public class UserManager {
 		}
 		
 		//ICQ
-//		
-//		if(icq!=null&&!icq.isEmpty()){
-//			
-//			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
-//			i.setUserLoginName(user);
-//			i.setIcqNumber(icq);
-//			
-//			
-//			
-//			changed = true;
-//		}
+		if(icqArray!=null){
+			
+			user.iCQ.clear();
+			
+			for(String icq :icqArray){
+				ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();			
+				i.setUserLoginName(user);
+				i.setIcqNumber(icq);
+				user.iCQ.add(i);
+				
+				try {
+					DAFactory.getDAFactory().getICQDA().save(i);
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte ICQ nicht speichern! "+ e.getMessage());
+				}
+			}
+			
+			changed = true;
+		}
 
 		
 		
 		//Skype
-//		if(skype!=null&&!skype.isEmpty()){
-//			
-//			Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();
-//			s.setUserLoginName(user);
-//			s.setSkypeName(skype);
-//			
-//			//wenn bereits enthalten
-//			if(!user.skype.contains(s)){
-//				user.skype.add(s);
-//			}
-//			changed = true;
-//		}
+		if(skypeArray!=null){
+			
+			user.skype.clear();
+			
+			for(String skype :skypeArray){
+				Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();			
+				s.setUserLoginName(user);
+				s.setSkypeName(skype);
+				user.skype.add(s);
+				
+				try {
+					DAFactory.getDAFactory().getSkypeDA().save(s);
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Sykpe nicht speichern! "+ e.getMessage());
+				}
+			}
+			
+			changed = true;
+		}
 		
 		//telefon
-//		if(telefon!=null&&!telefon.isEmpty()){
-//			
-//			Telefon s =DAFactory.getDAFactory().getTelefonDA().createTelefon();
-//			s.setUserLoginName(user);
-//			s.setSkypeName(skype);
-//			
-//			//wenn bereits enthalten
-//			if(!user.skype.contains(s)){
-//				user.skype.add(s);
-//			}
-//			changed = true;
-//		}
+		if(telefonArray!=null){
+			
+			user.telefon.clear();
+			
+			for(String telnr :telefonArray){
+				Telefon t =DAFactory.getDAFactory().getTelefonDA().createTelefon();			
+				t.setUserLoginName(user);
+				t.setTelNumber(telnr);
+				user.telefon.add(t);
+				
+				try {
+					DAFactory.getDAFactory().getTelefonDA().save(t);
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Telefon nicht speichern! "+ e.getMessage());
+				}
+			}
+			
+			changed = true;
+		}
 		
 		
 		//sprache
@@ -363,7 +385,7 @@ public class UserManager {
 		if (changed) {
 			try {
 				//Member speichern
-				//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nith speichert. 
+				//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nicht speichert. 
 				userDA.save(user);
 			} catch (PersistentException e) {
 				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
