@@ -1,2 +1,5 @@
 @micher
-hier noch reinschreibn welche aktionen/methoden ich nochmal korrigieren soll
+hier noch reinschreibn welche aktionen/methoden ich nochmal korrigieren soll!!
+Falls ich zwischen durch doch mal zeit habe!!
+oder vor der abgabe
+am besten mit TODO im quellcode

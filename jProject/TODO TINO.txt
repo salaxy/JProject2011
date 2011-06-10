@@ -1,8 +1,8 @@
 
 Deine Aufgaben TINO
 
- - von mir begonenen DocumentManager fertig stellen und testen
  - Hauptschwerpunkt:
+   DocumentManager fertig stellen
    Download und upload anbindung ergänzen
    (in zusammenarbeit mit Micher)
  
