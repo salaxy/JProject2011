@@ -8,24 +8,3 @@ Datenbank
 		
 DA-Schicht
 **********
-
-brauche die methoden:
-
-- List<User> findUserLike(String teilName)		(projectDA)
-kapseln von>>>
-array= userDA.listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname");
-
-analog dazu bitte
-- List<Project> findProjectsLike(String teilName)		(projectDA)
-array= projectDA.listProjectByQuery("Name LIKE '%"+searchValue+"%'","Name");
-
-
-DAmethoden von:
-
-	commentDocument=commentDocumentDA.listCommentDocumentByQuery("DocumentID="+documentId,"CommentID" );
-			
-	commentSourcecode=commentSourcecodeDA.listCommentSourcecodeByQuery("SourcecodeID="+sourcecodeId,"CommentID" );
-	
-	commentTask=commentTaskDA.listCommentTaskByQuery("TaskID="+taskId,"CommentID" );
-				
-	commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
