@@ -5,8 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Document;
+import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
@@ -31,27 +35,52 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		List<Document> documentList = null;
+		Document document = null;
+		int documentId = 0;
 		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			/*TODO logger.debug("Parameter: "
-					+ "String documentId(" + req.getParameter("documentId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+			logger.debug("Parameter: "
+					+ "int documentId(" + req.getParameter("taskId") + ")"
 					);
-			*/
-		
+			
 			
 			try {
-				//Manager in aktion
-				if(false){
-					throw new ProjectException("Dummy");
-				}
-				throw new NullPointerException("Dummy");
-				//TODO Manageroperation here
+				documentList=mainManager.getDocumentManager().showAllDocu((User)session.getAttribute("aktUser"), 
+																   ((Project)session.getAttribute("aktProject")).getName());
+			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			try {
+				//Wenn documentId == 0 dann gib mir den ersten
+				if (0 == Integer.valueOf(req.getParameter("documentId"))) {
+					documentId = documentList.get(0).getId();
+				}else{
+					documentId = Integer.valueOf(req.getParameter("documentId"));
+				}
+			} catch (IllegalArgumentException e) {
+				throw new ProjectException("DocumentID ungültig "+e);
+			}catch(NullPointerException e){
+				logger.error("Keine Dokumente vorhanden!"+e.getMessage(), e);
+			}
+			
+			
+			
+			try {
+				document = mainManager.getDocumentManager().showDocu((User)session.getAttribute("aktUser"), 
+						 ((Project)session.getAttribute("aktProject")).getName(),
+						 documentId);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			//setzen der Parameter
+			req.setAttribute("documentList", documentList);
+			req.setAttribute("document", document);
+			
 			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {

@@ -12,7 +12,7 @@
 
 <div id="leftcontent">
 	<c:forEach items="${documentList}" var="document" varStatus="i">
-		<a href="JProjectServlet?do=ShowDocu&documentID=${document.id}">${document.dateiname}</a><br>
+		<a href="JProjectServlet?do=ShowAllDocu&documentID=${document.id}">${document.dateiname}</a><br>
 	</c:forEach>
 </div>
 
@@ -22,6 +22,7 @@
 	<form method="POST" action="DataServlet" enctype="multipart/form-data">
 		<input type="hidden" name="do" value="AddNewDocu" />
 		<input type="file" size="50" name="file1">
+		<!--TODO AJAX ADD FIELD-->
 		<input type="submit" value="Upload" />
 	</form>
 </div>
