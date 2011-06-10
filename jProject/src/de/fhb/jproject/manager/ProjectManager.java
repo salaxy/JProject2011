@@ -367,7 +367,7 @@ public class ProjectManager {
 	throws ProjectException{
 		clearSession();
 		
-		Project[] array=null;
+		List <Project> list=null;
 		
 		//debuglogging
 		logger.info("searchProjects()");
@@ -385,13 +385,12 @@ public class ProjectManager {
 		
 		//holen der daten
 		try {
-			//TODO LIKE QUERY IN DER DA SCHICHT
-			array= projectDA.listProjectByQuery("Name LIKE '%"+searchValue+"%'","Name");
+			list= projectDA.listAllProjectsLike(searchValue);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann Projekte nicht finden! "+ ex.getMessage());	
 		}
 		
-		return Arrays.asList(array);
+		return list;
 	}
 	
 	/**

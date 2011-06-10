@@ -17,4 +17,5 @@ public interface ProjectDA extends ProjectDAO{
 	public void delete(String projectName) throws PersistentException;
 	public List<Project> listAllProjects() throws PersistentException;
 	public List<Project> listAllProjects(String orderBy) throws PersistentException;
+	public List<Project> listAllProjectsLike(String searchValue) throws PersistentException;
 }
