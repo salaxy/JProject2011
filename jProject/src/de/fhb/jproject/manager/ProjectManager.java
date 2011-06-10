@@ -140,6 +140,7 @@ public class ProjectManager {
 	public void addNewProject(User aktUser, String name, String status)
 	throws ProjectException{ 
 		clearSession();
+		
 		Project project=null;
 		Member member=null;
 		
@@ -206,6 +207,7 @@ public class ProjectManager {
 	public void deleteProject(User aktUser, String projectName)
 	throws ProjectException{ 
 		clearSession();
+		
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -217,7 +219,6 @@ public class ProjectManager {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
-		
 		
 		//projekt holen
 		try {
@@ -259,6 +260,7 @@ public class ProjectManager {
 	public void deleteMember(User aktUser, String userLoginName, String projectName)
 	throws ProjectException{ 
 		clearSession();
+		
 		Project project=null;
 		Member memAktUser=null;
 		Member delMember=null;
@@ -327,6 +329,7 @@ public class ProjectManager {
 	public Project showProject(User aktUser, String projectName)
 	throws ProjectException{ 
 		clearSession();
+		
 		Project project=null;	
 		
 		//debuglogging
@@ -363,6 +366,7 @@ public class ProjectManager {
 	public List<Project> searchProjects(User aktUser, String searchValue)
 	throws ProjectException{
 		clearSession();
+		
 		Project[] array=null;
 		
 		//debuglogging
@@ -400,6 +404,7 @@ public class ProjectManager {
 	public List<Project> showAllProjects(User aktUser)
 	throws ProjectException{ 
 		clearSession();
+		
 		List<Project> list=null;
 		
 		//debuglogging
@@ -474,8 +479,8 @@ public class ProjectManager {
 	 */
 	public List<Member> showAllMember(User aktUser, String projectName)
 	throws ProjectException{
-		//TODO BEISPIELMETHODE
 		clearSession();
+		
 		Project project=null;
 		Member memAktUser=null;
 		
@@ -510,6 +515,7 @@ public class ProjectManager {
 		}
 		
 		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		try {
