@@ -120,7 +120,9 @@ public class DocumentManager {
 		
 	}
 		
-	public void deleteDocu(User aktUser, int taskId, String projectName){}
+	public void deleteDocu(User aktUser, int docuId, String projectName){
+		
+	}
 	
 	public void downloadDocu(){}
 	
@@ -156,17 +158,20 @@ public class DocumentManager {
 		File file = new File(fileItem.getName());
 		FileOutputStream out = new FileOutputStream(file);
 		byte[] data = new byte[1024];
-	    int offset = 0;
 	    int length=0;
 	    InputStream in = fileItem.getInputStream();
 	    
+	    if (file.exists()) {
+			file.delete();
+		}
+	    
+	    file.createNewFile();
+	    
 	    //solange ich noch daten von inputstream erhalte speicher
-	    while ((length=in.read(data))== 1024){
-	    	out.write(data, offset, length);
-	    	offset +=1024;
-	    	System.out.println("Test:"+new String(data));
-	    }
-	    System.out.println("Test:"+ new String(data));
+	    do {
+	    	length=in.read(data)
+	    	out.write(data, 0, length);
+	    } while (length == 1024)
 	    out.write(data,offset,length);	
 	}
 	
