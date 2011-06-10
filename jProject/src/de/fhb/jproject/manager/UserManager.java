@@ -173,7 +173,8 @@ public class UserManager {
 	public List <User>  searchUser(User aktUser, String searchValue) 
     throws ProjectException{
 		clearSession();
-		User[] array=null;
+		
+		List<User> list=null;
 		
 		//debuglogging
 		logger.info("searchUser(String loginName)");
@@ -191,13 +192,12 @@ public class UserManager {
 		
 		//holen der daten
 		try {
-			//TODO LIKE QUERY IN DER DA SCHICHT
-			array= userDA.listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname");
+			list= userDA.listAllUsersLike(searchValue);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);	
 		}
 		
-		return Arrays.asList(array);	
+		return list;	
     }
 	
 	/**
