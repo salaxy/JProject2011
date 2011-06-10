@@ -66,7 +66,7 @@ public class TaskManager {
 	 */
 	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
-		
+		clearSession();
 		
 		Project project=null;
 		Task task=null;
@@ -94,18 +94,17 @@ public class TaskManager {
 			
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedAddNewTaskAction(aktUser.getGlobalRole())){
-			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+
+			//Member des aktuellen Users holen
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!projectRolesManager.isAllowedAddNewTaskAction(memAktUser.getProjectRole())){
 				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 			}		
 		}
+		
+		clearSession();
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -139,7 +138,6 @@ public class TaskManager {
 			throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
 		}
 
-		
 		//der Task den termin hinzufuegen
 		task.setTermin(termin);
 					
@@ -169,6 +167,7 @@ public class TaskManager {
 	 */
 	public void  deleteTask(User aktUser, int taskId, String projectName)
 	throws ProjectException{ 
+		clearSession();
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
 		//jedoch notwendig um die Rechte zum loeschen abzufragen
 		
@@ -197,12 +196,8 @@ public class TaskManager {
 		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
 		if(!globalRolesManager.isAllowedDeleteTaskAction(aktUser.getGlobalRole())){
 			
-			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			//Member des aktuellen Users holen
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!projectRolesManager.isAllowedDeleteTaskAction(memAktUser.getProjectRole())){
@@ -210,6 +205,7 @@ public class TaskManager {
 			}	
 		}
 		
+		clearSession();
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -244,6 +240,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllTasks(User aktUser, String projectName)
 	throws ProjectException{ 
+		clearSession();
 			
 		Project project=null;
 		Member memAktUser=null;	
@@ -266,12 +263,8 @@ public class TaskManager {
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
 		
-			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}	
+			//Member des aktuellen Users holen
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE projekt
 			if(!projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole())){
@@ -292,6 +285,7 @@ public class TaskManager {
 	 */
 	public Task showTask(User aktUser, String projectName,int taskId)
 	throws ProjectException{ 
+		clearSession();
 			
 		Project project=null;
 		Member memAktUser=null;	
@@ -314,12 +308,9 @@ public class TaskManager {
 			
 		//RECHTE-ABFRAGE Global
 		if(!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
-			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}	
+
+			//Member des aktuellen Users holen
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE projekt
 			//Projektteilhaber oder Admin duerfen diese aktion ausfuehren 
@@ -327,6 +318,11 @@ public class TaskManager {
 				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgabe/Task !");
 			}
 		}
+		
+		
+		clearSession();
+		
+		//EIGENTLICHE AKTIONEN
 		
 		//task holen
 		try {
@@ -355,6 +351,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllOwnTasks(User aktUser)
 	throws ProjectException{
+		clearSession();
 		
 		User user=null;
 		List<Task> list=new ArrayList<Task>();
@@ -372,6 +369,8 @@ public class TaskManager {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
 		}
 		
+		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//user neu holen (praeventiv wegn moegl Seiten effekte)
@@ -382,21 +381,32 @@ public class TaskManager {
 			throw new ProjectException("User wurde nicht gefunden!");
 		}
 		
-		//Iterator fuer MemberSet holen
-		Iterator<Member> memberIterator=user.member.getCollection().iterator();
+		//BITTE Alte Version lassen falls die neue nciht funktioniert
+//		//Iterator fuer MemberSet holen
+//		Iterator<Member> memberIterator=user.member.getCollection().iterator();
+//		
+//		//alle member durchlaufen
+//		while(memberIterator.hasNext()){
+//			Iterator<Task> taskIterator=null;
+//			taskIterator=memberIterator.next().task.getCollection().iterator();
+//			
+//			int i=0;
+//			//alle tasks zu einem Member durchlaufen
+//			while(taskIterator.hasNext()){
+//				//task hinzufuegen
+//				list.add(taskIterator.next());
+//				System.out.println(i++);
+//			}		
+//		}
 		
-		//alle member durchlaufen
-		while(memberIterator.hasNext()){
-			Iterator<Task> taskIterator=null;
-			taskIterator=memberIterator.next().task.getCollection().iterator();
-			
-			int i=0;
+		//TODO NEU KONNTE NOCH NICHT GETESTET WERDEN
+		
+		//alle member durchlaufen ueber iterator
+		for(Object m : user.member.getCollection()){
 			//alle tasks zu einem Member durchlaufen
-			while(taskIterator.hasNext()){
-				//task hinzufuegen
-				list.add(taskIterator.next());
-				System.out.println(i++);
-			}		
+			for(Object t : ((Member)m).task.getCollection()){
+				list.add((Task)t);
+			}
 		}
 		
 		return list;
@@ -413,6 +423,7 @@ public class TaskManager {
 	 */
 	public void assignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
+		clearSession();
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -440,18 +451,18 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 		
-
 		//Member des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
+		memAktUser = getMember(aktUser, project);
 		
 		//RECHTE-ABFRAGE Projekt
 		if(!projectRolesManager.isAllowedAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum Zuordnen einer Aufgabe/Task!");
 		}
+		
+		
+		clearSession();
+		
+		//EIGENTLICHE AKTIONEN
 		
 		//zuzuordnenden user holen
 		try {
@@ -503,6 +514,7 @@ public class TaskManager {
 	 */
 	public void deAssignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
+		clearSession();
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -530,18 +542,17 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
 			
-
 		//Member des aktuellen Users holen
-		try {
-			memAktUser=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
+		memAktUser = getMember(aktUser, project);
 		
 		//RECHTE-ABFRAGE Projekt
 		if(!projectRolesManager.isAllowedDeAssignTaskAction(memAktUser.getProjectRole())){
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
+		
+		clearSession();
+		
+		//EIGENTLICHE AKTIONEN
 		
 		//zugeordneten user holen
 		try {
@@ -597,6 +608,7 @@ public class TaskManager {
 	 */
 	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
+		clearSession();
 		
 		Project project=null;
 		Task task=null;
@@ -628,12 +640,8 @@ public class TaskManager {
 		//RECHTE-ABFRAGE Projekt
 		if(!globalRolesManager.isAllowedUpdateTaskAction(aktUser.getGlobalRole())){
 			
-			//Projekt-Rolle des aktuellen Users holen
-			try {
-				memAktUser=memberDA.getMemberByORMID(aktUser, project);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-			}
+			//Member des aktuellen Users holen
+			memAktUser = getMember(aktUser, project);
 			
 			//RECHTE-ABFRAGE Projekt
 			if(!projectRolesManager.isAllowedUpdateTaskAction(memAktUser.getProjectRole())
@@ -642,6 +650,8 @@ public class TaskManager {
 			}			
 		}
 
+		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//task holen
@@ -715,11 +725,26 @@ public class TaskManager {
 		}
 	}
 	
-	private void clearSession() throws PersistentException{
-		PersistentSession session;		
-		//Session holen
-		session = JProjectPersistentManager.instance().getSession();
-		//und bereinigen
-		session.clear();
+	private void clearSession() throws ProjectException{
+		try {
+			PersistentSession session;		
+			//Session holen
+			session = JProjectPersistentManager.instance().getSession();
+			//und bereinigen
+			session.clear();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+		}
+		
+	}
+	
+	private Member getMember(User aktUser, Project project)throws ProjectException{
+		Member aktMember = null;
+		try {
+			aktMember=memberDA.getMemberByORMID(aktUser, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		return aktMember;
 	}
 }
