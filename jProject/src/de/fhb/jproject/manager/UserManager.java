@@ -28,6 +28,8 @@ public class UserManager {
 	
 	private UserDA userDA;
 	
+	private final String STANDARDLANGUAGE="Deutsch";
+	
 	private static final Logger logger = Logger.getLogger(UserManager.class);
     
 	/**
@@ -432,9 +434,9 @@ public class UserManager {
 	/**
 	 * einfache Registrieren
 	 * nur loginame, vorname, Name, passwort
-	 * weitere einstellungen aknn der user dann machen wenn er sich eingeloggt hat
+	 * weitere einstellungen kann der user dann slebst machen wenn er sich eingeloggt hat
 	 * ueber die usereinstellungen
-	 * 
+	 * (ein admin fügt ein User hinzu, nicht der user selber)
 	 * 
 	 * 
 	 * @param loginName
@@ -445,18 +447,21 @@ public class UserManager {
 	 * @param vorname
 	 * @throws ProjectException
 	 */
-	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
+	public void register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
 		clearSession();
+	
+		//debuglogging
+        logger.info("register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		
-		//XXX k.a wie wir das machen nachm registriren mit dem Freigebn des users 
-		//Koennte man aber einfacherweise ueber eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
-		// d.h jemand sich erfolgreich registriert hat kann sich auch gleich einloggen, aber nix machen bis er freigegebn wird
-		//@ micher konnte nicht testen, musst im Servlet noch was aendern!!
-		// das hier noch daszu || getOperation(req).equals("Register") ..das allein hatte aber allien nicht geholfen!
 		
-		//Rechteabfrage entfaellt
 		User user=null;
+		
+		//RECHTEABFRAGE Global
+//		if(!globalRolesManager.isAllowedRegisterAction(aktUser.getGlobalRole())){
+//			throw new ProjectException("Sie haben keine Rechte einen User zu registrieren!");
+//		}
+		
 		
 		//eingabe fehler abfangen
 		
@@ -512,16 +517,21 @@ public class UserManager {
 		//setzen der parameter des users
 		user=userDA.createUser();
 		user.setGlobalRole("Member");
-		user.setSprache("Deutsch");
+		user.setSprache(this.STANDARDLANGUAGE);
 		user.setVorname(vorname);
 		user.setNachname(nachname);
 		user.setLoginName(loginName);
+		user.setPassword(passwort);
 			
+		boolean flag;
 		//speichern des users
 		try {
-			userDA.save(user);
+			clearSession();
+			flag=userDA.save(user);
+			//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nith speichert.
+			System.out.println("HIER"+flag);
 		} catch (PersistentException e) {
-			throw new ProjectException("User konnte nicht gespeichert werden!");
+			throw new ProjectException("User konnte nicht gespeichert werden!"+e.getMessage());
 		}
 	}
 	
