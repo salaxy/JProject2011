@@ -169,10 +169,10 @@ public class DocumentManager {
 	    
 	    //solange ich noch daten von inputstream erhalte speicher
 	    do {
-	    	length=in.read(data)
+	    	length=in.read(data);
 	    	out.write(data, 0, length);
-	    } while (length == 1024)
-	    out.write(data,offset,length);	
+	    } while (length == 1024);
+	    out.write(data,0,length);	
 	}
 	
 }
