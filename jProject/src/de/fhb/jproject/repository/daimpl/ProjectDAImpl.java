@@ -4,19 +4,13 @@
  */
 package de.fhb.jproject.repository.daimpl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
-import org.orm.PersistentSession;
 
-import de.fhb.jproject.data.DAFactory;
-import de.fhb.jproject.data.JProjectPersistentManager;
-import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.daoimpl.ProjectDAOImpl;
 
@@ -51,7 +45,14 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		logger.debug("String orderBy("+orderBy+")");
 		
 		return Arrays.asList(listProjectByQuery("Project.name = Project.name", orderBy));
+	}
+
+	@Override
+	public List<Project> listAllProjectsLike(String searchValue)throws PersistentException {
+		logger.info("listAllProjectsLike(String searchValue)");
+		logger.debug("String searchValue("+searchValue+")");
 		
+		return Arrays.asList(listProjectByQuery("Name LIKE '%"+searchValue+"%'","Name"));
 	}
 	
 	
