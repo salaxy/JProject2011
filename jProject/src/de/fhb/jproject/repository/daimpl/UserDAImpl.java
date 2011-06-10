@@ -45,4 +45,12 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
 		return Arrays.asList(listUserByQuery("User.loginName = User.loginName", orderBy));
 		
 	}
+
+	@Override
+	public List<User> listAllUsersLike(String searchValue)throws PersistentException {
+		logger.info("listAllUsersLike(String searchValue)");
+		logger.debug("String searchValue("+searchValue+")");
+		
+		return Arrays.asList(listUserByQuery("Vorname LIKE '%"+searchValue+"%' OR Nachname LIKE '%"+searchValue+"%'","Vorname"));
+	}
 }
