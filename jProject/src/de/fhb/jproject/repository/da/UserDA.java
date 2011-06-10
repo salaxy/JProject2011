@@ -17,4 +17,5 @@ public interface UserDA extends UserDAO{
 	public void delete(String loginName) throws PersistentException;
 	public List<User> listAllUsers() throws PersistentException;
 	public List<User> listAllUsers(String orderBy) throws PersistentException;
+	public List<User> listAllUsersLike(String searchValue) throws PersistentException;
 }
