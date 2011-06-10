@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
- * 
- * @author klay
+* Action die angesprochen wird wenn sich jemand Informationen ueber einen Andern user anschauen will
+* 
+* STATUS:	FREIGEGEBEN 
+* URL: 		
+* @author  	Andy Klay <klay@fh-brandenburg.de>
  */
 public class ShowUserInfoAction extends HttpRequestActionBase {
 
@@ -54,6 +55,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("user", user);
 			req.setAttribute("contentFile", "showUserInfo.jsp");
+			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
