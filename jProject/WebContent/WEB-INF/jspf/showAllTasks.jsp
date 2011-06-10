@@ -12,7 +12,7 @@
 
 <div id="leftcontent">
 	<c:forEach items="${taskList}" var="task" varStatus="i">
-		<a href="JProjectServlet?do=ShowTask&documentID=${task.id}">${task.titel}</a><br>
+		<a href="JProjectServlet?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>
 
 </div>

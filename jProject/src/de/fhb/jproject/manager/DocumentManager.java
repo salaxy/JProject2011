@@ -124,11 +124,11 @@ public class DocumentManager {
 	
 	public void downloadDocu(){}
 	
-	public void showAllDocu(){}
+	public List<Document> showAllDocu(User aktUser, String projectName)throws ProjectException{return null;}
 	
 	public void updateDocu(){}
 	
-	public void showDocu(){}
+	public Document showDocu(User aktUser, String projectName, int documentId)throws ProjectException{return null;}
 	
 	private void clearSession() throws ProjectException{
 		try {

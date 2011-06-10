@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Task;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -46,34 +47,48 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Task> taskList=null;
-		
+		Task task = null;
+		int taskId = 0;
 		try {				
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
-					);	
+					+ "int taskId(" + req.getParameter("taskId") + ")"
+					);
+			
+			
 			try {
-				taskList=mainManager.getTaskManager().showAllTasks((User)session.getAttribute("aktUser"), req.getParameter("projectName"));
+				taskList=mainManager.getTaskManager().showAllTasks((User)session.getAttribute("aktUser"), 
+																   ((Project)session.getAttribute("aktProject")).getName());
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}	
-			//Manager in aktion
+			}
+			try{
+				//Wenn taskId == 0 dann gib mir den ersten
+				if (0 == Integer.valueOf(req.getParameter("taskId"))) {
+					taskId = taskList.get(0).getId();
+				}else{
+					taskId = Integer.valueOf(req.getParameter("taskId"));
+				}
+			} catch (IllegalArgumentException e) {
+				throw new ProjectException("TaskID ungültig "+e);
+			}catch(NullPointerException e){
+				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
+			}
 			
-//			for( Task t : taskList){
-//				System.out.println("Task: "+ t.getId()+" "+t.getTitel()+" "+t.getDone());
-//			}		
-			
-			/*TODO METHODE IM CONTROLLER ERSTELLEN, KEINE ACTION ERSTELLEN
-			ShowTaskAction showTaskAction = new ShowTaskAction();
-			showTaskAction.perform(req, resp);
-			 * 
-			 */
+			try {
+				task = mainManager.getTaskManager().showTask((User)session.getAttribute("aktUser"), 
+						 ((Project)session.getAttribute("aktProject")).getName(),
+						 taskId);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
+			req.setAttribute("task", task);
 			
 			req.setAttribute("contentFile", "showAllTasks.jsp");
 			
