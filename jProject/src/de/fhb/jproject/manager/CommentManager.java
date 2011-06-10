@@ -1,6 +1,5 @@
 package de.fhb.jproject.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -475,10 +474,12 @@ public class CommentManager {
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
-		//comment holen
-		//TODO if(comment==null)
+		//comment holen 
 		try {
-			comment=commentDA.getCommentByORMID(commentId);
+			//falls schon geholt
+			if(comment==null){
+				comment=commentDA.getCommentByORMID(commentId);
+			}
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht finden!");
 		}
@@ -555,9 +556,11 @@ public class CommentManager {
 		//EIGENTLICHE AKTIONEN
 		
 		//comment holen
-		//TODO if(comment==null)
 		try {
-			comment=commentDA.getCommentByORMID(commentId);
+			//falls schon geholt
+			if(comment==null){
+				comment=commentDA.getCommentByORMID(commentId);
+			}
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht finden!");
 		}
@@ -585,9 +588,8 @@ public class CommentManager {
 	public List<Comment> showAllComments41Docu(User aktUser, String projectName, int documentId)
 	throws ProjectException{
 		clearSession();
-		List<Comment> list=new ArrayList<Comment>();
-		CommentDocument[] commentDocument=null;
-		Comment c=null;
+		
+		List<Comment> list=null;
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -625,24 +627,11 @@ public class CommentManager {
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
-		//holen der commentDocument
+		//holen der comments
 		try {
-			//TODO noch inner DA kapseln
-			commentDocument=commentDocumentDA.listCommentDocumentByQuery("DocumentID="+documentId,"CommentID" );
+			list=commentDA.listAllCommentsToDocument(documentId);
 		} catch (PersistentException e) {
-			System.out.println("Fehler");
-			throw new ProjectException("Kann CommentDocument nicht finden! "+ e.getMessage());
-		}
-		
-		//holen der comments selbst
-		for(int i=0;i<commentDocument.length;i++){
-			try {
-				c=commentDA.getCommentByORMID(commentDocument[i].getCommentId());
-			} catch (PersistentException e) {
-				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
-			}
-			//zur liste hinzufuegen
-			list.add(c);
+			throw new ProjectException("Kann Comments nicht finden! "+ e.getMessage());
 		}
 		
 		return list;
@@ -660,9 +649,8 @@ public class CommentManager {
 	public List<Comment>  showAllComments41Source(User aktUser, String projectName, int sourcecodeId)
 	throws ProjectException{
 		clearSession();
-		List<Comment> list=new ArrayList<Comment>();
-		CommentSourcecode[] commentSourcecode=null;
-		Comment c=null;
+		
+		List<Comment> list=null;
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -700,24 +688,11 @@ public class CommentManager {
 		
 		//EIGENTLICHE AKTIONEN
 		
-		//holen der CommentSourcecode
+		//holen der Comments
 		try {
-			//TODO evtl noch inner DA kapseln
-			commentSourcecode=commentSourcecodeDA.listCommentSourcecodeByQuery("SourcecodeID="+sourcecodeId,"CommentID" );
+			list=commentDA.listAllCommentsToSourcecode(sourcecodeId);
 		} catch (PersistentException e) {
-			System.out.println("Fehler");
-			throw new ProjectException("Kann CommentSourcecode nicht finden! "+ e.getMessage());
-		}
-		
-		//holen der comments selbst
-		for(int i=0;i<commentSourcecode.length;i++){
-			try {
-				c=commentDA.getCommentByORMID(commentSourcecode[i].getCommentId());
-			} catch (PersistentException e) {
-				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
-			}
-			//zur liste hinzufuegen
-			list.add(c);
+			throw new ProjectException("Kann Comments nicht finden! "+ e.getMessage());
 		}
 		
 		return list;
@@ -735,9 +710,9 @@ public class CommentManager {
 	public List<Comment> showAllComments41Task(User aktUser, String projectName, int taskId)
 	throws ProjectException{
 		clearSession();
-		List<Comment> list=new ArrayList<Comment>();
-		CommentTask[] commentTask=null;
-		Comment c=null;
+		
+		List<Comment> list=null;
+
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -775,24 +750,11 @@ public class CommentManager {
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
-		//holen der commentTask
+		//holen der comments
 		try {
-			//TODO noch inner DA kapseln
-			commentTask=commentTaskDA.listCommentTaskByQuery("TaskID="+taskId,"CommentID" );
+			list=commentDA.listAllCommentsToTask(taskId);
 		} catch (PersistentException e) {
-			System.out.println("Fehler");
-			throw new ProjectException("Kann CommentTask nicht finden! "+ e.getMessage());
-		}
-		
-		//holen der comments selbst
-		for(int i=0;i<commentTask.length;i++){
-			try {
-				c=commentDA.getCommentByORMID(commentTask[i].getCommentId());
-			} catch (PersistentException e) {
-				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
-			}
-			//zur liste hinzufuegen
-			list.add(c);
+			throw new ProjectException("Kann Comments nicht finden! "+ e.getMessage());
 		}
 		
 		return list;
@@ -809,9 +771,9 @@ public class CommentManager {
 	public List<Comment> showAllComments41Project(User aktUser, String projectName)
 	throws ProjectException{
 		clearSession();
-		List<Comment> list=new ArrayList<Comment>();
-		CommentProject[] commentProject=null;
-		Comment c=null;
+		
+		List<Comment> list=null;
+		
 		Project project=null;
 		Member memAktUser=null;	
 		
@@ -848,23 +810,11 @@ public class CommentManager {
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
-		//holen der commentDocument
+		//holen der comments
 		try {
-			//TODO noch inner DA kapseln
-			commentProject=commentProjectDA.listCommentProjectByQuery("project='"+projectName+"'","CommentID" );
+			list=commentDA.listAllCommentsToProject(projectName);
 		} catch (PersistentException e) {
-			throw new ProjectException("Kann CommentProject nicht finden! "+ e.getMessage());
-		}
-		
-		//holen der comments selbst
-		for(int i=0;i<commentProject.length;i++){
-			try {
-				c=commentDA.getCommentByORMID(commentProject[i].getCommentId());
-			} catch (PersistentException e) {
-				throw new ProjectException("Kann Comment nicht finden! "+ e.getMessage());
-			}
-			//zur liste hinzufuegen
-			list.add(c);
+			throw new ProjectException("Kann Comments nicht finden! "+ e.getMessage());
 		}
 		
 		return list;
