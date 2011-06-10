@@ -522,6 +522,7 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
+		
 		//XXX DELETE THIS
 		System.out.println("Size: "+project.member.getCollection().size());
 		for (Object o : project.member.getCollection()) {

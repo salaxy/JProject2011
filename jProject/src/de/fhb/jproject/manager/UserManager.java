@@ -452,7 +452,7 @@ public class UserManager {
 		//XXX k.a wie wir das machen nachm registriren mit dem Freigebn des users 
 		//Koennte man aber einfacherweise ueber eine Rolle machen>>> kann sich einloggen aber nichts machen weil er z.b Role=Gesperrt oder sowas
 		// d.h jemand sich erfolgreich registriert hat kann sich auch gleich einloggen, aber nix machen bis er freigegebn wird
-		//TODO @ micher konnte nicht testen, musst im Servlet noch was aendern!!
+		//@ micher konnte nicht testen, musst im Servlet noch was aendern!!
 		// das hier noch daszu || getOperation(req).equals("Register") ..das allein hatte aber allien nicht geholfen!
 		
 		//Rechteabfrage entfaellt
