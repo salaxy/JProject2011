@@ -42,16 +42,26 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			
 			try {
 				//Manager in aktion
+//				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
+//																req.getParameter("nachname"), 
+//																req.getParameter("vorname"), 
+//																req.getParameter("neuIcq"), 
+//																req.getParameter("neuSkype"), 
+//																req.getParameter("neutelefon"), 
+//																req.getParameter("sprache"), 
+//																req.getParameter("neuesPasswortEins"), 
+//																req.getParameter("neuesPasswortZwei"), 
+//																req.getParameter("altesPasswort"));
 				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
-																req.getParameter("nachname"), 
-																req.getParameter("vorname"), 
-																req.getParameter("neuIcq"), 
-																req.getParameter("neuSkype"), 
-																req.getParameter("neutelefon"), 
-																req.getParameter("sprache"), 
-																req.getParameter("neuesPasswortEins"), 
-																req.getParameter("neuesPasswortZwei"), 
-																req.getParameter("altesPasswort"));
+						null, 
+						null, 
+						null, 
+						null, 
+						null, 
+						"neueSprache", 
+						null, 
+						null, 
+						null);
 
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
