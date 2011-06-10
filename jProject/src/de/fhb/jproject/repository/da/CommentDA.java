@@ -16,4 +16,9 @@ import org.orm.PersistentException;
 public interface CommentDA extends CommentDAO{
 	public List<Comment> listAllComments() throws PersistentException;
 	public List<Comment> listAllComments(String orderBy) throws PersistentException;
+	
+	public List<Comment> listAllCommentsToDocument(int documentId) throws PersistentException;
+	public List<Comment> listAllCommentsToSourcecode(int sourcecodeId) throws PersistentException;
+	public List<Comment> listAllCommentsToTask(int taskId) throws PersistentException;
+	public List<Comment> listAllCommentsToProject(String projectName) throws PersistentException;
 }
