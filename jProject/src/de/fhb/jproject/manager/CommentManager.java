@@ -884,6 +884,7 @@ public class CommentManager {
 		}
 		
 	}
+	
 	private Member getMember(User aktUser, Project project)throws ProjectException{
 		Member aktMember = null;
 		try {
