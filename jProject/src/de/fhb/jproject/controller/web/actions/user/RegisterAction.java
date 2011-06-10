@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
-* Action die angesprochen wird wenn sich jemand sich registriert
+* Action die angesprochen wird wenn jemand als User registriert wird (vom Admin beispielsweise)
 * 
-* STATUS:	FREIGEGEBEN konnte aber nicht testen
-* URL: 		http://localhost:8080/jProject/JProjectServlet?do=Register&loginName=neuerUser&loginNameWdhl=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
+* STATUS:	NICHT FREIGEGEBEN 
+* URL: 		do=Register&loginName=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
 * @author  	Andy Klay <klay@fh-brandenburg.de>
 */
 public class RegisterAction extends HttpRequestActionBase {
@@ -30,31 +30,43 @@ public class RegisterAction extends HttpRequestActionBase {
 	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
+		
 		HttpSession session = req.getSession();
+		
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		
 		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			/*TODO logger.debug("Parameter: "
-					+ "String documentId(" + req.getParameter("documentId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+			logger.debug("Parameter: "
+					+ "String loginName(" + req.getParameter("loginName") + "), "
+					+ "String passwort(" + req.getParameter("passwort") + ")"
+					+ "String passwortWdhl(" + req.getParameter("passwortWdhl") + ")"
+					+ "String nachname(" + req.getParameter("nachname") + ")"
+					+ "String vorname(" + req.getParameter("vorname") + ")"
 					);
-			*/
 		
 			
 			try {
 				//Manager in aktion
-				mainManager.getUserManager().register(req.getParameter("loginName"), 
-													  req.getParameter("passwort"), 
-													  req.getParameter("passwortWdhl"), 
-													  req.getParameter("nachname"), 
-													  req.getParameter("vorname"));
+				mainManager.getUserManager().register(
+						(User)session.getAttribute("aktUser"),
+						req.getParameter("loginName"), 
+						req.getParameter("passwort"), 
+						req.getParameter("passwortWdhl"), 
+						req.getParameter("nachname"), 
+						req.getParameter("vorname"));
 	
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+			//setzen der Parameter
+//			req.setAttribute("user", user);
+//			req.setAttribute("contentFile", "Register.jsp");
+			
 			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
