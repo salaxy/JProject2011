@@ -3,7 +3,6 @@ package de.fhb.jproject.manager;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -380,26 +379,8 @@ public class TaskManager {
 		} catch (PersistentException e) {
 			throw new ProjectException("User wurde nicht gefunden!");
 		}
+	
 		
-		//BITTE Alte Version lassen falls die neue nciht funktioniert
-//		//Iterator fuer MemberSet holen
-//		Iterator<Member> memberIterator=user.member.getCollection().iterator();
-//		
-//		//alle member durchlaufen
-//		while(memberIterator.hasNext()){
-//			Iterator<Task> taskIterator=null;
-//			taskIterator=memberIterator.next().task.getCollection().iterator();
-//			
-//			int i=0;
-//			//alle tasks zu einem Member durchlaufen
-//			while(taskIterator.hasNext()){
-//				//task hinzufuegen
-//				list.add(taskIterator.next());
-//				System.out.println(i++);
-//			}		
-//		}
-		
-		//TODO NEU KONNTE NOCH NICHT GETESTET WERDEN
 		
 		//alle member durchlaufen ueber iterator
 		for(Object m : user.member.getCollection()){
