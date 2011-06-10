@@ -221,7 +221,7 @@ public class UserManager {
 			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		clearSession();
-		//TODO noch nicht fertig
+		//TODO noch nicht getestet
 		
 		User user=null;
 		//PerformenceBOOL 
@@ -248,10 +248,10 @@ public class UserManager {
 		}
 		
 		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
-				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
-			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
-		}
+//		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
+//				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
+//			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
+//		}
 	
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -494,6 +494,7 @@ public class UserManager {
 	throws ProjectException{
 		clearSession();
 	
+		//TODO  noch nciht getestet
 		//debuglogging
         logger.info("register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		
