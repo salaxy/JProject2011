@@ -221,7 +221,7 @@ public class UserManager {
 		//TODO noch nicht fertig
 		
 		User user=null;
-		//TODO PerformenceBOOL
+		//PerformenceBOOL 
 		boolean changed = false;
 		
 		//debuglogging
