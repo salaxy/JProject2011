@@ -217,7 +217,8 @@ public class UserManager {
 	 * @param altesPasswort
 	 * @throws ProjectException
 	 */
-	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String skype,String telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
+	public void updateUserSettings(User aktUser, String nachName, String vorname, String icq, String[] skype,
+			String[] telefon, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		clearSession();
 		//TODO noch nicht fertig
@@ -281,33 +282,33 @@ public class UserManager {
 		}
 		
 		//ICQ
-		
-		if(icq!=null&&!icq.isEmpty()){
-			
-			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
-			i.setUserLoginName(user);
-			i.setIcqNumber(icq);
-			
-			
-			
-			changed = true;
-		}
+//		
+//		if(icq!=null&&!icq.isEmpty()){
+//			
+//			ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
+//			i.setUserLoginName(user);
+//			i.setIcqNumber(icq);
+//			
+//			
+//			
+//			changed = true;
+//		}
 
 		
 		
 		//Skype
-		if(skype!=null&&!skype.isEmpty()){
-			
-			Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();
-			s.setUserLoginName(user);
-			s.setSkypeName(skype);
-			
-			//wenn bereits enthalten
-			if(!user.skype.contains(s)){
-				user.skype.add(s);
-			}
-			changed = true;
-		}
+//		if(skype!=null&&!skype.isEmpty()){
+//			
+//			Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();
+//			s.setUserLoginName(user);
+//			s.setSkypeName(skype);
+//			
+//			//wenn bereits enthalten
+//			if(!user.skype.contains(s)){
+//				user.skype.add(s);
+//			}
+//			changed = true;
+//		}
 		
 		//telefon
 //		if(telefon!=null&&!telefon.isEmpty()){
@@ -325,24 +326,44 @@ public class UserManager {
 		
 		
 		//sprache
+		if(!(sprache==null)&&!(sprache.isEmpty())&&!(sprache.equals(aktUser.getSprache()))){
+			//aendern
+			user.setSprache(sprache);
+			changed = true;
+		}
+		
+		
 		
 		//passwort
-		
-		
-//		ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();
-//		
-//		
-//		if(user.iCQ.c.contains(icq))
-		
-//		if(neuesPasswortEins!=null){
-//			//aendern
-//		}
+		if(!(neuesPasswortEins==null)&&!(neuesPasswortEins.isEmpty())&&!(neuesPasswortEins.equals(aktUser.getPassword()))){
+			
+			if(neuesPasswortZwei==null){
+				throw new ProjectException("neues Passwort Zwei nicht mitgegebn!");				
+			}
+			
+			if(neuesPasswortEins.equals(neuesPasswortZwei)){
+				throw new ProjectException("Neue passwoerter sind nicht gleich!");
+			}
+				
+			if(altesPasswort==null){
+				throw new ProjectException("Altes Passwort nicht mitgegebn!!");		
+			}
+			
+			if(!altesPasswort.equals(aktUser.getPassword())){
+				throw new ProjectException("Altes Passwort falsch!");		
+			}
+				
+			//aendern
+			user.setPassword(neuesPasswortEins);
+			changed = true;
+		}
 		
 		
 		//user speichern/updaten
 		if (changed) {
 			try {
 				//Member speichern
+				//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nith speichert. 
 				userDA.save(user);
 			} catch (PersistentException e) {
 				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
