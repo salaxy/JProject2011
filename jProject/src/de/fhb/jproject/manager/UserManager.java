@@ -573,6 +573,7 @@ public class UserManager {
 			clearSession();
 			flag=userDA.save(user);
 			//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nith speichert.
+			//habs noch mal getstet, ging nicht
 			System.out.println("HIER"+flag);
 		} catch (PersistentException e) {
 			throw new ProjectException("User konnte nicht gespeichert werden!"+e.getMessage());
