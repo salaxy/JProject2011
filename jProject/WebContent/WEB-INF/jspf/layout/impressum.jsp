@@ -18,5 +18,11 @@
 	</a>
 </p>
 <br /><br />
-Copyright Galileo Press GmbH 2005<br />
-Galileo Press GmbH, Rheinwerkallee 4, 53227 Bonn, Tel.: 0228.42150.0, Fax 0228.42150.77, info@galileo-press.de
+<c:choose>
+	<c:when test="${isAdmin == true}">
+		<a href="AdminServlet?do=showAdminconsole">Adminconsole</a>
+	</c:when>
+</c:choose>
+<br />
+Copyright Michael Koppen<br />
+Michael Koppen, Vereinsstraße 33a, 14770 Brandenburg an der Havel, Tel.: 1234/56789, Fax 1234/56789, koppen@fh-brandenburg.de

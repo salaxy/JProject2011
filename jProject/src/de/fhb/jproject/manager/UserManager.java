@@ -385,7 +385,9 @@ public class UserManager {
 		if (changed) {
 			try {
 				//Member speichern
-				//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nicht speichert. 
+				//TODO Funktioniert nicht keine Exception, voellig unerklaerlich warum er nicht speichert.
+				//TODO Probier mal obs jetzt gelÃ¶st ist...hab grad keine zeit
+				clearSession();
 				userDA.save(user);
 			} catch (PersistentException e) {
 				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
@@ -479,7 +481,7 @@ public class UserManager {
 	 * nur loginame, vorname, Name, passwort
 	 * weitere einstellungen kann der user dann slebst machen wenn er sich eingeloggt hat
 	 * ueber die usereinstellungen
-	 * (ein admin fügt ein User hinzu, nicht der user selber)
+	 * (ein admin fï¿½gt ein User hinzu, nicht der user selber)
 	 * 
 	 * 
 	 * @param loginName
@@ -572,7 +574,7 @@ public class UserManager {
 		try {
 			clearSession();
 			flag=userDA.save(user);
-			//TODO Funktioniert nicht keine Exception, völlig unerklärlich warum er nith speichert.
+			//TODO Funktioniert nicht keine Exception, vï¿½llig unerklï¿½rlich warum er nith speichert.
 			//habs noch mal getstet, ging nicht
 			System.out.println("HIER"+flag);
 		} catch (PersistentException e) {
