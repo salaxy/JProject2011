@@ -160,14 +160,14 @@ public class DocumentManager {
 		byte[] data = new byte[1024];
 	    int length=0;
 	    InputStream in = fileItem.getInputStream();
-	    
-	    if (file.exists()) {
+		
+		if (file.exists()) {
 			file.delete();
 		}
-	    
+		
 	    file.createNewFile();
-	    
-	    //solange ich noch daten von inputstream erhalte speicher
+		
+		//solange ich noch daten von inputstream erhalte speicher
 	    do {
 	    	length=in.read(data);
 	    	out.write(data, 0, length);
