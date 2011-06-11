@@ -101,7 +101,8 @@ public class JProjectServlet extends HttpServletControllerBase {
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
 				session.setAttribute("ownProjectList", ownProjectList);
-
+				
+				
 
 
 				//TODO Comments per AJAX
@@ -202,6 +203,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	 * .ServletConfig)
 	 */
 	public void init(ServletConfig conf) throws ServletException {
+		super.init();
 		HttpRequestActionBase action = null;
 		actions = new HashMap();
 		
@@ -209,15 +211,14 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		// !!! Kommentar Actions !!!
 		
-		//kommentieren eines Dokuments
 		action = new CommentDocuAction();
 		actions.put("CommentDocu", action);
-				
-		action = new CommentSourceAction();
-		actions.put("CommentSource", action);
 		
 		action = new CommentProjectAction();
 		actions.put("CommentProject", action);
+		
+		action = new CommentSourceAction();
+		actions.put("CommentSource", action);
 		
 		action = new CommentTaskAction();
 		actions.put("CommentTask", action);
@@ -228,22 +229,21 @@ public class JProjectServlet extends HttpServletControllerBase {
 		action = new ShowAllComments41DocuAction();
 		actions.put("ShowAllComments41Docu", action);
 		
+		action = new ShowAllComments41ProjectAction();
+		actions.put("ShowAllComments41Project", action);
+		
 		action = new ShowAllComments41SourceAction();
 		actions.put("ShowAllComments41Source", action);
 		
 		action = new ShowAllComments41TaskAction();
 		actions.put("ShowAllComments41Task", action);
 		
-		action = new ShowAllComments41ProjectAction();
-		actions.put("ShowAllComments41Project", action);
-		
 		action = new UpdateCommentAction();
 		actions.put("UpdateComment", action);
 		
 	
 		
-		// !!! Dokument Actions !!!
-		
+		// !!! Dokument Actions !!!		
 		action = new DeleteDocuAction();
 		actions.put("DeleteDocu", action);
 		
@@ -273,6 +273,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		action = new SearchProjectsAction();
 		actions.put("SearchProjects", action);
 		
+		//TODO Eventuell nur fuer admin
 		action = new ShowAllProjectsAction();
 		actions.put("ShowAllProjects", action);
 		
@@ -319,10 +320,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 		actions.put("DeAssignTask", action);
 		
 		// !!! User Actions !!!
-		
+		/* nur Admin
 		action = new DeleteUserAction();
 		actions.put("DeleteUser", action);		
-		
+		*/
 		action = new ShowUserSettingsAction();
 		actions.put("ShowUserSettings", action);	
 		
@@ -334,19 +335,19 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		action = new UpdateUserSettingsAction();
 		actions.put("UpdateUserSettings", action);		
-		
+		/* nur Admin
 		action = new ShowAllUserAction();
 		actions.put("ShowAllUser", action);
-		
+		*/
 		action = new LoginAction();
 		actions.put("Login", action);		
 		
 		action = new LogoutAction();
 		actions.put("Logout", action);
-		
+		/* Nur Admin
 		action = new RegisterAction();
 		actions.put("Register", action);
-		
+		*/
 	}
 
 	/*

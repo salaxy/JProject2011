@@ -9,6 +9,10 @@
         <servlet-name>DataServlet</servlet-name>
         <servlet-class>de.fhb.jproject.controller.web.DataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>de.fhb.jproject.controller.web.AdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProjectServlet</servlet-name>
         <url-pattern>/ProjectServlet</url-pattern>
@@ -16,6 +20,10 @@
     <servlet-mapping>
         <servlet-name>DataServlet</servlet-name>
         <url-pattern>/DataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/AdminServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

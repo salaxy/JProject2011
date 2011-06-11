@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +36,7 @@ public class LoginAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager = new MainManager()/*(MainManager) session.getAttribute("mainManager")*/;
-		
+		User user = null;
 
 		
 		try {
@@ -46,14 +47,19 @@ public class LoginAction extends HttpRequestActionBase {
 					+ "String loginName(" + req.getParameter("loginName") + "), "
 					+ "String password(" + req.getParameter("password") + ")"
 					);
+			
+			user = mainManager.getUserManager().login(
+							req.getParameter("loginName"),
+							req.getParameter("password"));
 			try{
 				//Manager in aktion
 				synchronized(session){
 
-					session.setAttribute("aktUser", mainManager.getUserManager().login(
-							req.getParameter("loginName"),
-							req.getParameter("password")));
+					session.setAttribute("aktUser", user);
 					session.setAttribute("mainManager", mainManager);
+					if(user.getGlobalRole().equals("Admin")){
+						session.setAttribute("isAdmin", true);
+					}
 				}
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
@@ -62,7 +68,6 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//XXX syso entfernen
 			System.out.println("Erfolgreich eingeloggt!");
-			//XXX entfernen req.setAttribute("contentFile", "showProject.jsp");
 			req.setAttribute("triedLogin", false);
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

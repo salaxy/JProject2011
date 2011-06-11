@@ -248,6 +248,7 @@ public class DataServlet extends HttpServletControllerBase {
 	 * .ServletConfig)
 	 */
 	public void init(ServletConfig conf) throws ServletException {
+		super.init();
 		HttpRequestActionBase action = null;
 		actions = new HashMap();
 		
