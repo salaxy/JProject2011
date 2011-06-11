@@ -9,7 +9,7 @@
 
 <c:choose>
 	<c:when test="${sessionScope.aktUser == null}">
-		<h1><%@include file="stickyRed.jsp" %>JProjekt</h1>
+		<h1><%@include file="../stickyRed.jsp" %>JProjekt</h1>
 		<div id="naviliste">
 			<a href="#">JProject</a><br />
 			<a href="#">Referenzen</a><br />
@@ -18,12 +18,12 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<h1><%@include file="stickyRed.jsp" %>Deine Projekte</h1>
+		<h1><%@include file="../stickyRed.jsp" %>Deine Projekte</h1>
 		<div id="naviliste">
 			<%@include file="../showAllOwnProjects.jsp" %>
 		</div>
 		<br /><br />
-		<h1><%@include file="stickyRed.jsp" %>Weitere<br />Funktionen</h1>
+		<h1><%@include file="../stickyRed.jsp" %>Weitere<br />Funktionen</h1>
 	</c:otherwise>
 </c:choose>
 
