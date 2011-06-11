@@ -31,7 +31,7 @@
 		<div id="outercontainer" >
 			<div id="navbarback">
 <!--NAVBARBACK-->
-				<%@include file="WEB-INF/jspf/login.jsp" %>
+				<%@include file="WEB-INF/jspf/layout/login.jsp" %>
 <!--NAVBARBACK-END-->			
 			</div>
 			<div id="container" >
