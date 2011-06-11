@@ -13,20 +13,20 @@
 		<%//Wenn kein ContentFile => Projectuebersicht%>
 		<c:choose>
 			<c:when test="${contentFile != null}">
-				<jsp:include page='<%= ""+(String)request.getAttribute("contentFile") %>' />
+				<jsp:include page='<%= "../content/"+(String)request.getAttribute("contentFile") %>' />
 			</c:when>
 			<c:otherwise>
-				<jsp:include page='overview.jsp' />
+				<jsp:include page='../content/overview.jsp' />
 			</c:otherwise>
 		</c:choose>
 
 	</c:when>
 	<c:when test="${triedLogin == true}">
 		<%//Wenn kein ContentFile => Projectuebersicht%>
-		<jsp:include page='error.jsp' />
+		<jsp:include page='../content/error.jsp' />
 
 	</c:when>
 	<c:otherwise>
-		<jsp:include page='layout/welcome.jsp' />
+		<jsp:include page='../content/welcome.jsp' />
 	</c:otherwise>
 </c:choose>

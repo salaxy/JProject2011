@@ -7,7 +7,7 @@
 <%@page contentType="text/html" 
 		pageEncoding="UTF-8" 
 		session="true"
-		errorPage="WEB-INF/jspf/error.jsp"
+		errorPage="WEB-INF/jspf/contenterror.jsp"
 		isErrorPage="true"
 		%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -57,30 +57,8 @@
 						
 						<div id="content" >
 	<!--CONTENT-->
-							<%//Wenn nicht eingeloggt => Startseite%>
-							<c:choose>
-
-								<c:when test="${sessionScope.aktUser != null}">
-									<%//Wenn kein ContentFile => Projectuebersicht%>
-									<c:choose>
-										<c:when test="${contentFile != null}">
-											<jsp:include page='<%= "WEB-INF/jspf/"+(String)request.getAttribute("contentFile") %>' />
-										</c:when>
-										<c:otherwise>
-											<jsp:include page='WEB-INF/jspf/overview.jsp' />
-										</c:otherwise>
-									</c:choose>
-
-								</c:when>
-								<c:when test="${triedLogin == true}">
-									<%//Wenn kein ContentFile => Projectuebersicht%>
-									<jsp:include page='WEB-INF/jspf/error.jsp' />
-
-								</c:when>
-								<c:otherwise>
-									<jsp:include page='WEB-INF/jspf/layout/welcome.jsp' />
-								</c:otherwise>
-							</c:choose>		
+							
+							<jsp:include page='WEB-INF/jspf/layout/content.jsp' />
 	<!--CONTENT-END-->
 						</div>
 					</div><!--end inner -->
