@@ -585,8 +585,7 @@ public class UserManager {
 			clearSession();
 			//TODO unbedingt noch vorher überprüfen ob user schon vorhanden!!!!
 			flag=userDA.save(user);
-			//TODO jetzt gehtz...wir ham doch beim testen diesen flushmode auf manual gesetzt...
-			//habs jetzt wieder auf auto...nu gehtz
+			//TODO jetzt gehtz
 			System.out.println("HIER"+flag);
 		} catch (PersistentException e) {
 			throw new ProjectException("User konnte nicht gespeichert werden!"+e.getMessage());
