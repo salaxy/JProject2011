@@ -583,6 +583,7 @@ public class UserManager {
 		//speichern des users
 		try {
 			clearSession();
+			//TODO unbedingt noch vorher überprüfen ob user schon vorhanden!!!!
 			flag=userDA.save(user);
 			//TODO jetzt gehtz...wir ham doch beim testen diesen flushmode auf manual gesetzt...
 			//habs jetzt wieder auf auto...nu gehtz
