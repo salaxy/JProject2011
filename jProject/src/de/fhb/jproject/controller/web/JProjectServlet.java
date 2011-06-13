@@ -187,7 +187,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 	}
 
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="Click on the + sign on the left to edit the code.">
 	/** 
 	 * Returns a short description of the servlet.
 	 * @return a String containing servlet description
@@ -344,10 +344,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		action = new LogoutAction();
 		actions.put("Logout", action);
-		/* Nur Admin
+		/* Nur Admin*/
 		action = new RegisterAction();
 		actions.put("Register", action);
-		*/
+		
 	}
 
 	/*

@@ -14,6 +14,7 @@ import de.fhb.jproject.data.Telefon;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.repository.da.UserDA;
+import org.apache.log4j.Level;
 
 /**
  * Manager fuer die User Aktionen
@@ -562,20 +563,29 @@ public class UserManager {
 		
 		//setzen der parameter des users
 		user=userDA.createUser();
+		System.out.println("here");
 		user.setGlobalRole("Member");
 		user.setSprache(this.STANDARDLANGUAGE);
 		user.setVorname(vorname);
 		user.setNachname(nachname);
 		user.setLoginName(loginName);
 		user.setPassword(passwort);
-			
+		
+		System.out.println("User: "+user.getLoginName());
+		System.out.println("User: "+user.getVorname());
+		System.out.println("User: "+user.getNachname());
+		System.out.println("User: "+user.getPassword());
+		System.out.println("User: "+user.getSprache());
+		System.out.println("User: "+user.getORMID());
+		System.out.println("User: "+user.getGlobalRole());
+		
 		boolean flag;
 		//speichern des users
 		try {
 			clearSession();
 			flag=userDA.save(user);
-			//TODO Funktioniert nicht keine Exception, v�llig unerkl�rlich warum er nith speichert.
-			//habs noch mal getstet, ging nicht
+			//TODO jetzt gehtz...wir ham doch beim testen diesen flushmode auf manual gesetzt...
+			//habs jetzt wieder auf auto...nu gehtz
 			System.out.println("HIER"+flag);
 		} catch (PersistentException e) {
 			throw new ProjectException("User konnte nicht gespeichert werden!"+e.getMessage());

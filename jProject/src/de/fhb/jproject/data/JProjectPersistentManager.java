@@ -28,7 +28,7 @@ public class JProjectPersistentManager extends PersistentManager {
 	
 	private JProjectPersistentManager() throws PersistentException {
 		super(_connectionSetting, _sessionType, _timeToAlive, new String[] {}, _extraProperties);
-		setFlushMode(FlushMode.MANUAL);
+		setFlushMode(FlushMode.AUTO);
 	}
 	
 	public String getProjectName() {
