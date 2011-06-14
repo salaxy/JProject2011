@@ -222,8 +222,6 @@ public class UserManager {
 			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		
-		//TODO noch nicht getestet
-		
 		User user=null;
 		//PerformenceBOOL 
 		boolean changed = false;
@@ -248,7 +246,7 @@ public class UserManager {
 			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
 		}
 		
-		//TODO abfrage ob user Rechte hat
+		// abfrage ob user Rechte hat
 //		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
 //				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 //			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
@@ -285,8 +283,36 @@ public class UserManager {
 		//ICQ
 		if(icqArray!=null){
 			
-			user.iCQ.clear();
+			//ueberpruefen ob nummer
+			for(String icq :icqArray){
+				try{
+					Integer.valueOf(icq);
+				}catch(IllegalArgumentException e){
+					throw new ProjectException("Ein ICQ Eintrag enthält Buchstaben! "+ e.getMessage());
+				}
+			}
 			
+			//alte einträge loeschen
+			for(Object ic : user.iCQ.getCollection()){
+				
+				try {
+					DAFactory.getDAFactory().getICQDA().delete(((ICQ)ic));
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte ICQ nicht loeschen! "+ e.getMessage());
+				}
+				
+			}
+			
+			user.iCQ.clear();			
+			
+			try {
+				DAFactory.getDAFactory().getUserDA().save(user);
+			} catch (PersistentException e) {
+				throw new ProjectException("Konnte ICQ nicht speichern! "+ e.getMessage());
+			}
+			
+			
+			//neue einträge speichern
 			for(String icq :icqArray){
 				ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();			
 				i.setUserLoginName(user);
@@ -300,6 +326,7 @@ public class UserManager {
 				}
 			}
 			
+			
 			changed = true;
 		}
 
@@ -308,7 +335,25 @@ public class UserManager {
 		//Skype
 		if(skypeArray!=null){
 			
-			user.skype.clear();
+			//alte einträge loeschen
+			for(Object s : user.skype.getCollection()){
+				
+				try {
+					DAFactory.getDAFactory().getSkypeDA().delete(((Skype)s));
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Skype nicht loeschen! "+ e.getMessage());
+				}
+				
+			}
+			
+			user.skype.clear();			
+			
+			try {
+				DAFactory.getDAFactory().getUserDA().save(user);
+			} catch (PersistentException e) {
+				throw new ProjectException("Konnte nicht speichern! "+ e.getMessage());
+			}
+
 			
 			for(String skype :skypeArray){
 				Skype s =DAFactory.getDAFactory().getSkypeDA().createSkype();			
@@ -329,7 +374,24 @@ public class UserManager {
 		//telefon
 		if(telefonArray!=null){
 			
-			user.telefon.clear();
+			//alte einträge loeschen
+			for(Object t : user.telefon.getCollection()){
+				
+				try {
+					DAFactory.getDAFactory().getTelefonDA().delete(((Telefon)t));
+				} catch (PersistentException e) {
+					throw new ProjectException("Konnte Skype nicht loeschen! "+ e.getMessage());
+				}
+				
+			}
+			
+			user.telefon.clear();			
+			
+			try {
+				DAFactory.getDAFactory().getUserDA().save(user);
+			} catch (PersistentException e) {
+				throw new ProjectException("Konnte nicht speichern! "+ e.getMessage());
+			}
 			
 			for(String telnr :telefonArray){
 				Telefon t =DAFactory.getDAFactory().getTelefonDA().createTelefon();			
@@ -385,10 +447,6 @@ public class UserManager {
 		//user speichern/updaten
 		if (changed) {
 			try {
-				//Member speichern
-				//TODO Funktioniert nicht keine Exception, voellig unerklaerlich warum er nicht speichert.
-				//TODO Probier mal obs jetzt gelÃ¶st ist...hab grad keine zeit
-				
 				userDA.save(user);
 			} catch (PersistentException e) {
 				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
@@ -496,19 +554,29 @@ public class UserManager {
 	public void register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
 		
-	
-		//TODO  noch nciht getestet
 		//debuglogging
         logger.info("register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		
 		
-		User user=null;
+		User user=null;		
+		User userUeberpruf=null;
 		
 		//RECHTEABFRAGE Global
-//		if(!globalRolesManager.isAllowedRegisterAction(aktUser.getGlobalRole())){
-//			throw new ProjectException("Sie haben keine Rechte einen User zu registrieren!");
-//		}
+		if(!globalRolesManager.isAllowedRegisterAction(aktUser.getGlobalRole())){
+			throw new ProjectException("Sie haben keine Rechte einen User zu registrieren!");
+		}
 		
+
+		//überprufen ob user schon existent
+		try {
+			userUeberpruf=userDA.getUserByORMID(loginName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Fehler beim Laden!"+e1.getMessage());
+		}
+		
+		if(userUeberpruf!=null){
+			throw new ProjectException("UserName existiert schon!");	
+		}
 		
 		//eingabe fehler abfangen
 		
@@ -570,23 +638,11 @@ public class UserManager {
 		user.setNachname(nachname);
 		user.setLoginName(loginName);
 		user.setPassword(passwort);
+
 		
-		System.out.println("User: "+user.getLoginName());
-		System.out.println("User: "+user.getVorname());
-		System.out.println("User: "+user.getNachname());
-		System.out.println("User: "+user.getPassword());
-		System.out.println("User: "+user.getSprache());
-		System.out.println("User: "+user.getORMID());
-		System.out.println("User: "+user.getGlobalRole());
-		
-		boolean flag;
 		//speichern des users
 		try {
-			
-			//TODO unbedingt noch vorher Ã¼berprÃ¼fen ob user schon vorhanden!!!!
-			flag=userDA.save(user);
-			//TODO jetzt gehtz
-			System.out.println("HIER"+flag);
+			userDA.save(user);
 		} catch (PersistentException e) {
 			throw new ProjectException("User konnte nicht gespeichert werden!"+e.getMessage());
 		}
