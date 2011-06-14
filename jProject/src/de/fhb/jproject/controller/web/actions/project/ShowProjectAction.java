@@ -9,11 +9,13 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 
@@ -42,7 +44,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
-		List<Member> memberList = null;
+		MemberSetCollection memberSet = null;
 		
 		try {		
 			
@@ -65,8 +67,9 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			showAllMemberAction.perform(req, resp);
 			 * 
 			 */
+			
 			try {
-				memberList = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+				memberSet = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
@@ -80,7 +83,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			req.setAttribute("project", project);
 			session.setAttribute("aktProject", project);
 			
-			req.setAttribute("memberList", memberList);
+			req.setAttribute("memberList", memberSet.getCollection());
 			
 			req.setAttribute("contentFile", "showProject.jsp");
 			

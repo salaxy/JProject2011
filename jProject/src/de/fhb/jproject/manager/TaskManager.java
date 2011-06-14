@@ -65,7 +65,7 @@ public class TaskManager {
 	 */
 	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Task task=null;
@@ -103,7 +103,7 @@ public class TaskManager {
 			}		
 		}
 		
-		clearSession();
+		
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -129,7 +129,7 @@ public class TaskManager {
 		
 		//termin speichern
 		try {		
-			clearSession();
+			
 			//Member speichern
 			terminDA.save(termin);
 		} catch (PersistentException e) {
@@ -142,7 +142,7 @@ public class TaskManager {
 					
 		//task speichern
 		try {		
-			clearSession();
+			
 			//Member speichern
 			taskDA.save(task);
 		} catch (PersistentException e) {
@@ -166,7 +166,7 @@ public class TaskManager {
 	 */
 	public void  deleteTask(User aktUser, int taskId, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
 		//jedoch notwendig um die Rechte zum loeschen abzufragen
 		
@@ -204,7 +204,7 @@ public class TaskManager {
 			}	
 		}
 		
-		clearSession();
+		
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -221,7 +221,7 @@ public class TaskManager {
 		
 		//loeschen
 		try {	
-			clearSession();
+			
 			//task loeschen
 			taskDA.delete(task);
 		} catch (PersistentException e) {
@@ -239,7 +239,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllTasks(User aktUser, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 			
 		Project project=null;
 		Member memAktUser=null;	
@@ -284,7 +284,7 @@ public class TaskManager {
 	 */
 	public Task showTask(User aktUser, String projectName,int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 			
 		Project project=null;
 		Member memAktUser=null;	
@@ -319,7 +319,7 @@ public class TaskManager {
 		}
 		
 		
-		clearSession();
+		
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -350,7 +350,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllOwnTasks(User aktUser)
 	throws ProjectException{
-		clearSession();
+		
 		
 		User user=null;
 		List<Task> list=new ArrayList<Task>();
@@ -368,13 +368,12 @@ public class TaskManager {
 			throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Aufgaben!");
 		}
 		
-		clearSession();
+		
 		
 		//EIGENTLICHE AKTIONEN
 		
 		//user neu holen (praeventiv wegn moegl Seiten effekte)
 		try {
-			this.clearSession();
 			user=userDA.loadUserByORMID(aktUser.getLoginName());
 		} catch (PersistentException e) {
 			throw new ProjectException("User wurde nicht gefunden!");
@@ -404,7 +403,7 @@ public class TaskManager {
 	 */
 	public void assignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -441,7 +440,7 @@ public class TaskManager {
 		}
 		
 		
-		clearSession();
+		
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -476,7 +475,7 @@ public class TaskManager {
 		
 		//updaten/speichern des Members
 		try {	
-			clearSession();
+			
 			//task loeschen
 			memberDA.save(assignMember);
 		} catch (PersistentException e) {
@@ -495,7 +494,7 @@ public class TaskManager {
 	 */
 	public void deAssignTask(User aktUser, String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -531,7 +530,7 @@ public class TaskManager {
 			throw new ProjectException("Sie haben keine Rechte zum hinzufuegen einer Aufgabe/Task!");
 		}
 		
-		clearSession();
+		
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -566,7 +565,7 @@ public class TaskManager {
 		
 		//updaten/speichern des Members
 		try {	
-			clearSession();
+			
 			//task loeschen
 			memberDA.save(deassignMember);
 		} catch (PersistentException e) {
@@ -589,7 +588,7 @@ public class TaskManager {
 	 */
 	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Task task=null;
@@ -631,7 +630,7 @@ public class TaskManager {
 			}			
 		}
 
-		clearSession();
+		
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -682,7 +681,7 @@ public class TaskManager {
 			
 			//termin speichern
 			try {		
-				clearSession();
+				
 				//Member speichern
 				terminDA.save(termin);
 			} catch (PersistentException e) {
@@ -697,7 +696,7 @@ public class TaskManager {
 		
 		//task speichern/updaten
 		try {		
-			clearSession();
+			
 			//Member speichern
 			taskDA.save(task);
 		} catch (PersistentException e) {

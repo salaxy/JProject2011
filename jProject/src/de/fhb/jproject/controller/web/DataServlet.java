@@ -12,6 +12,8 @@ import de.fhb.jproject.controller.web.actions.document.UpdateDocuAction;
 import de.fhb.jproject.controller.web.actions.sources.AddNewSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.DownloadSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.UpdateSourceAction;
+import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -19,6 +21,7 @@ import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -58,7 +61,7 @@ public class DataServlet extends HttpServletControllerBase {
 				 */
 				//TODO BO-ACCESS LAYOUT
 
-				List<Project> ownProjectList = null;
+				MemberSetCollection ownProjectList = null;
 				System.out.println("MainManager: "+session.getAttribute("mainManager"));
 
 				try {
@@ -70,7 +73,7 @@ public class DataServlet extends HttpServletControllerBase {
 				}
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
-				session.setAttribute("ownProjectList", ownProjectList);
+				session.setAttribute("ownProjectList", ownProjectList.getCollection());
 
 
 

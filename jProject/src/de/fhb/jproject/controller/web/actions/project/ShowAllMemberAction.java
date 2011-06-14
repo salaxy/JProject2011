@@ -11,10 +11,12 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 
@@ -39,7 +41,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		List<Member> memberList=null;
+		MemberSetCollection memberSet=null;
 		
 		try {				
 			
@@ -51,19 +53,19 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			
 			try {
 				//Manager in aktion
-				memberList=mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), 
+				memberSet=mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), 
 																			  req.getParameter("projectName"));
 
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
-			for( Member m : memberList){
+			/*
+			for( Member m : memberSet){
 				System.out.println("Member: "+ m.getUser().getLoginName()+" "+m.getProject().getName()+" "+m.getProjectRole());
 			}		
-			
+			*/
 			//setzen der Parameter
-			req.setAttribute("memberList", memberList);
+			req.setAttribute("memberList", memberSet.getCollection());
 			
 
 		}catch (ProjectException e) {

@@ -55,7 +55,7 @@ public class UserManager {
      */
 	public void deleteUser(User aktUser, String loginName)
 	throws ProjectException{
-		clearSession();
+		
 		User user = null;
 		
 		//debuglogging
@@ -99,7 +99,7 @@ public class UserManager {
 	 */
 	public User showUserSettings(User aktUser)
 	throws ProjectException{
-		clearSession();
+		
 		//debuglogging
 		logger.info("showUserSettings()");
 		
@@ -137,7 +137,7 @@ public class UserManager {
 	 */
 	public User showUserInfo(User aktUser, String loginName)
 	throws ProjectException{
-		clearSession();
+		
 		User user=null;
 		
 		//debuglogging
@@ -175,7 +175,7 @@ public class UserManager {
 	 */
 	public List <User>  searchUser(User aktUser, String searchValue) 
     throws ProjectException{
-		clearSession();
+		
 		
 		List<User> list=null;
 		
@@ -221,7 +221,7 @@ public class UserManager {
 	public void updateUserSettings(User aktUser, String nachName, String vorname, String[] icqArray, String[] skypeArray,
 			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
-		clearSession();
+		
 		//TODO noch nicht getestet
 		
 		User user=null;
@@ -248,13 +248,13 @@ public class UserManager {
 			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
 		}
 		
-		//abfrage ob user Rechte hat
+		//TODO abfrage ob user Rechte hat
 //		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
 //				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
 //			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
 //		}
 	
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//User neu holen
@@ -388,7 +388,7 @@ public class UserManager {
 				//Member speichern
 				//TODO Funktioniert nicht keine Exception, voellig unerklaerlich warum er nicht speichert.
 				//TODO Probier mal obs jetzt gelöst ist...hab grad keine zeit
-				clearSession();
+				
 				userDA.save(user);
 			} catch (PersistentException e) {
 				throw new ProjectException("Konnte User nicht speichern! "+ e.getMessage());
@@ -406,7 +406,7 @@ public class UserManager {
 	 */
 	public List<User> showAllUser(User aktUser)
 	throws ProjectException{ 
-		clearSession();
+		
 		//debuglogging
 		logger.info("showAllUser()");
 		
@@ -438,7 +438,7 @@ public class UserManager {
 	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
-		clearSession();
+		
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
@@ -495,7 +495,7 @@ public class UserManager {
 	 */
 	public void register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
-		clearSession();
+		
 	
 		//TODO  noch nciht getestet
 		//debuglogging
@@ -582,7 +582,7 @@ public class UserManager {
 		boolean flag;
 		//speichern des users
 		try {
-			clearSession();
+			
 			//TODO unbedingt noch vorher überprüfen ob user schon vorhanden!!!!
 			flag=userDA.save(user);
 			//TODO jetzt gehtz

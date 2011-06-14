@@ -5,12 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -39,19 +42,19 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
-		List<Project> ownProjectList = null;
+		MemberSetCollection ownProjectSet = null;
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			try {
-				ownProjectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
+				ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 			
 			}catch(NullPointerException e){			
 				logger.error(e.getMessage(), e);
 			}
-			session.setAttribute("ownProjectList", ownProjectList);
+			session.setAttribute("ownProjectList", ownProjectSet.getCollection());
 			
 			
 		}catch (ProjectException e) {
