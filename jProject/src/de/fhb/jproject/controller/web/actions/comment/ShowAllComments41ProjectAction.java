@@ -74,7 +74,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 					comm.put("id", comment.getId());
 					comm.put("entry", comment.getEntry());
 					comm.put("user", comment.getUser());
-					json.append("comment", comment);
+					json.append("comment", comm);
 					//json.append("comment", new JSONObject(comment));
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

@@ -228,7 +228,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		action = new DeleteCommentAction();
 		actions.put("DeleteComment", action);
-		
+		/*
 		action = new ShowAllComments41DocuAction();
 		actions.put("ShowAllComments41Docu", action);
 		
@@ -240,7 +240,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		action = new ShowAllComments41TaskAction();
 		actions.put("ShowAllComments41Task", action);
-		
+		*/
 		action = new UpdateCommentAction();
 		actions.put("UpdateComment", action);
 		
