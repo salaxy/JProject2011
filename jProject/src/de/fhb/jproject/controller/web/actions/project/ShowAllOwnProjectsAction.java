@@ -54,7 +54,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){			
 				logger.error(e.getMessage(), e);
 			}
-			session.setAttribute("ownProjectList", ownProjectSet.getCollection());
+			req.setAttribute("ownProjectList", ownProjectSet.getCollection());
 			
 			
 		}catch (ProjectException e) {

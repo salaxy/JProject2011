@@ -78,7 +78,7 @@ public class AdminServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (!(getOperation(req).equals("Logout") || (session.getAttribute("aktUser")==null))) {	
+		if ((session.getAttribute("aktUser")==null)) {	
 			synchronized(session){
 				/*TODO DELETE ACTION
 				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
@@ -86,22 +86,6 @@ public class AdminServlet extends HttpServletControllerBase {
 				 * 
 				 */
 				//TODO BO-ACCESS LAYOUT
-
-				MemberSetCollection ownProjectSet = null;
-
-				try {
-					ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
-				} catch (ProjectException ex) {
-					logger.error(ex.getMessage(), ex);
-					req.setAttribute("contentFile", "error.jsp");
-					req.setAttribute("errorString", ex.getMessage());
-				}
-				//Show all other loggedIn-Stuff...
-				//Session fuer topNaviLinks
-				session.setAttribute("ownProjectList", ownProjectSet.getCollection());
-				
-				
-
 
 				//TODO Comments per AJAX
 			}

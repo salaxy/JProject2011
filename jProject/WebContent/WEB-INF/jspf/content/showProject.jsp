@@ -6,8 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div id="topcontent">
-	<jsp:include page='projectnavi.jsp' />
+	<jsp:include page='projectheader.jsp' />
 </div>
 
 <div id="contentcontentbig">
@@ -18,7 +19,8 @@
 </div>
 
 <div id="footercontent">
-	<form>
-		<textarea cols="93" rows="5">COMMENTS AJAX</textarea>
-	</form>
+	<input id="showComment41Project" value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
+	<div id="allComments41Project">
+		
+	</div>
 </div>
