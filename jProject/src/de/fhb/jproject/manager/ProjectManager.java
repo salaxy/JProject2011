@@ -13,6 +13,7 @@ import org.orm.PersistentSession;
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -20,6 +21,7 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
+import java.util.Set;
 
 /**
  * Manager fuer die ProjectActions
@@ -64,7 +66,7 @@ public class ProjectManager {
 	 */
 	public void addMember(User aktUser, String userLoginName, String projectName, String rolle)
 	throws ProjectException{ 	
-		clearSession();
+		
 		Project project=null;
 		Member member=null;
 		Member memAktUser=null;		
@@ -100,7 +102,7 @@ public class ProjectManager {
 				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 			}			
 		}
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//member erzeugen und parameter setzen
@@ -139,7 +141,7 @@ public class ProjectManager {
 	 */
 	public void addNewProject(User aktUser, String name, String status)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member member=null;
@@ -158,7 +160,7 @@ public class ProjectManager {
 			throw new ProjectException("Sie haben keine Rechte zum erstellen eines Projektes!");
 		}
 		
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//project parameter setzen
@@ -175,7 +177,7 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Project nicht speichern! "+ e.getMessage());
 		}
 		
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//project erzeuger als member erzeugen und hinzufuegen
@@ -206,7 +208,7 @@ public class ProjectManager {
 	 */
 	public void deleteProject(User aktUser, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -239,7 +241,7 @@ public class ProjectManager {
 				throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
 			}	
 		}
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//loeschen
@@ -259,7 +261,7 @@ public class ProjectManager {
 	 */
 	public void deleteMember(User aktUser, String userLoginName, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member memAktUser=null;
@@ -293,7 +295,7 @@ public class ProjectManager {
 				throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
 			}
 		}
-		clearSession();
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//User holen
@@ -328,7 +330,7 @@ public class ProjectManager {
 	 */
 	public Project showProject(User aktUser, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;	
 		
@@ -365,7 +367,7 @@ public class ProjectManager {
 	 */
 	public List<Project> searchProjects(User aktUser, String searchValue)
 	throws ProjectException{
-		clearSession();
+		
 		
 		List <Project> list=null;
 		
@@ -402,7 +404,7 @@ public class ProjectManager {
 	 */
 	public List<Project> showAllProjects(User aktUser)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		List<Project> list=null;
 		
@@ -434,12 +436,11 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Project> showAllOwnProjects(User aktUser)
+	public MemberSetCollection showAllOwnProjects(User aktUser)
 	throws ProjectException{
-		clearSession();
 		//debuglogging
 		logger.info("showAllOwnProjects()");
-		List<Project> list=new ArrayList<Project>();		
+		Set<Project> list= null;	
 		User user=null;
 		
         //abfrage ob user eingeloggt
@@ -461,11 +462,14 @@ public class ProjectManager {
 		}
 		
 		//projekte in liste eintragen
+		/*
 		for (Member aktMember : user.member.toArray()) {
 			list.add(aktMember.getProject());
 		}
+		*/
 		
-		return list;
+		//TODO LATER Projectliste übergeben nicht memberliste
+		return user.member;
 	}
 	
 	/**
@@ -476,9 +480,9 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Member> showAllMember(User aktUser, String projectName)
+	public MemberSetCollection showAllMember(User aktUser, String projectName)
 	throws ProjectException{
-		clearSession();
+		//TODO irgendwas is HIER kaputt
 		
 		Project project=null;
 		Member memAktUser=null;
@@ -493,6 +497,14 @@ public class ProjectManager {
 		if(aktUser == null){
             throw new ProjectException("Sie sind nicht eingeloggt!");
         }
+		
+		//XXX user neu holen um seiten effekte zu vermeiden
+		try {
+			//user suchen
+			aktUser = userDA.getUserByORMID(aktUser.getLoginName());
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		
 		//projekt holen
 		try {
@@ -513,24 +525,27 @@ public class ProjectManager {
 			}
 		}
 		
+		//TODO WORKAROUND!!! { 
 		clearSession();
-		
 		//EIGENTLICHE AKTIONEN
-		
 		try {
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
-		
+		// } WORKAROUND!!!
 		//XXX DELETE THIS
+		/*
 		System.out.println("Size: "+project.member.getCollection().size());
+		
 		for (Object o : project.member.getCollection()) {
 			Member mem = (Member)o;
 			System.out.println("Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
 			
-		}
-		return Arrays.asList(project.member.toArray());
+		}*/
+		
+		
+		return project.member;
 	}
 	
 	private void clearSession() throws ProjectException{

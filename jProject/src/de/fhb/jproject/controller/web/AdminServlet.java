@@ -60,10 +60,13 @@ import de.fhb.jproject.controller.web.actions.user.ShowAllUserAction;
 import de.fhb.jproject.controller.web.actions.user.ShowUserInfoAction;
 import de.fhb.jproject.controller.web.actions.user.ShowUserSettingsAction;
 import de.fhb.jproject.controller.web.actions.user.UpdateUserSettingsAction;
+import de.fhb.jproject.data.Member;
+import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainManager;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import org.apache.log4j.Logger;
 
@@ -84,10 +87,10 @@ public class AdminServlet extends HttpServletControllerBase {
 				 */
 				//TODO BO-ACCESS LAYOUT
 
-				List<Project> ownProjectList = null;
+				MemberSetCollection ownProjectSet = null;
 
 				try {
-					ownProjectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
+					ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 				} catch (ProjectException ex) {
 					logger.error(ex.getMessage(), ex);
 					req.setAttribute("contentFile", "error.jsp");
@@ -95,7 +98,7 @@ public class AdminServlet extends HttpServletControllerBase {
 				}
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
-				session.setAttribute("ownProjectList", ownProjectList);
+				session.setAttribute("ownProjectList", ownProjectSet.getCollection());
 				
 				
 
