@@ -172,7 +172,7 @@ public class DocumentManager {
 	    	length=in.read(data);
 	    	out.write(data, 0, length);
 	    } while (length == 1024);
-	    out.write(data,0,length);	
+	    out.close();
 	}
 	
 }
