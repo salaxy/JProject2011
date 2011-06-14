@@ -46,7 +46,7 @@ public class DocumentManager {
 	// !!! Dokument Actions !!!
 	
 	public void addNewDocu(User aktUser, Project aktProject, List<FileItem> fields)throws ProjectException{
-		
+		clearSession();
 		
 		logger.info("addNewDocu()");
 		//logger.debug("String projectName("+aktProject.getName()+")");//TODO
@@ -78,7 +78,7 @@ public class DocumentManager {
 			}		
 		}
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		try {
 			project=projectDA.getProjectByORMID(aktProject.getName());
