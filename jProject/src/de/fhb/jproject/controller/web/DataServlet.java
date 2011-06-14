@@ -6,6 +6,10 @@ package de.fhb.jproject.controller.web;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.commons.web.HttpServletControllerBase;
+import de.fhb.jproject.controller.web.actions.comment.ShowAllComments41DocuAction;
+import de.fhb.jproject.controller.web.actions.comment.ShowAllComments41ProjectAction;
+import de.fhb.jproject.controller.web.actions.comment.ShowAllComments41SourceAction;
+import de.fhb.jproject.controller.web.actions.comment.ShowAllComments41TaskAction;
 import de.fhb.jproject.controller.web.actions.document.AddNewDocuAction;
 import de.fhb.jproject.controller.web.actions.document.DownloadDocuAction;
 import de.fhb.jproject.controller.web.actions.document.UpdateDocuAction;
@@ -147,13 +151,15 @@ public class DataServlet extends HttpServletControllerBase {
 				req.setAttribute("contentFile", "error.jsp");
 				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
 			}
-			
+			logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+			reqDisp.forward(req, resp);
+		}else{
+			super.doGet(req, resp);
 		}
 		
-		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
 	}
 
 	/** 
@@ -221,13 +227,13 @@ public class DataServlet extends HttpServletControllerBase {
 				req.setAttribute("contentFile", "error.jsp");
 				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
 			}
-			
+			logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		
+			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+			reqDisp.forward(req, resp);
+		}else{
+			super.doPost(req, resp);
 		}
-		
-		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
 	}
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/** 
@@ -256,6 +262,20 @@ public class DataServlet extends HttpServletControllerBase {
 		actions = new HashMap();
 		
 		//Actions hinzufuegen
+		
+		// !!! Kommentar Actions !!!
+		
+		action = new ShowAllComments41DocuAction();
+		actions.put("ShowAllComments41Docu", action);
+		
+		action = new ShowAllComments41ProjectAction();
+		actions.put("ShowAllComments41Project", action);
+		
+		action = new ShowAllComments41SourceAction();
+		actions.put("ShowAllComments41Source", action);
+		
+		action = new ShowAllComments41TaskAction();
+		actions.put("ShowAllComments41Task", action);
 		
 		// !!! Dokument Actions !!!
 		

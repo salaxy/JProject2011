@@ -13,7 +13,7 @@
 	function getShowAllComments41ProjectJSON(projectName) {
 		alert("hallo"+projectName);
 		
-		jQuery.getJSON('JProjectServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
+		jQuery.getJSON('DataServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
 			var items = [];
 			alert("was here");
 			$.each(data, function(key, val) {
@@ -39,7 +39,7 @@
 		
 	
 	function getShowAllComments41ProjectJSON(projectName){
-		$.getJSON('JProjectServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
+		$.getJSON('DataServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
 			var items = [];
 			alert("was here");
 			$.each(data, function(key, val) {
@@ -57,7 +57,7 @@
 	function updateShowAllComments41Document(json){
 		var newContent = '';
 		alert(json);
-		json.comment(function(comment){
+		json.comment.each(function(comment){
 			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
 		});
@@ -65,23 +65,25 @@
 	}
 	function getShowAllComments41DocumentJSON(documentId){
 		var jsonRequest = new Request.JSON({
-			url: "JProjectServlet?do=ShowAllComments41Document&documentId="+documentId,
+			url: "DataServlet?do=ShowAllComments41Document&documentId="+documentId,
 			onComplete: updateShowAllComments41Document
 		}).get({'documentId':documentId});
 	}
 	
 	function updateShowAllComments41Project(json){
 		var newContent = '';
-		alert(json);
-		json.comment(function(comment){
+		//alert(json);
+		json.comment.each(function(comment){
+			//alert("im in");
 			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
 		});
+		alert(newContent);
 		$('allComments41Project').set('html', newContent);
 	}
 	function getShowAllComments41ProjectJSON(projectName){
 		var jsonRequest = new Request.JSON({
-			url: "JProjectServlet?do=ShowAllComments41Project&projectName="+projectName,
+			url: "DataServlet?do=ShowAllComments41Project&projectName="+projectName,
 			onComplete: updateShowAllComments41Project
 		}).get({'projectName':projectName});
 	}
