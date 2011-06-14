@@ -5,19 +5,84 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--<script src="js/jquery-1.6.1.min.js"></script>-->
+<script src="js/mootools-1.2.1-core.js"></script>
 <script type="text/javascript">
-	function updateShowProjectList(json){
-		var newContent = '';
-		//alert(json);
-		json.project(function(project){
-			newContent += project.name+' - '+project.status+"<br/>";
+	
+	/*
+	function getShowAllComments41ProjectJSON(projectName) {
+		alert("hallo"+projectName);
+		
+		jQuery.getJSON('JProjectServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
+			var items = [];
+			alert("was here");
+			$.each(data, function(key, val) {
+				items.push('<li id="' + key + '">' + val + '</li>');
+			});
+
+			$('<div/>', {
+				'class': 'comment',
+				html: items.join('')
+			}).appendTo('#allComments41Project');
 		});
-		$('targetBox').set('html', newContent);
+		
 	}
-	function getShowProjectJSON(projectName){
+	
+	
+	
+	$("#showComments41Project").click(function(event){
+		alert("Thanks for visiting! ");
+	});
+	
+	
+	
+		
+	
+	function getShowAllComments41ProjectJSON(projectName){
+		$.getJSON('JProjectServlet?do=ShowAllComments41Project&projectName='+projectName, function(data) {
+			var items = [];
+			alert("was here");
+			$.each(data, function(key, val) {
+				items.push('<li id="' + key + '">' + val + '</li>');
+			});
+
+			$('<div/>', {
+				'class': 'comment',
+				html: items.join('')
+			}).appendTo('#allComments41Project');
+		});
+	}
+	*/
+
+	function updateShowAllComments41Document(json){
+		var newContent = '';
+		alert(json);
+		json.comment(function(comment){
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+		});
+		$('allComments41Docu').set('html', newContent);
+	}
+	function getShowAllComments41DocumentJSON(documentId){
 		var jsonRequest = new Request.JSON({
-			url: "JProjectServlet?do=ShowProject&projectName="+projectName,
-			onComplete: updateShowProjectList
+			url: "JProjectServlet?do=ShowAllComments41Document&documentId="+documentId,
+			onComplete: updateShowAllComments41Document
+		}).get({'documentId':documentId});
+	}
+	
+	function updateShowAllComments41Project(json){
+		var newContent = '';
+		alert(json);
+		json.comment(function(comment){
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+		});
+		$('allComments41Project').set('html', newContent);
+	}
+	function getShowAllComments41ProjectJSON(projectName){
+		var jsonRequest = new Request.JSON({
+			url: "JProjectServlet?do=ShowAllComments41Project&projectName="+projectName,
+			onComplete: updateShowAllComments41Project
 		}).get({'projectName':projectName});
 	}
 	/*
@@ -41,6 +106,5 @@
 			onComplete: updateSongList
 		}).get({'cdid': cdid});
 	}
-	*
 	*/
 </script>

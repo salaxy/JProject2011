@@ -35,16 +35,19 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			throws ServletException {
 		
 		
-		List <User> userList=null;
+		List <User> userList = null;
+		User user = null;
 	
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		
+		String loginName = "";
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
+			
+			
 			
 			//UserList holen
 			try {
@@ -53,13 +56,39 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}	
+			
+			try{
+				//Wenn loginName == null dann gib mir den ersten
+				if (null == req.getParameter("loginName")) {
+					loginName = userList.get(0).getLoginName();
+				}else{
+					loginName = req.getParameter("loginName");
+				}
+			} catch (IllegalArgumentException e) {
+				throw new ProjectException("loginName ungültig "+e);
+			}catch(NullPointerException e){
+				logger.error("Keine User vorhanden!"+e.getMessage(), e);
+			}
+			
+			try {
+				//Manager in aktion
+				user=mainManager.getUserManager().showUserInfo((User)session.getAttribute("aktUser"), 
+																		 loginName);
+			}catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
 //			}
 
 			//Daten dem Reqest mitgeben
+			req.setAttribute("user", user);
 			req.setAttribute("userList", userList);
 			
+			
+			
+			req.setAttribute("contentFile", "showAllUser.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

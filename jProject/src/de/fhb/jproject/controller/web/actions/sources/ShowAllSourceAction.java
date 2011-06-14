@@ -55,8 +55,8 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			try {
-				//Wenn sourcecodeId == 0 dann gib mir den ersten
-				if (0 == Integer.valueOf(req.getParameter("sourcecodeId"))) {
+				//Wenn sourcecodeId == null dann gib mir den ersten
+				if (null == req.getParameter("sourcecodeId")) {
 					sourcecodeId = sourcecodeList.get(0).getId();
 				}else{
 					sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));

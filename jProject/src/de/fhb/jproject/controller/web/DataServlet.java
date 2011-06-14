@@ -61,11 +61,11 @@ public class DataServlet extends HttpServletControllerBase {
 				 */
 				//TODO BO-ACCESS LAYOUT
 
-				MemberSetCollection ownProjectList = null;
+				MemberSetCollection ownProjectSet = null;
 				System.out.println("MainManager: "+session.getAttribute("mainManager"));
 
 				try {
-					ownProjectList = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
+					ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
 				} catch (ProjectException ex) {
 					logger.error(ex.getMessage(), ex);
 					req.setAttribute("contentFile", "error.jsp");
@@ -73,7 +73,7 @@ public class DataServlet extends HttpServletControllerBase {
 				}
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
-				session.setAttribute("ownProjectList", ownProjectList.getCollection());
+				session.setAttribute("ownProjectSet", ownProjectSet.getCollection());
 
 
 

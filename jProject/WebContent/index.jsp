@@ -17,6 +17,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>jProject</title>
 		<link rel="stylesheet" href="style.css" type="text/css" />
+			
+
 		<%@include file="WEB-INF/jspf/layout/javascript.jsp" %>
     </head>
     <body>

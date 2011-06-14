@@ -14,8 +14,11 @@ import de.fhb.jproject.data.Comment;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -59,13 +62,39 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}	
-//			for( Comment c : commentList){
-//				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
-//			}		
-			
+			for( Comment c : commentList){
+				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry()+" "+c.getUser());
+			}		
+			JSONObject json = new JSONObject();
+		
+			for (Comment comment : commentList) {
+				try {
+					
+					JSONObject comm = new JSONObject();
+					comm.put("id", comment.getId());
+					comm.put("entry", comment.getEntry());
+					comm.put("user", comment.getUser());
+					json.append("comment", comment);
+					//json.append("comment", new JSONObject(comment));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			resp.setContentType("application/json");
+			try {
+				//forward(req, resp, "/snippet.jsp");
+				resp.getWriter().println(json);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//setzen der Parameter
+			/*
 			req.setAttribute("commentList", commentList);
 			req.setAttribute("contentFile", "comment.jsp");
+			 * 
+			 */
 
 		}catch (ProjectException e) {
 			

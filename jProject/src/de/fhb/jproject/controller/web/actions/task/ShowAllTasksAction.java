@@ -66,8 +66,8 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			try{
-				//Wenn taskId == 0 dann gib mir den ersten
-				if (0 == Integer.valueOf(req.getParameter("taskId"))) {
+				//Wenn taskId == null dann gib mir den ersten
+				if (null == req.getParameter("taskId")) {
 					taskId = taskList.get(0).getId();
 				}else{
 					taskId = Integer.valueOf(req.getParameter("taskId"));

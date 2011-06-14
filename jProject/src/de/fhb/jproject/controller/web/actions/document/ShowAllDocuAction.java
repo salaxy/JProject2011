@@ -55,8 +55,8 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			try {
-				//Wenn documentId == 0 dann gib mir den ersten
-				if (0 == Integer.valueOf(req.getParameter("documentId"))) {
+				//Wenn documentId == null dann gib mir den ersten
+				if (null == req.getParameter("documentId")) {
 					documentId = documentList.get(0).getId();
 				}else{
 					documentId = Integer.valueOf(req.getParameter("documentId"));
