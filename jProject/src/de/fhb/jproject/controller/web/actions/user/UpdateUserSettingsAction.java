@@ -14,10 +14,11 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action die angesprochen wird wenn eine User gesucht wird
+ * Action die angesprochen wird wenn eine User seine Daten aenderst
  * 
- * STATUS:	NICHT FREIGEGEBEN 
- * URL: 	JProjectServlet?do=UpdateUserSettings&nachname=MeinNeuerNachname
+ * STATUS:	FREIGEGEBEN 
+ * URL: 	JProjectServlet?do=UpdateUserSettings&nachname=MeinNeuerNachname&vorname=MeinNeuerVorname&sprache=NeueSprache&neuesPasswortEins=pw&neuesPasswortZwei=pw&altesPasswort=password
+ * drei parameter fehlen !! neuIcq, neuSkype, neutelefon
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
@@ -41,6 +42,9 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			try {
+				
+				String[] neu ={"123","4567","789"};
+				
 				//Manager in aktion
 //				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
 //																req.getParameter("nachname"), 
@@ -55,7 +59,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
 						null, 
 						null, 
-						null, 
+						neu, 
 						null, 
 						null, 
 						"neueSprache", 
