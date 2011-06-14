@@ -84,7 +84,7 @@ public class CommentManager {
 	 */
 	public void commentDocu(User aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentDocument commentDocu=null;
 		Comment comment=null;
@@ -123,7 +123,7 @@ public class CommentManager {
 			}
 		}
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -162,7 +162,7 @@ public class CommentManager {
 	 */
 	public void commentSource(User aktUser, int sourcecodeId, String inhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentSourcecode commentSource=null;
 		Comment comment=null;
@@ -202,7 +202,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//CommentSourcecode erstellen
@@ -250,7 +250,7 @@ public class CommentManager {
 	 */
 	public void commentTask(User aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentTask commentTask=null;
 		Comment comment=null;
@@ -290,7 +290,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -336,7 +336,7 @@ public class CommentManager {
 	 */
 	public void commentProject(User aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
-		
+		clearSession();
 		Member memAktUser=null;	
 		CommentProject commentProject=null;
 		Comment comment=null;
@@ -374,7 +374,7 @@ public class CommentManager {
 			}	
 		}		
 
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//commentdocu erstellen
@@ -420,7 +420,7 @@ public class CommentManager {
 	 */
 	public void deleteComment(User aktUser, String projectName, int commentId)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Comment comment=null;
 		Project project=null;
 		Member memAktUser=null;	
@@ -471,7 +471,7 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//comment holen 
@@ -503,7 +503,7 @@ public class CommentManager {
 	 */
 	public void updateComment(User aktUser, String projectName, int commentId, String neuerInhalt)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Comment comment=null;
 		Project project=null;
 		Member memAktUser=null;	
@@ -587,7 +587,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Docu(User aktUser, String projectName, int documentId)
 	throws ProjectException{
-		
+		clearSession();
 		
 		List<Comment> list=null;
 		Project project=null;
@@ -624,7 +624,7 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
@@ -648,7 +648,7 @@ public class CommentManager {
 	 */
 	public List<Comment>  showAllComments41Source(User aktUser, String projectName, int sourcecodeId)
 	throws ProjectException{
-		
+		clearSession();
 		
 		List<Comment> list=null;
 		Project project=null;
@@ -709,7 +709,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Task(User aktUser, String projectName, int taskId)
 	throws ProjectException{
-		
+		clearSession();
 		
 		List<Comment> list=null;
 
@@ -747,7 +747,7 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
@@ -770,7 +770,7 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Project(User aktUser, String projectName)
 	throws ProjectException{
-		
+		clearSession();
 		
 		List<Comment> list=null;
 		
@@ -807,7 +807,7 @@ public class CommentManager {
 			}	
 		}	
 		
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
