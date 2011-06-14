@@ -61,7 +61,9 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 						);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}/*TODO IllegalArgumentE*/
+			}catch (IllegalArgumentException e) {
+				logger.error(e.getMessage(), e);
+			}
 			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
