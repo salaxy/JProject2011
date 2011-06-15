@@ -25,7 +25,7 @@
         <div id="banner">
 <!--BANNER-->
 			<a href="/jProject/">
-				<img id="logo" src="images/logo_red.png" alt="jProject"/>
+				<img id="logo" src="images/logo_red_alpha.png" alt="jProject"/>
 			</a>
 <!--BANNER-END-->	
 		</div>
