@@ -224,7 +224,7 @@ public class DocumentManager {
 				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
 			}
 		}
-		
+		//TODO return as SetCollection & fix duplicated entrys
 		return Arrays.asList(project.document.toArray());
 		
 	}
@@ -273,6 +273,9 @@ public class DocumentManager {
 			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
 		}
 		
+		
+		//TODO send to internal delete -> add new method?
+		
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
 			
@@ -294,7 +297,7 @@ public class DocumentManager {
 		}
 		
 	}
-	
+	//TODO show as String
 	public Document showDocu(User aktUser, String projectName, int documentId)throws ProjectException{return null;}
 	
 	private void clearSession() throws ProjectException{
