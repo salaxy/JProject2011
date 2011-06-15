@@ -7,22 +7,33 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--<script src="js/jquery-1.6.1.min.js"></script>-->
 <script src="js/mootools-1.2.1-core.js"></script>
-<script type="text/javascript">  
+<script type="text/javascript"> 
+	var hide = false;
+	
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
 		var newContent = '';
 		//alert(json);
+		
 		json.comment.each(function(comment){
 			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
 		});
+		
+		
 		$('allComments41Docu').set('html', newContent);
 	}
 	function getShowAllComments41DocumentJSON(documentId){
-		var jsonRequest = new Request.JSON({
-			url: "DataServlet?do=ShowAllComments41Document&documentId="+documentId,
-			onComplete: updateShowAllComments41Document
-		}).get({'documentId':documentId});
+		if(!hide){
+			var jsonRequest = new Request.JSON({
+				url: "DataServlet?do=ShowAllComments41Document&documentId="+documentId,
+				onComplete: updateShowAllComments41Document
+			}).get({'documentId':documentId});
+			hide=true;
+		}else{
+			$('allComments41Docu').set('html', '');
+			hide=false;
+		};
 	}
 	
 	/* CommentProject AJAX */
@@ -30,17 +41,23 @@
 		var newContent = '';
 		//alert(json);
 		json.comment.each(function(comment){
-			//alert("im in");
 			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
 		});
 		$('allComments41Project').set('html', newContent);
 	}
 	function getShowAllComments41ProjectJSON(projectName){
-		var jsonRequest = new Request.JSON({
-			url: "DataServlet?do=ShowAllComments41Project&projectName="+projectName,
-			onComplete: updateShowAllComments41Project
-		}).get({'projectName':projectName});
+		if(!hide){
+			var jsonRequest = new Request.JSON({
+				url: "DataServlet?do=ShowAllComments41Project&projectName="+projectName,
+				onComplete: updateShowAllComments41Project
+			}).get({'projectName':projectName});
+		
+			hide=true;
+		}else{
+			$('allComments41Project').set('html', '');
+			hide=false;
+		};
 	}
 	
 	/* CommentSourcecode AJAX */
@@ -55,10 +72,17 @@
 		$('allComments41Source').set('html', newContent);
 	}
 	function getShowAllComments41SourceJSON(sourcecodeId){
-		var jsonRequest = new Request.JSON({
-			url: "DataServlet?do=ShowAllComments41Source&sourcecodeId="+sourcecodeId,
-			onComplete: updateShowAllComments41Source
-		}).get({'sourcecodeId':sourcecodeId});
+		if(!hide){
+			var jsonRequest = new Request.JSON({
+				url: "DataServlet?do=ShowAllComments41Source&sourcecodeId="+sourcecodeId,
+				onComplete: updateShowAllComments41Source
+			}).get({'sourcecodeId':sourcecodeId});
+		
+			hide=true;
+		}else{
+			$('allComments41Source').set('html', '');
+			hide=false;
+		};
 	}
 	
 	/* CommentTask AJAX */
@@ -73,10 +97,17 @@
 		$('allComments41Task').set('html', newContent);
 	}
 	function getShowAllComments41TaskJSON(taskId){
-		var jsonRequest = new Request.JSON({
-			url: "DataServlet?do=ShowAllComments41Task&taskId="+taskId,
-			onComplete: updateShowAllComments41Task
-		}).get({'taskId':taskId});
+		if(!hide){
+			var jsonRequest = new Request.JSON({
+				url: "DataServlet?do=ShowAllComments41Task&taskId="+taskId,
+				onComplete: updateShowAllComments41Task
+			}).get({'taskId':taskId});
+		
+			hide=true;
+		}else{
+			$('allComments41Task').set('html', '');
+			hide=false;
+		};
 	}
 	
 	

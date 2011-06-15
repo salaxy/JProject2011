@@ -5,4 +5,5 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>Projektübersicht</h1>
+<h1>JProject</h1><br />
+<jsp:include page='../addNewProject.jsp' />

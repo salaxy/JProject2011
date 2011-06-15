@@ -56,7 +56,7 @@ public class DataServlet extends HttpServletControllerBase {
 	 */
 	protected void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws ServletException, IOException {
-		if (session.getAttribute("aktUser")!=null) {	
+		if (!(session.getAttribute("aktUser")==null)) {	
 			synchronized(session){
 				/*TODO DELETE ACTION
 				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();

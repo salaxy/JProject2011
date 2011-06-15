@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.user.ShowUserInfoAction;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -50,7 +51,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 				//Manager in aktion
 				mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
 															   req.getParameter("userLoginName"), 
-															   req.getParameter("projectName"), 
+															   ((Project)session.getAttribute("aktProject")).getName(), 
 															   req.getParameter("rolle"));
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
