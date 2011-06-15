@@ -2,12 +2,24 @@ GUI
 *********
 DeleteMember =>
 	Bestätigung.
+Adminconsole =>
+	register,
+	usw.
+ShowProject =>
+	Dropdown mögliche Rollen,
+	Member editieren(rollenvergabe)
+Übersicht =>
+	Projekt suchen
 
 Controller
 *********
 
 Manager
 *********
+ProjectManager =>
+	NEED ShowMember!(ohne Action)
+ProjectRoles =>
+	NEED showAllProjectRoles!(ohne Action)
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
@@ -16,10 +28,10 @@ DeleteMember =>
 
 DA-Schicht
 **********
-
+(Semesterferien)an JPA anpassen
 
 Datenbank
 **********
-	
+(Semesterferien)Datenbank auf JPA umbauen
 		
 
