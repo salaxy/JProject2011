@@ -7,7 +7,10 @@ Controller
 
 Manager
 *********
-NEED ShowMember!
+ProjectManager =>
+	NEED ShowMember!(ohne Action)
+ProjectRoles =>
+	NEED showAllProjectRoles!(ohne Action)
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
