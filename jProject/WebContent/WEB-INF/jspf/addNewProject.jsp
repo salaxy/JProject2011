@@ -11,6 +11,7 @@
 	<input value="Projectname"	name="projectName"	type="text" size="20" maxlength="30">
 	<input value="Add" type="submit" />
 	<!--
-	req.getParameter("projectName")
+	req.getParameter("projectName"), 
+	req.getParameter("status")
 	-->
 </form>

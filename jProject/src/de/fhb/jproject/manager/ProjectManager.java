@@ -59,22 +59,27 @@ public class ProjectManager {
 	 *  (Methode Funktioniert auch zum updaten der Rolle)
 	 * 
 	 * @param aktUser
-	 * @param userLoginName
+	 * @param loginName
 	 * @param projectName
 	 * @param rolle
 	 * @throws ProjectException
 	 */
-	public void addMember(User aktUser, String userLoginName, String projectName, String rolle)
+	public void addMember(User aktUser, String loginName, String projectName, String rolle)
 	throws ProjectException{ 	
-		
+		clearSession();
 		Project project=null;
 		Member member=null;
-		Member memAktUser=null;		
+		Member memAktUser=null;
+		
+		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
 		
 		//debuglogging
 		logger.info("addMember()");
-		logger.debug("String userName("+userLoginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
+		logger.debug("String userName("+loginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
 		try {
+			if (rolle == null) {
+				rolle = "Member";
+			}
 			projectRolesDA.getProjectRolesByORMID(rolle);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Keine zulaessige Rolle angegeben!");
@@ -102,7 +107,7 @@ public class ProjectManager {
 				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
 			}			
 		}
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//member erzeugen und parameter setzen
@@ -114,7 +119,7 @@ public class ProjectManager {
 		
 		//user holen und setzen
 		try {
-			User tempUser = userDA.getUserByORMID(userLoginName);
+			User tempUser = userDA.getUserByORMID(loginName);
 			member.setUser(tempUser);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
@@ -122,6 +127,7 @@ public class ProjectManager {
 					
 		//Member speichern
 		try {
+			clearSession();
 			//Member speichern
 			memberDA.save(member);
 		} catch (PersistentException e) {
@@ -166,6 +172,9 @@ public class ProjectManager {
 		//project parameter setzen
 		project=projectDA.createProject();
 		project.setName(name);
+		if (status == null) {
+			status = "New";
+		}
 		project.setStatus(status);
 		
 		//Project speichern

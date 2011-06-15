@@ -38,19 +38,22 @@ public class AddMemberAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		
+		
 		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String userLoginName(" + req.getParameter("userLoginName") + "), "
+					+ "String loginName(" + req.getParameter("loginName") + "), "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					+ "String projectName(" + req.getParameter("rolle") + ")"
 					);
+					
 			try{
 				//Manager in aktion
 				mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
-															   req.getParameter("userLoginName"), 
+															   req.getParameter("loginName"), 
 															   ((Project)session.getAttribute("aktProject")).getName(), 
 															   req.getParameter("rolle"));
 			}catch(NullPointerException e){

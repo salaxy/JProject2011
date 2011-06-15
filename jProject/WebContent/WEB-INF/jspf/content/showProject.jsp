@@ -10,13 +10,15 @@
 <div id="topcontent">
 	<jsp:include page='projectheader.jsp' />
 </div>
-
-<div id="contentcontentbig">
-	<h2>${project} ${project.status}</h2><br />
-	<jsp:include page='../addMember.jsp' />
+<div id="leftcontent">
 	<c:forEach items="${memberList}" var="member" varStatus="i">
 		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">${member.user}</a><br>
 	</c:forEach>
+</div>
+<div id="contentcontentsmall">
+	<h2>${project} ${project.status}</h2><br />
+	<jsp:include page='../addMember.jsp' />
+	
 </div>
 
 <div id="footercontent">

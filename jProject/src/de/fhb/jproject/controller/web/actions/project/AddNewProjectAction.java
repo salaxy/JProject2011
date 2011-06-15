@@ -44,15 +44,16 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String userLoginName(" + req.getParameter("projectName") + "), "
-					+ "String projectName(" + req.getParameter("") + ")"
+					+ "String userLoginName(" + req.getParameter("userLoginName") + "), "
+					+ "String projectName(" + req.getParameter("projectName") + ")"
+					+ "String status(" + req.getParameter("status") + ")"
 					);
 			
 			try{
 				//Manager in aktion
 				mainManager.getProjectManager().addNewProject((User)session.getAttribute("aktUser"), 
 																   req.getParameter("projectName"), 
-																   "New");//TODO Status?
+																   req.getParameter("status"));
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
