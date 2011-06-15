@@ -5,10 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h2>Neuen Member hinzufügen</h2><br />
+<!--TODO IF LEADER-->
+<h3>Neuen Member hinzufügen</h3><br />
 <form method="POST" action="JProjectServlet">
 	<input name="do" value="AddMember" type="hidden" />
-	<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30"><br />
+	<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30">
 	<input value="Add" type="submit" />
 	<!--
 	req.getParameter("userLoginName"), 

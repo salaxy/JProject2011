@@ -75,7 +75,9 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("addMember()");
-		logger.debug("String userName("+loginName+")"+"String projectName("+projectName+")"+"String rolle("+ rolle+")");	
+		logger.debug("String userName("+loginName+")"
+				+"String projectName("+projectName+")"
+				+"String rolle("+ rolle+")");	
 		try {
 			if (rolle == null) {
 				rolle = "Member";
@@ -146,15 +148,15 @@ public class ProjectManager {
 	 * @throws ProjectException
 	 */
 	public void addNewProject(User aktUser, String name, String status)
-	throws ProjectException{ 
-		//TODO Status ist als Uebergabeparameter irrelevant?
-		
+	throws ProjectException{
+		clearSession();
 		Project project=null;
 		Member member=null;
 		
 		//debuglogging
 		logger.info("addNewProject()");
-		logger.debug("String name("+name+")"+"String status("+status+")");
+		logger.debug("String name("+name+")"
+				+"String status("+status+")");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -217,7 +219,7 @@ public class ProjectManager {
 	 */
 	public void deleteProject(User aktUser, String projectName)
 	throws ProjectException{ 
-		
+		clearSession();
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -268,9 +270,9 @@ public class ProjectManager {
 	 * @param projectName
 	 * @throws ProjectException
 	 */
-	public void deleteMember(User aktUser, String userLoginName, String projectName)
+	public void deleteMember(User aktUser, String loginName, String projectName)
 	throws ProjectException{ 
-		
+		clearSession();
 		
 		Project project=null;
 		Member memAktUser=null;
@@ -279,7 +281,8 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("deleteMember()");
-		logger.debug("String name("+userLoginName+")"+"String name("+projectName+")");
+		logger.debug("String loginName("+loginName+")"
+				+"String projectName("+projectName+")");
 		
         //abfrage ob user eingeloggt
 		if(aktUser == null){
@@ -304,15 +307,26 @@ public class ProjectManager {
 				throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
 			}
 		}
-		
+		clearSession();
 		//EIGENTLICHE AKTIONEN
+		
+		if (loginName == null) {
+			loginName=aktUser.getLoginName();
+		}
 		
 		//User holen
 		try {
-			user=userDA.getUserByORMID(userLoginName);
+			user=userDA.getUserByORMID(loginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
 		}
+		
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
 		
 		//zuloeschenden Member holen
 		try {
@@ -324,6 +338,7 @@ public class ProjectManager {
 		//Member loeschen
 		try {
 			//Member loeschen
+			clearSession();
 			memberDA.delete(delMember);
 		} catch (PersistentException e) {
 			
@@ -339,7 +354,7 @@ public class ProjectManager {
 	 */
 	public Project showProject(User aktUser, String projectName)
 	throws ProjectException{ 
-		
+		clearSession();
 		
 		Project project=null;	
 		
@@ -534,7 +549,6 @@ public class ProjectManager {
 			}
 		}
 		
-		//TODO WORKAROUND!!! { 
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		try {
@@ -542,7 +556,6 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
-		// } WORKAROUND!!!
 		//XXX DELETE THIS
 		/*
 		System.out.println("Size: "+project.member.getCollection().size());

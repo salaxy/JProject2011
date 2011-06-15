@@ -74,7 +74,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("TaskID ungültig "+e);
-			}catch(NullPointerException e){
+			}catch(ArrayIndexOutOfBoundsException e){
 				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
 			}
 			
