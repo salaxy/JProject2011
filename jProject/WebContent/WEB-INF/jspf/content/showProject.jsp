@@ -13,13 +13,14 @@
 
 <div id="contentcontentbig">
 	<h2>${project} ${project.status}</h2><br />
+	<jsp:include page='../addMember.jsp' />
 	<c:forEach items="${memberList}" var="member" varStatus="i">
 		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">${member.user}</a><br>
 	</c:forEach>
 </div>
 
 <div id="footercontent">
-	<input id="showComment41Project" value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
+	<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
 	<div id="allComments41Project">
 		
 	</div>

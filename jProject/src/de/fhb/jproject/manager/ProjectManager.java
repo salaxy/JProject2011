@@ -141,7 +141,7 @@ public class ProjectManager {
 	 */
 	public void addNewProject(User aktUser, String name, String status)
 	throws ProjectException{ 
-		
+		//TODO Status ist als Uebergabeparameter irrelevant?
 		
 		Project project=null;
 		Member member=null;

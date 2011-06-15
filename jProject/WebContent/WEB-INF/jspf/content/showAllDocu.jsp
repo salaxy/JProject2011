@@ -17,14 +17,10 @@
 </div>
 
 <div id="contentcontentsmall">
+	<jsp:include page='../addNewDocu.jsp' />
 	${document.id} ${document.dateiname}<br />	
 	
-	<form method="POST" action="DataServlet" enctype="multipart/form-data">
-		<input type="hidden" name="do" value="AddNewDocu" />
-		<input type="file" size="50" name="file1">
-		<!--TODO AJAX ADD FIELD-->
-		<input type="submit" value="Upload" />
-	</form>
+	
 </div>
 
 <div id="footercontent">

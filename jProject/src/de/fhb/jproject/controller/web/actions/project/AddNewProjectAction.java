@@ -52,7 +52,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 				//Manager in aktion
 				mainManager.getProjectManager().addNewProject((User)session.getAttribute("aktUser"), 
 																   req.getParameter("projectName"), 
-																   req.getParameter("status"));
+																   "New");//TODO Status?
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

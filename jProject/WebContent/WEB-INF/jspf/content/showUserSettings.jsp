@@ -6,7 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<form class="buttonright" method="POST" action="JProjectServlet">
+<!--Content here-->
+
+
+<!--this is UpdateUserSettings => outsourcing-->
+<form method="POST" action="JProjectServlet">
 	<input name="do" value="UpdateUserSettings" type="hidden" />
 	${user.loginName}<br />
 	<!--<input value="" name="loginName" type="text" size="15" maxlength="50">--><br />

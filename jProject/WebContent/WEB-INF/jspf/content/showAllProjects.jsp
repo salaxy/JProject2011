@@ -28,7 +28,7 @@
 </div>
 
 <div id="footercontent">
-	<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON(${project.name})" />
+	<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
 	<div id="allComments41Project">
 		
 	</div>
