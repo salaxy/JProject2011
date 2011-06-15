@@ -13,7 +13,9 @@ import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
+import de.fhb.jproject.manager.GlobalRolesManager;
 import de.fhb.jproject.manager.MainManager;
+import de.fhb.jproject.manager.ProjectRolesManager;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
@@ -45,7 +47,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
 		MemberSetCollection memberSet = null;
-		
+		User aktUser = null;
 		try {		
 			
 			//Debugprint
@@ -55,10 +57,11 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					);
 			
 			
+			aktUser = (User)session.getAttribute("aktUser");
 			try {
 				//Manager in aktion
-				project=mainManager.getProjectManager().showProject((User)session.getAttribute("aktUser"), 
-																		 req.getParameter("projectName"));
+				project=mainManager.getProjectManager().showProject(aktUser, 
+																	req.getParameter("projectName"));
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
@@ -69,7 +72,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			 */
 			
 			try {
-				memberSet = mainManager.getProjectManager().showAllMember((User)session.getAttribute("aktUser"), req.getParameter("projectName")); 
+				memberSet = mainManager.getProjectManager().showAllMember(aktUser, req.getParameter("projectName")); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
@@ -79,12 +82,29 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//TODO anzahl documente, anzahl Sourcecode
 			//TODO fähigkeiten addMember, DeleteMember
 			
-			//setzen der Parameter
-			req.setAttribute("project", project);
+			
+			//TODO Böse...das is doof hier?!
+			/* Darf der User Member löschen? (für GUI-Anzeige) */
+			GlobalRolesManager gr = new GlobalRolesManager();
+			boolean isAllowed = false;
+			isAllowed = gr.isAllowedAddMemberAction(aktUser.getGlobalRole());
+			if (!isAllowed) {
+				for (Object member : memberSet.getCollection()) {
+					System.out.println("Member: "+member);
+					if(((Member)member).getUser().getLoginName().equals(aktUser.getLoginName())){
+						ProjectRolesManager pr = new ProjectRolesManager();
+						isAllowed = pr.isAllowedAddMemberAction(((Member)member).getProjectRole());
+					}
+				}
+			}
+			
+			//setzen der Session
 			session.setAttribute("aktProject", project);
+			session.setAttribute("isAllowedAddMember", isAllowed);
 			
+			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());
-			
+			req.setAttribute("project", project);			
 			req.setAttribute("contentFile", "showProject.jsp");
 			
 			

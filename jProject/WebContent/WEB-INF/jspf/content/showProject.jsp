@@ -14,7 +14,7 @@
 	<!--TODO OUTSOURCING-->
 	<h2>Memberliste</h2>
 	<c:forEach items="${memberList}" var="member" varStatus="i">
-		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">${member.user}</a><br>
+		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">(${member.projectRole}) ${member.user}</a><br>
 	</c:forEach>
 </div>
 <div id="contentcontentsmall">
