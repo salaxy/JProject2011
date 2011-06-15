@@ -11,6 +11,8 @@
 </div>
 
 <div id="leftcontent">
+	<!--TODO OUTSOURCING-->
+	<h2>Documentliste</h2>
 	<c:forEach items="${documentList}" var="document" varStatus="i">
 		<a href="JProjectServlet?do=ShowAllDocu&documentID=${document.id}">${document.dateiname}</a><br>
 	</c:forEach>
@@ -24,6 +26,7 @@
 </div>
 
 <div id="footercontent">
+	<br />
 	<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${document.id})" />
 	<div id="allComments41Docu">
 		

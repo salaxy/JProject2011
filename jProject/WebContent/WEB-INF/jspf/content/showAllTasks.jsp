@@ -11,6 +11,8 @@
 </div>
 
 <div id="leftcontent">
+	<!--TODO OUTSOURCING-->
+	<h2>Taskliste</h2>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
 		<a href="JProjectServlet?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>
@@ -23,6 +25,7 @@
 </div>
 
 <div id="footercontent">
+	<br />
 	<input value="Show Comments" type="button" onclick="getShowAllComments41TaskJSON(${task.id})" />
 	<div id="allComments41Task">
 		

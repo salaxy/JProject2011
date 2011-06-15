@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -44,15 +45,15 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String userLoginName(" + req.getParameter("userLoginName") + "), "
+					+ "String loginName(" + req.getParameter("loginName") + "), "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
 			try{
 				//Manager in aktion
 				mainManager.getProjectManager().deleteMember((User)session.getAttribute("aktUser"), 
-																  req.getParameter("userLoginName"), 
-																  req.getParameter("projectName"));
+																  req.getParameter("loginName"), 
+																  ((Project)session.getAttribute("aktProject")).getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

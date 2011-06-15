@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<h3>Neues Dokument hinzufügen</h3><br />
 <form method="POST" action="DataServlet" enctype="multipart/form-data">
 	<input type="hidden" name="do" value="AddNewDocu" />
 	<input type="file" size="50" name="file1">

@@ -11,6 +11,8 @@
 </div>
 
 <div id="leftcontent">
+	<!--TODO OUTSOURCING-->
+	<h2>Sourcecodeliste</h2>
 	<c:forEach items="${sourcecodeList}" var="sourcecode" varStatus="i">
 		<a href="JProjectServlet?do=ShowSource&sourcecodeID=${sourcecode.id}">${sourcecode.dateiname}</a><br>
 	</c:forEach>
@@ -21,6 +23,7 @@
 </div>
 
 <div id="footercontent">
+	<br />
 	<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${sourcecode.id})" />
 	<div id="allComments41Source">
 		

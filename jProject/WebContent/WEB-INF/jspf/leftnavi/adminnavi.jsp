@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1><%@include file="../stickyRed.jsp" %>Adminconsole</h1>
 <div id="naviliste">
-	<a href="AdminServlet?do=ShowAllUser">Useroptions</a><br />
-	<a href="AdminServlet?do=ShowAllProjects">Projectoptions</a>
+	<a href="AdminServlet?do=ShowAllUser">Useroptionen</a><br />
+	<a href="AdminServlet?do=ShowAllProjects">Projektoptionen</a>
 </div>
 <br /><br />
 

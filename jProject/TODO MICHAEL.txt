@@ -1,6 +1,7 @@
 GUI
 *********
-
+DeleteMember =>
+	Bestätigung.
 
 Controller
 *********
