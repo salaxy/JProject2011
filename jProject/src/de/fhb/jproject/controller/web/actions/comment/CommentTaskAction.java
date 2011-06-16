@@ -51,7 +51,7 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			} catch (NumberFormatException e) {
 				logger.error(e.getMessage(), e);
 			}
-			String entry = req.getParameter("inhalt");//TODO umbenennen in entry
+			String entry = req.getParameter("entry");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
