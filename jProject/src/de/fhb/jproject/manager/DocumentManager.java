@@ -242,7 +242,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * TODO methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
+	 * methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
 	 * @param projectName:String
 	 * @param fields:List<FileItem>
 	 * @param documentId:int
