@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +38,6 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
-		
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -49,15 +49,37 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			try {
-				ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
-			
+				
 			}catch(NullPointerException e){			
 				logger.error(e.getMessage(), e);
 			}
+			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
+				}
+				//Manager in aktion
+				ownProjectSet = mainManager.getProjectManager().showAllOwnProjects(aktUser);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			
 			req.setAttribute("ownProjectList", ownProjectSet.getCollection());
-			
-			
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

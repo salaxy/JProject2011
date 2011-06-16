@@ -49,31 +49,40 @@ public class RegisterAction extends HttpRequestActionBase {
 					);
 		
 			
-			try {
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String loginName = req.getParameter("loginName");
+			String passwort = req.getParameter("passwort");
+			String passwortWdhl = req.getParameter("passwordWdhl");
+			String nachname = req.getParameter("nachname");
+			String vorname = req.getParameter("vorname");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Users!");	
+				}
 				//Manager in aktion
-				mainManager.getUserManager().register(
-						(User)session.getAttribute("aktUser"),
-						req.getParameter("loginName"), 
-						req.getParameter("passwort"), 
-						req.getParameter("passwortWdhl"), 
-						req.getParameter("nachname"), 
-						req.getParameter("vorname"));
-	
+				mainManager.getUserManager().register(aktUser, loginName, passwort, passwortWdhl, nachname, vorname);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-			//setzen der Parameter
-//			req.setAttribute("user", user);
-//			req.setAttribute("contentFile", "Register.jsp");
-			
-			
+
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }
 		

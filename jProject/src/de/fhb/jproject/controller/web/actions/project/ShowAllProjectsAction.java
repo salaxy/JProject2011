@@ -35,12 +35,12 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-throws ServletException {
+			throws ServletException {
 		
 		HttpSession session = req.getSession();		
 		List<Project> projectList=null;
 		Project project = null;
-		String projectName = "";
+		
 		
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -50,35 +50,47 @@ throws ServletException {
 		
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+				
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			String projectName = req.getParameter("projectName");
 			
-			//Manager in aktion
-			try {
-				projectList=mainManager.getProjectManager().showAllProjects((User)session.getAttribute("aktUser"));
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
+				}
+				//Manager in aktion
+				projectList=mainManager.getProjectManager().showAllProjects(aktUser);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
 			try{
 				//Wenn projectName == null dann gib mir den ersten
-				if (null == req.getParameter("projectName")) {
+				if (null == projectName) {
 					projectName = projectList.get(0).getName();
-				}else{
-					projectName = req.getParameter("projectName");
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("ProjectName ungültig "+e);
-			}catch(NullPointerException e){
+			}catch(ArrayIndexOutOfBoundsException e){
 				logger.error("Keine Projekte vorhanden!"+e.getMessage(), e);
 			}
 			
 			try {
-				project = mainManager.getProjectManager().showProject((User)session.getAttribute("aktUser"),
-						 projectName);
+				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projekts!");	
+				}
+				project = mainManager.getProjectManager().showProject(aktUser, projectName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
 			/*
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());
@@ -87,14 +99,15 @@ throws ServletException {
 			//setzen der Parameter
 			req.setAttribute("projectList", projectList);
 			req.setAttribute("project", project);
-			
-			
 			req.setAttribute("contentFile", "showAllProjects.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

@@ -10,13 +10,9 @@ import org.orm.PersistentSession;
 
 public class SourceManager {
 	
-	private ProjectRolesManager projectRolesManager;
-	private GlobalRolesManager globalRolesManager;
 	
-	public SourceManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
+	public SourceManager(){
 		
-		this.projectRolesManager=projectRolesManager;
-		this.globalRolesManager=globalRolesManager;
 	}
 	
 	// !!! Source Actions !!!

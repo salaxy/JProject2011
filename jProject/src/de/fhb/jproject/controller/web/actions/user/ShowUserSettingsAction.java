@@ -34,32 +34,48 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		
-		User aktUser=null;
+		User user = null;
 		
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			try {
+			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String loginName = req.getParameter("loginName");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser.getLoginName())){
+					if(!aktUser.getLoginName().equals(loginName)){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen der UserSettings!");
+					}
+				}			
+				
 				//Manager in aktion
-				aktUser =mainManager.getUserManager().showUserSettings((User)session.getAttribute("aktUser"));
-
+				user = mainManager.getUserManager().showUserSettings(aktUser, loginName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-				
-			//setzen der Attribute
-			//TODO AKTUSER EIGENTLICH SCHON IN DER SESSION
-			req.setAttribute("user", aktUser);
+			
+			//setzen der Parameter
+			req.setAttribute("user", user);
 			
 			req.setAttribute("contentFile", "showUserSettings.jsp");
-
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

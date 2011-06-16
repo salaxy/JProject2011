@@ -37,32 +37,54 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Document> documentList = null;
 		Document document = null;
-		int documentId = 0;
 		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			logger.debug("Parameter: "
+			/*TODO logger.debug("Parameter: "
 					+ "int documentId(" + req.getParameter("taskId") + ")"
 					);
+			 * 
+			 */
 			
-			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int documentId = 0;
 			try {
-				documentList=mainManager.getDocumentManager().showAllDocu((User)session.getAttribute("aktUser"), 
-																   ((Project)session.getAttribute("aktProject")).getName());
+				documentId = Integer.valueOf(req.getParameter("documentId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
 			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
+					}			
+				}
+				//Manager in aktion
+				documentList=mainManager.getDocumentManager().showAllDocu(aktUser, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
 			try {
 				//Wenn documentId == null dann gib mir den ersten
-				if (null == req.getParameter("documentId")) {
+				if (0 == documentId) {
 					documentId = documentList.get(0).getId();
-				}else{
-					documentId = Integer.valueOf(req.getParameter("documentId"));
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("DocumentID ungültig "+e);
+			}catch(ArrayIndexOutOfBoundsException e){
+				logger.error("Keine Dokumente vorhanden!"+e.getMessage(), e);
 			}catch(NullPointerException e){
 				logger.error("Keine Dokumente vorhanden!"+e.getMessage(), e);
 			}
@@ -70,9 +92,13 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			
 			
 			try {
-				document = mainManager.getDocumentManager().showDocu((User)session.getAttribute("aktUser"), 
-						 ((Project)session.getAttribute("aktProject")).getName(),
-						 documentId);
+				if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Documents!");
+					}			
+				}
+				document = mainManager.getDocumentManager().showDocu(aktUser, aktProject.getName(), documentId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -81,9 +107,12 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			req.setAttribute("documentList", documentList);
 			req.setAttribute("document", document);
 			
-			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

@@ -44,31 +44,46 @@ public class SearchUserAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
-			try {
-				//UserList holen
-				System.out.println(req.getParameter("searchValue"));
-				userList = mainManager.getUserManager().searchUser((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String searchValue = req.getParameter("searchValue");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
+				}
+				//Manager in aktion
+				userList = mainManager.getUserManager().searchUser(aktUser, searchValue);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
+			//XXX Testausgabe
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
 //			}
-
+			
 			//Daten dem Reqest mitgeben
 			req.setAttribute("userList", userList);
 			
 			//setzen der Parameter
 			req.setAttribute("userList", userList);
 			req.setAttribute("contentFile", "content.jsp");
-			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}
-		
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}	
 	}
 }

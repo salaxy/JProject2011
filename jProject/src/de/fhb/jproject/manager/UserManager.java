@@ -25,7 +25,6 @@ import org.apache.log4j.Level;
 public class UserManager {
 	
 	
-	private GlobalRolesManager globalRolesManager;
 	
 	private UserDA userDA;
 	
@@ -37,11 +36,10 @@ public class UserManager {
 	 * UserManager Konstruktor
 	 * @param globalRolesManager
 	 */
-    public UserManager(GlobalRolesManager globalRolesManager){		
+    public UserManager(){		
     	//debuglogging
 		logger.info("new UserControl()");
 		userDA = DAFactory.getDAFactory().getUserDA();
-		this.globalRolesManager = globalRolesManager;
 		
     }
     
@@ -55,7 +53,7 @@ public class UserManager {
      */
 	public void deleteUser(User aktUser, String loginName)
 	throws ProjectException{
-		
+		clearSession();
 		User user = null;
 		
 		//debuglogging
@@ -64,22 +62,6 @@ public class UserManager {
 				"String loginName("+loginName+")"
 				);
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		try {
-			user = userDA.loadUserByORMID(loginName);
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht laden! "+ ex);
-		}
-		
-		//abfrage ob user Rechte hat bzw Eigner ist
-		if(!globalRolesManager.isAllowedDeleteUserAction(aktUser.getGlobalRole()) 
-				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
-			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
-		}
 		try {
 			//loeschen des users
 			userDA.delete(loginName);
@@ -97,29 +79,19 @@ public class UserManager {
 	 * @return User
 	 * @throws ProjectException
 	 */
-	public User showUserSettings(User aktUser)
+	public User showUserSettings(User aktUser, String loginName)
 	throws ProjectException{
-		
+		clearSession();
 		//debuglogging
 		logger.info("showUserSettings()");
 		
 		User user=null;
 		
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		try {
 			//holen der daten
-			user= userDA.loadUserByORMID(aktUser.getLoginName());
+			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
-		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUsersettingsAction(aktUser.getGlobalRole()) 
-				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
-			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
 		
@@ -137,28 +109,17 @@ public class UserManager {
 	 */
 	public User showUserInfo(User aktUser, String loginName)
 	throws ProjectException{
-		
+		clearSession();
 		User user=null;
 		
 		//debuglogging
 		logger.info("showUserInfo()");
 		
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		try {
 			//holen der daten
 			user= userDA.loadUserByORMID(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
-
-		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowUserInfoAction(aktUser.getGlobalRole()) 
-				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
-			throw new ProjectException("Sie haben keine Rechte!");
 		}
 		
 		
@@ -173,9 +134,9 @@ public class UserManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List <User>  searchUser(User aktUser, String searchValue) 
+	public List<User> searchUser(User aktUser, String searchValue) 
     throws ProjectException{
-		
+		clearSession();
 		
 		List<User> list=null;
 		
@@ -183,15 +144,6 @@ public class UserManager {
 		logger.info("searchUser(String loginName)");
 		logger.debug("String loginName("+searchValue+")");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedSearchUserAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum suchen!");
-		}
 		
 		//holen der daten
 		try {
@@ -218,10 +170,10 @@ public class UserManager {
 	 * @param altesPasswort
 	 * @throws ProjectException
 	 */
-	public void updateUserSettings(User aktUser, String nachName, String vorname, String[] icqArray, String[] skypeArray,
+	public void updateUserSettings(User aktUser, String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
 			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
-		
+		clearSession();
 		User user=null;
 		//PerformenceBOOL 
 		boolean changed = false;
@@ -234,30 +186,12 @@ public class UserManager {
         		+",String "+telefonArray+", String "+sprache
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei+", String "+altesPasswort+")");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//User neu holen
-		try {
-			user=userDA.getUserByORMID(aktUser.getLoginName());
-		} catch (PersistentException e) {
-			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
-		}
-		
-		// abfrage ob user Rechte hat
-//		if(!globalRolesManager.isAllowedUpdateUserSettingsAction(aktUser.getGlobalRole()) 
-//				&& !(user.getLoginName().equals(aktUser.getLoginName()))){
-//			throw new ProjectException("Sie haben keine Rechte zum aendern der Usereinstellungen!");
-//		}
-	
 		
 		//EIGENTLICHE AKTIONEN
 		
 		//User neu holen
 		try {
-			user=userDA.getUserByORMID(aktUser.getLoginName());
+			user=userDA.getUserByORMID(loginName);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte User nicht finden! "+ e.getMessage());
 		}
@@ -288,11 +222,11 @@ public class UserManager {
 				try{
 					Integer.valueOf(icq);
 				}catch(IllegalArgumentException e){
-					throw new ProjectException("Ein ICQ Eintrag enthält Buchstaben! "+ e.getMessage());
+					throw new ProjectException("Ein ICQ Eintrag enthaelt Buchstaben! "+ e.getMessage());
 				}
 			}
 			
-			//alte einträge loeschen
+			//alte eintraege loeschen
 			for(Object ic : user.iCQ.getCollection()){
 				
 				try {
@@ -312,7 +246,7 @@ public class UserManager {
 			}
 			
 			
-			//neue einträge speichern
+			//neue eintraege speichern
 			for(String icq :icqArray){
 				ICQ i =DAFactory.getDAFactory().getICQDA().createICQ();			
 				i.setUserLoginName(user);
@@ -335,7 +269,7 @@ public class UserManager {
 		//Skype
 		if(skypeArray!=null){
 			
-			//alte einträge loeschen
+			//alte eintrï¿½ge loeschen
 			for(Object s : user.skype.getCollection()){
 				
 				try {
@@ -374,7 +308,7 @@ public class UserManager {
 		//telefon
 		if(telefonArray!=null){
 			
-			//alte einträge loeschen
+			//alte eintrï¿½ge loeschen
 			for(Object t : user.telefon.getCollection()){
 				
 				try {
@@ -464,19 +398,10 @@ public class UserManager {
 	 */
 	public List<User> showAllUser(User aktUser)
 	throws ProjectException{ 
-		
+		clearSession();
 		//debuglogging
 		logger.info("showAllUser()");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//abfrage ob user Rechte hat
-		if(!globalRolesManager.isAllowedShowAllUserAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum loeschen!");
-		}
 		try {
 			//holen der userliste
 			return userDA.listAllUsers();
@@ -496,7 +421,7 @@ public class UserManager {
 	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
-		
+		clearSession();
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
@@ -529,7 +454,6 @@ public class UserManager {
 	 * Ausloggen
 	 */
 	public void logout(){
-		
 		//debuglogging
 		logger.info("logout()");
 		
@@ -553,7 +477,7 @@ public class UserManager {
 	 */
 	public void register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
-		
+		clearSession();
 		//debuglogging
         logger.info("register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		
@@ -561,13 +485,7 @@ public class UserManager {
 		User user=null;		
 		User userUeberpruf=null;
 		
-		//RECHTEABFRAGE Global
-		if(!globalRolesManager.isAllowedRegisterAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte einen User zu registrieren!");
-		}
-		
-
-		//überprufen ob user schon existent
+		//ueberprufen ob user schon existent
 		try {
 			userUeberpruf=userDA.getUserByORMID(loginName);
 		} catch (PersistentException e1) {

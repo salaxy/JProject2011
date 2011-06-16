@@ -19,6 +19,7 @@ import de.fhb.jproject.manager.ProjectRolesManager;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 
 
 /**
@@ -41,13 +42,13 @@ public class ShowProjectAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException{	
+	throws ServletException{
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
 		MemberSetCollection memberSet = null;
-		User aktUser = null;
+		boolean isAllowedAddMemberAction = true;
 		try {		
 			
 			//Debugprint
@@ -57,59 +58,72 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					);
 			
 			
-			aktUser = (User)session.getAttribute("aktUser");
-			try {
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String projectName = req.getParameter("projectName");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
+				}
 				//Manager in aktion
-				project=mainManager.getProjectManager().showProject(aktUser, 
-																	req.getParameter("projectName"));
-			}catch (NullPointerException e) {
+				project=mainManager.getProjectManager().showProject(aktUser, projectName);
+			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			/*TODO DELETE ACTION
-			ShowAllMemberAction showAllMemberAction = new ShowAllMemberAction();
-			showAllMemberAction.perform(req, resp);
-			 * 
-			 */
-			
 			try {
-				memberSet = mainManager.getProjectManager().showAllMember(aktUser, req.getParameter("projectName")); 
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser.getLoginName(), projectName)){
+						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+					}			
+				}
+				memberSet = mainManager.getProjectManager().showAllMember(aktUser, projectName); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
-			
+			//XXX Testausgabe
+			if (logger.getLevel()==Level.DEBUG) {
+				logger.debug("Size: "+memberSet.getCollection().size());
+
+				for (Object o : memberSet.getCollection()) {
+					Member mem = (Member)o;
+					logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
+
+				}
+			}
 			//TODO anzahl documente, anzahl Sourcecode
 			//TODO fähigkeiten addMember, DeleteMember
 			
-			
-			//TODO Böse...das is doof hier?!
 			/* Darf der User Member löschen? (für GUI-Anzeige) */
-			GlobalRolesManager gr = new GlobalRolesManager();
-			boolean isAllowed = false;
-			isAllowed = gr.isAllowedAddMemberAction(aktUser.getGlobalRole());
-			if (!isAllowed) {
-				for (Object member : memberSet.getCollection()) {
-					System.out.println("Member: "+member);
-					if(((Member)member).getUser().getLoginName().equals(aktUser.getLoginName())){
-						ProjectRolesManager pr = new ProjectRolesManager();
-						isAllowed = pr.isAllowedAddMemberAction(((Member)member).getProjectRole());
-					}
-				}
+			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), projectName)){
+					isAllowedAddMemberAction = false;
+				}			
 			}
 			
 			//setzen der Session
 			session.setAttribute("aktProject", project);
-			session.setAttribute("isAllowedAddMember", isAllowed);
+			session.setAttribute("isAllowedAddMember", isAllowedAddMemberAction);
 			
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());
 			req.setAttribute("project", project);			
 			req.setAttribute("contentFile", "showProject.jsp");
-			
-			
-
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

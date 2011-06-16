@@ -41,12 +41,28 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
-			try {
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String loginName = req.getParameter("loginName"); 
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser.getLoginName())){
+					if(!aktUser.getLoginName().equals(loginName)){
+						throw new ProjectException("Sie haben keine Rechte zum updaten der UserSettings!");
+					}
+				}			
 				
+				//Manager in aktion
 				String[] neu ={"123","4567","789"};
 				
 				//Manager in aktion
-//				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
+//				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), loginName, 
 //																req.getParameter("nachname"), 
 //																req.getParameter("vorname"), 
 //																req.getParameter("neuIcq"), 
@@ -56,7 +72,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 //																req.getParameter("neuesPasswortEins"), 
 //																req.getParameter("neuesPasswortZwei"), 
 //																req.getParameter("altesPasswort"));
-				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), 
+				mainManager.getUserManager().updateUserSettings(aktUser, loginName, 
 						null, 
 						null, 
 						neu, 
@@ -66,17 +82,21 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 						null, 
 						null, 
 						null);
-
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-				
 			
+			//setzen der Parameter
+			
+			req.setAttribute("contentFile", "showUserSettings.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

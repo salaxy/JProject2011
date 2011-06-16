@@ -26,7 +26,7 @@
 	function getShowAllComments41DocumentJSON(documentId){
 		if(!hide){
 			var jsonRequest = new Request.JSON({
-				url: "DataServlet?do=ShowAllComments41Document&documentId="+documentId,
+				url: "DataServlet?do=ShowAllComments41Docu&documentId="+documentId,
 				onComplete: updateShowAllComments41Document
 			}).get({'documentId':documentId});
 			hide=true;

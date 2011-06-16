@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Comment;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -50,21 +51,42 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
 					+ "String documentId(" + req.getParameter("documentId") + ")"
 					);	
-					
-			//Manager in aktion
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int documentId = 0;
+			try {
+				documentId = Integer.valueOf(req.getParameter("documentId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
+			/*
+			if (req.getParameter("documentId") != null) {
+				documentId = Integer.valueOf(req.getParameter("documentId"));
+			}
+			 * 
+			 */
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
-				commentList=mainManager.getCommentManager().showAllComments41Docu((User)session.getAttribute("aktUser"),
-					req.getParameter("projectName")
-					,Integer.valueOf(req.getParameter("documentId"))
-					);
-				
-			}catch(IllegalArgumentException e){
-				throw new ProjectException("DokumentId fehlerhaft! "+ e.getMessage());
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41DocuAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41DocuAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum zeigen aller DocumentComments!");
+					}			
+				}
+				//Manager in aktion
+				commentList=mainManager.getCommentManager().showAllComments41Docu(aktUser, aktProject.getName(), documentId);
 			}catch(NullPointerException e){
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 			
 //			for( Comment c : commentList){
@@ -75,10 +97,16 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 		
 			for (Comment comment : commentList) {
 				try {
-					json.append("comment", new JSONObject(comment));
+					JSONObject comm = new JSONObject();
+					comm.put("id", comment.getId());
+					comm.put("entry", comment.getEntry());
+					comm.put("user", comment.getUser());
+					json.append("comment", comm);
+					//json.append("comment", new JSONObject(comment));
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
+					req.setAttribute("contentFile", "error.jsp");
+					req.setAttribute("errorString", e.getMessage());
 				}
 			}
 			resp.setContentType("application/json");
@@ -86,21 +114,19 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 				//forward(req, resp, "/snippet.jsp");
 				resp.getWriter().println(json);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", e.getMessage());
 			}
-			//setzen der Parameter
-			/*
-			req.setAttribute("commentList", commentList);
-			req.setAttribute("contentFile", "comment.jsp");
-			*/
 
 		}catch (ProjectException e) {
-			
-			logger.error(e.getMessage());
-			req.setAttribute("contentFile", e.getMessage());
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-			
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
 	}
 }

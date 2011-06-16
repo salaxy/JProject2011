@@ -48,11 +48,12 @@ public class LoginAction extends HttpRequestActionBase {
 					+ "String password(" + req.getParameter("password") + ")"
 					);
 			
-			user = mainManager.getUserManager().login(
-							req.getParameter("loginName"),
-							req.getParameter("password"));
+			
 			try{
 				//Manager in aktion
+				user = mainManager.getUserManager().login(
+							req.getParameter("loginName"),
+							req.getParameter("password"));
 				synchronized(session){
 
 					session.setAttribute("aktUser", user);
@@ -70,6 +71,11 @@ public class LoginAction extends HttpRequestActionBase {
 			System.out.println("Erfolgreich eingeloggt!");
 			req.setAttribute("triedLogin", false);
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("triedLogin", true);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("triedLogin", true);
 			req.setAttribute("contentFile", "error.jsp");
