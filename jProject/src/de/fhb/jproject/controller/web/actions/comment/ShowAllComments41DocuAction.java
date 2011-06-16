@@ -70,7 +70,7 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 			 * 
 			 */
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

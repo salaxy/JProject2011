@@ -56,7 +56,7 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String projectName = req.getParameter("projectName");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

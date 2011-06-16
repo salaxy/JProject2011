@@ -48,7 +48,7 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			User aktUser = (User)session.getAttribute("aktUser");
 			String loginName = req.getParameter("userLoginName");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

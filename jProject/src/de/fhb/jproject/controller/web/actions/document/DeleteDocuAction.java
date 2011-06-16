@@ -54,7 +54,7 @@ private MainManager mainManager;
 				logger.error(e.getMessage(), e);
 			}
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
@@ -68,7 +68,6 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				//TODO DELETEDOCU
 				mainManager.getDocumentManager().deleteDocu(aktUser, documentId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);

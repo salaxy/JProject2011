@@ -57,7 +57,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			String nachname = req.getParameter("nachname");
 			String vorname = req.getParameter("vorname");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

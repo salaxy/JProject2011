@@ -57,7 +57,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			} catch (NumberFormatException e) {
 				logger.error(e.getMessage(), e);
 			}
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

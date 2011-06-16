@@ -58,12 +58,7 @@ public class DataServlet extends HttpServletControllerBase {
 			throws ServletException, IOException {
 		if (!(session.getAttribute("aktUser")==null)) {	
 			synchronized(session){
-				/*TODO DELETE ACTION
-				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-				showAllOwnProjectsAction.perform(req, resp);
-				 * 
-				 */
-				//TODO BO-ACCESS LAYOUT
+				
 
 				MemberSetCollection ownProjectSet = null;
 				System.out.println("MainManager: "+session.getAttribute("mainManager"));
@@ -80,8 +75,6 @@ public class DataServlet extends HttpServletControllerBase {
 				session.setAttribute("ownProjectSet", ownProjectSet.getCollection());
 
 
-
-				//TODO Comments per AJAX
 			}
 		}
 	}

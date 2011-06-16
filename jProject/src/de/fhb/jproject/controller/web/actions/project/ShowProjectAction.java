@@ -47,7 +47,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
-		MemberSetCollection memberSet = null;
+		Set<Member> memberSet = null;
 		boolean isAllowedAddMemberAction = true;
 		try {		
 			
@@ -62,10 +62,19 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			User aktUser = (User)session.getAttribute("aktUser");
 			String projectName = req.getParameter("projectName");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			
+			
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			/* Darf der User Member löschen? (für GUI-Anzeige) */
+			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), projectName)){
+					isAllowedAddMemberAction = false;
+				}			
 			}
 			//RECHTE-ABFRAGE Global
 			try{
@@ -84,39 +93,38 @@ public class ShowProjectAction extends HttpRequestActionBase {
 						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
 					}			
 				}
-				memberSet = mainManager.getProjectManager().showAllMember(aktUser, projectName); 
+				memberSet = mainManager.getProjectManager().showAllMember(aktUser, projectName).getCollection(); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
-			//XXX Testausgabe
+			
+			/*XXX Testausgabe*/
+			//TODO ÄH MUSS DEBUG MACHEN SONST FEHLER
+			logger.debug("Size: "+memberSet.size());
 			if (logger.getLevel()==Level.DEBUG) {
-				logger.debug("Size: "+memberSet.getCollection().size());
-
-				for (Object o : memberSet.getCollection()) {
+				System.out.println("DEBUG IS SET");
+				logger.debug("Size: "+memberSet.size());
+				
+				for (Object o : memberSet) {
 					Member mem = (Member)o;
 					logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
 
 				}
 			}
+			
 			//TODO anzahl documente, anzahl Sourcecode
 			//TODO fähigkeiten addMember, DeleteMember
 			
-			/* Darf der User Member löschen? (für GUI-Anzeige) */
-			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), projectName)){
-					isAllowedAddMemberAction = false;
-				}			
-			}
+			
 			
 			//setzen der Session
 			session.setAttribute("aktProject", project);
 			session.setAttribute("isAllowedAddMember", isAllowedAddMemberAction);
 			
 			//setzen der Parameter
-			req.setAttribute("memberList", memberSet.getCollection());
+			req.setAttribute("memberList", memberSet);
 			req.setAttribute("project", project);			
 			req.setAttribute("contentFile", "showProject.jsp");
 		}catch (ProjectException e) {

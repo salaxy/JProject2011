@@ -54,7 +54,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			User aktUser = (User)session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
