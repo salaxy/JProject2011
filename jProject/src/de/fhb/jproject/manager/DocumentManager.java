@@ -280,7 +280,7 @@ public class DocumentManager {
 			//und bereinigen
 			session.clear();
 		} catch (PersistentException e) {
-			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
+			throw new NullPointerException();
 		}
 		
 	}
