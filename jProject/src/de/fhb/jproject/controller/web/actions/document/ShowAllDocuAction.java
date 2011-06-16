@@ -38,6 +38,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Set<Document> documentList = null;
 		Document document = null;
+		String documentContent = null;
 		try {		
 			
 			//Debugprint
@@ -100,6 +101,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 					}			
 				}
 				document = mainManager.getDocumentManager().showDocu(documentId);
+				documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -107,6 +109,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("documentList", documentList);
 			req.setAttribute("document", document);
+			req.setAttribute("documentContent", documentContent);
 			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
