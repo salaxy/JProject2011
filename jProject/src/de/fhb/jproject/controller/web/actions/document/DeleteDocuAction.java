@@ -68,7 +68,7 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				mainManager.getDocumentManager().deleteDocu(aktUser, documentId, aktProject.getName());
+				mainManager.getDocumentManager().deleteDocu(documentId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

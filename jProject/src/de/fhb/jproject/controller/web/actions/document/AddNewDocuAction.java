@@ -65,7 +65,7 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				mainManager.getDocumentManager().addNewDocu(aktUser, aktProject, data);
+				mainManager.getDocumentManager().addNewDocu(aktProject.getName(), data);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

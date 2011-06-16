@@ -11,6 +11,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
@@ -35,7 +36,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		List<Document> documentList = null;
+		Set<Document> documentList = null;
 		Document document = null;
 		try {		
 			
@@ -71,7 +72,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				documentList=mainManager.getDocumentManager().showAllDocu(aktUser, aktProject.getName());
+				documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName()).getCollection();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -79,7 +80,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			try {
 				//Wenn documentId == null dann gib mir den ersten
 				if (0 == documentId) {
-					documentId = documentList.get(0).getId();
+					documentId = ((Document)documentList.toArray()[0]).getId();
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("DocumentID ungültig "+e);
@@ -98,7 +99,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Documents!");
 					}			
 				}
-				document = mainManager.getDocumentManager().showDocu(aktUser, aktProject.getName(), documentId);
+				document = mainManager.getDocumentManager().showDocu(documentId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
