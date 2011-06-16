@@ -279,7 +279,7 @@ public class DocumentManager {
 		try {
 			return getDocuContent(docu.getDateiname(),projectName);
 		} catch (IOException e){
-			throw new ProjectException("Datei konnte nicht gelesen werden!");
+			throw new NullPointerException("Datei konnte nicht gelesen werden!");
 		}
 	}
 	
