@@ -63,12 +63,6 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-			/*
-			if (req.getParameter("documentId") != null) {
-				documentId = Integer.valueOf(req.getParameter("documentId"));
-			}
-			 * 
-			 */
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
