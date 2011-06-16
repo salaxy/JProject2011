@@ -46,7 +46,7 @@ public class CommentProjectAction extends HttpRequestActionBase {
 			//Parameter laden
 			User aktUser = (User)session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
-			String entry = req.getParameter("inhalt");//TODO umbenennen in entry
+			String entry = req.getParameter("entry");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
