@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.project.DeleteMemberAction;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -51,20 +52,45 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int taskId = 0;
+			try {
+				taskId = Integer.valueOf(req.getParameter("taskId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");
+					}			
+				}
 				//Manager in aktion
-				mainManager.getTaskManager().deleteTask((User)session.getAttribute("aktUser"), 
-															  Integer.valueOf(req.getParameter("taskId")), 
-															  req.getParameter("projectName"));
+				mainManager.getTaskManager().deleteTask(aktUser, taskId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}/*TODO IllegalArgumentE*/
-				
+			}
 			
+
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
+		
 	}
 }

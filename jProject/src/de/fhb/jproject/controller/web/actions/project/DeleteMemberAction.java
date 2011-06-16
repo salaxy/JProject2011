@@ -46,18 +46,38 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String loginName(" + req.getParameter("loginName") + "), "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			String loginName = req.getParameter("loginName");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+					}			
+				}
 				//Manager in aktion
-				mainManager.getProjectManager().deleteMember((User)session.getAttribute("aktUser"), 
-																  req.getParameter("loginName"), 
-																  ((Project)session.getAttribute("aktProject")).getName());
+				mainManager.getProjectManager().deleteMember(aktUser, loginName, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

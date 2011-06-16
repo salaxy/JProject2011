@@ -40,27 +40,43 @@ public class AddMemberAction extends HttpRequestActionBase {
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
 		
-		try {		
-			
+		try {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String loginName(" + req.getParameter("loginName") + "), "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
-					+ "String projectName(" + req.getParameter("rolle") + ")"
+					+ "String rolle(" + req.getParameter("rolle") + ")"
 					);
-					
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			String loginName = req.getParameter("loginName");
+			String rolle = req.getParameter("rolle");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
+					}			
+				}
 				//Manager in aktion
-				mainManager.getProjectManager().addMember((User)session.getAttribute("aktUser"), 
-															   req.getParameter("loginName"), 
-															   ((Project)session.getAttribute("aktProject")).getName(), 
-															   req.getParameter("rolle"));
+				mainManager.getProjectManager().addMember(loginName, aktProject.getName(), rolle);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

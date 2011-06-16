@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -42,19 +43,40 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String loginName(" + req.getParameter("loginName") + ")"
 					);
+			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String loginName = req.getParameter("userLoginName");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
-				//Manager in aktion			
-				mainManager.getUserManager().deleteUser((User)session.getAttribute("aktUser"), 
-															  req.getParameter("loginName"));
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser.getLoginName())){
+					if(!aktUser.getLoginName().equals(loginName)){
+						throw new ProjectException("Sie haben keine Rechte zum löschen dieses Users!");
+					}
+						
+				}
+				//Manager in aktion
+				mainManager.getUserManager().deleteUser(aktUser, loginName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 		
 	}
 }

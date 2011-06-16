@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.document.ShowAllDocuAction;
+import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
@@ -41,25 +43,38 @@ private MainManager mainManager;
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			*/
-		
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
 			
-			try {
-				//Manager in aktion
-				if(false){
-					throw new ProjectException("Dummy");
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewSourceAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewSourceAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anlegen eines Sourcecodes!");
+					}			
 				}
-				throw new NullPointerException("Dummy");
-				//TODO Manageroperation here
+				//Manager in aktion
+				mainManager.getSourceManager().addNewSource();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-			req.setAttribute("contentFile", "showAllSource.jsp");
+
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }
