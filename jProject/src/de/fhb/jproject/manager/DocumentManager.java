@@ -29,7 +29,7 @@ public class DocumentManager {
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public DocumentManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
+	public DocumentManager(){
 		
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		docuDA = DAFactory.getDAFactory().getDocumentDA();
