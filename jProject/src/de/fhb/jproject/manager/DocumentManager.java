@@ -22,8 +22,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
-import org.orm.PersistentTransaction;
 
+/**
+ * 
+ * @author Tino Reuschel
+ *
+ */
 public class DocumentManager {
 	
 	private DocumentDA docuDA;
@@ -32,19 +36,28 @@ public class DocumentManager {
 	
 	private static final Logger logger = Logger.getLogger(DocumentManager.class);
 	
+	/**
+	 * Default-Construtor
+	 */
 	public DocumentManager(){
 		
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		docuDA = DAFactory.getDAFactory().getDocumentDA();
 	}
 	
-	// !!! Dokument Actions !!!
-	
+	/**
+	 * hinzufügen eines Documents in Datenbank und Filesystem
+	 * 
+	 * @param projectName:String
+	 * @param fields:List<FileItem>
+	 * @throws ProjectException
+	 */
 	public void addNewDocu(String projectName, List<FileItem> fields)throws ProjectException{
 		clearSession();
 		
 		logger.info("addNewDocu()");
 		logger.debug("String projectName("+projectName+")");
+		logger.debug("List<FileItem> fields("+fields.toString()+")");
 		
 		Document docu=null;
 		Project project = null;
@@ -52,6 +65,7 @@ public class DocumentManager {
 		boolean vorhanden=false;
 		
 		//EIGENTLICHE AKTIONEN
+		//document holen
 		try {
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
@@ -62,6 +76,7 @@ public class DocumentManager {
 		
 		doculiste=project.document.getCollection();
 		
+		//schleife für alle elemente der liste
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
 			
@@ -71,7 +86,7 @@ public class DocumentManager {
 				fileItem = it.next();
 			}
 			
-			//TODO ï¿½berprï¿½fen wegen Object
+			//schauen ob document vorhanden
 			for (Object o : doculiste) {
 				Document document=(Document)o;
 				if (document.getDateiname().equals(fileItem.getName())){
@@ -82,6 +97,7 @@ public class DocumentManager {
 			
 			logger.debug("File "+ fileItem.getName());
 			
+			//entsprechend ob vorhanden oder nicht reagieren
 			if(!vorhanden){
 				//docu erzeugen und parameter setzen
 				docu=docuDA.createDocument();
@@ -117,7 +133,13 @@ public class DocumentManager {
 		}
 		
 	}
-		
+	
+	/**
+	 * methode zum löschen eine documents aus der datenbank und dem filesystems
+	 * @param documentId:int
+	 * @param projectName:String
+	 * @throws ProjectException
+	 */
 	public void deleteDocu(int documentId, String projectName)throws ProjectException {
 		
 		clearSession();
