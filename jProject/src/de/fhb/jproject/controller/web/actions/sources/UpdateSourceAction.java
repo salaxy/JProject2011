@@ -10,7 +10,9 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
 
@@ -45,6 +47,7 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 			//Parameter laden
 			User aktUser = (User)session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
+			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			int sourcecodeId = 0;
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
@@ -70,7 +73,7 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 					 */
 				}
 				//Manager in aktion
-				mainManager.getSourceManager().updateSource();
+				mainManager.getSourceManager().updateSource(aktProject.getName(), data, sourcecodeId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

@@ -67,7 +67,7 @@ public class DeleteSourceAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				mainManager.getSourceManager().deleteSource();
+				mainManager.getSourceManager().deleteSource(sourcecodeId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
