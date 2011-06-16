@@ -16,10 +16,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
+import org.orm.PersistentTransaction;
 
 public class DocumentManager {
 	
@@ -27,7 +30,7 @@ public class DocumentManager {
 	private ProjectDA projectDA;
 	private String path="F:/";
 	
-	private static final Logger logger = Logger.getLogger(ProjectManager.class);
+	private static final Logger logger = Logger.getLogger(DocumentManager.class);
 	
 	public DocumentManager(){
 		
@@ -45,7 +48,7 @@ public class DocumentManager {
 		
 		Document docu=null;
 		Project project = null;
-		Document[] doculiste=null;
+		Set<Document> doculiste=null;
 		boolean vorhanden=false;
 		
 		//EIGENTLICHE AKTIONEN
@@ -57,7 +60,7 @@ public class DocumentManager {
 			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
 		}
 		
-		doculiste=project.document.toArray();
+		doculiste=project.document.getCollection();
 		
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
@@ -68,11 +71,14 @@ public class DocumentManager {
 				fileItem = it.next();
 			}
 			
-			for(int i=0;i<doculiste.length;i++){
-				if (doculiste[i].getDateiname().equalsIgnoreCase(fileItem.getName())){
+			//TODO überprüfen wegen Object
+			for (Object o : doculiste) {
+				Document document=(Document)o;
+				if (document.getDateiname().equals(fileItem.getName())){
 					vorhanden=true;
 				}
 			}
+
 			
 			logger.debug("File "+ fileItem.getName());
 			
@@ -90,8 +96,12 @@ public class DocumentManager {
 					saveDocument(fileItem, project.getName());
 				} catch (PersistentException e) {
 					throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
+					try {
+					docuDA.delete(docu);
+					} catch (PersistentException g){
+						throw new ProjectException("Konnte Dokument nach Fehlschlag nicht aus der Datenbank löschen!");
+					}
 					throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
 				}
 				
@@ -103,39 +113,34 @@ public class DocumentManager {
 					throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
 				}
 			}
-			
-			
-
-			
-			//docu speichern
-
 			vorhanden=false;
 		}
 		
 	}
 		
-	public void deleteDocu(int docuId, String projectName)throws ProjectException {
+	public void deleteDocu(int documentId, String projectName)throws ProjectException {
+		
+		clearSession();
 		
 		Document docu = null;
 		File docuFile=null;
 		
 		//debuglogging
 		logger.info("deleteDocu()");
-		logger.debug("int docuId("+docuId+")");
-		
-		clearSession();
+		logger.debug("int documentId("+documentId+") " +
+				"String projectName("+ projectName + ")");
 
 		//EIGENTLICHE AKTIONEN
 		
 		//hole der docu
 		try {
-			docu=docuDA.getDocumentByORMID(docuId);
+			docu=docuDA.getDocumentByORMID(documentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Document nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
-			throw new ProjectException("Keine DocuId mitgegeben! "+ e.getMessage());
+			throw new ProjectException("Keine documentId mitgegeben! "+ e.getMessage());
 		}catch(IllegalArgumentException e){
-			throw new ProjectException("DocuId fehlerhaft! "+ e.getMessage());
+			throw new ProjectException("documentId fehlerhaft! "+ e.getMessage());
 		}
 		
 		docuFile=new File(path + projectName + "/Document/" + docu.getDateiname());
@@ -143,12 +148,13 @@ public class DocumentManager {
 		//loeschen
 		try {	
 			clearSession();
+			
 			//task loeschen
 			docuDA.delete(docu);
 			docuFile.delete();
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Document nicht loeschen! "+ e.getMessage());
-		}	
+		}
 		
 		
 	}
@@ -175,47 +181,48 @@ public class DocumentManager {
 		
 	}
 	
-	public void updateDocu(String projectName, List<FileItem> fields, int docuID)throws ProjectException{
+	public void updateDocu(String projectName, List<FileItem> fields, int documentId)throws ProjectException{
 		
 		this.addNewDocu(projectName, fields);
 		
 	}
 	
-	public Document showDocu(int docuID)throws ProjectException{
+	public Document showDocu(int documentId)throws ProjectException{
 		
 		Document docu = null;
 		
 		//hole der docu
 		try {
-			docu=docuDA.getDocumentByORMID(docuID);
+			docu=docuDA.getDocumentByORMID(documentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Document nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
-			throw new ProjectException("Keine DocuId mitgegeben! "+ e.getMessage());
+			throw new ProjectException("Keine documentId mitgegeben! "+ e.getMessage());
 		}catch(IllegalArgumentException e){
-			throw new ProjectException("DocuId fehlerhaft! "+ e.getMessage());
+			throw new ProjectException("documentId fehlerhaft! "+ e.getMessage());
 		}
 		
 		return docu;
 	}
 	
-	public String showDocuContent(String projectName, int docuID)throws ProjectException{
+	
+	public String showDocuContent(String projectName, int documentId)throws ProjectException{
 		
 		Document docu = null;
 		
 		//hole der docu
 		try {
-			docu=docuDA.getDocumentByORMID(docuID);
+			docu=docuDA.getDocumentByORMID(documentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Document nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
-			throw new ProjectException("Keine DocuId mitgegeben! "+ e.getMessage());
+			throw new ProjectException("Keine documentId mitgegeben! "+ e.getMessage());
 		}catch(IllegalArgumentException e){
-			throw new ProjectException("DocuId fehlerhaft! "+ e.getMessage());
+			throw new ProjectException("documentId fehlerhaft! "+ e.getMessage());
 		}
 		
 		try {
-		return getDocuContent(docu.getDateiname(),projectName);
+			return getDocuContent(docu.getDateiname(),projectName);
 		} catch (IOException e){
 			throw new ProjectException("Datei konnte nicht gelesen werden!");
 		}
