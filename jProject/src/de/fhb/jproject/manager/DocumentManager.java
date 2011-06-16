@@ -214,6 +214,12 @@ public class DocumentManager {
 		return docuFile;
 	}
 	
+	/**
+	 * gibt ein Set aller Documente zurück
+	 * @param projectName:String
+	 * @return DocumentsetCollection
+	 * @throws ProjectException
+	 */
 	public DocumentSetCollection showAllDocu(String projectName)throws ProjectException{
 		
 		Project project=null;
@@ -222,6 +228,7 @@ public class DocumentManager {
 		
 		//debuglogging
 		logger.info("showAllTasks()");
+		logger.debug("String projectName("+projectName+")");
 		
 		//projekt holen
 		try {
@@ -234,15 +241,36 @@ public class DocumentManager {
 		
 	}
 	
+	/**
+	 * methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
+	 * @param projectName:String
+	 * @param fields:List<FileItem>
+	 * @param documentId:int
+	 * @throws ProjectException
+	 */
 	public void updateDocu(String projectName, List<FileItem> fields, int documentId)throws ProjectException{
+		
+		logger.info("updateDocu()");
+		logger.debug("String projectName("+projectName+")"
+				+ "List<FileItem> fields("+fields.toString()+")"
+				+ "int documentID("+documentId+")");
 		
 		this.addNewDocu(projectName, fields);
 		
 	}
 	
+	/**
+	 * Methode um ein Document aus der Datenbank zu holen
+	 * @param documentId:int
+	 * @return Document
+	 * @throws ProjectException
+	 */
 	public Document showDocu(int documentId)throws ProjectException{
 		
 		clearSession();
+		
+		logger.info("showDocu()");
+		logger.debug("int documentId("+documentId+")");
 		
 		Document docu = null;
 		
@@ -260,8 +288,21 @@ public class DocumentManager {
 		return docu;
 	}
 	
-	
+	/**
+	 * Methode die den Inhalt einer datei ausliest und in einen string umwandelt
+	 * @param projectName
+	 * @param documentId
+	 * @return
+	 * @throws NullPointerException
+	 * @throws ProjectException
+	 */
 	public String showDocuContent(String projectName, int documentId)throws NullPointerException, ProjectException{
+		
+		clearSession();
+		
+		logger.info("showDocuContent()");
+		logger.debug("int documentId("+documentId+")"
+				+ "String projectName("+projectName+")");
 		
 		Document docu = null;
 		
