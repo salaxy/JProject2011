@@ -171,7 +171,7 @@ public class DocumentManager {
 		try {	
 			clearSession();
 			
-			//task loeschen
+			//docu loeschen
 			docuDA.delete(docu);
 			docuFile.delete();
 		} catch (PersistentException e) {
@@ -181,9 +181,20 @@ public class DocumentManager {
 		
 	}
 	
+	/**
+	 * gibt ein File object zurück um den download zu realiesieren
+	 * @param documentId:int
+	 * @param projectName:String
+	 * @return File
+	 * @throws ProjectException
+	 */
 	public File downloadDocu(int documentId, String projectName) throws ProjectException{
 		
 		clearSession();
+		
+		logger.info("downloadDocu()");
+		logger.debug("int documentId("+documentId+")"
+				+ "String projectName("+projectName+")");
 		
 		Document docu = null;
 		File docuFile;
