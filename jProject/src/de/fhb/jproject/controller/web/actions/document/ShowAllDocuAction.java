@@ -100,10 +100,12 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Documents!");
 					}			
 				}
+				logger.debug("docuId: "+documentId);
 				document = mainManager.getDocumentManager().showDocu(documentId);
 				documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
 			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+				logger.error("Kann Document nicht lesen! "+e.getMessage(), e);
+				documentContent = "Kann Document nicht lesen! ";
 			}
 			
 			//setzen der Parameter
