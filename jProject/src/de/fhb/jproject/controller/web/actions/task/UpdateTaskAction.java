@@ -80,7 +80,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			Date date = Date.valueOf(req.getParameter("date"));
 			boolean done = Boolean.getBoolean(req.getParameter("done"));
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

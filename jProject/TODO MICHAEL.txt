@@ -25,6 +25,10 @@ DeleteMember =>
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
 	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
 	- wenn nein Member entfernen.
+(Semesterferien)SearchProject -> 
+	Livesuche
+(Semesterferien)SearchUser -> 
+	Livesuche
 
 DA-Schicht
 **********
@@ -32,6 +36,7 @@ DA-Schicht
 
 Datenbank
 **********
+Password zu int machen wegen hashwert = int
 (Semesterferien)Datenbank auf JPA umbauen
 		
 

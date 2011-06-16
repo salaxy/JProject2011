@@ -54,7 +54,7 @@ public class CommentSourceAction extends HttpRequestActionBase {
 			}
 			String entry = req.getParameter("inhalt");//TODO umbenennen in entry
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

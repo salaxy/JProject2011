@@ -51,7 +51,7 @@ private MainManager mainManager;
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

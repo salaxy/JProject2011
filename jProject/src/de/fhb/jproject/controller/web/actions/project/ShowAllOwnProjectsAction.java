@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 
 /**
+ * UNUSED
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
@@ -57,7 +58,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			//Parameter laden
 			User aktUser = (User)session.getAttribute("aktUser");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

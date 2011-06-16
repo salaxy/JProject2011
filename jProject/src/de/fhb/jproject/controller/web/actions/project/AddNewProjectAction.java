@@ -54,7 +54,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			String projectName = req.getParameter("projectName");
 			String status = req.getParameter("status");
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");

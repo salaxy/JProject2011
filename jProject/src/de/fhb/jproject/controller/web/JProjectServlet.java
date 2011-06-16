@@ -85,12 +85,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			throws IOException, ServletException{
 		if (!(getOperation(req).equals("Logout") || (session.getAttribute("aktUser")==null))) {	
 			synchronized(session){
-				/*TODO DELETE ACTION
-				ShowAllOwnProjectsAction showAllOwnProjectsAction = new ShowAllOwnProjectsAction();
-				showAllOwnProjectsAction.perform(req, resp);
-				 * 
-				 */
-				//TODO BO-ACCESS LAYOUT
+				
 
 				MemberSetCollection ownProjectSet = null;
 
@@ -107,8 +102,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 				req.setAttribute("naviFile", "projectnavi.jsp");
 				
 
-
-				//TODO Comments per AJAX
 			}
 		}
 	}

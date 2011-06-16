@@ -400,17 +400,6 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
-		//XXX Testausgabe
-		if (logger.getLevel()==Level.DEBUG) {
-			logger.debug("Size: "+project.member.getCollection().size());
-		
-			for (Object o : project.member.getCollection()) {
-				Member mem = (Member)o;
-				logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
-
-			}
-		}
-		
 		return project.member;
 	}
 	

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" 
 		pageEncoding="UTF-8" 
 		session="true"
-		errorPage="WEB-INF/jspf/contenterror.jsp"
+		errorPage="WEB-INF/jspf/content/error.jsp"
 		isErrorPage="true"
 		%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

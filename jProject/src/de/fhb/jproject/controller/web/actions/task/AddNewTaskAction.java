@@ -60,7 +60,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			//yyyy-mm-dd <<< muss sooo aussehen
 			Date date = Date.valueOf(req.getParameter("date"));
 			
-			//TODO EINGABEFEHLER ABFANGEN
+			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
