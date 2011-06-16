@@ -99,7 +99,6 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			}
 			resp.setContentType("application/json");
 			try {
-				//forward(req, resp, "/snippet.jsp");
 				resp.getWriter().println(json);
 			} catch (IOException e) {
 				logger.error(e.getMessage(), e);
