@@ -159,7 +159,27 @@ public class DocumentManager {
 		
 	}
 	
-	public File downloadDocu(){return null;}
+	public File downloadDocu(int documentId, String projectName) throws ProjectException{
+		
+		clearSession();
+		
+		Document docu = null;
+		File docuFile;
+		//hole der docu
+		try {
+			docu=docuDA.getDocumentByORMID(documentId);
+		} catch (PersistentException e) {
+			throw new ProjectException("Kann Document nicht finden! "+ e.getMessage());
+		}catch (NullPointerException e) {
+			throw new ProjectException("Keine documentId mitgegeben! "+ e.getMessage());
+		}catch(IllegalArgumentException e){
+			throw new ProjectException("documentId fehlerhaft! "+ e.getMessage());
+		}
+		
+		docuFile=new File(path + projectName + "/Document/" + docu.getDateiname());
+		
+		return docuFile;
+	}
 	
 	public DocumentSetCollection showAllDocu(String projectName)throws ProjectException{
 		
@@ -188,6 +208,8 @@ public class DocumentManager {
 	}
 	
 	public Document showDocu(int documentId)throws ProjectException{
+		
+		clearSession();
 		
 		Document docu = null;
 		
