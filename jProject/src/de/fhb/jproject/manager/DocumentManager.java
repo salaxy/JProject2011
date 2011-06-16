@@ -261,7 +261,7 @@ public class DocumentManager {
 	}
 	
 	
-	public String showDocuContent(String projectName, int documentId)throws ProjectException{
+	public String showDocuContent(String projectName, int documentId)throws NullPointerException, ProjectException{
 		
 		Document docu = null;
 		
