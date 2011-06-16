@@ -21,7 +21,7 @@
 <div id="contentcontentsmall">
 	<jsp:include page='../addNewDocu.jsp' />
 	${document.id} ${document.dateiname}<br />	
-	
+	<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">${document.dateiname}</a><br>
 	
 </div>
 
