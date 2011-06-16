@@ -71,7 +71,7 @@ public class DocumentManager {
 				fileItem = it.next();
 			}
 			
-			//TODO überprüfen wegen Object
+			//TODO ï¿½berprï¿½fen wegen Object
 			for (Object o : doculiste) {
 				Document document=(Document)o;
 				if (document.getDateiname().equals(fileItem.getName())){
@@ -100,7 +100,7 @@ public class DocumentManager {
 					try {
 					docuDA.delete(docu);
 					} catch (PersistentException g){
-						throw new ProjectException("Konnte Dokument nach Fehlschlag nicht aus der Datenbank löschen!");
+						throw new ProjectException("Konnte Dokument nach Fehlschlag nicht aus der Datenbank lï¿½schen!");
 					}
 					throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
 				}
@@ -159,7 +159,7 @@ public class DocumentManager {
 		
 	}
 	
-	public void downloadDocu(){}
+	public File downloadDocu(){return null;}
 	
 	public DocumentSetCollection showAllDocu(String projectName)throws ProjectException{
 		
