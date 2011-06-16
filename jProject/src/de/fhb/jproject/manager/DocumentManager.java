@@ -24,7 +24,7 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 /**
- * 
+ * TODO Global comment
  * @author Tino Reuschel
  *
  */
@@ -46,7 +46,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * hinzuf�gen eines Documents in Datenbank und Filesystem
+	 * hinzufuegen eines Documents in Datenbank und Filesystem
 	 * 
 	 * @param projectName:String
 	 * @param fields:List<FileItem>
@@ -135,7 +135,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum l�schen eine documents aus der datenbank und dem filesystems
+	 * methode zum loeschen eine documents aus der datenbank und dem filesystems
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @throws ProjectException
@@ -182,7 +182,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * gibt ein File object zur�ck um den download zu realiesieren
+	 * TODO gibt ein File object zurueck um den download zu realiesieren
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @return File
@@ -215,7 +215,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * gibt ein Set aller Documente zur�ck
+	 * TODO gibt ein Set aller Documente zurueck
 	 * @param projectName:String
 	 * @return DocumentsetCollection
 	 * @throws ProjectException
@@ -242,7 +242,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
+	 * TODO methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
 	 * @param projectName:String
 	 * @param fields:List<FileItem>
 	 * @param documentId:int
@@ -289,7 +289,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * Methode die den Inhalt einer datei ausliest und in einen string umwandelt
+	 * Methode die den Inhalt eines Documents ausliest und in einen String umwandelt
 	 * @param projectName
 	 * @param documentId
 	 * @return
