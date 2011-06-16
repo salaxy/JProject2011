@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.project.AddMemberAction;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -41,23 +42,44 @@ public class AssignTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "int taskId(" + req.getParameter("taskId") + ")"
 					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
 					);
 			
-			try{
-				//Manager in aktion
-				mainManager.getTaskManager().assignTask((User)session.getAttribute("aktUser"), 
-															  req.getParameter("userLoginName"), 
-															  req.getParameter("projectName") ,  
-															  Integer.valueOf(req.getParameter("taskId")));
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			String loginName = req.getParameter("userLoginName");
+			int taskId = 0;
+			try {
+				taskId = Integer.valueOf(req.getParameter("taskId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
 			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getProjectRolesManager().isAllowedAssignTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum vergeben von Tasks!");
+				}			
+				
+				//Manager in aktion
+				mainManager.getTaskManager().assignTask(aktUser, loginName, aktProject.getName(), taskId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}/*TODO IllegalArgumentE*/
+			}
 			
+
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

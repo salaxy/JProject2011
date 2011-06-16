@@ -235,7 +235,7 @@ public class DataServlet extends HttpServletControllerBase {
 			super.doPost(req, resp);
 		}
 	}
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="Click on the + sign on the left to edit the code.">
 	/** 
 	 * Returns a short description of the servlet.
 	 * @return a String containing servlet description

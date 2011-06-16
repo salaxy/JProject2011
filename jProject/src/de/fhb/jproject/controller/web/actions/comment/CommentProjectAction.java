@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -42,19 +43,33 @@ public class CommentProjectAction extends HttpRequestActionBase {
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 		
-			try {
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			String entry = req.getParameter("inhalt");//TODO umbenennen in entry
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines ProjectComments!");
+				}
 				//Manager in aktion
-				mainManager.getCommentManager().commentProject((User)session.getAttribute("aktUser"), 
-																	 req.getParameter("projectName"), 
-																	 req.getParameter("inhalt"));
+				mainManager.getCommentManager().commentProject(aktUser, aktProject.getName(), entry);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-			
-			
 
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

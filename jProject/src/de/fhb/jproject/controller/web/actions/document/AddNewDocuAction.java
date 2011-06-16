@@ -34,15 +34,11 @@ private MainManager mainManager;
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		Project aktProject = null;
-		List<FileItem> fields = null;
-		boolean isMultipartContent;
 		try {		
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			/*TODO logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
 					+ "Date date(" + req.getParameter("date") + ")"
@@ -50,22 +46,36 @@ private MainManager mainManager;
 			 * 
 			 */
 			
+		//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			
-			
-			try {
-				synchronized(session){
-					//Manager in aktion
-					mainManager.getDocumentManager().addNewDocu((User)session.getAttribute("aktUser"),
-																(Project)session.getAttribute("aktProject"), 
-																(List<FileItem>)req.getAttribute("data"));
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewDocuAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewDocuAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Documents!");
+					}			
 				}
+				//Manager in aktion
+				mainManager.getDocumentManager().addNewDocu(aktUser, aktProject, data);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

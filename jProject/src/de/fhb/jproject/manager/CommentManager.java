@@ -30,6 +30,7 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
+import org.apache.log4j.Level;
 
 /**
  *  Manager fuer die Kommentare
@@ -39,11 +40,7 @@ import de.fhb.jproject.repository.da.TaskDA;
  */
 public class CommentManager {
 	
-	private ProjectRolesManager projectRolesManager;
-	private GlobalRolesManager globalRolesManager;
-	
 	private DocumentDA documentDA;
-	private MemberDA memberDA;
 	private SourcecodeDA sourcecodeDA;
 	private CommentDA commentDA;
 	private CommentDocumentDA commentDocumentDA;
@@ -57,9 +54,8 @@ public class CommentManager {
 	
 	
 	
-	public CommentManager(ProjectRolesManager projectRolesManager,GlobalRolesManager globalRolesManager){
+	public CommentManager(){
 		documentDA = DAFactory.getDAFactory().getDocumentDA();
-		memberDA = DAFactory.getDAFactory().getMemberDA();
 		sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
 		commentDA = DAFactory.getDAFactory().getCommentDA();
 		commentDocumentDA = DAFactory.getDAFactory().getCommentDocumentDA();
@@ -69,8 +65,6 @@ public class CommentManager {
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
 		
-		this.projectRolesManager=projectRolesManager;
-		this.globalRolesManager=globalRolesManager;
 	}
 	
 	
@@ -84,8 +78,7 @@ public class CommentManager {
 	 */
 	public void commentDocu(User aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
-		clearSession();
-		Member memAktUser=null;	
+		clearSession();	
 		CommentDocument commentDocu=null;
 		Comment comment=null;
 		Document document=null;
@@ -96,10 +89,6 @@ public class CommentManager {
 		logger.debug("int documentId("+documentId+")"
 				+"String inhalt("+inhalt+")");	
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		
 		//document holen (und implizit damit auch das Project)
 		try {
@@ -111,17 +100,7 @@ public class CommentManager {
 		}catch(IllegalArgumentException e){
 			throw new ProjectException("DocumentId fehlerhaft! "+ e.getMessage());
 		}	
-			
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedCommentDocuAction(aktUser.getGlobalRole())){
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, document.getProject());
-			
-			if(!(projectRolesManager.isAllowedCommentDocuAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte dieses Dokument zu kommentieren!");
-			}
-		}
+		
 		
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -174,10 +153,6 @@ public class CommentManager {
 		logger.debug("int sourcecodeId("+sourcecodeId+")"
 				+"String inhalt("+inhalt+")");	
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
@@ -189,18 +164,7 @@ public class CommentManager {
 		}catch(IllegalArgumentException e){
 			throw new ProjectException("sourcecodeId fehlerhaft! "+ e.getMessage());
 		}	
-			
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedCommentSourceAction(aktUser.getGlobalRole())){
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, sourcecode.getProject()); 
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedCommentSourceAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diesen Sourcecode zu kommentieren!");
-			}	
-		}		
+		
 
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -262,10 +226,6 @@ public class CommentManager {
 		logger.debug("int taskId("+taskId+")"
 				+"String inhalt("+inhalt+")");	
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		
 		//Task holen (und implizit damit auch das Project)
 		try {
@@ -277,18 +237,6 @@ public class CommentManager {
 		}catch(IllegalArgumentException e){
 			throw new ProjectException("taskId fehlerhaft! "+ e.getMessage());
 		}	
-			
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedCommentTaskAction(aktUser.getGlobalRole())){
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, task.getProject());
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedCommentTaskAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diese Aufgabe zu kommentieren!");
-			}	
-		}		
 
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -348,10 +296,6 @@ public class CommentManager {
 		logger.debug("String projectName("+projectName+")"
 				+"String inhalt("+inhalt+")");	
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		
 		//Project holen
 		try {
@@ -361,18 +305,7 @@ public class CommentManager {
 		}catch (NullPointerException e) {
 			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
 		}
-			
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedCommentProjectAction(aktUser.getGlobalRole())){
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedCommentProjektAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte dieses Projekt zu kommentieren!");
-			}	
-		}		
+	
 
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -419,74 +352,19 @@ public class CommentManager {
 	 * @throws ProjectException
 	 */
 	public void deleteComment(User aktUser, String projectName, int commentId)
-	throws ProjectException{ 	
+	throws ProjectException{
 		clearSession();
-		Comment comment=null;
-		Project project=null;
-		Member memAktUser=null;	
-		
 		//debuglogging
 		logger.info("deleteComment()");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
+		//TODO DEBUGINFO
 		
 		
 		
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedDeleteCommentAction(aktUser.getGlobalRole())){
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedDeleteCommentAction(memAktUser.getProjectRole()))){
-				
-				//Pruefen ob User Rechte hat weil er den Kommentar selbst erstellt hat!
-				//comment holen
-				try {
-					comment=commentDA.getCommentByORMID(commentId);
-					System.out.println("Comment:"+commentId);
-				} catch (PersistentException e) {
-					throw new ProjectException("Konnte Comment nicht finden!");
-				}
-				
-				//stimmt Ersteller des Comments nicht mit dem aktUser ueberein?
-				if(!(comment.getUser().getLoginName().equals(aktUser.getLoginName())))
-				{	
-					throw new ProjectException("Sie haben keine Rechte diesen Comment zu loeschen!");					
-				}
-			}	
-		}	
-		
-		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
-		//comment holen 
-		try {
-			//falls schon geholt
-			if(comment==null){
-				comment=commentDA.getCommentByORMID(commentId);
-			}
-		} catch (PersistentException e) {
-			throw new ProjectException("Konnte Comment nicht finden!");
-		}
-
 		//loeschen des comments
 		try {
-			commentDA.delete(comment);
+			commentDA.delete(commentDA.getCommentByORMID(commentId));
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht loeschen!");
 		}
@@ -505,62 +383,14 @@ public class CommentManager {
 	throws ProjectException{ 	
 		clearSession();
 		Comment comment=null;
-		Project project=null;
-		Member memAktUser=null;	
 		
 		//debuglogging
 		logger.info("updateComment()");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedUpdateCommentAction(aktUser.getGlobalRole())){
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedUpdateCommentAction(memAktUser.getProjectRole()))){
-				
-				//Pruefen ob User Rechte hat weil er den Kommentar selbst erstellt hat!
-				
-				//comment holen
-				try {
-					comment=commentDA.getCommentByORMID(commentId);
-				} catch (PersistentException e) {
-					throw new ProjectException("Konnte Comment nicht finden!");
-				}
-				
-				//stimmt Ersteller des Comments nicht mit dem aktUser ueberein?
-				if(!(comment.getUser().getLoginName().equals(aktUser.getLoginName())))
-				{	
-					throw new ProjectException("Sie haben keine Rechte diesen Comment zu updaten!");					
-				}
-			}	
-		}	
-		
-		
-		//EIGENTLICHE AKTIONEN
+		//TODO DEBUGINFO
 		
 		//comment holen
 		try {
-			//falls schon geholt
-			if(comment==null){
-				comment=commentDA.getCommentByORMID(commentId);
-			}
+			comment=commentDA.getCommentByORMID(commentId);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht finden!");
 		}
@@ -590,41 +420,10 @@ public class CommentManager {
 		clearSession();
 		
 		List<Comment> list=null;
-		Project project=null;
-		Member memAktUser=null;	
 		
 		//debuglogging
 		logger.info("showAllComments41Docu()");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-
-			
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41DocuAction(aktUser.getGlobalRole())){
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41DocuAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
-			}	
-		}	
-		
-		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
@@ -651,42 +450,10 @@ public class CommentManager {
 		clearSession();
 		
 		List<Comment> list=null;
-		Project project=null;
-		Member memAktUser=null;	
 		
 		//debuglogging
 		logger.info("showAllComments41Source()");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-
-			
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41SourceAction(aktUser.getGlobalRole())){
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41SourceAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
-			}	
-		}	
-		
-		
-		//EIGENTLICHE AKTIONEN
+		//TODO DEBUGINFO
 		
 		//holen der Comments
 		try {
@@ -712,42 +479,10 @@ public class CommentManager {
 		clearSession();
 		
 		List<Comment> list=null;
-
-		Project project=null;
-		Member memAktUser=null;	
 		
 		//debuglogging
 		logger.info("showAllComments41Task()");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-			
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41TaskAction(aktUser.getGlobalRole())){	
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments41TaskAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
-			}	
-		}	
-		
-		clearSession();
+		//TODO DEBUGINFO
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
@@ -774,41 +509,9 @@ public class CommentManager {
 		
 		List<Comment> list=null;
 		
-		Project project=null;
-		Member memAktUser=null;	
-		
 		//debuglogging
 		logger.info("showAllComments41Project()");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-			
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedShowAllComments41ProjectAction(aktUser.getGlobalRole())){
-			
-			//Project holen
-			try {
-				project=projectDA.getProjectByORMID(projectName);
-			} catch (PersistentException e1) {
-				throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-			}catch (NullPointerException e) {
-				throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-			}
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!(projectRolesManager.isAllowedShowAllComments42ProjektAction(memAktUser.getProjectRole()))){
-				throw new ProjectException("Sie haben keine Rechte diese Comments anzuzeigen!");
-			}	
-		}	
-		
-		clearSession();
-		//EIGENTLICHE AKTIONEN
+		//TODO DEBUGINFO
 		
 		//holen der comments
 		try {
@@ -833,15 +536,5 @@ public class CommentManager {
 			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
 		}
 		
-	}
-	
-	private Member getMember(User aktUser, Project project)throws ProjectException{
-		Member aktMember = null;
-		try {
-			aktMember=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		return aktMember;
 	}
 }
