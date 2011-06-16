@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Document;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -33,6 +34,8 @@ private MainManager mainManager;
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		Document document = null;
+		String documentContent = null;
 		try {		
 			
 			//Debugprint
@@ -52,6 +55,7 @@ private MainManager mainManager;
 				logger.error(e.getMessage(), e);
 			}
 			
+			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
@@ -66,12 +70,14 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				mainManager.getDocumentManager().showDocu(documentId);
+				document = mainManager.getDocumentManager().showDocu(documentId);
+				documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			req.setAttribute("document", document);
+			req.setAttribute("documentContent", documentContent);
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
