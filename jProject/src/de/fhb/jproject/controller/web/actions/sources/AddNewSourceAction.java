@@ -10,7 +10,9 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
 
@@ -46,6 +48,7 @@ private MainManager mainManager;
 			//Parameter laden
 			User aktUser = (User)session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
+			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -61,12 +64,12 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				mainManager.getSourceManager().addNewSource();
+				mainManager.getSourceManager().addNewSource(aktProject.getName(), data);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

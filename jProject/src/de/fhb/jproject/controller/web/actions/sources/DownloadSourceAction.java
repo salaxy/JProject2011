@@ -10,6 +10,11 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
@@ -53,6 +58,10 @@ public class DownloadSourceAction extends HttpRequestActionBase {
 			} catch (NumberFormatException e) {
 				logger.error(e.getMessage(), e);
 			}
+			BufferedInputStream buf=null;
+			ServletOutputStream myOut=null;
+			File myfile = null;
+			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
@@ -67,11 +76,46 @@ public class DownloadSourceAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				mainManager.getSourceManager().downloadSource();
+				myfile = mainManager.getSourceManager().downloadSource(sourcecodeId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
+			try{
+
+				myOut = resp.getOutputStream( );
+
+
+				//set response headers
+				resp.setContentType("text/plain");
+
+				resp.addHeader("Content-Disposition", 
+							   "attachment; filename="+myfile.getName());
+
+				resp.setContentLength( (int) myfile.length( ) );
+
+				FileInputStream input = new FileInputStream(myfile);
+				buf = new BufferedInputStream(input);
+				int readBytes = 0;
+
+				//read from the file; write to the ServletOutputStream
+				while((readBytes = buf.read( )) != -1){
+					myOut.write(readBytes);
+				}
+			} catch (IOException e){
+				logger.error("Konnte File nicht schreiben! "+e.getMessage(), e);
+			} finally {
+				//close the input/output streams
+				try {
+					if (myOut != null){
+						myOut.close( );
+					}
+					if (buf != null){
+						buf.close( );
+					}
+				} catch (IOException e) {
+					logger.error("Konnte Stream nicht schließen! "+e.getMessage(), e);
+				}
+			}
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

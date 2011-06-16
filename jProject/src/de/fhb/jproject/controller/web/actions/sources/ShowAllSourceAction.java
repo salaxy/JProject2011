@@ -11,6 +11,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -36,8 +37,9 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		List<Sourcecode> sourcecodeList = null;
+		Set<Sourcecode> sourcecodeList = null;
 		Sourcecode sourcecode = null;
+		String sourcecodeContent = null;
 		try {		
 			
 			//Debugprint
@@ -70,7 +72,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				sourcecodeList=mainManager.getSourceManager().showAllSource(aktUser, aktProject.getName());
+				sourcecodeList = mainManager.getSourceManager().showAllSource(aktProject.getName()).getCollection();
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
@@ -78,7 +80,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			try {
 				//Wenn sourcecodeId == null dann gib mir den ersten
 				if (0 == sourcecodeId) {
-					sourcecodeId = sourcecodeList.get(0).getId();
+					sourcecodeId = ((Sourcecode)sourcecodeList.toArray()[0]).getId();
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("sourcecodeID ungültig "+e);
@@ -91,15 +93,24 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			
 			
 			try {
-				sourcecode = mainManager.getSourceManager().showSource(aktUser, aktProject.getName(), sourcecodeId);
+				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
+					}			
+				}
+				logger.debug("sourceId: "+sourcecodeId);
+				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
+				sourcecodeContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), sourcecodeId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
+				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 			}
 			
 			//setzen der Parameter
 			req.setAttribute("sourcecodeList", sourcecodeList);
 			req.setAttribute("sourcecode", sourcecode);
-			
+			req.setAttribute("sourcecodeContent", sourcecodeContent);
 			
 			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.document.ShowAllDocuAction;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.Sourcecode;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -35,6 +36,8 @@ public class ShowSourceAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		Sourcecode sourcecode = null;
+		String sourcecodeContent = null;
 		try {		
 			
 			//Debugprint
@@ -60,19 +63,24 @@ public class ShowSourceAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
+			try {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser.getLoginName())){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser.getLoginName(), aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
 					}			
 				}
-				//Manager in aktion
-				mainManager.getSourceManager().showSource(aktUser, aktProject.getName(), sourcecodeId);
+				logger.debug("sourceId: "+sourcecodeId);
+				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
+				sourcecodeContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), sourcecodeId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
+				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 			}
 			
+			//setzen der Parameter
+			req.setAttribute("sourcecode", sourcecode);
+			req.setAttribute("sourcecodeContent", sourcecodeContent);
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
