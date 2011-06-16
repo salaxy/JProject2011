@@ -24,7 +24,7 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 /**
- * diese Klasse kontrolliert die zugriff für die documente
+ * diese Klasse kontrolliert dden Zugriff auf die Documente
  * @author Tino Reuschel
  *
  */
@@ -76,7 +76,7 @@ public class DocumentManager {
 		
 		doculiste=project.document.getCollection();
 		
-		//schleife fï¿½r alle elemente der liste
+		//schleife fuer alle elemente der liste
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
 			
@@ -135,7 +135,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum loeschen eine documents aus der datenbank und dem filesystems
+	 * methode zum loeschen eines Documents aus der Datenbank und dem Filesystems
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @throws ProjectException
@@ -182,7 +182,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode um ein document zu downloaden
+	 * methode um ein Document zu downloaden
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @return File
@@ -215,7 +215,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum anzeigen alle documente eines projectes
+	 * methode zum Anzeigen aller Documente eines Projectes
 	 * @param projectName:String
 	 * @return DocumentsetCollection
 	 * @throws ProjectException
@@ -242,7 +242,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode um ein document neu hochzuladen ohne neuen eintrag in die datenbank
+	 * methode um ein Document neu hochzuladen ohne neuen Eintrag in die Datenbank
 	 * @param projectName:String
 	 * @param fields:List<FileItem>
 	 * @param documentId:int
@@ -338,7 +338,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum speichern eines documents in das filesystem
+	 * methode zum Speichern eines Documents in das Filesystem
 	 * @param fileItem:FileItem
 	 * @param projectName:String
 	 * @throws IOException
@@ -365,7 +365,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum auslesen einer datei und den inhalt in einen string umwandeln
+	 * methode zum Auslesen einer Datei und den Inhalt in einen String umwandeln
 	 * @param filename:String
 	 * @param projectName:String
 	 * @return String
