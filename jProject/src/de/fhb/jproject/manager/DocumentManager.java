@@ -25,23 +25,16 @@ import org.orm.PersistentSession;
 
 public class DocumentManager {
 
-	private ProjectRolesManager projectRolesManager;
-	private GlobalRolesManager globalRolesManager;
-	
-	private MemberDA memberDA;
 	private DocumentDA docuDA;
 	private ProjectDA projectDA;
 	private String path="F:/";
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public DocumentManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
+	public DocumentManager(){
 		
-		this.projectRolesManager=projectRolesManager;
-		this.globalRolesManager=globalRolesManager;
 		
 		projectDA = DAFactory.getDAFactory().getProjectDA();
-		memberDA = DAFactory.getDAFactory().getMemberDA();
 		docuDA = DAFactory.getDAFactory().getDocumentDA();
 	}
 	
@@ -53,32 +46,9 @@ public class DocumentManager {
 		logger.info("addNewDocu()");
 		//logger.debug("String projectName("+aktProject.getName()+")");//TODO
 		
-		Member memAktUser=null;	
 		Document docu=null;
 		Project project = null;
 		
-				
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		try {
-			project=projectDA.getProjectByORMID(aktProject.getName());
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-		}catch (NullPointerException e) {
-			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-		}
-		
-		if(!globalRolesManager.isAllowedAddNewDocuAction(aktUser.getGlobalRole())){
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedAddNewDocuAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Dokumentes!");
-			}		
-		}
 		
 		clearSession();
 		//EIGENTLICHE AKTIONEN
@@ -124,8 +94,6 @@ public class DocumentManager {
 		
 	public void deleteDocu(User aktUser, int docuId, String projectName)throws ProjectException {
 		
-		Project project=null;
-		Member memAktUser = null;
 		Document docu = null;
 		File docuFile=null;
 		
@@ -134,30 +102,6 @@ public class DocumentManager {
 		logger.debug("String projectName("+projectName+")");
 		logger.debug("int taskId("+docuId+")");
 		
-		//abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-		//RECHTE-ABFRAGE Global
-		//wenn user nicht Admin ist dann Member holen und Abfrage der Rechte im Projekt
-		if(!globalRolesManager.isAllowedDeleteDocuAction(aktUser.getGlobalRole())){
-			
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedDeleteDocuAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte die Aufgabe(Task) zu loeschen!");
-			}	
-		}
 		
 		clearSession();
 
@@ -201,28 +145,11 @@ public class DocumentManager {
 		//debuglogging
 		logger.info("showAllTasks()");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
 		//projekt holen
 		try {
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedShowAllTasksAction(aktUser.getGlobalRole())){
-		
-			//Member des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE projekt
-			if(!projectRolesManager.isAllowedShowAllTaskAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Aufgaben/Tasks !");
-			}
 		}
 		//TODO return as SetCollection & fix duplicated entrys
 		return Arrays.asList(project.document.toArray());
@@ -236,45 +163,7 @@ public class DocumentManager {
 		logger.info("updateDocu()");
 		//logger.debug("String projectName("+aktProject.getName()+")");//TODO
 		
-		Member memAktUser=null;	
-		Document docu=null;
-		Project project = null;
 		
-				
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		try {
-			project=projectDA.getProjectByORMID(aktProject.getName());
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-		}catch (NullPointerException e) {
-			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-		}
-		
-		if(!globalRolesManager.isAllowedUpdateDocuAction(aktUser.getGlobalRole())){
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedUpdateDocuAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Dokumentes!");
-			}		
-		}
-		
-		clearSession();
-		//EIGENTLICHE AKTIONEN
-		try {
-			project=projectDA.getProjectByORMID(aktProject.getName());
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Project nicht finden! "+ e1.getMessage());
-		}catch (NullPointerException e) {
-			throw new ProjectException("Keine projectName mitgegeben! "+ e.getMessage());
-		}
-		
-		
-		//TODO send to internal delete -> add new method?
 		
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
@@ -311,15 +200,6 @@ public class DocumentManager {
 			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
 		}
 		
-	}
-	private Member getMember(User aktUser, Project project)throws ProjectException{
-		Member aktMember = null;
-		try {
-			aktMember=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		return aktMember;
 	}
 	
 	private void saveDocument(FileItem fileItem) throws IOException{
