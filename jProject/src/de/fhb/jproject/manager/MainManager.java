@@ -26,13 +26,13 @@ public class MainManager{
 		globalRolesManager=new GlobalRolesManager();	
 		projectRolesManager= new ProjectRolesManager();
 		
-		userManager=new UserManager(globalRolesManager);		
+		userManager=new UserManager();		
 		
-		projectManager=new ProjectManager(projectRolesManager,globalRolesManager);
-		sourceManager=new SourceManager(projectRolesManager,globalRolesManager);
-		taskManager=new TaskManager(projectRolesManager,globalRolesManager);
-		documentManager=new DocumentManager(projectRolesManager,globalRolesManager);
-		commentManager=new CommentManager(projectRolesManager, globalRolesManager);
+		projectManager=new ProjectManager();
+		sourceManager=new SourceManager();
+		taskManager=new TaskManager();
+		documentManager=new DocumentManager();
+		commentManager=new CommentManager();
 		
 	}
 
@@ -67,12 +67,12 @@ public class MainManager{
 	}
 	
 	
-//	public ProjectRolesManager getProjectRolesManager(){
-//		return projectRolesManager;
-//	}
-//	
-//	
-//	public GlobalRolesManager getGlobalRolesManager(){
-//		return globalRolesManager;
-//	}
+	public ProjectRolesManager getProjectRolesManager(){
+		return projectRolesManager;
+	}
+	
+	
+	public GlobalRolesManager getGlobalRolesManager(){
+		return globalRolesManager;
+	}
 }

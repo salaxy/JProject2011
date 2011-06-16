@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Comment;
+import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -39,23 +41,56 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "int projectName(" + req.getParameter("projectName") + "), "
 					+ "String commentId(" + req.getParameter("commentId") + ")"
 					+ "int inhalt(" + req.getParameter("inhalt") + "), "
 					);
+			
+				
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int commentId = 0;
+			try {
+				commentId = Integer.valueOf(req.getParameter("commentId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			String entry = req.getParameter("inhalt");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
 			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser.getLoginName(), aktProject.getName())){
+						for (Object comment : aktUser.comment.getCollection()) {
+							int id = ((Comment)comment).getId();
+							boolean isMine = false;
+							if (id == commentId) {
+								isMine = true;
+							}
+							if (!isMine) {
+								throw new ProjectException("Sie haben keine Rechte zum updaten dieses Comments!");
+							}
+						}
+					}			
+				}
 				//Manager in aktion
-				mainManager.getCommentManager().updateComment((User)session.getAttribute("aktUser")
-						, req.getParameter("projectName")
-						, Integer.valueOf(req.getParameter("commentId"))
-						, req.getParameter("inhalt")
-						);
+				mainManager.getCommentManager().updateComment(aktUser, aktProject.getName(), commentId, entry);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}/*TODO IllegalArgumentE*/
+			}
 			
 
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

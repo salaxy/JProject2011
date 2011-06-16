@@ -12,6 +12,7 @@ import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 
@@ -31,13 +32,12 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 	 */
 	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException{	
+	throws ServletException{
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Sourcecode> sourcecodeList = null;
 		Sourcecode sourcecode = null;
-		int sourcecodeId = 0;
 		try {		
 			
 			//Debugprint
@@ -46,23 +46,44 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 					+ "int sourcecodeId(" + req.getParameter("sourcecodeId") + ")"
 					);
 			
-			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int sourcecodeId = 0;
 			try {
-				sourcecodeList=mainManager.getSourceManager().showAllSource((User)session.getAttribute("aktUser"), 
-																   ((Project)session.getAttribute("aktProject")).getName());
+				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			 
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllSourceAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllSourceAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Sourcecodes!");
+					}			
+				}
+				//Manager in aktion
+				sourcecodeList=mainManager.getSourceManager().showAllSource(aktUser, aktProject.getName());
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			try {
 				//Wenn sourcecodeId == null dann gib mir den ersten
-				if (null == req.getParameter("sourcecodeId")) {
+				if (0 == sourcecodeId) {
 					sourcecodeId = sourcecodeList.get(0).getId();
-				}else{
-					sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("sourcecodeID ungültig "+e);
+			}catch(ArrayIndexOutOfBoundsException e){
+				logger.error("Keine Sourcecodes vorhanden!"+e.getMessage(), e);
 			}catch(NullPointerException e){
 				logger.error("Keine Sourcecodes vorhanden!"+e.getMessage(), e);
 			}
@@ -70,9 +91,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			
 			
 			try {
-				sourcecode = mainManager.getSourceManager().showSource((User)session.getAttribute("aktUser"), 
-						 ((Project)session.getAttribute("aktProject")).getName(),
-						 sourcecodeId);
+				sourcecode = mainManager.getSourceManager().showSource(aktUser, aktProject.getName(), sourcecodeId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -84,6 +103,10 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			
 			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

@@ -41,43 +41,53 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		String loginName = "";
 		try {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String loginName = req.getParameter("loginName");
 			
-			
-			//UserList holen
-			try {
-				userList=mainManager.getUserManager().showAllUser((User)session.getAttribute("aktUser"));
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
+				}
+				//Manager in aktion
+				userList=mainManager.getUserManager().showAllUser(aktUser);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
-			}	
+			}
 			
 			try{
 				//Wenn loginName == null dann gib mir den ersten
-				if (null == req.getParameter("loginName")) {
+				if (null == loginName) {
 					loginName = userList.get(0).getLoginName();
-				}else{
-					loginName = req.getParameter("loginName");
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("loginName ungültig "+e);
-			}catch(NullPointerException e){
+			}catch(ArrayIndexOutOfBoundsException e){
 				logger.error("Keine User vorhanden!"+e.getMessage(), e);
 			}
 			
 			try {
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
+				}
 				//Manager in aktion
-				user=mainManager.getUserManager().showUserInfo((User)session.getAttribute("aktUser"), 
-																		 loginName);
+				user=mainManager.getUserManager().showUserInfo(aktUser, loginName);
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
-			
+			//XXX Testausgabe
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
 //			}
@@ -93,7 +103,10 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}
-		
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}	
 	}
 }

@@ -44,24 +44,39 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 		
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			//TODO DEBUGINFO
 			
-			try {
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			String searchValue = req.getParameter("searchValue");
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedSearchProjectsAction(aktUser.getLoginName())){
+					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
+				}
 				//Manager in aktion
-				projectList=mainManager.getProjectManager().searchProjects((User)session.getAttribute("aktUser"),req.getParameter("searchValue"));
+				projectList=mainManager.getProjectManager().searchProjects(aktUser, searchValue);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			//Manager in aktion
-			
+			//XXX Testausgabe
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());
-			}		
-			
-			//setzen der Parameter
-			req.setAttribute("projectList", projectList);
-			
+			}
+			//TODO PARAMETERÜBERGABE
+
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

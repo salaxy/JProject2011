@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
@@ -40,21 +42,40 @@ private MainManager mainManager;
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			*/
-		
-			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int documentId = 0;
 			try {
-				//Manager in aktion
-				if(false){
-					throw new ProjectException("Dummy");
+				documentId = Integer.valueOf(req.getParameter("documentId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedDownloadDocuAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedDownloadDocuAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum download dieses Documents!");
+					}			
 				}
-				throw new NullPointerException("Dummy");
-				//TODO Manageroperation here
+				//Manager in aktion
+				mainManager.getDocumentManager().downloadDocu();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-			req.setAttribute("contentFile", "showAllDocu.jsp");
+
 		}catch (ProjectException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

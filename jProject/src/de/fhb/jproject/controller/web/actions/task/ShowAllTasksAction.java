@@ -48,7 +48,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		List<Task> taskList=null;
 		Task task = null;
-		int taskId = 0;
+		
 		try {				
 			
 			//Debugprint
@@ -58,19 +58,40 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					);
 			
 			
+			
+			//Parameter laden
+			User aktUser = (User)session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
+			int taskId = 0;
 			try {
-				taskList=mainManager.getTaskManager().showAllTasks((User)session.getAttribute("aktUser"), 
-																   ((Project)session.getAttribute("aktProject")).getName());
+				taskId = Integer.valueOf(req.getParameter("taskId"));
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
+			//TODO EINGABEFEHLER ABFANGEN
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks!");
+					}			
+				}
+				//Manager in aktion
+				taskList=mainManager.getTaskManager().showAllTasks(aktUser, aktProject.getName());
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			try{
 				//Wenn taskId == null dann gib mir den ersten
-				if (null == req.getParameter("taskId")) {
+				if (0 == taskId) {
 					taskId = taskList.get(0).getId();
-				}else{
-					taskId = Integer.valueOf(req.getParameter("taskId"));
 				}
 			} catch (IllegalArgumentException e) {
 				throw new ProjectException("TaskID ungültig "+e);
@@ -79,24 +100,31 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				task = mainManager.getTaskManager().showTask((User)session.getAttribute("aktUser"), 
-						 ((Project)session.getAttribute("aktProject")).getName(),
-						 taskId);
+				//TODO DRINGEND RECHTEABFRAGE
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser.getLoginName())){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser.getLoginName(), aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
+					}			
+				}
+				task = mainManager.getTaskManager().showTask(aktUser, aktProject.getName(), taskId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
 			
 			req.setAttribute("contentFile", "showAllTasks.jsp");
-			
-
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
+		}catch (IllegalArgumentException e) {
+			logger.error(e.getMessage(), e);
+			req.setAttribute("contentFile", "error.jsp");
+			req.setAttribute("errorString", e.getMessage());
 		}
+		
 	}
 }

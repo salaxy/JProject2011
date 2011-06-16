@@ -1,10 +1,6 @@
 package de.fhb.jproject.manager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
@@ -22,6 +18,7 @@ import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
 import java.util.Set;
+import org.apache.log4j.Level;
 
 /**
  * Manager fuer die ProjectActions
@@ -31,8 +28,6 @@ import java.util.Set;
  */
 public class ProjectManager {
 	
-	private ProjectRolesManager projectRolesManager;
-	private GlobalRolesManager globalRolesManager;
 	private final String LEADER = "Leader";
 	
 	//Notiz: Get>>>komplett neu aus der DB, get>> schon vorgehalten
@@ -44,13 +39,11 @@ public class ProjectManager {
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
-	public ProjectManager(ProjectRolesManager projectRolesManager, GlobalRolesManager globalRolesManager){
+	public ProjectManager(){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
 		userDA = DAFactory.getDAFactory().getUserDA();
-		this.projectRolesManager=projectRolesManager;
-		this.globalRolesManager=globalRolesManager;
 	}
 	
 
@@ -64,20 +57,20 @@ public class ProjectManager {
 	 * @param rolle
 	 * @throws ProjectException
 	 */
-	public void addMember(User aktUser, String loginName, String projectName, String rolle)
+	public void addMember(String loginName, String projectName, String rolle)
 	throws ProjectException{ 	
 		clearSession();
 		Project project=null;
 		Member member=null;
-		Member memAktUser=null;
 		
-		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
+		
 		
 		//debuglogging
 		logger.info("addMember()");
 		logger.debug("String userName("+loginName+")"
 				+"String projectName("+projectName+")"
 				+"String rolle("+ rolle+")");	
+		
 		try {
 			if (rolle == null) {
 				rolle = "Member";
@@ -86,29 +79,7 @@ public class ProjectManager {
 		} catch (PersistentException ex) {
 			throw new ProjectException("Keine zulaessige Rolle angegeben!");
 		}
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedAddMemberAction(aktUser.getGlobalRole())){
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedAddMemberAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
-			}			
-		}
+				
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
@@ -157,18 +128,7 @@ public class ProjectManager {
 		logger.info("addNewProject()");
 		logger.debug("String name("+name+")"
 				+"String status("+status+")");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedAddNewProjectAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum erstellen eines Projektes!");
-		}
-		
-		
+				
 		//EIGENTLICHE AKTIONEN
 		
 		//project parameter setzen
@@ -220,38 +180,12 @@ public class ProjectManager {
 	public void deleteProject(User aktUser, String projectName)
 	throws ProjectException{ 
 		clearSession();
-		
-		Project project=null;
-		Member memAktUser=null;	
+		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
+		Project project=null;	
 		
 		//debuglogging
 		logger.info("deleteProject()");
 		logger.debug("String name("+projectName+")");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-			
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedDeleteProjectAction(aktUser.getGlobalRole())){
-				
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			//Admin und ProjektLeader sind berechtigt 
-			if(!projectRolesManager.isAllowedDeleteProjectAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte das Projekt zu loeschen!");
-			}	
-		}
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -284,29 +218,6 @@ public class ProjectManager {
 		logger.debug("String loginName("+loginName+")"
 				+"String projectName("+projectName+")");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedDeleteMemberAction(aktUser.getGlobalRole())){
-				
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			
-			//RECHTE-ABFRAGE Projekt
-			if(!projectRolesManager.isAllowedDeleteMemberAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte den Member zu loeschen!");
-			}
-		}
 		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
@@ -362,16 +273,6 @@ public class ProjectManager {
 		logger.info("showProject()");
 		logger.debug("String name("+projectName+")");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedShowProjectAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte!");
-		}		
-		
 		//projekt holen
 		try {
 			project=projectDA.getProjectByORMID(projectName);
@@ -391,23 +292,13 @@ public class ProjectManager {
 	 */
 	public List<Project> searchProjects(User aktUser, String searchValue)
 	throws ProjectException{
-		
+		clearSession();
 		
 		List <Project> list=null;
 		
 		//debuglogging
 		logger.info("searchProjects()");
 		logger.debug("String loginName("+searchValue+")");
-		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedSearchProjectsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Suchen der Projekte!");
-		}		
 		
 		//holen der daten
 		try {
@@ -428,22 +319,12 @@ public class ProjectManager {
 	 */
 	public List<Project> showAllProjects(User aktUser)
 	throws ProjectException{ 
-		
-		
+		clearSession();
 		List<Project> list=null;
 		
 		//debuglogging
 		logger.info("showAllProjects()");
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedShowAllProjectsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
-		}	
 		
 		//holen der Daten
 		try {
@@ -462,6 +343,7 @@ public class ProjectManager {
 	 */
 	public MemberSetCollection showAllOwnProjects(User aktUser)
 	throws ProjectException{
+		clearSession();
 		//debuglogging
 		logger.info("showAllOwnProjects()");
 		Set<Project> list= null;	
@@ -470,11 +352,6 @@ public class ProjectManager {
         //abfrage ob user eingeloggt
 		if(aktUser == null){
 			throw new ProjectException("Sie sind nicht eingeloggt!");
-		}
-		
-		//RECHTE-ABFRAGE Global
-		if(!globalRolesManager.isAllowedShowAllOwnProjectsAction(aktUser.getGlobalRole())){
-			throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Projekte!");
 		}
 		
 		// user neu holen um seiten effekte zu vermeiden
@@ -486,7 +363,7 @@ public class ProjectManager {
 		}
 		
 		//projekte in liste eintragen
-		/*
+		/*XXX Testausgabe
 		for (Member aktMember : user.member.toArray()) {
 			list.add(aktMember.getProject());
 		}
@@ -507,9 +384,8 @@ public class ProjectManager {
 	public MemberSetCollection showAllMember(User aktUser, String projectName)
 	throws ProjectException{
 		//TODO irgendwas is HIER kaputt
-		
+		clearSession();
 		Project project=null;
-		Member memAktUser=null;
 		
 		//debuglogging
 		logger.info("showAllMember()");
@@ -517,55 +393,23 @@ public class ProjectManager {
 				+ "String name("+projectName+")");
 		
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-            throw new ProjectException("Sie sind nicht eingeloggt!");
-        }
 		
-		//XXX user neu holen um seiten effekte zu vermeiden
-		try {
-			//user suchen
-			aktUser = userDA.getUserByORMID(aktUser.getLoginName());
-		} catch (PersistentException ex) {
-			throw new ProjectException("Kann User nicht finden! "+ ex);
-		}
-		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
-		
-		//RECHTE-ABFRAGE Global
-		
-		if(!globalRolesManager.isAllowedShowAllMemberAction(aktUser.getGlobalRole())){
-			
-			//Projekt-Rolle des aktuellen Users holen
-			memAktUser = getMember(aktUser, project);
-			//RECHTE-ABFRAGE projekt
-			if(!projectRolesManager.isAllowedShowAllMemberAction(memAktUser.getProjectRole())){
-				throw new ProjectException("Sie haben keine Rechte zum Anzeigen der Member!");
-			}
-		}
-		
-		clearSession();
 		//EIGENTLICHE AKTIONEN
 		try {
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
-		//XXX DELETE THIS
-		/*
-		System.out.println("Size: "+project.member.getCollection().size());
+		//XXX Testausgabe
+		if (logger.getLevel()==Level.DEBUG) {
+			logger.debug("Size: "+project.member.getCollection().size());
 		
-		for (Object o : project.member.getCollection()) {
-			Member mem = (Member)o;
-			System.out.println("Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
-			
-		}*/
-		
+			for (Object o : project.member.getCollection()) {
+				Member mem = (Member)o;
+				logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
+
+			}
+		}
 		
 		return project.member;
 	}
@@ -582,16 +426,6 @@ public class ProjectManager {
 		}
 		
 	}
-	private Member getMember(User aktUser, Project project)throws ProjectException{
-		Member aktMember = null;
-		try {
-			aktMember=memberDA.getMemberByORMID(aktUser, project);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
-		}
-		return aktMember;
-	}
-	
-	
+		
 }
 
