@@ -227,7 +227,7 @@ public class DocumentManager {
 		clearSession();
 		
 		//debuglogging
-		logger.info("showAllTasks()");
+		logger.info("showAllDocu()");
 		logger.debug("String projectName("+projectName+")");
 		
 		//projekt holen
