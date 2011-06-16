@@ -74,7 +74,7 @@ private MainManager mainManager;
 					}			
 				}
 				//Manager in aktion
-				myfile = mainManager.getDocumentManager().downloadDocu();
+				myfile = mainManager.getDocumentManager().downloadDocu(documentId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
