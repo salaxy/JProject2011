@@ -24,7 +24,7 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 /**
- * TODO Global comment
+ * diese Klasse kontrolliert die zugriff für die documente
  * @author Tino Reuschel
  *
  */
@@ -182,7 +182,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * TODO gibt ein File object zurueck um den download zu realiesieren
+	 * methode um ein document zu downloaden
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @return File
@@ -215,7 +215,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * TODO gibt ein Set aller Documente zurueck
+	 * methode zum anzeigen alle documente eines projectes
 	 * @param projectName:String
 	 * @return DocumentsetCollection
 	 * @throws ProjectException
