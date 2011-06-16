@@ -337,6 +337,12 @@ public class DocumentManager {
 		
 	}
 	
+	/**
+	 * methode zum speichern eines documents in das filesystem
+	 * @param fileItem:FileItem
+	 * @param projectName:String
+	 * @throws IOException
+	 */
 	private void saveDocument(FileItem fileItem, String projectName) throws IOException{
 		File file = new File(path + projectName + "/Document/" + fileItem.getName());
 		FileOutputStream out = new FileOutputStream(file);
@@ -358,6 +364,13 @@ public class DocumentManager {
 	    out.close();
 	}
 	
+	/**
+	 * methode zum auslesen einer datei und den inhalt in einen string umwandeln
+	 * @param filename:String
+	 * @param projectName:String
+	 * @return String
+	 * @throws IOException
+	 */
 	private String getDocuContent(String filename, String projectName) throws IOException{
 		File file = new File(path + projectName + "/Document/" + filename);
 		FileInputStream in=new FileInputStream(file); 
