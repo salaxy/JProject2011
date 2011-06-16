@@ -46,7 +46,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * hinzufügen eines Documents in Datenbank und Filesystem
+	 * hinzufï¿½gen eines Documents in Datenbank und Filesystem
 	 * 
 	 * @param projectName:String
 	 * @param fields:List<FileItem>
@@ -76,7 +76,7 @@ public class DocumentManager {
 		
 		doculiste=project.document.getCollection();
 		
-		//schleife für alle elemente der liste
+		//schleife fï¿½r alle elemente der liste
 		Iterator<FileItem> it = fields.iterator();
 		while (it.hasNext()) {
 			
@@ -135,7 +135,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * methode zum löschen eine documents aus der datenbank und dem filesystems
+	 * methode zum lï¿½schen eine documents aus der datenbank und dem filesystems
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @throws ProjectException
@@ -182,7 +182,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * gibt ein File object zurück um den download zu realiesieren
+	 * gibt ein File object zurï¿½ck um den download zu realiesieren
 	 * @param documentId:int
 	 * @param projectName:String
 	 * @return File
@@ -215,7 +215,7 @@ public class DocumentManager {
 	}
 	
 	/**
-	 * gibt ein Set aller Documente zurück
+	 * gibt ein Set aller Documente zurï¿½ck
 	 * @param projectName:String
 	 * @return DocumentsetCollection
 	 * @throws ProjectException
@@ -320,7 +320,7 @@ public class DocumentManager {
 		try {
 			return getDocuContent(docu.getDateiname(),projectName);
 		} catch (IOException e){
-			throw new NullPointerException();
+			throw new NullPointerException("Konnte Document nicht lesen! "+e);
 		}
 	}
 	
@@ -332,7 +332,7 @@ public class DocumentManager {
 			//und bereinigen
 			session.clear();
 		} catch (PersistentException e) {
-			throw new NullPointerException();
+			throw new ProjectException("Konnte Session nicht clearen! "+ e.getMessage());
 		}
 		
 	}
