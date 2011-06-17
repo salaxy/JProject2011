@@ -45,7 +45,7 @@ public class SearchUserAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String searchValue = req.getParameter("searchValue");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -55,11 +55,11 @@ public class SearchUserAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
 				}
 				//Manager in aktion
-				userList = mainManager.getUserManager().searchUser(aktUser, searchValue);
+				userList = mainManager.getUserManager().searchUser(searchValue);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);

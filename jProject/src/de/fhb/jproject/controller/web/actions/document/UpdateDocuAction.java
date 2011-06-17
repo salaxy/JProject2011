@@ -45,7 +45,7 @@ private MainManager mainManager;
 					);
 			*/
 		//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			int documentId = 0;
@@ -62,9 +62,9 @@ private MainManager mainManager;
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum updaten dieses Documents!");
 					}			
 				}

@@ -43,7 +43,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
-		MemberSetCollection ownProjectSet = null;
+		MemberSetCollection ownProjectList = null;
 		try {
 			
 			//Debugprint
@@ -56,7 +56,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			}
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -65,17 +65,17 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
 				}
 				//Manager in aktion
-				ownProjectSet = mainManager.getProjectManager().showAllOwnProjects(aktUser);
+				ownProjectList = mainManager.getProjectManager().showAllOwnProjects(aktUser);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
 			
-			req.setAttribute("ownProjectList", ownProjectSet.getCollection());
+			req.setAttribute("ownProjectList", ownProjectList.getCollection());
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

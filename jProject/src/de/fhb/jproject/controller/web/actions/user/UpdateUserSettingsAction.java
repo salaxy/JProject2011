@@ -42,7 +42,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName"); 
 			
 			//EINGABEFEHLER ABFANGEN
@@ -52,8 +52,8 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser.getLoginName())){
-					if(!aktUser.getLoginName().equals(loginName)){
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser)){
+					if(!aktUser.equals(loginName)){
 						throw new ProjectException("Sie haben keine Rechte zum updaten der UserSettings!");
 					}
 				}			
@@ -62,7 +62,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 				String[] neu ={"123","4567","789"};
 				
 				//Manager in aktion
-//				mainManager.getUserManager().updateUserSettings((User)session.getAttribute("aktUser"), loginName, 
+//				mainManager.getUserManager().updateUserSettings(loginName, 
 //																req.getParameter("nachname"), 
 //																req.getParameter("vorname"), 
 //																req.getParameter("neuIcq"), 
@@ -72,7 +72,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 //																req.getParameter("neuesPasswortEins"), 
 //																req.getParameter("neuesPasswortZwei"), 
 //																req.getParameter("altesPasswort"));
-				mainManager.getUserManager().updateUserSettings(aktUser, loginName, 
+				mainManager.getUserManager().updateUserSettings(loginName, 
 						null, 
 						null, 
 						neu, 

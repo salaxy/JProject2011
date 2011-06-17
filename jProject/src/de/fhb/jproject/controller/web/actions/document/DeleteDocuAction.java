@@ -45,7 +45,7 @@ private MainManager mainManager;
 
 
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int documentId = 0;
 			try {
@@ -61,9 +61,9 @@ private MainManager mainManager;
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum loeschen dieses Dokuments!");
 					}			
 				}

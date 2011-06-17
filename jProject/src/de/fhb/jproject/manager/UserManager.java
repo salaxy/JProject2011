@@ -51,15 +51,14 @@ public class UserManager {
      * @param loginName
      * @throws ProjectException
      */
-	public void deleteUser(User aktUser, String loginName)
+	public void deleteUser(String loginName)
 	throws ProjectException{
 		clearSession();
 		User user = null;
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
-        logger.debug("User aktUser("+aktUser+")"+
-				"String loginName("+loginName+")"
+        logger.debug("String loginName("+loginName+")"
 				);
 		
 		try {
@@ -79,7 +78,7 @@ public class UserManager {
 	 * @return User
 	 * @throws ProjectException
 	 */
-	public User showUserSettings(User aktUser, String loginName)
+	public User showUserSettings(String loginName)
 	throws ProjectException{
 		clearSession();
 		//debuglogging
@@ -107,7 +106,7 @@ public class UserManager {
 	 * @return User
 	 * @throws ProjectException
 	 */
-	public User showUserInfo(User aktUser, String loginName)
+	public User showUserInfo(String loginName)
 	throws ProjectException{
 		clearSession();
 		User user=null;
@@ -134,7 +133,7 @@ public class UserManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<User> searchUser(User aktUser, String searchValue) 
+	public List<User> searchUser(String searchValue) 
     throws ProjectException{
 		clearSession();
 		
@@ -170,7 +169,7 @@ public class UserManager {
 	 * @param altesPasswort
 	 * @throws ProjectException
 	 */
-	public void updateUserSettings(User aktUser, String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
+	public void updateUserSettings(String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
 			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
 	throws ProjectException{
 		clearSession();
@@ -201,14 +200,14 @@ public class UserManager {
 		//aendern der user einstellungen
 		//wenn nicht leerer String und ge�ndert
 		//nachname
-		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(aktUser.getNachname()))){
+		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(user.getNachname()))){
 			//aendern
 			user.setNachname(nachName);
 			changed = true;
 		}
 		
 		//vorname
-		if(!(vorname==null)&&!(vorname.isEmpty())&&!(vorname.equals(aktUser.getVorname()))){
+		if(!(vorname==null)&&!(vorname.isEmpty())&&!(vorname.equals(user.getVorname()))){
 			//aendern
 			user.setVorname(vorname);
 			changed = true;
@@ -345,7 +344,7 @@ public class UserManager {
 		
 		
 		//sprache
-		if(!(sprache==null)&&!(sprache.isEmpty())&&!(sprache.equals(aktUser.getSprache()))){
+		if(!(sprache==null)&&!(sprache.isEmpty())&&!(sprache.equals(user.getSprache()))){
 			//aendern
 			user.setSprache(sprache);
 			changed = true;
@@ -354,7 +353,7 @@ public class UserManager {
 		
 		
 		//passwort
-		if(!(neuesPasswortEins==null)&&!(neuesPasswortEins.isEmpty())&&!(neuesPasswortEins.equals(aktUser.getPassword()))){
+		if(!(neuesPasswortEins==null)&&!(neuesPasswortEins.isEmpty())&&!(neuesPasswortEins.equals(user.getPassword()))){
 			
 			if(neuesPasswortZwei==null){
 				throw new ProjectException("neues Passwort Zwei nicht mitgegebn!");				
@@ -368,7 +367,7 @@ public class UserManager {
 				throw new ProjectException("Altes Passwort nicht mitgegebn!!");		
 			}
 			
-			if(!altesPasswort.equals(aktUser.getPassword())){
+			if(!altesPasswort.equals(user.getPassword())){
 				throw new ProjectException("Altes Passwort falsch!");		
 			}
 				
@@ -396,7 +395,7 @@ public class UserManager {
 	 * @return List<User>
 	 * @throws ProjectException
 	 */
-	public List<User> showAllUser(User aktUser)
+	public List<User> showAllUser()
 	throws ProjectException{ 
 		clearSession();
 		//debuglogging
@@ -475,11 +474,11 @@ public class UserManager {
 	 * @param vorname
 	 * @throws ProjectException
 	 */
-	public void register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
+	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
 		clearSession();
 		//debuglogging
-        logger.info("register(User aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
+        logger.info("register(String aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		
 		
 		User user=null;		
@@ -566,7 +565,15 @@ public class UserManager {
 		}
 	}
 	
-		
+	public User getAktUser(String aktUser)throws ProjectException{
+		User user = null;
+		try {
+			user = userDA.getUserByORMID(aktUser);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte aktuellen User nicht finden! "+ e1.getMessage());
+		}
+		return user;
+	}
 	private void clearSession() throws ProjectException{
 		try {
 			PersistentSession session;		

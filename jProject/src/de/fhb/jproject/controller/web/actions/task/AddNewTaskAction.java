@@ -53,7 +53,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String titel = req.getParameter("titel");
 			String aufgabenstellung = req.getParameter("aufgabenStellung");
@@ -67,14 +67,14 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");
 					}			
 				}
 				//Manager in aktion
-				mainManager.getTaskManager().addNewTask(aktUser, aktProject.getName(), titel, aufgabenstellung, date);
+				mainManager.getTaskManager().addNewTask(aktProject.getName(), titel, aufgabenstellung, date);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

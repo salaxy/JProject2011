@@ -55,7 +55,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);	
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -65,8 +65,8 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41ProjectAction(aktUser.getLoginName())){
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41ProjectAction(aktUser.getLoginName(), aktProject.getName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41ProjectAction(aktUser)){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41ProjectAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller ProjectComments!");
 					}
 						

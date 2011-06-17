@@ -45,7 +45,7 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 					+ "String commentId(" + req.getParameter("commentId") + ")"
 					);
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int commentId = 0;
 			try {
@@ -61,10 +61,10 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteCommentAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteCommentAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteCommentAction(aktUser.getLoginName(), aktProject.getName())){
-						for (Object comment : aktUser.comment.getCollection()) {
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteCommentAction(aktUser, aktProject.getName())){
+						for (Object comment : mainManager.getUserManager().getAktUser(aktUser).comment.getCollection()) {
 							int id = ((Comment)comment).getId();
 							boolean isMine = false;
 							if (id == commentId) {

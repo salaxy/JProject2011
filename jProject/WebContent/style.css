@@ -9,12 +9,12 @@ body {
 }
 a {
 	
-	color: silver;
+	color: darkgray;
 	
 }
 a:visited {
 	
-	color: silver;
+	color: darkgray;
 	
 	
 }
@@ -44,6 +44,7 @@ h1 {
 	font-size: 11px;
 	text-transform:uppercase;
 	background-color: #807f7f;
+	/*background-color: darkgray;*/
 	border-top:1px solid #564b47;
 	border-bottom:1px solid #564b47;
 	padding:5px 15px;
@@ -53,11 +54,11 @@ h2 {
 	font-weight: normal;
 	padding: 5px 10px;
 }
-/*
-img.download {
-	vertical-align:middle;
+
+img {
+	border: 0px;
 }
-*/
+
 
 /* ----------banner-------------- */
 #banner {
@@ -204,11 +205,13 @@ img.download {
 }
 /* -----------------Inhalt--------------------- */ 
 #contentcontentsmall{
-	width: 781px;
+	width: 631px;
+	height: 200px;
 	margin-left: 150px;
 }
 #contentcontentbig{
 	width: 781px;
+	height: 200px;
 	/*margin-left: 150px;*/
 }
 /* ----------container zentriert das layout-------------- */
@@ -220,5 +223,13 @@ img.download {
 	width: 781px;
 	clear: both;
 }
-
+#comment { 
+	width: 781px;
+}
+#commentheader { 
+	width: 781px;
+}
+#commentbody { 
+	width: 781px;
+}
 	

@@ -50,7 +50,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 					+ "String status(" + req.getParameter("status") + ")"
 					);
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String projectName = req.getParameter("projectName");
 			String status = req.getParameter("status");
 			
@@ -61,7 +61,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Projektes!");			
 				}
 				//Manager in aktion

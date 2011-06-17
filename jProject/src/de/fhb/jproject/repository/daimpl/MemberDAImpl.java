@@ -28,15 +28,15 @@ public class MemberDAImpl  extends MemberDAOImpl implements MemberDA {
 	@Override
 	public List<Member> listAllMembers() throws PersistentException {
 		logger.info("listAllMembers()");
-		
-		return Arrays.asList(listMemberByQuery("Member.projectName = Member.projectName", "ProjectName"));
+		//SELECT * FROM `Member` WHERE NOT Project IS NULL Order By Project
+		return Arrays.asList(listMemberByQuery("NOT Project IS NULL", "Project"));
 	}
 	@Override
 	public List<Member> listAllMembers(String orderBy) throws PersistentException {
 		logger.info("listAllMembers(String orderBy)");
 		logger.debug("String orderBy("+orderBy+")");
 		
-		return Arrays.asList(listMemberByQuery("Member.projectName = Member.projectName", orderBy));
+		return Arrays.asList(listMemberByQuery("NOT Project IS NULL", orderBy));
 		
 	}
 	

@@ -10,25 +10,69 @@
 <div id="topcontent">
 	<jsp:include page='projectheader.jsp' />
 </div>
+
+<div id="contentcontentbig">
+	<h1>${project}</h1>
+	<table >
+		<tr>
+			<td width="500">
+				Anzahl Member: ${anzMember}<br />
+				Anzahl Dokumente: ${anzDocu}<br />
+				Anzahl Sourcecodes: ${anzSource}<br />
+				Anzahl Tasks: ${anzTask}<br />
+			</td>
+			<td>
+				<jsp:include page='../addMember.jsp' />
+			</td>
+		</tr>
+		
+	</table>
+	
+	<br />
+	<form method="POST" action="JProjectServlet">
+		<input name="do" value="DeleteMember" type="hidden" />
+		<input value="Eigene Mitgliedschaft beenden" type="submit">
+	</form>
+	<br />
+</div>
+
 <div id="leftcontent">
-	<!--TODO OUTSOURCING-->
-	<h2>Memberliste</h2>
+	<!--TODO OUTSOURCING SHOWALLMEMBER-->
+	<h1>Member</h1>
 	<c:forEach items="${memberList}" var="member" varStatus="i">
-		<a href="JProjectServlet?do=ShowUserInfo&loginName=${member.user}">(${member.projectRole}) ${member.user}</a><br>
+		<a href="JProjectServlet?do=ShowProject&projectName=${sessionScope.aktProject}&loginName=${member.user}">(${member.projectRole}) ${member.user}</a><br>
 	</c:forEach>
 </div>
 <div id="contentcontentsmall">
-	<h2>${project} ${project.status}</h2><br />
-	<jsp:include page='../addMember.jsp' />
-	<form method="POST" action="JProjectServlet">
-		<input name="do" value="DeleteMember" type="hidden" />
-		<input value="Mitgliedschaft beenden" type="submit">
-	</form>
+	
+	<!--TODO OUTSOURCING SHOWMEMBER-->
+	<h1>${member.user} | Rolle: ${member.projectRole}</h1>
+	
+	<c:choose>
+		<c:when test="${sessionScope.isAllowedAddMember == true}">
+			<form method="POST" action="JProjectServlet">
+				<input name="do" value="AddMember" type="hidden" />
+				<input name="loginName" value="${member.user}" type="hidden" />
+				<input name="rolle" value="Rolle" type="text" size="20" maxlength="30" />
+				<input value="Rechte dieses Members bearbeiten" type="submit">
+			</form>
+		</c:when>
+	</c:choose>
+	<br />
+	<c:choose>
+		<c:when test="${sessionScope.isAllowedDeleteMember == true}">
+			<form method="POST" action="JProjectServlet">
+				<input name="do" value="DeleteMember" type="hidden" />
+				<input name="loginName" value="${member.user}" type="hidden" />
+				<input value="Diesen Member löschen" type="submit">
+			</form>
+		</c:when>
+	</c:choose>
 	
 </div>
 
 <div id="footercontent">
-	<br />
+	
 	<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
 	<div id="allComments41Project">
 		

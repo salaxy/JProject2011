@@ -16,8 +16,18 @@
 		//alert(json);
 		
 		json.comment.each(function(comment){
-			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent+="\
+	<div id='comment'>\n\
+		<div id='commentheader'>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+		</div>\n\
+		<div id='commentbody'>\n\
+			"+ comment.entry +"\n\
+		</div>\n\
+	</div>"
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+			*/
 		});
 		
 		
@@ -41,8 +51,18 @@
 		var newContent = '';
 		//alert(json);
 		json.comment.each(function(comment){
-			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent+="\
+	<div id='comment'>\n\
+		<div id='commentheader'>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+		</div>\n\
+		<div id='commentbody'>\n\
+			"+ comment.entry +"\n\
+		</div>\n\
+	</div>"
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+			*/
 		});
 		$('allComments41Project').set('html', newContent);
 	}
@@ -65,9 +85,18 @@
 		var newContent = '';
 		//alert(json);
 		json.comment.each(function(comment){
-			//alert("im in");
-			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent+="\
+	<div id='comment'>\n\
+		<div id='commentheader'>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+		</div>\n\
+		<div id='commentbody'>\n\
+			"+ comment.entry +"\n\
+		</div>\n\
+	</div>"
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+			*/
 		});
 		$('allComments41Source').set('html', newContent);
 	}
@@ -90,9 +119,18 @@
 		var newContent = '';
 		//alert(json);
 		json.comment.each(function(comment){
-			//alert("im in");
-			/*TODO EDITBUTTON, DELETEBUTTON, usw.*/
+			newContent+="\
+	<div id='comment'>\n\
+		<div id='commentheader'>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+		</div>\n\
+		<div id='commentbody'>\n\
+			"+ comment.entry +"\n\
+		</div>\n\
+	</div>"
+			/*TODO EDITBUTTON, DELETEBUTTON, usw.
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
+			*/
 		});
 		$('allComments41Task').set('html', newContent);
 	}

@@ -47,7 +47,7 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 			//TODO DEBUGINFO
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String searchValue = req.getParameter("searchValue");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -57,11 +57,11 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedSearchProjectsAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedSearchProjectsAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
 				}
 				//Manager in aktion
-				projectList=mainManager.getProjectManager().searchProjects(aktUser, searchValue);
+				projectList=mainManager.getProjectManager().searchProjects(searchValue);
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);

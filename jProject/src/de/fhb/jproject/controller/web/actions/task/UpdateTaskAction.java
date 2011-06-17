@@ -66,7 +66,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int taskId = 0;
 			try {
@@ -87,14 +87,14 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum updaten dieses Tasks!");
 					}			
 				}
 				//Manager in aktion
-				mainManager.getTaskManager().updateTask(aktUser, aktProject.getName(), taskId, titel, aufgabenstellung, date, done);
+				mainManager.getTaskManager().updateTask(aktProject.getName(), taskId, titel, aufgabenstellung, date, done);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

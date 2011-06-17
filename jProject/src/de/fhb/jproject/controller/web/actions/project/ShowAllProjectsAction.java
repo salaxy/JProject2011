@@ -52,7 +52,7 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 				
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String projectName = req.getParameter("projectName");
 			
@@ -63,11 +63,11 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
 				}
 				//Manager in aktion
-				projectList=mainManager.getProjectManager().showAllProjects(aktUser);
+				projectList=mainManager.getProjectManager().showAllProjects();
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
@@ -84,10 +84,10 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projekts!");	
 				}
-				project = mainManager.getProjectManager().showProject(aktUser, projectName);
+				project = mainManager.getProjectManager().showProject(projectName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

@@ -59,7 +59,7 @@ public class TaskManager {
 	 * @param date
 	 * @throws ProjectException
 	 */
-	public void addNewTask(User aktUser, String projectName, String titel, String aufgabenStellung, Date date)
+	public void addNewTask(String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
 		clearSession();
 		
@@ -142,7 +142,7 @@ public class TaskManager {
 	 * @param projectName
 	 * @throws ProjectException
 	 */
-	public void  deleteTask(User aktUser, int taskId, String projectName)
+	public void  deleteTask(int taskId, String projectName)
 	throws ProjectException{ 
 		clearSession();
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
@@ -187,7 +187,7 @@ public class TaskManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Task> showAllTasks(User aktUser, String projectName)
+	public List<Task> showAllTasks(String projectName)
 	throws ProjectException{ 
 		clearSession();
 			
@@ -214,12 +214,10 @@ public class TaskManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public Task showTask(User aktUser, String projectName,int taskId)
+	public Task showTask(String projectName,int taskId)
 	throws ProjectException{ 
 		clearSession();
-			
-		Project project=null;
-		Member memAktUser=null;	
+		
 		Task task=null;
 		
 		//debuglogging
@@ -254,7 +252,7 @@ public class TaskManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Task> showAllOwnTasks(User aktUser)
+	public List<Task> showAllOwnTasks(String aktUser)
 	throws ProjectException{
 		clearSession();
 		
@@ -270,7 +268,7 @@ public class TaskManager {
 		//user neu holen (praeventiv wegn moegl Seiten effekte)
 		try {
 			clearSession();
-			user=userDA.loadUserByORMID(aktUser.getLoginName());
+			user=userDA.loadUserByORMID(aktUser);
 		} catch (PersistentException e) {
 			throw new ProjectException("User wurde nicht gefunden!");
 		}
@@ -297,12 +295,11 @@ public class TaskManager {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void assignTask(User aktUser, String userLoginName, String projectName, int taskId)
+	public void assignTask(String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
 		clearSession();
 		
 		Project project=null;
-		Member memAktUser=null;	
 		
 		Task task=null;		
 		User assignUser=null;
@@ -372,7 +369,7 @@ public class TaskManager {
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void deAssignTask(User aktUser, String userLoginName, String projectName, int taskId)
+	public void deAssignTask(String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
 		clearSession();
 		
@@ -451,13 +448,11 @@ public class TaskManager {
 	 * @param done
 	 * @throws ProjectException
 	 */
-	public void updateTask(User aktUser, String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
+	public void updateTask(String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
 		clearSession();
 		
-		Project project=null;
 		Task task=null;
-		Member memAktUser=null;	
 		
 		//debuglogging
 		logger.info("updateTask()");

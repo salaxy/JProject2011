@@ -48,7 +48,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 					+ "String rolle(" + req.getParameter("rolle") + ")"
 					);
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String loginName = req.getParameter("loginName");
 			String rolle = req.getParameter("rolle");
@@ -60,10 +60,10 @@ public class AddMemberAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Members!");
+					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen/bearbeiten eines Members!");
 					}			
 				}
 				//Manager in aktion

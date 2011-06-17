@@ -55,7 +55,7 @@ public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 					+ "String sourcecodeId(" + req.getParameter("sourcecodeId") + ")"
 					);	
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int sourcecodeId = 0;
 			try {
@@ -71,9 +71,9 @@ public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41SourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41SourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41SourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41SourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller SourcecodeComments!");
 					}			
 				}

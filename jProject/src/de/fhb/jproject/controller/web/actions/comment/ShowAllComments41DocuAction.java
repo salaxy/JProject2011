@@ -54,7 +54,7 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 					+ "String documentId(" + req.getParameter("documentId") + ")"
 					);	
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int documentId = 0;
 			try {
@@ -71,9 +71,9 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41DocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41DocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41DocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41DocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum zeigen aller DocumentComments!");
 					}			
 				}

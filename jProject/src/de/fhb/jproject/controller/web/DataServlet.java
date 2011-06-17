@@ -59,20 +59,26 @@ public class DataServlet extends HttpServletControllerBase {
 		if (!(session.getAttribute("aktUser")==null)) {	
 			synchronized(session){
 				
-
-				MemberSetCollection ownProjectSet = null;
+				String aktUser = (String) session.getAttribute("aktUser");
+				MemberSetCollection ownProjectList = null;
 				System.out.println("MainManager: "+session.getAttribute("mainManager"));
-
+				
 				try {
-					ownProjectSet = mainManager.getProjectManager().showAllOwnProjects((User)session.getAttribute("aktUser"));
+					if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser)){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller eigenen Projekte!");		
+					}
+					//Manager in aktion
+					ownProjectList = mainManager.getProjectManager().showAllOwnProjects(aktUser);
 				} catch (ProjectException ex) {
 					logger.error(ex.getMessage(), ex);
 					req.setAttribute("contentFile", "error.jsp");
 					req.setAttribute("errorString", ex.getMessage());
+				} catch(NullPointerException e){
+					logger.error(e.getMessage(), e);
 				}
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
-				session.setAttribute("ownProjectSet", ownProjectSet.getCollection());
+				session.setAttribute("ownProjectSet", ownProjectList.getCollection());
 
 
 			}

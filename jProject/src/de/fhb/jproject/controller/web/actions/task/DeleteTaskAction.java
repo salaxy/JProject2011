@@ -53,7 +53,7 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int taskId = 0;
 			try {
@@ -69,14 +69,14 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");
 					}			
 				}
 				//Manager in aktion
-				mainManager.getTaskManager().deleteTask(aktUser, taskId, aktProject.getName());
+				mainManager.getTaskManager().deleteTask(taskId, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

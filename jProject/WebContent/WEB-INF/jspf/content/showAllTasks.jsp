@@ -25,7 +25,6 @@
 </div>
 
 <div id="footercontent">
-	<br />
 	<input value="Show Comments" type="button" onclick="getShowAllComments41TaskJSON(${task.id})" />
 	<div id="allComments41Task">
 		
