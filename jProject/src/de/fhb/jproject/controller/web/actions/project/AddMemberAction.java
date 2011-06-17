@@ -71,7 +71,10 @@ public class AddMemberAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-
+			
+			//TODO keine action aufrufen -> Redirect oder so
+			(new ShowProjectAction()).perform(req, resp);
+			//req.setAttribute("contentFile", "showProject.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

@@ -54,7 +54,6 @@ public class UserManager {
 	public void deleteUser(String loginName)
 	throws ProjectException{
 		clearSession();
-		User user = null;
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
@@ -198,7 +197,7 @@ public class UserManager {
 		
 		
 		//aendern der user einstellungen
-		//wenn nicht leerer String und ge�ndert
+		//wenn nicht leerer String und geaendert
 		//nachname
 		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(user.getNachname()))){
 			//aendern
@@ -268,7 +267,7 @@ public class UserManager {
 		//Skype
 		if(skypeArray!=null){
 			
-			//alte eintr�ge loeschen
+			//alte eintraege loeschen
 			for(Object s : user.skype.getCollection()){
 				
 				try {
@@ -307,7 +306,7 @@ public class UserManager {
 		//telefon
 		if(telefonArray!=null){
 			
-			//alte eintr�ge loeschen
+			//alte eintraege loeschen
 			for(Object t : user.telefon.getCollection()){
 				
 				try {
@@ -548,7 +547,6 @@ public class UserManager {
 		
 		//setzen der parameter des users
 		user=userDA.createUser();
-		System.out.println("here");
 		user.setGlobalRole("Member");
 		user.setSprache(this.STANDARDLANGUAGE);
 		user.setVorname(vorname);

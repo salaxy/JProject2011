@@ -70,6 +70,7 @@ private MainManager mainManager;
 				logger.error(e.getMessage(), e);
 			}
 			
+			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
