@@ -46,7 +46,7 @@ private MainManager mainManager;
 					);
 			*/
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			
@@ -57,9 +57,9 @@ private MainManager mainManager;
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewSourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewSourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewSourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anlegen eines Sourcecodes!");
 					}			
 				}

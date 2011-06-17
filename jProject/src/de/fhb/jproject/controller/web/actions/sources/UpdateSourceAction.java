@@ -45,7 +45,7 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 					);
 			*/
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			List<FileItem> data = (List<FileItem>)req.getAttribute("data");
 			int sourcecodeId = 0;
@@ -62,11 +62,11 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateSourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					//TODO DRINGEND RECHTE_ABFRAGE
 					/*
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateSourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateSourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
 					}
 					 * 

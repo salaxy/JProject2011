@@ -48,7 +48,7 @@ private MainManager mainManager;
 					);
 			*/
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int documentId = 0;
 			try {
@@ -67,9 +67,9 @@ private MainManager mainManager;
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDownloadDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDownloadDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDownloadDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedDownloadDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum download dieses Documents!");
 					}			
 				}

@@ -47,7 +47,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			//TODO DEBUGINFO
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -57,14 +57,14 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser.getLoginName())){
-					if(!aktUser.getLoginName().equals(loginName)){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
+					if(!aktUser.equals(loginName)){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen der UserInfo!");
 					}
 				}			
 				
 				//Manager in aktion
-				user = mainManager.getUserManager().showUserInfo(aktUser, loginName);
+				user = mainManager.getUserManager().showUserInfo(loginName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

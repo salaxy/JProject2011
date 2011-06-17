@@ -47,8 +47,11 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
-		Set<Member> memberSet = null;
+		MemberSetCollection memberSet = null;
+		Member member = null;
+		
 		boolean isAllowedAddMemberAction = true;
+		boolean isAllowedDeleteMemberAction = true;
 		try {		
 			
 			//Debugprint
@@ -59,9 +62,10 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
+			Project aktProject = (Project)session.getAttribute("aktProject");
 			String projectName = req.getParameter("projectName");
-			
+			String loginName = req.getParameter("loginName");
 			
 			
 			//EINGABEFEHLER ABFANGEN
@@ -69,45 +73,85 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			/* Darf der User Member löschen? (für GUI-Anzeige) */
-			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser.getLoginName())){
+			if(projectName == null || projectName.equals("")){
+				throw new ProjectException("kein Projekt gewählt!");
+			}
+			/* Darf der User Member hinzufügen? (für GUI-Anzeige) */
+			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser.getLoginName(), projectName)){
+				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, projectName)){
 					isAllowedAddMemberAction = false;
+				}			
+			}
+			/* Darf der User Member löschen? (für GUI-Anzeige) */
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, projectName)){
+					isAllowedDeleteMemberAction = false;
 				}			
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
 				}
 				//Manager in aktion
-				project=mainManager.getProjectManager().showProject(aktUser, projectName);
+				project=mainManager.getProjectManager().showProject(projectName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser.getLoginName(), projectName)){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
 						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
 					}			
 				}
-				memberSet = mainManager.getProjectManager().showAllMember(aktUser, projectName).getCollection(); 
+				memberSet = mainManager.getProjectManager().showAllMember(projectName); 
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
 			
+			try {
+				//Wenn loginName == null dann gib mir den ersten
+				if (loginName == null) {
+					loginName = ((Member)memberSet.toArray()[0]).getUser().getLoginName();
+				}
+			} catch (IllegalArgumentException e) {
+				throw new ProjectException("loginName ungültig "+e);
+			}catch(ArrayIndexOutOfBoundsException e){
+				logger.error("Keine Member vorhanden!"+e.getMessage(), e);
+			}catch(NullPointerException e){
+				logger.error("Keine Member vorhanden!"+e.getMessage(), e);
+			}
+			
+			//RECHTE-ABFRAGE Global
+			try{
+				//TODO RECHTEABFRAGE
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Members!");
+					}			
+				}
+				//Manager in aktion
+				member = mainManager.getProjectManager().showMember(aktUser, loginName, projectName);
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			
 			/*XXX Testausgabe*/
 			//TODO ÄH MUSS DEBUG MACHEN SONST FEHLER
 			logger.debug("Size: "+memberSet.size());
+			
 			if (logger.getLevel()==Level.DEBUG) {
 				System.out.println("DEBUG IS SET");
 				logger.debug("Size: "+memberSet.size());
 				
-				for (Object o : memberSet) {
+				for (Object o : memberSet.getCollection()) {
 					Member mem = (Member)o;
 					logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
 
@@ -122,10 +166,22 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//setzen der Session
 			session.setAttribute("aktProject", project);
 			session.setAttribute("isAllowedAddMember", isAllowedAddMemberAction);
+			session.setAttribute("isAllowedDeleteMember", isAllowedDeleteMemberAction);
 			
 			//setzen der Parameter
-			req.setAttribute("memberList", memberSet);
-			req.setAttribute("project", project);			
+			req.setAttribute("memberList", memberSet.getCollection());
+			req.setAttribute("member", member);
+			req.setAttribute("project", project);
+			
+			//Statistische Daten
+			/*
+			req.setAttribute("anzMember", project.member.size());
+			req.setAttribute("anzDocu", project.document.size());
+			req.setAttribute("anzSource", project.sourcecode.size());
+			req.setAttribute("anzTask", project.task.size());
+			 * 
+			 */
+			
 			req.setAttribute("contentFile", "showProject.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

@@ -50,7 +50,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			 */
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int documentId = 0;
 			try {
@@ -66,9 +66,9 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
 					}			
 				}
@@ -94,9 +94,9 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			
 			
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Documents!");
 					}			
 				}

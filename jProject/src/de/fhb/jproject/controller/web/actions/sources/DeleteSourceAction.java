@@ -45,7 +45,7 @@ public class DeleteSourceAction extends HttpRequestActionBase {
 					);
 			*/
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int sourcecodeId = 0;
 			try {
@@ -60,9 +60,9 @@ public class DeleteSourceAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteSourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteSourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteSourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum loeschen dieses Sourcecodes!");
 					}			
 				}

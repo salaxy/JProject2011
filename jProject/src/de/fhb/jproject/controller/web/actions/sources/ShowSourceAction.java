@@ -48,7 +48,7 @@ public class ShowSourceAction extends HttpRequestActionBase {
 					);
 			*/
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int sourcecodeId = 0;
 			try {
@@ -64,9 +64,9 @@ public class ShowSourceAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
 					}			
 				}

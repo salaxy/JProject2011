@@ -42,7 +42,7 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -52,14 +52,14 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser.getLoginName())){
-					if(!aktUser.getLoginName().equals(loginName)){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser)){
+					if(!aktUser.equals(loginName)){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen der UserSettings!");
 					}
 				}			
 				
 				//Manager in aktion
-				user = mainManager.getUserManager().showUserSettings(aktUser, loginName);
+				user = mainManager.getUserManager().showUserSettings(loginName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

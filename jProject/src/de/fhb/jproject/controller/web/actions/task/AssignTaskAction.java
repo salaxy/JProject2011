@@ -47,7 +47,7 @@ public class AssignTaskAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String loginName = req.getParameter("userLoginName");
 			int taskId = 0;
@@ -64,12 +64,12 @@ public class AssignTaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getProjectRolesManager().isAllowedAssignTaskAction(aktUser.getLoginName(), aktProject.getName())){
+				if(!mainManager.getProjectRolesManager().isAllowedAssignTaskAction(aktUser, aktProject.getName())){
 					throw new ProjectException("Sie haben keine Rechte zum vergeben von Tasks!");
 				}			
 				
 				//Manager in aktion
-				mainManager.getTaskManager().assignTask(aktUser, loginName, aktProject.getName(), taskId);
+				mainManager.getTaskManager().assignTask(loginName, aktProject.getName(), taskId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

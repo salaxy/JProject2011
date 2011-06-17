@@ -50,7 +50,7 @@ public class RegisterAction extends HttpRequestActionBase {
 		
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName");
 			String passwort = req.getParameter("passwort");
 			String passwortWdhl = req.getParameter("passwordWdhl");
@@ -64,11 +64,11 @@ public class RegisterAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Users!");	
 				}
 				//Manager in aktion
-				mainManager.getUserManager().register(aktUser, loginName, passwort, passwortWdhl, nachname, vorname);
+				mainManager.getUserManager().register(loginName, passwort, passwortWdhl, nachname, vorname);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

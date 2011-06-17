@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:choose>
 	<c:when test="${sessionScope.isAllowedAddMember == true}">
-		<h3>Neuen Member hinzufügen</h3><br />
+		<h3>Neuen Member hinzufügen</h3>
 		<form method="POST" action="JProjectServlet">
 			<input name="do" value="AddMember" type="hidden" />
 			<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30">

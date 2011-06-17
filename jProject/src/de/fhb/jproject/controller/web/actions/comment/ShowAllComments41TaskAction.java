@@ -56,7 +56,7 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 					);	
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int taskId = 0;
 			try {
@@ -72,9 +72,9 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41TaskAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41TaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41TaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41TaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller TaskComments!");
 					}			
 				}

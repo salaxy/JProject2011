@@ -44,7 +44,7 @@ public class CommentSourceAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int sourcecodeId = 0;
 			try {
@@ -61,9 +61,9 @@ public class CommentSourceAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentSourceAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedCommentSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines SourcecodeComments!");
 					}			
 				}

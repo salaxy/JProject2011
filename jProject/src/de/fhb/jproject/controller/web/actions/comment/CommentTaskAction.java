@@ -43,7 +43,7 @@ public class CommentTaskAction extends HttpRequestActionBase {
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int taskId = 0;
 			try {
@@ -60,9 +60,9 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentTaskAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedCommentTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedCommentTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedCommentTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines TaskComments!");
 					}			
 				}

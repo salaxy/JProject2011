@@ -31,7 +31,6 @@
 </div>
 
 <div id="footercontent">
-	<br />
 	<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON('${project.name}');" />
 	<div id="allComments41Project">
 		

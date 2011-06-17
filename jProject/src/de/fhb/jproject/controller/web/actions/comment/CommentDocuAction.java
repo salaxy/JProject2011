@@ -44,7 +44,7 @@ public class CommentDocuAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int documentId = 0;
 			try {
@@ -61,9 +61,9 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentDocuAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedCommentDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedCommentDocuAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedCommentDocuAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines DocumentComments!");
 					}			
 				}

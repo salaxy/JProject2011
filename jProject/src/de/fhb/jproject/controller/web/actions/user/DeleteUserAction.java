@@ -45,7 +45,7 @@ public class DeleteUserAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("userLoginName");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -55,14 +55,14 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser.getLoginName())){
-					if(!aktUser.getLoginName().equals(loginName)){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
+					if(!aktUser.equals(loginName)){
 						throw new ProjectException("Sie haben keine Rechte zum löschen dieses Users!");
 					}
 						
 				}
 				//Manager in aktion
-				mainManager.getUserManager().deleteUser(aktUser, loginName);
+				mainManager.getUserManager().deleteUser(loginName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

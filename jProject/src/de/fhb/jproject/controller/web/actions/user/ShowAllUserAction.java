@@ -47,7 +47,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");			
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -57,11 +57,11 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
 				}
 				//Manager in aktion
-				userList=mainManager.getUserManager().showAllUser(aktUser);
+				userList=mainManager.getUserManager().showAllUser();
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
@@ -79,11 +79,11 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
 				}
 				//Manager in aktion
-				user=mainManager.getUserManager().showUserInfo(aktUser, loginName);
+				user=mainManager.getUserManager().showUserInfo(loginName);
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}

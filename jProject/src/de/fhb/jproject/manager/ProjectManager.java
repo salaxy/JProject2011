@@ -118,7 +118,7 @@ public class ProjectManager {
 	 * @param status
 	 * @throws ProjectException
 	 */
-	public void addNewProject(User aktUser, String name, String status)
+	public void addNewProject(String aktUser, String name, String status)
 	throws ProjectException{
 		clearSession();
 		Project project=null;
@@ -157,7 +157,7 @@ public class ProjectManager {
 		member.setProjectRole(LEADER);
 
 		try {
-			member.setUser(userDA.getUserByORMID(aktUser.getLoginName()));
+			member.setUser(userDA.getUserByORMID(aktUser));
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte aktuellen User nicht finden! "+ e1.getMessage());
 		}
@@ -177,7 +177,7 @@ public class ProjectManager {
 	 * @param aktUser
 	 * @throws ProjectException
 	 */
-	public void deleteProject(User aktUser, String projectName)
+	public void deleteProject(String projectName)
 	throws ProjectException{ 
 		clearSession();
 		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
@@ -204,7 +204,7 @@ public class ProjectManager {
 	 * @param projectName
 	 * @throws ProjectException
 	 */
-	public void deleteMember(User aktUser, String loginName, String projectName)
+	public void deleteMember(String aktUser, String loginName, String projectName)
 	throws ProjectException{ 
 		clearSession();
 		
@@ -222,7 +222,7 @@ public class ProjectManager {
 		//EIGENTLICHE AKTIONEN
 		
 		if (loginName == null) {
-			loginName=aktUser.getLoginName();
+			loginName=aktUser;
 		}
 		
 		//User holen
@@ -263,7 +263,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public Project showProject(User aktUser, String projectName)
+	public Project showProject(String projectName)
 	throws ProjectException{ 
 		clearSession();
 		
@@ -290,7 +290,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Project> searchProjects(User aktUser, String searchValue)
+	public List<Project> searchProjects(String searchValue)
 	throws ProjectException{
 		clearSession();
 		
@@ -317,7 +317,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Project> showAllProjects(User aktUser)
+	public List<Project> showAllProjects()
 	throws ProjectException{ 
 		clearSession();
 		List<Project> list=null;
@@ -341,7 +341,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public MemberSetCollection showAllOwnProjects(User aktUser)
+	public MemberSetCollection showAllOwnProjects(String aktUser)
 	throws ProjectException{
 		clearSession();
 		//debuglogging
@@ -349,15 +349,11 @@ public class ProjectManager {
 		Set<Project> list= null;	
 		User user=null;
 		
-        //abfrage ob user eingeloggt
-		if(aktUser == null){
-			throw new ProjectException("Sie sind nicht eingeloggt!");
-		}
 		
 		// user neu holen um seiten effekte zu vermeiden
 		try {
 			//user suchen
-			user = userDA.getUserByORMID(aktUser.getLoginName());
+			user = userDA.getUserByORMID(aktUser);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
@@ -372,6 +368,49 @@ public class ProjectManager {
 		//TODO LATER Projectliste übergeben nicht memberliste
 		return user.member;
 	}
+	/**
+	 * Anzeigen eines Member eines Projektes
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
+	public Member showMember(String aktUser, String loginName, String projectName)
+	throws ProjectException{
+		
+		Project project = null;
+		Member member = null;
+		User user = null;
+		
+		//debuglogging
+		logger.info("showMember()");
+		logger.debug("User aktUser("+aktUser+")"
+				+ "String name("+projectName+")");
+		
+		
+		
+		//EIGENTLICHE AKTIONEN
+		//User holen
+		try {
+			user=userDA.getUserByORMID(loginName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
+		}
+		//Project holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}
+		//Member holen
+		try {
+			member=memberDA.getMemberByORMID(user, project);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
+		}
+		return member;
+	}
 	
 	/**
 	 * Anzeigen aller Member eines Projektes
@@ -381,7 +420,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public MemberSetCollection showAllMember(User aktUser, String projectName)
+	public MemberSetCollection showAllMember(String projectName)
 	throws ProjectException{
 		//TODO irgendwas is HIER kaputt
 		clearSession();
@@ -389,8 +428,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("showAllMember()");
-		logger.debug("User aktUser("+aktUser+")"
-				+ "String name("+projectName+")");
+		logger.debug("String name("+projectName+")");
 		
 		
 		

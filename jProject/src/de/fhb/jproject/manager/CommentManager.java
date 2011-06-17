@@ -1,5 +1,6 @@
 package de.fhb.jproject.manager;
 
+import de.fhb.jproject.repository.da.UserDA;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -26,7 +27,6 @@ import de.fhb.jproject.repository.da.CommentProjectDA;
 import de.fhb.jproject.repository.da.CommentSourcecodeDA;
 import de.fhb.jproject.repository.da.CommentTaskDA;
 import de.fhb.jproject.repository.da.DocumentDA;
-import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.SourcecodeDA;
 import de.fhb.jproject.repository.da.TaskDA;
@@ -49,8 +49,10 @@ public class CommentManager {
 	private CommentTaskDA commentTaskDA;
 	private ProjectDA projectDA;
 	private CommentProjectDA commentProjectDA;
+	private final UserDA userDA;
 	
 	private static final Logger logger = Logger.getLogger(CommentManager.class);
+	
 	
 	
 	
@@ -64,6 +66,7 @@ public class CommentManager {
 		commentTaskDA = DAFactory.getDAFactory().getCommentTaskDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		commentProjectDA = DAFactory.getDAFactory().getCommentProjectDA();
+		userDA = DAFactory.getDAFactory().getUserDA();
 		
 	}
 	
@@ -76,13 +79,13 @@ public class CommentManager {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentDocu(User aktUser, int documentId, String inhalt)
+	public void commentDocu(String aktUser, int documentId, String inhalt)
 	throws ProjectException{ 	
 		clearSession();	
 		CommentDocument commentDocu=null;
 		Comment comment=null;
 		Document document=null;
-		
+		User user=null;
 		
 		//debuglogging
 		logger.info("commentDocu()");
@@ -90,6 +93,13 @@ public class CommentManager {
 				+"String inhalt("+inhalt+")");	
 		
 		
+		
+		try {
+			//holen der daten
+			user= userDA.loadUserByORMID(aktUser);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		//document holen (und implizit damit auch das Project)
 		try {
 			document=documentDA.loadDocumentByORMID(documentId);
@@ -112,7 +122,7 @@ public class CommentManager {
 		//comment erstellen
 		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
-		comment.setUser(aktUser);
+		comment.setUser(user);
 		comment.setCommentDocument(commentDocu);
 		
 		//Comment speichern
@@ -139,14 +149,14 @@ public class CommentManager {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentSource(User aktUser, int sourcecodeId, String inhalt)
+	public void commentSource(String aktUser, int sourcecodeId, String inhalt)
 	throws ProjectException{ 	
 		clearSession();
 		Member memAktUser=null;	
 		CommentSourcecode commentSource=null;
 		Comment comment=null;
 		Sourcecode sourcecode=null;
-		
+		User user=null;
 		
 		//debuglogging
 		logger.info("commentSource()");
@@ -154,6 +164,12 @@ public class CommentManager {
 				+"String inhalt("+inhalt+")");	
 		
 		
+		try {
+			//holen der daten
+			user= userDA.loadUserByORMID(aktUser);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		//sourcecode holen (und implizit damit auch das Project)
 		try {
 			sourcecode=sourcecodeDA.getSourcecodeByORMID(sourcecodeId);
@@ -176,7 +192,7 @@ public class CommentManager {
 		//comment erstellen
 		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
-		comment.setUser(aktUser);
+		comment.setUser(user);
 		comment.setCommentSourcecode(commentSource);
 		
 		//Comment speichern
@@ -212,14 +228,14 @@ public class CommentManager {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentTask(User aktUser, int taskId, String inhalt)	
+	public void commentTask(String aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
 		clearSession();
 		Member memAktUser=null;	
 		CommentTask commentTask=null;
 		Comment comment=null;
 		Task task=null;
-		
+		User user=null;
 		
 		//debuglogging
 		logger.info("commentTask()");
@@ -227,6 +243,12 @@ public class CommentManager {
 				+"String inhalt("+inhalt+")");	
 		
 		
+		try {
+			//holen der daten
+			user= userDA.loadUserByORMID(aktUser);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		//Task holen (und implizit damit auch das Project)
 		try {
 			task=taskDA.getTaskByORMID(taskId);
@@ -248,7 +270,7 @@ public class CommentManager {
 		//comment erstellen
 		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
-		comment.setUser(aktUser);
+		comment.setUser(user);
 		comment.setCommentTask(commentTask);
 		
 		//Comment speichern
@@ -282,14 +304,14 @@ public class CommentManager {
 	 * @param inhalt
 	 * @throws ProjectException
 	 */
-	public void commentProject(User aktUser, String projectName, String inhalt)	
+	public void commentProject(String aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
 		clearSession();
 		Member memAktUser=null;	
 		CommentProject commentProject=null;
 		Comment comment=null;
 		Project project=null;
-		
+		User user=null;
 		
 		//debuglogging
 		logger.info("commentProject()");
@@ -297,6 +319,12 @@ public class CommentManager {
 				+"String inhalt("+inhalt+")");	
 		
 		
+		try {
+			//holen der daten
+			user= userDA.loadUserByORMID(aktUser);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann User nicht finden! "+ ex);
+		}
 		//Project holen
 		try {
 			project=projectDA.getProjectByORMID(projectName);
@@ -317,7 +345,7 @@ public class CommentManager {
 		//comment erstellen
 		comment=commentDA.createComment(); 
 		comment.setEntry(inhalt);
-		comment.setUser(aktUser);
+		comment.setUser(user);
 		comment.setCommentProject(commentProject);
 		
 		//Comment speichern
@@ -351,7 +379,7 @@ public class CommentManager {
 	 * @param commentId
 	 * @throws ProjectException
 	 */
-	public void deleteComment(User aktUser, String projectName, int commentId)
+	public void deleteComment(String aktUser, String projectName, int commentId)
 	throws ProjectException{
 		clearSession();
 		//debuglogging
@@ -379,7 +407,7 @@ public class CommentManager {
 	 * @param neuerInhalt
 	 * @throws ProjectException
 	 */
-	public void updateComment(User aktUser, String projectName, int commentId, String neuerInhalt)
+	public void updateComment(String aktUser, String projectName, int commentId, String neuerInhalt)
 	throws ProjectException{ 	
 		clearSession();
 		Comment comment=null;
@@ -415,7 +443,7 @@ public class CommentManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Comment> showAllComments41Docu(User aktUser, String projectName, int documentId)
+	public List<Comment> showAllComments41Docu(String aktUser, String projectName, int documentId)
 	throws ProjectException{
 		clearSession();
 		
@@ -445,7 +473,7 @@ public class CommentManager {
 	 * @param sourcecodeId
 	 * @throws ProjectException
 	 */
-	public List<Comment>  showAllComments41Source(User aktUser, String projectName, int sourcecodeId)
+	public List<Comment>  showAllComments41Source(String aktUser, String projectName, int sourcecodeId)
 	throws ProjectException{
 		clearSession();
 		
@@ -474,7 +502,7 @@ public class CommentManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Comment> showAllComments41Task(User aktUser, String projectName, int taskId)
+	public List<Comment> showAllComments41Task(String aktUser, String projectName, int taskId)
 	throws ProjectException{
 		clearSession();
 		
@@ -503,7 +531,7 @@ public class CommentManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public List<Comment> showAllComments41Project(User aktUser, String projectName)
+	public List<Comment> showAllComments41Project(String aktUser, String projectName)
 	throws ProjectException{
 		clearSession();
 		

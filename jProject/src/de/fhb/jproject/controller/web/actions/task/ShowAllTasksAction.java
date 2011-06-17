@@ -60,7 +60,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			int taskId = 0;
 			try {
@@ -76,14 +76,14 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks!");
 					}			
 				}
 				//Manager in aktion
-				taskList=mainManager.getTaskManager().showAllTasks(aktUser, aktProject.getName());
+				taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
 			
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
@@ -101,13 +101,13 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			
 			try {
 				//TODO DRINGEND RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
 					}			
 				}
-				task = mainManager.getTaskManager().showTask(aktUser, aktProject.getName(), taskId);
+				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

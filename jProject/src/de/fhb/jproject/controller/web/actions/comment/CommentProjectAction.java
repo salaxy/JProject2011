@@ -44,7 +44,7 @@ public class CommentProjectAction extends HttpRequestActionBase {
 					);
 		
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String entry = req.getParameter("entry");
 			
@@ -55,7 +55,7 @@ public class CommentProjectAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines ProjectComments!");
 				}
 				//Manager in aktion

@@ -56,8 +56,9 @@ public class LoginAction extends HttpRequestActionBase {
 							req.getParameter("password"));
 				synchronized(session){
 
-					session.setAttribute("aktUser", user);
+					session.setAttribute("aktUser", user.getLoginName());
 					session.setAttribute("mainManager", mainManager);
+					//TODO RECHTEKONROLLE -> ADD showAdminconsole
 					if(user.getGlobalRole().equals("Admin")){
 						session.setAttribute("isAdmin", true);
 					}

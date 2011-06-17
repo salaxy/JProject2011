@@ -49,7 +49,7 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 					);
 			
 			//Parameter laden
-			User aktUser = (User)session.getAttribute("aktUser");
+			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String projectName = req.getParameter("projectName");
 			
@@ -60,14 +60,14 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser.getLoginName())){
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteProjectAction(aktUser.getLoginName(), aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteProjectAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
 					}			
 				}
 				//Manager in aktion
-				mainManager.getProjectManager().deleteProject(aktUser, projectName);
+				mainManager.getProjectManager().deleteProject(projectName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
