@@ -79,10 +79,14 @@ public class ProjectManager {
 		} catch (PersistentException ex) {
 			throw new ProjectException("Keine zulaessige Rolle angegeben!");
 		}
-				
-		clearSession();
-		//EIGENTLICHE AKTIONEN
 		
+		//EIGENTLICHE AKTIONEN
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
 		//member erzeugen und parameter setzen
 		member=memberDA.createMember();
 		//project setzen
@@ -188,7 +192,12 @@ public class ProjectManager {
 		logger.debug("String name("+projectName+")");
 		
 		//EIGENTLICHE AKTIONEN
-		
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}	
 		//loeschen
 		//Info: Member werden automatisch gel�scht durch das cascade in der DB
 		try {	
@@ -209,7 +218,6 @@ public class ProjectManager {
 		clearSession();
 		
 		Project project=null;
-		Member memAktUser=null;
 		Member delMember=null;
 		User user=null;
 		
@@ -218,7 +226,6 @@ public class ProjectManager {
 		logger.debug("String loginName("+loginName+")"
 				+"String projectName("+projectName+")");
 		
-		clearSession();
 		//EIGENTLICHE AKTIONEN
 		
 		if (loginName == null) {
@@ -378,7 +385,7 @@ public class ProjectManager {
 	 */
 	public Member showMember(String aktUser, String loginName, String projectName)
 	throws ProjectException{
-		
+		clearSession();
 		Project project = null;
 		Member member = null;
 		User user = null;
@@ -422,7 +429,6 @@ public class ProjectManager {
 	 */
 	public MemberSetCollection showAllMember(String projectName)
 	throws ProjectException{
-		//TODO irgendwas is HIER kaputt
 		clearSession();
 		Project project=null;
 		

@@ -43,7 +43,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		Set<Member> memberSet=null;
+		MemberSetCollection memberSet=null;
 		Member member = null;
 		try {				
 			
@@ -70,7 +70,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				memberSet=mainManager.getProjectManager().showAllMember(aktProject.getName()).getCollection();
+				memberSet=mainManager.getProjectManager().showAllMember(aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -93,14 +93,14 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			if (logger.getLevel()==Level.DEBUG) {
 				logger.debug("Size: "+memberSet.size());
 
-				for (Object o : memberSet) {
+				for (Object o : memberSet.getCollection()) {
 					Member mem = (Member)o;
 					logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
 
 				}
 			}
 			//setzen der Parameter
-			req.setAttribute("memberList", memberSet);
+			req.setAttribute("memberList", memberSet.getCollection());
 			req.setAttribute("member", member);
 
 			req.setAttribute("contentFile", "showAllMember.jsp");

@@ -152,7 +152,6 @@ public class CommentManager {
 	public void commentSource(String aktUser, int sourcecodeId, String inhalt)
 	throws ProjectException{ 	
 		clearSession();
-		Member memAktUser=null;	
 		CommentSourcecode commentSource=null;
 		Comment comment=null;
 		Sourcecode sourcecode=null;
@@ -231,7 +230,6 @@ public class CommentManager {
 	public void commentTask(String aktUser, int taskId, String inhalt)	
 	throws ProjectException{ 	
 		clearSession();
-		Member memAktUser=null;	
 		CommentTask commentTask=null;
 		Comment comment=null;
 		Task task=null;
@@ -307,7 +305,6 @@ public class CommentManager {
 	public void commentProject(String aktUser, String projectName, String inhalt)	
 	throws ProjectException{ 	
 		clearSession();
-		Member memAktUser=null;	
 		CommentProject commentProject=null;
 		Comment comment=null;
 		Project project=null;

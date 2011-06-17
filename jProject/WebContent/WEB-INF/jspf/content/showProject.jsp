@@ -1,3 +1,4 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : showProject
     Created on : 07.06.2011, 18:40:08
@@ -25,9 +26,7 @@
 				<jsp:include page='../addMember.jsp' />
 			</td>
 		</tr>
-		
 	</table>
-	
 	<br />
 	<form method="POST" action="JProjectServlet">
 		<input name="do" value="DeleteMember" type="hidden" />

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
+import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
+import org.orm.PersistentException;
 
 
 /**
@@ -43,12 +45,18 @@ public class ShowProjectAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		Project project = null;
 		MemberSetCollection memberSet = null;
 		Member member = null;
+		
+		int anzMember = 0;
+		int anzDocu = 0;
+		int anzSource = 0;
+		int anzTask = 0;
 		
 		boolean isAllowedAddMemberAction = true;
 		boolean isAllowedDeleteMemberAction = true;
@@ -58,6 +66,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
+					+ "String loginName((optional)" + req.getParameter("loginName") + ")"
 					);
 			
 			
@@ -67,6 +76,9 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			String projectName = req.getParameter("projectName");
 			String loginName = req.getParameter("loginName");
 			
+			logger.debug("Session: "
+					+ "String aktUser(" + aktUser + ")"
+					+ "Project aktProject(" + aktProject + ")");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -74,7 +86,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			if(projectName == null || projectName.equals("")){
-				throw new ProjectException("kein Projekt gewählt!");
+				projectName = aktProject.getName();
+				//throw new ProjectException("kein Projekt gewählt!");
 			}
 			/* Darf der User Member hinzufügen? (für GUI-Anzeige) */
 			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
@@ -93,10 +106,15 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projektes!");		
 				}
 				//Manager in aktion
 				project=mainManager.getProjectManager().showProject(projectName);
+				
+				anzMember = project.member.size();
+				anzDocu = project.document.size();
+				anzSource = project.sourcecode.size();
+				anzTask = project.task.size();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -104,7 +122,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
-						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
 					}			
 				}
 				memberSet = mainManager.getProjectManager().showAllMember(projectName); 
@@ -113,6 +131,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			}catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
+			
+			
 			
 			try {
 				//Wenn loginName == null dann gib mir den ersten
@@ -126,6 +146,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error("Keine Member vorhanden!"+e.getMessage(), e);
 			}
+			
+			
 			
 			//RECHTE-ABFRAGE Global
 			try{
@@ -142,11 +164,13 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
+			//TODO Aktuell geladenen Member nicht in der Liste anzeigen
+			if (memberSet.contains(member)){
+				logger.debug("YES!!!!!!");
+				memberSet.remove(member);
+			}
 			
-			/*XXX Testausgabe*/
-			//TODO ÄH MUSS DEBUG MACHEN SONST FEHLER
-			logger.debug("Size: "+memberSet.size());
-			
+			/*XXX Testausgabe*/			
 			if (logger.getLevel()==Level.DEBUG) {
 				System.out.println("DEBUG IS SET");
 				logger.debug("Size: "+memberSet.size());
@@ -174,15 +198,15 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			req.setAttribute("project", project);
 			
 			//Statistische Daten
-			/*
-			req.setAttribute("anzMember", project.member.size());
-			req.setAttribute("anzDocu", project.document.size());
-			req.setAttribute("anzSource", project.sourcecode.size());
-			req.setAttribute("anzTask", project.task.size());
-			 * 
-			 */
+			
+			req.setAttribute("anzMember", anzMember);
+			req.setAttribute("anzDocu", anzDocu);
+			req.setAttribute("anzSource", anzSource);
+			req.setAttribute("anzTask", anzTask);
+			
 			
 			req.setAttribute("contentFile", "showProject.jsp");
+			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
