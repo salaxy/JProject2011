@@ -94,29 +94,32 @@ public class TaskManager {
 		task.setTitel(titel);
 		
 		// Termin erzeugen und setzen
-		termin =terminDA.createTermin();
-		
-		//Date setzen
-		try {	
-			termin.setTermin(date);
-		} catch (IllegalArgumentException e) {
-			throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
-		}catch (NullPointerException e) {
-			throw new ProjectException("Kein Datum uebergeben! "+ e.getMessage());
-		}
-		
-		//termin speichern
-		try {		
-			
-			//Member speichern
-			terminDA.save(termin);
-		} catch (PersistentException e) {
-			
-			throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
-		}
+		if (termin != null) {
+			termin =terminDA.createTermin();
 
-		//der Task den termin hinzufuegen
-		task.setTermin(termin);
+			//Date setzen
+			try {	
+				termin.setTermin(date);
+			} catch (IllegalArgumentException e) {
+				throw new ProjectException("Datumsformat ist nicht richtig! "+ e.getMessage());
+			}catch (NullPointerException e) {
+				throw new ProjectException("Kein Datum uebergeben! "+ e.getMessage());
+			}
+
+			//termin speichern
+			try {		
+
+				//Member speichern
+				terminDA.save(termin);
+			} catch (PersistentException e) {
+
+				throw new ProjectException("Konnte Termin nicht speichern! "+ e.getMessage());
+			}
+
+			//der Task den termin hinzufuegen
+			task.setTermin(termin);
+		}
+		
 					
 		//task speichern
 		try {		
