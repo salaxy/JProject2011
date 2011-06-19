@@ -53,7 +53,7 @@ public class DocumentManager {
 	 * @throws ProjectException
 	 */
 	public void addNewDocu(String projectName, List<FileItem> fields)throws ProjectException{
-		clearSession();
+		
 		
 		logger.info("addNewDocu()");
 		logger.debug("String projectName("+projectName+")");
@@ -142,7 +142,7 @@ public class DocumentManager {
 	 */
 	public void deleteDocu(int documentId, String projectName)throws ProjectException {
 		
-		clearSession();
+		
 		
 		Document docu = null;
 		File docuFile=null;
@@ -169,7 +169,7 @@ public class DocumentManager {
 		
 		//loeschen
 		try {	
-			clearSession();
+			
 			
 			//docu loeschen
 			docuDA.delete(docu);
@@ -190,7 +190,7 @@ public class DocumentManager {
 	 */
 	public File downloadDocu(int documentId, String projectName) throws ProjectException{
 		
-		clearSession();
+		
 		
 		logger.info("downloadDocu()");
 		logger.debug("int documentId("+documentId+")"
@@ -224,7 +224,7 @@ public class DocumentManager {
 		
 		Project project=null;
 		
-		clearSession();
+		
 		
 		//debuglogging
 		logger.info("showAllDocu()");
@@ -267,7 +267,7 @@ public class DocumentManager {
 	 */
 	public Document showDocu(int documentId)throws ProjectException{
 		
-		clearSession();
+		
 		
 		logger.info("showDocu()");
 		logger.debug("int documentId("+documentId+")");
@@ -298,7 +298,7 @@ public class DocumentManager {
 	 */
 	public String showDocuContent(String projectName, int documentId)throws NullPointerException, ProjectException{
 		
-		clearSession();
+		
 		
 		logger.info("showDocuContent()");
 		logger.debug("int documentId("+documentId+")"

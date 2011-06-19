@@ -107,6 +107,8 @@ public class JProjectServlet extends HttpServletControllerBase {
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
 				session.setAttribute("ownProjectSet", ownProjectList.getCollection());
+				
+				
 				req.setAttribute("naviFile", "projectnavi.jsp");
 				
 
@@ -129,7 +131,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
+				
 			}
+			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
+			session.setAttribute("aktServlet", "JProjectServlet");
 		}
 		try {
 			super.doGet(req, resp);
@@ -143,6 +148,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
@@ -171,7 +177,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
+				
 			}
+			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
+			session.setAttribute("aktServlet", "JProjectServlet");
 		}
 		try {
 			super.doPost(req, resp);
@@ -185,6 +194,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
@@ -348,7 +358,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		action = new LogoutAction();
 		actions.put("Logout", action);
-		/* Nur Admin*/
+		/* Nur Admin */
 		action = new RegisterAction();
 		actions.put("Register", action);
 		

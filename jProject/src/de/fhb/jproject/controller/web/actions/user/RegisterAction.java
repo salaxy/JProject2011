@@ -53,7 +53,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName");
 			String passwort = req.getParameter("passwort");
-			String passwortWdhl = req.getParameter("passwordWdhl");
+			String passwortWdhl = req.getParameter("passwortWdhl");
 			String nachname = req.getParameter("nachname");
 			String vorname = req.getParameter("vorname");
 			

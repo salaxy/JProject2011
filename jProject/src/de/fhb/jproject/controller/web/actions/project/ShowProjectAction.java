@@ -45,7 +45,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{
-		logger.setLevel(Level.DEBUG);
+		//logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -89,35 +89,51 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				projectName = aktProject.getName();
 				//throw new ProjectException("kein Projekt gewählt!");
 			}
-			/* Darf der User Member hinzufügen? (für GUI-Anzeige) */
-			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, projectName)){
-					isAllowedAddMemberAction = false;
-				}			
-			}
-			/* Darf der User Member löschen? (für GUI-Anzeige) */
-			if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, projectName)){
-					isAllowedDeleteMemberAction = false;
-				}			
-			}
+			
+			
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projektes!");		
+					if (!mainManager.getProjectRolesManager().isMember(aktUser, projectName)) {
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projektes!");
+					}
 				}
 				//Manager in aktion
 				project=mainManager.getProjectManager().showProject(projectName);
 				
-				anzMember = project.member.size();
+				
 				anzDocu = project.document.size();
 				anzSource = project.sourcecode.size();
 				anzTask = project.task.size();
+				
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+			try {
+				/* Darf der User Member hinzufügen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, projectName)){
+						isAllowedAddMemberAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedAddMemberAction NO!");
+			}
+			try{
+				/* Darf der User Member löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, projectName)){
+						isAllowedDeleteMemberAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteMemberAction NO!");
+			}
+			
+			
 			try {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
@@ -125,7 +141,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
 					}			
 				}
-				memberSet = mainManager.getProjectManager().showAllMember(projectName); 
+				memberSet = mainManager.getProjectManager().showAllMember(projectName);
+				
 			}catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
 			}catch (NullPointerException e) {
@@ -164,12 +181,32 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-			//TODO Aktuell geladenen Member nicht in der Liste anzeigen
+			
+			//TODO NOCHMAL HOLEN FÜR KORREKTUR Oo
+			try {
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
+					}			
+				}
+				memberSet = mainManager.getProjectManager().showAllMember(projectName);
+				anzMember = memberSet.size();
+			}catch (ProjectException e) {
+				logger.error(e.getMessage(), e);
+			}catch (NullPointerException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
+			
+			
+			
+			/*TODO Aktuell geladenen Member nicht in der Liste anzeigen
 			if (memberSet.contains(member)){
 				logger.debug("YES!!!!!!");
 				memberSet.remove(member);
 			}
-			
+			*/
 			/*XXX Testausgabe*/			
 			if (logger.getLevel()==Level.DEBUG) {
 				System.out.println("DEBUG IS SET");
@@ -199,6 +236,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			
 			//Statistische Daten
 			
+			
+				
 			req.setAttribute("anzMember", anzMember);
 			req.setAttribute("anzDocu", anzDocu);
 			req.setAttribute("anzSource", anzSource);

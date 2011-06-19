@@ -79,7 +79,9 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks!");
+						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks dieses Projektes!");
+						}
 					}			
 				}
 				//Manager in aktion

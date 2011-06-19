@@ -61,7 +61,7 @@ public class TaskManager {
 	 */
 	public void addNewTask(String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Task task=null;
@@ -81,7 +81,7 @@ public class TaskManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
 		
-		clearSession();
+		
 
 		//EIGENTLICHE AKTIONEN
 		
@@ -107,7 +107,7 @@ public class TaskManager {
 		
 		//termin speichern
 		try {		
-			clearSession();
+			
 			//Member speichern
 			terminDA.save(termin);
 		} catch (PersistentException e) {
@@ -120,7 +120,7 @@ public class TaskManager {
 					
 		//task speichern
 		try {		
-			clearSession();
+			
 			//Member speichern
 			taskDA.save(task);
 		} catch (PersistentException e) {
@@ -144,7 +144,7 @@ public class TaskManager {
 	 */
 	public void  deleteTask(int taskId, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		//INFO: projektName ist zum loeschen an sich nicht notwendig,
 		//jedoch notwendig um die Rechte zum loeschen abzufragen
 		
@@ -171,7 +171,7 @@ public class TaskManager {
 		
 		//loeschen
 		try {	
-			clearSession();
+			
 			//task loeschen
 			taskDA.delete(task);
 		} catch (PersistentException e) {
@@ -189,7 +189,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllTasks(String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 			
 		Project project=null;
 		
@@ -216,7 +216,7 @@ public class TaskManager {
 	 */
 	public Task showTask(String projectName,int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Task task=null;
 		
@@ -254,7 +254,7 @@ public class TaskManager {
 	 */
 	public List<Task> showAllOwnTasks(String aktUser)
 	throws ProjectException{
-		clearSession();
+		
 		
 		User user=null;
 		List<Task> list=new ArrayList<Task>();
@@ -267,7 +267,7 @@ public class TaskManager {
 		
 		//user neu holen (praeventiv wegn moegl Seiten effekte)
 		try {
-			clearSession();
+			
 			user=userDA.loadUserByORMID(aktUser);
 		} catch (PersistentException e) {
 			throw new ProjectException("User wurde nicht gefunden!");
@@ -297,7 +297,7 @@ public class TaskManager {
 	 */
 	public void assignTask(String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		
@@ -352,7 +352,7 @@ public class TaskManager {
 		
 		//updaten/speichern des Members
 		try {	
-			clearSession();
+			
 			//task loeschen
 			memberDA.save(assignMember);
 		} catch (PersistentException e) {
@@ -371,7 +371,7 @@ public class TaskManager {
 	 */
 	public void deAssignTask(String userLoginName, String projectName, int taskId)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member memAktUser=null;	
@@ -427,7 +427,7 @@ public class TaskManager {
 		
 		//updaten/speichern des Members
 		try {	
-			clearSession();
+			
 			//task loeschen
 			memberDA.save(deassignMember);
 		} catch (PersistentException e) {
@@ -450,7 +450,7 @@ public class TaskManager {
 	 */
 	public void updateTask(String projectName,int taskId, String titel, String aufgabenStellung, Date date, boolean done)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Task task=null;
 		
@@ -514,7 +514,7 @@ public class TaskManager {
 			
 			//termin speichern
 			try {		
-				clearSession();
+				
 				//Member speichern
 				terminDA.save(termin);
 			} catch (PersistentException e) {
@@ -529,7 +529,7 @@ public class TaskManager {
 		
 		//task speichern/updaten
 		try {		
-			clearSession();
+			
 			//Member speichern
 			taskDA.save(task);
 		} catch (PersistentException e) {

@@ -69,8 +69,11 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
-					}			
+						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
+						}
+						
+					}		
 				}
 				//Manager in aktion
 				documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName()).getCollection();

@@ -17,7 +17,7 @@
 	</c:when>
 	<c:otherwise>
 		<form class="buttonright" method="GET" action="JProjectServlet">
-			Willkommen <a href="JProjectServlet?do=ShowUserSettings">${sessionScope.aktUser}</a>
+			Willkommen <a href="JProjectServlet?do=ShowUserSettings&loginName=${sessionScope.aktUser}">${sessionScope.aktUser}</a>
 			<input value="Logout" name="do" type="submit" />
 		</form>
 	</c:otherwise>

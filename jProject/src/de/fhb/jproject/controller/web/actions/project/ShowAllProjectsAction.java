@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * 
+ * UNUSED
  * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
  * 
  * STATUS:	FREIGEGEBEN 
@@ -39,7 +39,7 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 		
 		HttpSession session = req.getSession();		
 		List<Project> projectList=null;
-		Project project = null;
+		//Project project = null;
 		
 		
 		//Manager holen
@@ -72,6 +72,7 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			/*
 			try{
 				//Wenn projectName == null dann gib mir den ersten
 				if (null == projectName) {
@@ -91,6 +92,8 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			 * 
+			 */
 			/*
 			for( Project p : projectList){
 				System.out.println("Project: "+p.getName());
@@ -98,8 +101,8 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 			*/
 			//setzen der Parameter
 			req.setAttribute("projectList", projectList);
-			req.setAttribute("project", project);
-			req.setAttribute("contentFile", "showAllProjects.jsp");
+			//req.setAttribute("project", project);
+			
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

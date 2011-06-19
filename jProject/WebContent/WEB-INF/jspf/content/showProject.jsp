@@ -1,4 +1,3 @@
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : showProject
     Created on : 07.06.2011, 18:40:08
@@ -28,8 +27,10 @@
 		</tr>
 	</table>
 	<br />
-	<form method="POST" action="JProjectServlet">
+	<!--TODO IF NOT aktServlet == AdminServlet-->
+	<form method="POST" action="${sessionScope.aktServlet}">
 		<input name="do" value="DeleteMember" type="hidden" />
+		<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
 		<input value="Eigene Mitgliedschaft beenden" type="submit">
 	</form>
 	<br />
@@ -39,7 +40,7 @@
 	<!--TODO OUTSOURCING SHOWALLMEMBER-->
 	<h1>Member</h1>
 	<c:forEach items="${memberList}" var="member" varStatus="i">
-		<a href="JProjectServlet?do=ShowProject&projectName=${sessionScope.aktProject}&loginName=${member.user}">(${member.projectRole}) ${member.user}</a><br>
+		<a href="${sessionScope.aktServlet}?do=ShowProject&projectName=${sessionScope.aktProject}&loginName=${member.user}">(${member.projectRole}) ${member.user}</a><br>
 	</c:forEach>
 </div>
 <div id="contentcontentsmall">
@@ -49,7 +50,7 @@
 	
 	<c:choose>
 		<c:when test="${sessionScope.isAllowedAddMember == true}">
-			<form method="POST" action="JProjectServlet">
+			<form method="POST" action="${sessionScope.aktServlet}">
 				<input name="do" value="AddMember" type="hidden" />
 				<input name="loginName" value="${member.user}" type="hidden" />
 				<input name="rolle" value="Rolle" type="text" size="20" maxlength="30" />
@@ -60,7 +61,7 @@
 	<br />
 	<c:choose>
 		<c:when test="${sessionScope.isAllowedDeleteMember == true}">
-			<form method="POST" action="JProjectServlet">
+			<form method="POST" action="${sessionScope.aktServlet}">
 				<input name="do" value="DeleteMember" type="hidden" />
 				<input name="loginName" value="${member.user}" type="hidden" />
 				<input value="Diesen Member löschen" type="submit">

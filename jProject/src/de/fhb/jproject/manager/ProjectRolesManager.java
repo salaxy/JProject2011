@@ -393,5 +393,16 @@ public class ProjectRolesManager {
 		}
 		return aktProject;
 	}
-	
+	public boolean isMember(String aktUser, String projectName)throws ProjectException{
+		logger.info("isMember(String aktUser, String projectName)");
+		logger.debug("String aktUser("+aktUser+"), String projectName("+projectName+")");
+		try {
+			projectRolesDA.loadProjectRolesByORMID(getMember(getUser(aktUser), getProject(projectName)).getProjectRole());
+		} catch (PersistentException ex) {
+			return false;
+		} catch (NullPointerException ex) {
+			return false;
+		}
+		return true;
+	}
 }

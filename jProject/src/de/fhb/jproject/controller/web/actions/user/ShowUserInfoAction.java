@@ -37,7 +37,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		
+		boolean isAllowedShowUserSettings = true;
 		User user=null;
 		
 		try {
@@ -55,6 +55,14 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			try {
+				/* Darf der User die UserSettings sehen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser)){
+					isAllowedShowUserSettings = false;			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedShowUserSettings NO!");
+			}
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
@@ -71,6 +79,9 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 			
 			//setzen der Parameter
 			req.setAttribute("user", user);
+			
+			session.setAttribute("isAllowedShowUserSettings", isAllowedShowUserSettings);
+			
 			req.setAttribute("contentFile", "showUserInfo.jsp");
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

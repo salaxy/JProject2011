@@ -10,4 +10,4 @@
 	<%@include file="../showAllOwnProjects.jsp" %>
 </div>
 <br /><br />
-<h1><%@include file="../stickyRed.jsp" %>Weitere<br />Funktionen</h1>
+<!--<h1><%@include file="../stickyRed.jsp" %>Weitere<br />Funktionen</h1>-->
