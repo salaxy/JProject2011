@@ -1,5 +1,11 @@
 GUI
 *********
+DeleteTask =>
+	Bestätigung.
+DeleteDocument =>
+	Bestätigung.
+DeleteSourcecode =>
+	Bestätigung.
 DeleteMember =>
 	Bestätigung.
 Adminconsole =>
@@ -16,7 +22,7 @@ Controller
 
 Manager
 *********
-ProjectManager =>
+(DONE)ProjectManager =>
 	NEED ShowMember!(ohne Action)
 ProjectRoles =>
 	NEED showAllProjectRoles!(ohne Action)
