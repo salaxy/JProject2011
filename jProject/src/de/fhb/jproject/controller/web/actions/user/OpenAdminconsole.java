@@ -1,6 +1,5 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
