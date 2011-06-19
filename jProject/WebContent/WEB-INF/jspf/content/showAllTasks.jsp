@@ -12,16 +12,26 @@
 
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
-	<h2>Tasks</h2>
+	<h1>Tasks</h1>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
 		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>
 
 </div>
 
-<div id="contentcontentsmall">
-	${task.id} ${task.titel}<br /><br />
-	${task.aufgabenstellung}
+<div id="contentcontentsmall">	
+	<h1>${task.titel}</h1>
+	<div id="infoBoxBig">
+		<!--TODO addNewTask.jsp-->
+		
+	</div>
+	<div id="infoBoxBig">
+		<form>
+			<textarea cols="75" rows="5">${task.id} ${task.titel}
+${task.aufgabenstellung}
+			</textarea>
+		</form>
+	</div>	
 </div>
 
 <div id="footercontent">

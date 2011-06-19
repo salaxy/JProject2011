@@ -12,14 +12,27 @@
 
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
-	<h2>Sourcecodes</h2>
+	<h1>Sourcecodes</h1>
 	<c:forEach items="${sourcecodeList}" var="sourcecode" varStatus="i">
 		<a href="${sessionScope.aktServlet}?do=ShowSource&sourcecodeID=${sourcecode.id}">${sourcecode.dateiname}</a><br>
 	</c:forEach>
 </div>
 
 <div id="contentcontentsmall">
-	${sourcecode.id} ${sourcecode.dateiname}<br />
+	<h1>${sourcecode.dateiname}</h1>
+	<div id="infoBoxBig">
+		<jsp:include page='../addNewSource.jsp' />
+	</div>
+	<div id="infoBoxBig">
+		<form>
+			<textarea cols="75" rows="5">${sourceode.id} ${sourcecode.dateiname}
+${sourcecodeContent}
+			</textarea>
+		</form>
+	</div>
+	<div id="infoBoxBig">
+		<a href="DataServlet?do=DownloadSource&sourcecodeId=${sourcecode.id}">Download ${sourcecode.dateiname}</a>
+	</div>
 </div>
 
 <div id="footercontent">

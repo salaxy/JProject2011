@@ -165,9 +165,7 @@ img {
 #content{ 
 	/*width: 550px;*/
 	border-left:1px solid grey;
-	width: 781px;
-	position: relative; 
-	margin: 0px;
+	width: 780px;
 }
 
 /*  ----------------footer---------------------- */ 
@@ -190,7 +188,7 @@ img {
 /*  ----------------CONTENT---------------------- */ 
 /* ----------topcontent-------------- */
 #topcontent {
-	width: 781px;
+	width: 780px;
 	height: 30px;
 }
 .buttoncontent {
@@ -202,35 +200,51 @@ img {
 #leftcontent {
 	width:150px; 
 	float:left;
-	margin-right:1px;
+	margin-left:-1px;
 }
 /* -----------------Inhalt--------------------- */ 
 #contentcontentsmall{
-	width: 631px;
+	border-left: 1px solid grey;
+	width: 630px;
 	height: 200px;
-	margin-left: 150px;
+	margin-left: 149px;
 }
 #contentcontentbig{
-	width: 781px;
+	width: 780px;
 	height: 200px;
 	/*margin-left: 150px;*/
 }
-/* ----------container zentriert das layout-------------- */
+#infoBoxBig{
+	width: 550px;
+	float: left;
+	margin: 5px;
+}
+#infoBoxSmall{
+	width: 400px;
+	float: left;
+	margin: 5px;
+}
+#rightBox{
+	width: 200px;
+	float: right;
+	margin: 5px;
+}
+/* ----------container-------------- */
 #outercontainercontent {
 	margin-left: auto;
 	margin-right: auto;
 }
 #footercontent { 
-	width: 781px;
+	width: 780px;
 	clear: both;
 }
 #comment { 
-	width: 781px;
+	width: 780px;
 }
 #commentheader { 
-	width: 781px;
+	width: 780px;
 }
 #commentbody { 
-	width: 781px;
+	width: 780px;
 }
 	

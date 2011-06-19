@@ -13,31 +13,52 @@
 
 <div id="contentcontentbig">
 	<h1>${project}</h1>
-	<table >
-		<tr>
-			<td width="500">
-				Anzahl Member: ${anzMember}<br />
-				Anzahl Dokumente: ${anzDocu}<br />
-				Anzahl Sourcecodes: ${anzSource}<br />
-				Anzahl Tasks: ${anzTask}<br />
-			</td>
-			<td>
-				<jsp:include page='../addMember.jsp' />
-			</td>
-		</tr>
-	</table>
+	
+	<div id="infoBoxBig">
+		<!--TODO OUTSOURCING SHOWPROJECTINFO-->
+		<h3>Project Info</h3>
+		<fieldset>
+			<legend>Projekt Info</legend>
+			<table border="0" cellspacing="3">
+				<tbody>
+					<tr>
+						<td>Anzahl Member:</td>
+						<td>${anzMember}</td>
+					</tr>
+					<tr>
+						<td>Anzahl Dokumente:</td>
+						<td>${anzDocu}</td>
+					</tr>
+					<tr>
+						<td>Anzahl Sourcecodes:</td>
+						<td>${anzSource}</td>
+					</tr>
+					<tr>
+						<td>Anzahl Tasks:</td>
+						<td>${anzTask}</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+	</div>
+	
+	<div id="rightBox">
+		<jsp:include page='../addMember.jsp' />
+	</div>
+	
 	<br />
-	<!--TODO IF NOT aktServlet == AdminServlet-->
-	<c:choose>
-		<c:when test="${aktServlet != 'AdminServlet'}">
-			<form method="POST" action="${sessionScope.aktServlet}">
-				<input name="do" value="DeleteMember" type="hidden" />
-				<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
-				<input value="Eigene Mitgliedschaft beenden" type="submit">
-			</form>
-		</c:when>
-	</c:choose>
-
+	<div id="rightBox">
+		<!--TODO OUTSOURCING DELETEMEMBER-->
+		<c:choose>
+			<c:when test="${aktServlet != 'AdminServlet'}">
+				<form method="POST" action="${sessionScope.aktServlet}">
+					<input name="do" value="DeleteMember" type="hidden" />
+					<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
+					<input value="Eigene Mitgliedschaft beenden" type="submit">
+				</form>
+			</c:when>
+		</c:choose>
+	</div>
 	
 	<br />
 </div>
@@ -52,29 +73,47 @@
 <div id="contentcontentsmall">
 	
 	<!--TODO OUTSOURCING SHOWMEMBER-->
-	<h1>${member.user} | Rolle: ${member.projectRole}</h1>
-	
-	<c:choose>
-		<c:when test="${sessionScope.isAllowedAddMember == true}">
-			<form method="POST" action="${sessionScope.aktServlet}">
-				<input name="do" value="AddMember" type="hidden" />
-				<input name="loginName" value="${member.user}" type="hidden" />
-				<input name="rolle" value="Rolle" type="text" size="20" maxlength="30" />
-				<input value="Rechte dieses Members bearbeiten" type="submit">
-			</form>
-		</c:when>
-	</c:choose>
-	<br />
-	<c:choose>
-		<c:when test="${sessionScope.isAllowedDeleteMember == true}">
-			<form method="POST" action="${sessionScope.aktServlet}">
-				<input name="do" value="DeleteMember" type="hidden" />
-				<input name="loginName" value="${member.user}" type="hidden" />
-				<input value="Diesen Member löschen" type="submit">
-			</form>
-		</c:when>
-	</c:choose>
-	
+	<h1>${member.user}</h1>
+	<div id="infoBoxSmall">
+		<c:choose>
+			<c:when test="${sessionScope.isAllowedAddMember == true}">
+				<h3>Einstellungen eines Members ändern</h3>
+				<fieldset>
+					<legend>Einstellungen dieses Members ändern</legend>
+					<form method="POST" action="${sessionScope.aktServlet}">
+						<input name="do" value="AddMember" type="hidden" />
+						<input name="loginName" value="${member.user}" type="hidden" />
+						<table border="0" cellspacing="3">
+							<tbody>
+								<tr>
+									<td>
+										<label for="rolle">Rolle:</label><br />
+										<input name="rolle" value="${member.projectRole}" type="text" size="20" maxlength="30" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input value="Einstellungen ändern" type="submit">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</fieldset>
+			</c:when>
+		</c:choose>
+	</div>
+	<div id="rightBox">
+		<c:choose>
+			<c:when test="${sessionScope.isAllowedDeleteMember == true}">
+				<form method="POST" action="${sessionScope.aktServlet}">
+					<input name="do" value="DeleteMember" type="hidden" />
+					<input name="loginName" value="${member.user}" type="hidden" />
+					<input value="Diesen Member löschen" type="submit">
+				</form>
+			</c:when>
+		</c:choose>
+	</div>
 </div>
 
 <div id="footercontent">

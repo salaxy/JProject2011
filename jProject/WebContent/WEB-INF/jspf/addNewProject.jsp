@@ -6,12 +6,29 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h3>Neues Projekt hinzufügen</h3>
-<form method="POST" action="JProjectServlet">
-	<input name="do" value="AddNewProject" type="hidden" />
-	<input value="Projectname"	name="projectName"	type="text" size="20" maxlength="30">
-	<input value="Add" type="submit" />
+<fieldset>
+	<legend>Neues Projekt hinzufügen</legend>
+	<form method="POST" action="JProjectServlet">
+		<input name="do" value="AddNewProject" type="hidden" />
+		<table border="0" cellspacing="3">
+			<tbody>
+				<tr>
+					<td>
+						<label for="projectName">Projectname:</label><br />
+						<input value="Projectname"	name="projectName"	type="text" size="20" maxlength="30">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input value="Add" type="submit" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
 	<!--
 	req.getParameter("projectName"), 
 	req.getParameter("status")
 	-->
-</form>
+	</form>
+</fieldset>

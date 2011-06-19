@@ -5,5 +5,34 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>JProject</h1><br />
-<jsp:include page='../addNewProject.jsp' />
+<div id="topcontent">
+	<h1>JProject</h1>
+</div>
+
+<div id="contentcontentbig">	
+	<div id="infoBoxBig">
+		<!--TODO OUTSOURCING OVERVIEW-->
+		<h3>Overview</h3>
+		<fieldset>
+			<legend>Overview</legend>
+			<table border="0" cellspacing="3">
+				<tbody>
+					<tr>
+						<td>SomeInfo:</td>
+						<td>Info</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</fieldset>
+	</div>
+	
+	<div id="rightBox">
+		<jsp:include page='../addNewProject.jsp' />
+	</div>
+</div>
+
+
+<div id="footercontent">
+	
+</div>

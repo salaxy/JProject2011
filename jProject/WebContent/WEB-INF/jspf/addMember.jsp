@@ -11,8 +11,24 @@
 		<h3>Neuen Member hinzufügen</h3>
 		<form method="POST" action="${sessionScope.aktServlet}">
 			<input name="do" value="AddMember" type="hidden" />
-			<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30">
-			<input value="Add" type="submit" />
+			<fieldset>
+				<legend>Member hinzufügen</legend>
+				<table border="0" cellspacing="3">
+					<tbody>
+						<tr>
+							<td>
+								<label for="loginName">Member-LoginName:</label><br />
+								<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30"><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input value="Add" type="submit" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
 			<!--
 			req.getParameter("userLoginName"), 
 			req.getParameter("projectName"), 
