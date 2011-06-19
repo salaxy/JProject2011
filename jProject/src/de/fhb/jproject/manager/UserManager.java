@@ -53,7 +53,7 @@ public class UserManager {
      */
 	public void deleteUser(String loginName)
 	throws ProjectException{
-		clearSession();
+		
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
@@ -79,7 +79,7 @@ public class UserManager {
 	 */
 	public User showUserSettings(String loginName)
 	throws ProjectException{
-		clearSession();
+		
 		//debuglogging
 		logger.info("showUserSettings()");
 		
@@ -107,7 +107,7 @@ public class UserManager {
 	 */
 	public User showUserInfo(String loginName)
 	throws ProjectException{
-		clearSession();
+		
 		User user=null;
 		
 		//debuglogging
@@ -134,7 +134,7 @@ public class UserManager {
 	 */
 	public List<User> searchUser(String searchValue) 
     throws ProjectException{
-		clearSession();
+		
 		
 		List<User> list=null;
 		
@@ -169,9 +169,9 @@ public class UserManager {
 	 * @throws ProjectException
 	 */
 	public void updateUserSettings(String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
-			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)
+			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei/*, String altesPasswort*/)
 	throws ProjectException{
-		clearSession();
+		
 		User user=null;
 		//PerformenceBOOL 
 		boolean changed = false;
@@ -182,7 +182,7 @@ public class UserManager {
 				"String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)");
         logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
         		+",String "+telefonArray+", String "+sprache
-        		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei+", String "+altesPasswort+")");
+        		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);
 		
 		
 		//EIGENTLICHE AKTIONEN
@@ -361,7 +361,7 @@ public class UserManager {
 			if(neuesPasswortEins.equals(neuesPasswortZwei)){
 				throw new ProjectException("Neue passwoerter sind nicht gleich!");
 			}
-				
+			/*
 			if(altesPasswort==null){
 				throw new ProjectException("Altes Passwort nicht mitgegebn!!");		
 			}
@@ -369,7 +369,7 @@ public class UserManager {
 			if(!altesPasswort.equals(user.getPassword())){
 				throw new ProjectException("Altes Passwort falsch!");		
 			}
-				
+			*/
 			//aendern
 			user.setPassword(neuesPasswortEins);
 			changed = true;
@@ -396,7 +396,7 @@ public class UserManager {
 	 */
 	public List<User> showAllUser()
 	throws ProjectException{ 
-		clearSession();
+		
 		//debuglogging
 		logger.info("showAllUser()");
 		
@@ -419,7 +419,7 @@ public class UserManager {
 	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
-		clearSession();
+		
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
@@ -475,7 +475,7 @@ public class UserManager {
 	 */
 	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
-		clearSession();
+		
 		//debuglogging
         logger.info("register(String aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
 		

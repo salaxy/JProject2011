@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 
 /**
+ * UNUSED
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 
@@ -58,7 +59,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
 				}
 				//Manager in aktion
 				userList=mainManager.getUserManager().showAllUser();
@@ -78,13 +79,17 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 				logger.error("Keine User vorhanden!"+e.getMessage(), e);
 			}
 			
-			try {
+			//RECHTE-ABFRAGE Global
+			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
-				}
+					if(!aktUser.equals(loginName)){
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Users!");
+					}
+				}			
+				
 				//Manager in aktion
-				user=mainManager.getUserManager().showUserInfo(loginName);
-			}catch (NullPointerException e) {
+				user = mainManager.getUserManager().showUserInfo(loginName);
+			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			//XXX Testausgabe

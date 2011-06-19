@@ -55,7 +55,7 @@ public class SourceManager {
 	 * @throws ProjectException
 	 */
 	public void  addNewSource(String projectName, List<FileItem> fields)throws ProjectException{
-		clearSession();
+		
 		
 		logger.info("addNewSource()");
 		logger.debug("String projectName("+projectName+")");
@@ -142,7 +142,7 @@ public class SourceManager {
 	 * @throws ProjectException
 	 */
 	public void  deleteSource(int sourceId, String projectName)throws ProjectException {
-		clearSession();
+		
 		
 		Sourcecode source = null;
 		File sourceFile=null;
@@ -169,7 +169,7 @@ public class SourceManager {
 		
 		//loeschen
 		try {	
-			clearSession();
+			
 			
 			//sourcecode loeschen
 			sourceDA.delete(source);
@@ -188,7 +188,7 @@ public class SourceManager {
 	 * @throws ProjectException
 	 */
 	public File downloadSource(int sourceId, String projectName) throws ProjectException{
-		clearSession();
+		
 		
 		logger.info("downloadSource()");
 		logger.debug("int sourceId("+sourceId+")"
@@ -219,7 +219,7 @@ public class SourceManager {
 	 * @throws ProjectException
 	 */
 	public Sourcecode showSource(int sourceId)throws ProjectException{
-		clearSession();
+		
 		
 		logger.info("showSource()");
 		logger.debug("int sourceId("+sourceId+")");
@@ -249,7 +249,7 @@ public class SourceManager {
 	public SourcecodeSetCollection showAllSource(String projectName)throws ProjectException{
 		Project project=null;
 		
-		clearSession();
+		
 		
 		//debuglogging
 		logger.info("showAllSource()");
@@ -292,7 +292,7 @@ public class SourceManager {
 	 */
 	public String showDocuContent(String projectName, int sourceId)throws NullPointerException, ProjectException{
 		
-		clearSession();
+		
 		
 		logger.info("showDocuContent()");
 		logger.debug("int sourceId("+sourceId+")"

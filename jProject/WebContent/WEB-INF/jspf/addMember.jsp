@@ -9,7 +9,7 @@
 <c:choose>
 	<c:when test="${sessionScope.isAllowedAddMember == true}">
 		<h3>Neuen Member hinzufügen</h3>
-		<form method="POST" action="JProjectServlet">
+		<form method="POST" action="${sessionScope.aktServlet}">
 			<input name="do" value="AddMember" type="hidden" />
 			<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30">
 			<input value="Add" type="submit" />

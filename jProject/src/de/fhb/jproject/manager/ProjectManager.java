@@ -17,6 +17,9 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
 import org.apache.log4j.Level;
 
@@ -40,6 +43,7 @@ public class ProjectManager {
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
 	public ProjectManager(){
+		logger.setLevel(Level.DEBUG);
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
 		projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
@@ -62,6 +66,8 @@ public class ProjectManager {
 		clearSession();
 		Project project=null;
 		Member member=null;
+		User user = null;
+		Member testMember = null;
 		
 		
 		
@@ -87,29 +93,58 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}	
-		//member erzeugen und parameter setzen
-		member=memberDA.createMember();
-		//project setzen
-		member.setProject(project);
-		//rolle setzen
-		member.setProjectRole(rolle);
-		
-		//user holen und setzen
 		try {
-			User tempUser = userDA.getUserByORMID(loginName);
-			member.setUser(tempUser);
+			user = userDA.getUserByORMID(loginName);
+			
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 		}
-					
-		//Member speichern
 		try {
-			clearSession();
-			//Member speichern
-			memberDA.save(member);
+			testMember = memberDA.loadMemberByORMID(user, project);
 		} catch (PersistentException e) {
+			logger.debug("Member schon vorhanden, nicht neu anlegen!", e);
+		}
+		
+		//testen ob neuer Member oder Update
+		if (testMember != null) {
+			//UPDATE MEMBER
+			//rolle setzen
+			testMember.setProjectRole(rolle);
 			
-			throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
+			//Member speichern
+			try {
+
+				//Member refreshen
+				clearSession();
+				memberDA.save(testMember);
+			} catch (PersistentException e) {
+
+				throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
+			}
+		}else{
+			//NEW MEMBER
+			//member erzeugen und parameter setzen
+			member=memberDA.createMember();
+			//project setzen
+			member.setProject(project);
+			//projectId setzen
+			member.setProjectId(project.getName());
+			//rolle setzen
+			member.setProjectRole(rolle);
+
+			member.setUser(user);
+			//UserId setzen
+			member.setUserId(user.getLoginName());
+			
+			//Member speichern
+			try {
+				clearSession();
+				//Member speichern
+				memberDA.save(member);
+			} catch (PersistentException e) {
+
+				throw new ProjectException("Konnte Member nicht speichern! "+ e.getMessage());
+			}
 		}
 		
 	}
@@ -124,9 +159,10 @@ public class ProjectManager {
 	 */
 	public void addNewProject(String aktUser, String name, String status)
 	throws ProjectException{
-		clearSession();
-		Project project=null;
-		Member member=null;
+		
+		Project project = null;
+		Member member = null;
+		User user = null;
 		
 		//debuglogging
 		logger.info("addNewProject()");
@@ -135,13 +171,17 @@ public class ProjectManager {
 				
 		//EIGENTLICHE AKTIONEN
 		
-		//project parameter setzen
+		//projekt holen
 		project=projectDA.createProject();
+		//project parameter setzen
+		//Name setzen
 		project.setName(name);
+		//Status setzen
 		if (status == null) {
 			status = "New";
 		}
 		project.setStatus(status);
+			
 		
 		//Project speichern
 		try {
@@ -152,16 +192,17 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Project nicht speichern! "+ e.getMessage());
 		}
 		
-		
-		//EIGENTLICHE AKTIONEN
-		
 		//project erzeuger als member erzeugen und hinzufuegen
 		member=memberDA.createMember();
-		member.setProject(project);		
+		member.setProject(project);
+		member.setProjectId(project.getName());
 		member.setProjectRole(LEADER);
 
 		try {
-			member.setUser(userDA.getUserByORMID(aktUser));
+			user = userDA.getUserByORMID(aktUser);
+			member.setUser(user);
+			//UserId setzen
+			member.setUserId(user.getLoginName());
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte aktuellen User nicht finden! "+ e1.getMessage());
 		}
@@ -169,6 +210,7 @@ public class ProjectManager {
 		//ersten Member als LEADER speichern
 		try {
 			//Member speichern
+			
 			memberDA.save(member);
 		} catch (PersistentException e) {
 			
@@ -183,7 +225,7 @@ public class ProjectManager {
 	 */
 	public void deleteProject(String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
 		Project project=null;	
 		
@@ -215,7 +257,7 @@ public class ProjectManager {
 	 */
 	public void deleteMember(String aktUser, String loginName, String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;
 		Member delMember=null;
@@ -272,7 +314,7 @@ public class ProjectManager {
 	 */
 	public Project showProject(String projectName)
 	throws ProjectException{ 
-		clearSession();
+		
 		
 		Project project=null;	
 		
@@ -299,7 +341,7 @@ public class ProjectManager {
 	 */
 	public List<Project> searchProjects(String searchValue)
 	throws ProjectException{
-		clearSession();
+		
 		
 		List <Project> list=null;
 		
@@ -326,7 +368,7 @@ public class ProjectManager {
 	 */
 	public List<Project> showAllProjects()
 	throws ProjectException{ 
-		clearSession();
+		
 		List<Project> list=null;
 		
 		//debuglogging
@@ -396,7 +438,6 @@ public class ProjectManager {
 				+ "String name("+projectName+")");
 		
 		
-		
 		//EIGENTLICHE AKTIONEN
 		//User holen
 		try {
@@ -446,7 +487,46 @@ public class ProjectManager {
 		}
 		return project.member;
 	}
-	
+	/**
+	 * Anzeigen aller Projektinfos
+	 * - Anzahl Member
+	 * - Anzahl Dokumente
+	 * - Anzahl Sourcecodes
+	 * - Anzahl Tasks
+	 * 
+	 * @param projectName
+	 * @return String []
+	 * @throws ProjectException
+	 */
+	/*
+	public HashMap<String, String> showProjectInfo(String projectName)
+	throws ProjectException{
+		clearSession();
+		HashMap<String, String> info = new HashMap<String, String>(); 
+		//String [] info = new String[4];
+		Project project=null;
+		
+		
+		//debuglogging
+		logger.info("showProjectInfo()");
+		logger.debug("String name("+projectName+")");
+		
+		
+		
+		//EIGENTLICHE AKTIONEN
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}
+		info.put("anzMember", ""+project.member.size());
+		info.put("anzDocu", ""+project.document.size());
+		info.put("anzSource", ""+project.sourcecode.size());
+		info.put("anzTask", ""+project.task.size());
+		
+		return info;
+	}
+	*/
 	private void clearSession() throws ProjectException{
 		try {
 			PersistentSession session;		

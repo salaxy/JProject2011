@@ -63,7 +63,10 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+						if (!aktUser.equals(loginName)) {
+							System.out.println("loginName: "+loginName);
+							throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+						}	
 					}			
 				}
 				//Manager in aktion

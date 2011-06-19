@@ -68,7 +68,9 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Sourcecodes!");
+						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Sourcecodes dieses Projektes!");
+						}
 					}			
 				}
 				//Manager in aktion

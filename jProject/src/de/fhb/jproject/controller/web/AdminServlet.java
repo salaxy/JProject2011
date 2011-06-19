@@ -54,6 +54,7 @@ import de.fhb.jproject.controller.web.actions.task.UpdateTaskAction;
 import de.fhb.jproject.controller.web.actions.user.DeleteUserAction;
 import de.fhb.jproject.controller.web.actions.user.LoginAction;
 import de.fhb.jproject.controller.web.actions.user.LogoutAction;
+import de.fhb.jproject.controller.web.actions.user.OpenAdminconsole;
 import de.fhb.jproject.controller.web.actions.user.RegisterAction;
 import de.fhb.jproject.controller.web.actions.user.SearchUserAction;
 import de.fhb.jproject.controller.web.actions.user.ShowAllUserAction;
@@ -78,13 +79,57 @@ public class AdminServlet extends HttpServletControllerBase {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
 			throws IOException, ServletException{
-		if (!(session.getAttribute("aktUser")==null)) {	
-			synchronized(session){
-				
-				//bla
-				
-				req.setAttribute("naviFile", "adminnavi.jsp");
+		List<Project> projectList = null;
+		List<User> userList = null;
+		
+		
+		if (!(session.getAttribute("aktUser")==null)) {
+			
+			String aktUser = (String) session.getAttribute("aktUser");
+			
+			//abfrage ob user eingeloggt
+			if(aktUser == null){
+				logger.error("Sie sind nicht eingeloggt!");
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", "Sie sind nicht eingeloggt!");
 			}
+			//RECHTE-ABFRAGE Global
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
+				}
+				//Manager in aktion
+				projectList=mainManager.getProjectManager().showAllProjects();
+			
+			} catch (ProjectException ex) {
+				logger.error(ex.getMessage(), ex);
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", ex.getMessage());
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
+				}
+				//Manager in aktion
+				userList=mainManager.getUserManager().showAllUser();
+			
+			} catch (ProjectException ex) {
+				logger.error(ex.getMessage(), ex);
+				req.setAttribute("contentFile", "error.jsp");
+				req.setAttribute("errorString", ex.getMessage());
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
+			
+			
+			req.setAttribute("projectList", projectList);
+			req.setAttribute("userList", userList);
+			
+			req.setAttribute("naviFile", "adminnavi.jsp");
+			
 		}
 	}
 	@Override
@@ -104,19 +149,27 @@ public class AdminServlet extends HttpServletControllerBase {
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
+			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
+			session.setAttribute("aktServlet", "AdminServlet");
 		}
 		try {
 			super.doGet(req, resp);
 			processRequest(req, resp, session);
 		} catch (NullPointerException e) {
 			logger.error(e.getMessage(), e);
-			req.setAttribute("triedLogin", true);
+			//req.setAttribute("triedLogin", true);
+			req.setAttribute("contentFile", "welcome.jsp");
+			req.setAttribute("naviFile", "welcomenavi.jsp");
+			/*
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+			 * 
+			 */
 		}
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
@@ -146,19 +199,27 @@ public class AdminServlet extends HttpServletControllerBase {
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
+			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
+			session.setAttribute("aktServlet", "AdminServlet");
 		}
 		try {
 			super.doPost(req, resp);
 			processRequest(req, resp, session);
 		} catch (NullPointerException e) {
 			logger.error(e.getMessage(), e);
-			req.setAttribute("triedLogin", true);
+			//req.setAttribute("triedLogin", true);
+			req.setAttribute("contentFile", "welcome.jsp");
+			req.setAttribute("naviFile", "welcomenavi.jsp");
+			/*
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
+			 * 
+			 */
 		}
 		
 		
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
+		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
 		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 		reqDisp.forward(req, resp);
@@ -186,14 +247,122 @@ public class AdminServlet extends HttpServletControllerBase {
 		actions = new HashMap();
 		
 		//Actions hinzufuegen
+		// !!! Admin !!!
+		
+		action = new OpenAdminconsole();
+		actions.put("OpenAdminconsole", action);
+		
+		// !!! Comment Actions !!!
+		action = new CommentDocuAction();
+		actions.put("CommentDocu", action);
+		
+		action = new CommentProjectAction();
+		actions.put("CommentProject", action);
+		
+		action = new CommentSourceAction();
+		actions.put("CommentSource", action);
+		
+		action = new CommentTaskAction();
+		actions.put("CommentTask", action);
+		
+		action = new DeleteCommentAction();
+		actions.put("DeleteComment", action);
+		/* DATAServlet
+		action = new ShowAllComments41DocuAction();
+		actions.put("ShowAllComments41Docu", action);
+		
+		action = new ShowAllComments41ProjectAction();
+		actions.put("ShowAllComments41Project", action);
+		
+		action = new ShowAllComments41SourceAction();
+		actions.put("ShowAllComments41Source", action);
+		
+		action = new ShowAllComments41TaskAction();
+		actions.put("ShowAllComments41Task", action);
+		*/
+		action = new UpdateCommentAction();
+		actions.put("UpdateComment", action);
+		
+	
+		
+		// !!! Dokument Actions !!!		
+		action = new DeleteDocuAction();
+		actions.put("DeleteDocu", action);
+		
+		action = new ShowAllDocuAction();
+		actions.put("ShowAllDocu", action);
+		
+		action = new ShowDocuAction();
+		actions.put("ShowDocu", action);
 		
 		// !!! Projekt Actions !!!
 
+		action = new AddMemberAction();
+		actions.put("AddMember", action);
+		
+		action = new AddNewProjectAction();
+		actions.put("AddNewProject", action);		
+		
+		action = new DeleteProjectAction();
+		actions.put("DeleteProject", action);	
+		
+		action = new DeleteMemberAction();
+		actions.put("DeleteMember", action);
+		
+		action = new ShowProjectAction();
+		actions.put("ShowProject", action);
+		
+		action = new SearchProjectsAction();
+		actions.put("SearchProjects", action);
+		
+		//TODO Eventuell nur fuer admin
 		action = new ShowAllProjectsAction();
 		actions.put("ShowAllProjects", action);
 		
-		// !!! User Actions !!!
+		action = new ShowAllOwnProjectsAction();
+		actions.put("ShowAllOwnProjects", action);		
 		
+		action = new ShowAllMemberAction();
+		actions.put("ShowAllMember", action);
+		
+		
+		// !!! Source Actions !!!
+				
+		action = new DeleteSourceAction();
+		actions.put("DeleteSource", action);	
+		
+		action = new ShowSourceAction();
+		actions.put("ShowSource", action);		
+		
+		action = new ShowAllSourceAction();
+		actions.put("ShowAllSource", action);	
+		
+		
+		// !!! Task Actions !!!
+
+		action = new AddNewTaskAction();
+		actions.put("AddNewTask", action);		
+		
+		action = new DeleteTaskAction();
+		actions.put("DeleteTask", action);		
+		
+		action = new ShowAllTasksAction();
+		actions.put("ShowAllTasks", action);		
+		
+		action = new ShowAllOwnTasksAction();
+		actions.put("ShowAllOwnTasks", action);		
+		
+		action = new UpdateTaskAction();
+		actions.put("UpdateTask", action);	
+		
+		action = new AssignTaskAction();
+		actions.put("AssignTask", action);	
+		
+		action = new DeAssignTaskAction();
+		actions.put("DeAssignTask", action);
+		
+		// !!! User Actions !!!
+		/* nur Admin */
 		action = new DeleteUserAction();
 		actions.put("DeleteUser", action);		
 		
@@ -208,13 +377,18 @@ public class AdminServlet extends HttpServletControllerBase {
 		
 		action = new UpdateUserSettingsAction();
 		actions.put("UpdateUserSettings", action);		
-		
+		/* Nur Admin */
 		action = new ShowAllUserAction();
 		actions.put("ShowAllUser", action);
 		
+		action = new LoginAction();
+		actions.put("Login", action);		
+		
+		action = new LogoutAction();
+		actions.put("Logout", action);
+		/* Nur Admin */
 		action = new RegisterAction();
 		actions.put("Register", action);
-		
 	}
 
 	/*

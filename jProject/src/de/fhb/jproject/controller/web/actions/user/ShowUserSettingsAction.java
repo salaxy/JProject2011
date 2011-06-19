@@ -34,6 +34,8 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		
+		boolean isAllowedUpdateUserSettings = true;
 		User user = null;
 		
 		try {
@@ -49,6 +51,14 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			try {
+				/* Darf der User die UserSettings bearbeiten? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser)){
+					isAllowedUpdateUserSettings = false;			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedUpdateUserSettings NO!");
 			}
 			//RECHTE-ABFRAGE Global
 			try{
@@ -66,6 +76,8 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			
 			//setzen der Parameter
 			req.setAttribute("user", user);
+			
+			session.setAttribute("isAllowedUpdateUserSettings", isAllowedUpdateUserSettings);
 			
 			req.setAttribute("contentFile", "showUserSettings.jsp");
 		}catch (ProjectException e) {

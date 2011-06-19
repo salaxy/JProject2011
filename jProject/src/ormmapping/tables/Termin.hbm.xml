@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="de.fhb.jproject.data.Termin" table="`Termin`" lazy="false">
-		<id name="id" column="`ID`" type="integer" unsaved-value="0">
-			<generator class="native">
+  <class lazy="false" name="de.fhb.jproject.data.Termin" table="`Termin`">
+    <id column="`ID`" name="id" type="integer" unsaved-value="0">
+      <generator class="native">
 			</generator>
-		</id>
-		<property name="termin" column="`Termin`" type="date" not-null="true" lazy="false"/>
-		<set name="ORM_Task" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="`TerminID`" not-null="false"/>
-			<one-to-many class="de.fhb.jproject.data.Task"/>
-		</set>
-	</class>
+    </id>
+    <property column="`Termin`" lazy="false" name="termin" not-null="true" type="date"/>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Task">
+      <key column="`TerminID`" not-null="false"/>
+      <one-to-many class="de.fhb.jproject.data.Task"/>
+    </set>
+  </class>
 </hibernate-mapping>

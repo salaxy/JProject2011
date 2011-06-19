@@ -14,7 +14,7 @@
 	<!--TODO OUTSOURCING-->
 	<h2>Sourcecodeliste</h2>
 	<c:forEach items="${sourcecodeList}" var="sourcecode" varStatus="i">
-		<a href="JProjectServlet?do=ShowSource&sourcecodeID=${sourcecode.id}">${sourcecode.dateiname}</a><br>
+		<a href="${sessionScope.aktServlet}?do=ShowSource&sourcecodeID=${sourcecode.id}">${sourcecode.dateiname}</a><br>
 	</c:forEach>
 </div>
 

@@ -59,29 +59,29 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 				}			
 				
 				//Manager in aktion
-				String[] neu ={"123","4567","789"};
+//				String[] neu ={"123","4567","789"};
 				
 				//Manager in aktion
-//				mainManager.getUserManager().updateUserSettings(loginName, 
-//																req.getParameter("nachname"), 
-//																req.getParameter("vorname"), 
-//																req.getParameter("neuIcq"), 
-//																req.getParameter("neuSkype"), 
-//																req.getParameter("neutelefon"), 
-//																req.getParameter("sprache"), 
-//																req.getParameter("neuesPasswortEins"), 
-//																req.getParameter("neuesPasswortZwei"), 
-//																req.getParameter("altesPasswort"));
 				mainManager.getUserManager().updateUserSettings(loginName, 
-						null, 
-						null, 
-						neu, 
-						null, 
-						null, 
-						"neueSprache", 
-						null, 
-						null, 
-						null);
+																req.getParameter("nachname"), 
+																req.getParameter("vorname"), 
+																/*req.getParameter("neuIcq")*/null, 
+																/*req.getParameter("neuSkype")*/null, 
+																/*req.getParameter("neutelefon")*/null, 
+																req.getParameter("sprache"), 
+																req.getParameter("neuesPasswortEins"), 
+																req.getParameter("neuesPasswortZwei")/*, 
+																req.getParameter("altesPasswort")*/);
+//				mainManager.getUserManager().updateUserSettings(loginName, 
+//						null, 
+//						null, 
+//						neu, 
+//						null, 
+//						null, 
+//						"neueSprache", 
+//						null, 
+//						null, 
+//						null);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

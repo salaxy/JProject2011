@@ -164,6 +164,7 @@ img {
 /* -----------------Inhalt--------------------- */ 
 #content{ 
 	/*width: 550px;*/
+	border-left:1px solid grey;
 	width: 781px;
 	position: relative; 
 	margin: 0px;

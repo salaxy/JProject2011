@@ -20,7 +20,7 @@
 <br /><br />
 <c:choose>
 	<c:when test="${isAdmin == true}">
-		<a href="AdminServlet?do=ShowAllProjects">Adminconsole</a>
+		<a href="AdminServlet?do=OpenAdminconsole">Adminconsole</a>
 	</c:when>
 </c:choose>
 <br />

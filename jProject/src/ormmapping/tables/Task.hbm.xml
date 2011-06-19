@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="de.fhb.jproject.data.Task" table="`Task`" lazy="false">
-		<id name="id" column="`ID`" type="integer" unsaved-value="0">
-			<generator class="native">
+  <class lazy="false" name="de.fhb.jproject.data.Task" table="`Task`">
+    <id column="`ID`" name="id" type="integer" unsaved-value="0">
+      <generator class="native">
 			</generator>
-		</id>
-		<many-to-one name="project" cascade="lock" column="`Project`" class="de.fhb.jproject.data.Project" not-null="true" lazy="no-proxy" access="field">
+    </id>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Project" column="`Project`" lazy="no-proxy" name="project" not-null="true">
 		</many-to-one>
-		<property name="titel" column="`Titel`" type="string" length="255" not-null="true" lazy="false"/>
-		<property name="aufgabenstellung" column="`Aufgabenstellung`" type="text" not-null="true" lazy="false"/>
-		<property name="done" type="boolean" length="1" not-null="true" lazy="false">
-			<column name="`Done`" default="0"/>
-		</property>
-		<many-to-one name="termin" cascade="lock" column="`TerminID`" class="de.fhb.jproject.data.Termin" not-null="false" lazy="no-proxy" access="field">
+    <property column="`Titel`" lazy="false" length="255" name="titel" not-null="true" type="string"/>
+    <property column="`Aufgabenstellung`" lazy="false" name="aufgabenstellung" not-null="true" type="text"/>
+    <property lazy="false" length="1" name="done" not-null="true" type="boolean">
+      <column default="0" name="`Done`"/>
+    </property>
+    <many-to-one access="field" cascade="lock" class="de.fhb.jproject.data.Termin" column="`TerminID`" lazy="no-proxy" name="termin" not-null="false">
 		</many-to-one>
-		<set name="ORM_MemberUser" table="`TODO`" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="`TaskID`" not-null="true"/>
-			<many-to-many class="de.fhb.jproject.data.Member">
-				<column name="`MemberUser`"/>
-				<column name="`MemberProject`"/>
-			</many-to-many>
-		</set>
-		<set name="ORM_CommentTask" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="`TaskID`" not-null="true"/>
-			<one-to-many class="de.fhb.jproject.data.CommentTask"/>
-		</set>
-	</class>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_MemberUser" table="`TODO`">
+      <key column="`TaskID`" not-null="true"/>
+      <many-to-many class="de.fhb.jproject.data.Member">
+        <column name="`MemberUser`"/>
+        <column name="`MemberProject`"/>
+      </many-to-many>
+    </set>
+    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_CommentTask">
+      <key column="`TaskID`" not-null="true"/>
+      <one-to-many class="de.fhb.jproject.data.CommentTask"/>
+    </set>
+  </class>
 </hibernate-mapping>

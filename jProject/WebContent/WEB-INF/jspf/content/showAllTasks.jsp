@@ -14,7 +14,7 @@
 	<!--TODO OUTSOURCING-->
 	<h2>Taskliste</h2>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
-		<a href="JProjectServlet?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
+		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>
 
 </div>
