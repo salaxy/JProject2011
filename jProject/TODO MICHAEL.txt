@@ -37,6 +37,7 @@ DA-Schicht
 Datenbank
 **********
 Password zu int machen wegen hashwert = int
+VPP -> GlobalRoles -> add changeGlobalRole
 VPP -> GlobalRoles -> add openAdminconsole 
 VPP -> GlobalRoles -> showProjects für Member = 0
 (Semesterferien)Datenbank auf JPA umbauen
