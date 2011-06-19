@@ -7,7 +7,7 @@ Controller
 
 Manager
 *********
-ProjectManager =>
+(DONE)ProjectManager =>
 	NEED ShowMember!(ohne Action)
 ProjectRoles =>
 	NEED showAllProjectRoles!(ohne Action)
@@ -26,3 +26,6 @@ Datenbank
 	
 		
 
+Bekannte Fehler
+**********
+Umlaute im Projektnamen -> epic fail
