@@ -12,18 +12,28 @@
 
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
-	<h2>Documents</h2>
+	<h1>Documents</h1>
 	<c:forEach items="${documentList}" var="document" varStatus="i">
 		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentID=${document.id}">${document.dateiname}</a><br>
 	</c:forEach>
 </div>
 
 <div id="contentcontentsmall">
-	<jsp:include page='../addNewDocu.jsp' />
-	${document.id} ${document.dateiname}<br />	
-	${documentContent}<br />
-	<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">${document.dateiname}</a><br>
-	
+	<h1>${document.dateiname}</h1>
+	<div id="infoBoxBig">
+		<jsp:include page='../addNewDocu.jsp' />
+	</div>
+	<div id="infoBoxBig">
+		<form>
+			<textarea cols="75" rows="5">${document.id} ${document.dateiname}
+${documentContent}
+			</textarea>
+		</form>
+	</div>
+	<div id="infoBoxBig">
+		
+		<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">Download ${document.dateiname}</a>
+	</div>
 </div>
 
 <div id="footercontent">
@@ -31,7 +41,4 @@
 	<div id="allComments41Docu">
 		
 	</div>
-	<!--<form>
-		<textarea cols="93" rows="5">COMMENTS AJAX</textarea>
-	</form>-->
 </div>
