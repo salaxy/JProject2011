@@ -12,7 +12,7 @@
 
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
-	<h2>Documentliste</h2>
+	<h2>Documents</h2>
 	<c:forEach items="${documentList}" var="document" varStatus="i">
 		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentID=${document.id}">${document.dateiname}</a><br>
 	</c:forEach>
