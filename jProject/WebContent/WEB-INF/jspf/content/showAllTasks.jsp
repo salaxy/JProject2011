@@ -12,7 +12,7 @@
 
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
-	<h2>Taskliste</h2>
+	<h2>Tasks</h2>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
 		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>

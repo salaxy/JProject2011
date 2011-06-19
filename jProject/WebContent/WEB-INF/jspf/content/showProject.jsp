@@ -28,11 +28,17 @@
 	</table>
 	<br />
 	<!--TODO IF NOT aktServlet == AdminServlet-->
-	<form method="POST" action="${sessionScope.aktServlet}">
-		<input name="do" value="DeleteMember" type="hidden" />
-		<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
-		<input value="Eigene Mitgliedschaft beenden" type="submit">
-	</form>
+	<c:choose>
+		<c:when test="${aktServlet != 'AdminServlet'}">
+			<form method="POST" action="${sessionScope.aktServlet}">
+				<input name="do" value="DeleteMember" type="hidden" />
+				<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
+				<input value="Eigene Mitgliedschaft beenden" type="submit">
+			</form>
+		</c:when>
+	</c:choose>
+
+	
 	<br />
 </div>
 
