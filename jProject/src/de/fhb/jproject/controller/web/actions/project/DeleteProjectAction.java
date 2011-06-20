@@ -67,7 +67,7 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				mainManager.getProjectManager().deleteProject(projectName);
+				mainManager.getProjectManager().deleteProject(aktUser, projectName);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
