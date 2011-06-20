@@ -12,7 +12,7 @@ ProjectRoles =>
 	
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
-	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
+	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
 	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
 	- wenn nein Member entfernen.
 	>>> STATUS: vorbereitet!
@@ -36,5 +36,5 @@ Datenbank
 Bekannte Fehler
 **********
 Umlaute im Projektnamen -> epic fail,
-EPIC aber k�nnen wir nichts dagegegen tun? Oo >>>  wird gefiltert (-.,;:!"§$%&/()=? )
+EPIC aber koennen wir nichts dagegegen tun? Oo >>>  wird gefiltert (-.,;:!"§$%&/()=? )
 																		
