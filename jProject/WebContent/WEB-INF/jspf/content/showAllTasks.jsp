@@ -106,7 +106,7 @@
 						<tr>
 							<td>
 								<label for="aufgabenstellung">Aufgabenstellung:</label><br />
-								<textarea name="aufgabenstellung" cols="75" rows="15" readonly="${sessionScope.isAllowedUpdateTaskAction == true}">${task.aufgabenstellung}</textarea>
+								<textarea name="aufgabenstellung" cols="75" rows="15" <% if(Boolean.valueOf(""+session.getAttribute("isAllowedUpdateTaskAction")) != true){out.print("readonly");} %>>${task.aufgabenstellung}</textarea>
 							</td>
 						</tr>
 						<tr>
