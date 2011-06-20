@@ -38,7 +38,7 @@ public class TaskManager {
 	private UserDA userDA;
 	private TerminDA terminDA;
 	
-	private static final Logger logger = Logger.getLogger(ProjectManager.class);
+	private static final Logger logger = Logger.getLogger(TaskManager.class);
 	
 	public TaskManager(){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
@@ -468,7 +468,7 @@ public class TaskManager {
 				+"String aufgabenStellung("+aufgabenStellung+")"
 				+"String titel("+titel+")"
 				+"String date("+date+")"
-				+"boolean done("+titel+")"
+				+"boolean done("+done+")"
 				);	
 		
 		//EIGENTLICHE AKTIONEN

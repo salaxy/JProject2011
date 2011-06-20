@@ -171,8 +171,10 @@ public class AdminServlet extends HttpServletControllerBase {
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
+		if (resp.getHeader("Location") == null) {
+			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+			reqDisp.forward(req, resp);
+		}
 	}
 
 	/*
@@ -221,8 +223,11 @@ public class AdminServlet extends HttpServletControllerBase {
 		logger.info("sending contentFile: "+req.getAttribute("contentFile"));
 		logger.info("sending naviFile: "+req.getAttribute("naviFile"));
 		
-		RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-		reqDisp.forward(req, resp);
+		if (resp.getHeader("Location") == null) {
+			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+			reqDisp.forward(req, resp);
+		}
+		
 	}
 
 
