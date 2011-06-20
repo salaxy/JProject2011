@@ -304,6 +304,7 @@ public class ProjectManager {
 			
 			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
 		}
+		//TODO IF PROJECT.MEMBER.SIZE() == 0 => Delete Project!!!!!
 	}
 	
 	/**
