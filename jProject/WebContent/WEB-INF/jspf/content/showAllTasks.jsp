@@ -29,13 +29,31 @@
 	<div id="infoBoxBig">
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedAddNewTaskAction == true}">
-				<!--
+				
 				<a href="#" onclick="$('addNew').show();">Show</a>
 				<a href="#" onclick="$('addNew').hide();">Hide</a><br />
 				<div id="addNew">
 					hallo
 				</div>
-				-->
+				<script type="text/javascript"> 
+					var hide = false;
+					alert($('addNew'));
+					window.addEvent('domready', function() {
+						//time to implement basic show / hide
+						Element.extend({
+							//implement show
+							show: function(e) {
+								alert("Show");
+								this.setStyle('display','block');
+							},
+							//implement hide
+							hide: function(e) {
+								alert("Hide");
+								this.setStyle('display','none');
+							}
+						});
+					});
+				</script>
 				<h3>Neuen Task hinzufügen</h3>
 				<fieldset>
 					<legend>Neuen Task hinzufügen</legend>

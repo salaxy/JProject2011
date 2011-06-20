@@ -77,4 +77,28 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	  * @return Name der Aktion, die ausgefuehrt werden soll
 	  */
 	protected abstract String getOperation(HttpServletRequest req);
+	/**
+	 * Kapselt das Redirect zu einer weiteren Action. Die Action
+	 * wird als Name angeben.
+	 * 
+	 * @param req aktueller Request der bearbeitet werden soll und in dem Ergebnisse der Action abgelegt sind
+	 * @param resp  Response-Objekt zum Schreiben des Ergebnisses
+	 * @param aktServlet Name von Servlet, die aktuell angesprochen wurde
+	 * @param action Name von Action, die angezeigt wird
+	 * @param parameter parameter, die mitgegeben werden sollen
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void redirect(HttpServletRequest req, HttpServletResponse resp, String aktServlet, String action, String[] parameter) throws ServletException, IOException {
+		String redirectTo = "";
+		String params = "";
+		if (parameter != null) {
+			for (String param : parameter) {
+				params += "&"+param;
+			}
+		}
+		redirectTo = aktServlet+"?do="+action+""+params;
+		System.out.println("redirectTo: "+redirectTo);
+		resp.sendRedirect(redirectTo);
+	}
 }
