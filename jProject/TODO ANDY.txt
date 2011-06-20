@@ -7,10 +7,8 @@ Controller
 
 Manager
 *********
-(DONE)ProjectManager =>
-	NEED ShowMember!(ohne Action)
 ProjectRoles =>
-	NEED showAllProjectRoles!(ohne Action)
+	NEED showAllProjectRoles!(ohne Action) >>> bin dabei!!
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
@@ -28,4 +26,4 @@ Datenbank
 
 Bekannte Fehler
 **********
-Umlaute im Projektnamen -> epic fail
+Umlaute im Projektnamen -> epic fail XD EPIC aber k�nnen wir was dagegegen tun? Oo
