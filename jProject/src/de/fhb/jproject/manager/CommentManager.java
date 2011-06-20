@@ -381,7 +381,9 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("deleteComment()");
-		//TODO DEBUGINFO
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")"
+				+"int commentId("+ commentId+")");
 		
 		
 		
@@ -411,7 +413,10 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("updateComment()");
-		//TODO DEBUGINFO
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")"
+				+"int commentId("+ commentId+")"
+				+"String neuerInhalt("+neuerInhalt+")");
 		
 		//comment holen
 		try {
@@ -448,6 +453,9 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("showAllComments41Docu()");
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")"
+				+"int documentId("+ documentId+")");
 		
 		//EIGENTLICHE AKTIONEN
 		
@@ -478,7 +486,9 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("showAllComments41Source()");
-		//TODO DEBUGINFO
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")"
+				+"int sourcecodeId("+ sourcecodeId+")");
 		
 		//holen der Comments
 		try {
@@ -507,7 +517,10 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("showAllComments41Task()");
-		//TODO DEBUGINFO
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")"
+				+"int taskId("+ taskId+")");
+		
 		//EIGENTLICHE AKTIONEN
 		
 		//holen der comments
@@ -536,7 +549,8 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("showAllComments41Project()");
-		//TODO DEBUGINFO
+		logger.debug("String aktUser("+aktUser+")"
+				+"String projectName("+projectName+")");
 		
 		//holen der comments
 		try {
