@@ -22,6 +22,7 @@ import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.TaskDA;
 import de.fhb.jproject.repository.da.TerminDA;
 import de.fhb.jproject.repository.da.UserDA;
+import org.apache.log4j.Level;
 
 /**
  * Manager fuer die Tasks
@@ -41,6 +42,7 @@ public class TaskManager {
 	private static final Logger logger = Logger.getLogger(TaskManager.class);
 	
 	public TaskManager(){
+		logger.setLevel(Level.DEBUG);
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		taskDA = DAFactory.getDAFactory().getTaskDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
@@ -491,7 +493,7 @@ public class TaskManager {
 		}
 		
 		if(aufgabenStellung!=null){
-			task.setAufgabenstellung(titel);
+			task.setAufgabenstellung(aufgabenStellung);
 		}
 		
 		if(date!=null){
