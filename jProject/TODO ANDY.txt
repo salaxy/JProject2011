@@ -8,12 +8,16 @@ Controller
 Manager
 *********
 ProjectRoles =>
-	NEED showAllProjectRoles!(ohne Action) >>> bin dabei!!
+	NEED showAllProjectRoles!(ohne Action) >>> STATUS: bin dabei!!
+	
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
 	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
 	- wenn nein Member entfernen.
+	>>> STATUS: noch nciht angefangen
+
+Fehlende Debug infos >>> STATUS:  bin dabei!!!
 
 DA-Schicht
 **********
@@ -26,4 +30,4 @@ Datenbank
 
 Bekannte Fehler
 **********
-Umlaute im Projektnamen -> epic fail XD EPIC aber k�nnen wir was dagegegen tun? Oo
+Umlaute im Projektnamen -> epic fail, EPIC aber k�nnen wir nichts dagegegen tun? Oo
