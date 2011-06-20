@@ -55,7 +55,9 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			try {
 				/* Darf der User die UserSettings bearbeiten? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser)){
-					isAllowedUpdateUserSettings = false;			
+					if(!aktUser.equals(loginName)){
+						isAllowedUpdateUserSettings = false;
+					}
 				}
 			} catch (ProjectException e) {
 				logger.info("isAllowedUpdateUserSettings NO!");

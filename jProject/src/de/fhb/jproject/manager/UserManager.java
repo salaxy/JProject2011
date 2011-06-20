@@ -358,7 +358,7 @@ public class UserManager {
 				throw new ProjectException("neues Passwort Zwei nicht mitgegebn!");				
 			}
 			
-			if(neuesPasswortEins.equals(neuesPasswortZwei)){
+			if(!neuesPasswortEins.equals(neuesPasswortZwei)){
 				throw new ProjectException("Neue passwoerter sind nicht gleich!");
 			}
 			/*
