@@ -15,7 +15,7 @@ DeleteMember =>
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
 	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
 	- wenn nein Member entfernen.
-	>>> STATUS: noch nciht angefangen
+	>>> STATUS: vorbereitet!
 
 Fehlende Debug infos >>> STATUS:  bin dabei!!!
 
