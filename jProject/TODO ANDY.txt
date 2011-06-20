@@ -8,7 +8,7 @@ Controller
 Manager
 *********
 ProjectRoles =>
-	NEED showAllProjectRoles!(ohne Action) >>> STATUS: bin dabei!!
+	NEED showAllProjectRoles!(ohne Action) >>> DONE
 	
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
