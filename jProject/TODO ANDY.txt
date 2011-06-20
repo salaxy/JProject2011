@@ -21,6 +21,9 @@ Fehlende Debug infos >>>  DONE, solange wie keine weiteren Ausstände auffallen 
 
 UTF 8...ja ich wars doch, da war irgentwas anderes drin ...echt komisch..>>> DONE
 
+deleteProject(String aktUser, String projectName)
+//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
+
 DA-Schicht
 **********
 
