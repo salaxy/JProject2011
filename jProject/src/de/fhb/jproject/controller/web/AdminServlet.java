@@ -248,7 +248,7 @@ public class AdminServlet extends HttpServletControllerBase {
 		
 		//Actions hinzufuegen
 		// !!! Admin !!!
-		
+		//Nur Admin
 		action = new OpenAdminconsole();
 		actions.put("OpenAdminconsole", action);
 		
@@ -315,7 +315,7 @@ public class AdminServlet extends HttpServletControllerBase {
 		action = new SearchProjectsAction();
 		actions.put("SearchProjects", action);
 		
-		//TODO Eventuell nur fuer admin
+		//Nur Admin
 		action = new ShowAllProjectsAction();
 		actions.put("ShowAllProjects", action);
 		

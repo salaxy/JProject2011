@@ -58,6 +58,7 @@ public class LoginAction extends HttpRequestActionBase {
 
 					session.setAttribute("aktUser", user.getLoginName());
 					session.setAttribute("mainManager", mainManager);
+					
 					//TODO RECHTEKONROLLE -> ADD showAdminconsole
 					if(user.getGlobalRole().equals("Admin")){
 						session.setAttribute("isAdmin", true);
