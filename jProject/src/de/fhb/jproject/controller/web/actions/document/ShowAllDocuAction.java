@@ -39,6 +39,8 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		Set<Document> documentList = null;
 		Document document = null;
 		String documentContent = null;
+		
+		
 		try {		
 			
 			//Debugprint
@@ -80,6 +82,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
 			
 			try {
 				//Wenn documentId == null dann gib mir den ersten

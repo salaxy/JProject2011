@@ -25,7 +25,7 @@
 	</div>
 	<div id="infoBoxBig">
 		<form>
-			<textarea cols="75" rows="5">${document.id} ${document.dateiname}
+			<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
 ${documentContent}
 			</textarea>
 		</form>

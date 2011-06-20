@@ -56,10 +56,15 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String titel = req.getParameter("titel");
-			String aufgabenstellung = req.getParameter("aufgabenStellung");
+			String aufgabenstellung = req.getParameter("aufgabenstellung");
 			//yyyy-mm-dd <<< muss sooo aussehen
-			Date date = Date.valueOf(req.getParameter("date"));
-			
+			//Date date = Date.valueOf(req.getParameter("date"));
+			Date date = null;
+			try {
+				date = Date.valueOf(req.getParameter("date"));
+			} catch (IllegalArgumentException e) {
+				logger.error(e.getMessage(), e);
+			}
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
