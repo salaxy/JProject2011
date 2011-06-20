@@ -17,7 +17,9 @@ DeleteMember =>
 	- wenn nein Member entfernen.
 	>>> STATUS: vorbereitet!
 
-Fehlende Debug infos >>> STATUS:  bin dabei!!!
+Fehlende Debug infos >>>  DONE, solange wie keine weiteren Ausstände auffallen (mir selbst oder euch)
+
+UTF 8...ja ich wars doch, da war irgentwas anderes drin ...echt komisch..>>> DONE
 
 DA-Schicht
 **********
@@ -30,4 +32,6 @@ Datenbank
 
 Bekannte Fehler
 **********
-Umlaute im Projektnamen -> epic fail, EPIC aber k�nnen wir nichts dagegegen tun? Oo
+Umlaute im Projektnamen -> epic fail,
+EPIC aber k�nnen wir nichts dagegegen tun? Oo >>>  wird gefiltert (-.,;:!"§$%&/()=? )
+																		
