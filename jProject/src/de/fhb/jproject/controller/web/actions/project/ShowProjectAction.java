@@ -223,10 +223,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 
 				}
 			}
-			
-			//TODO fähigkeiten DeleteMember
-			
-			
+					
 			
 			//setzen der Session
 			session.setAttribute("aktProject", project);

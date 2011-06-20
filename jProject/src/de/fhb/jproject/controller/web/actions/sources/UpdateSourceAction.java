@@ -10,6 +10,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
@@ -78,7 +79,11 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllSource", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

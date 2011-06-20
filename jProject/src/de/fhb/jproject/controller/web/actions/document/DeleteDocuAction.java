@@ -9,6 +9,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
@@ -73,7 +74,11 @@ private MainManager mainManager;
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllDocu", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
