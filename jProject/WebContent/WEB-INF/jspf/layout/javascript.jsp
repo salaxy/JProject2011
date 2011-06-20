@@ -65,7 +65,7 @@
 		</div>\n\
 		<div id='commentbody'>\n\
 			<form method='POST' action='${aktServlet}'>\n\
-				<textarea name='entry' cols='75' rows='15' readonly="+((comment.user != '${aktUser}') || ('${isAllowedUpdateCommentAction}' != 'true'))+">\n\
+				<textarea name='entry' cols='75' rows='15' readonly='"+!((comment.user != '${aktUser}') || ('${isAllowedUpdateCommentAction}' != 'true'))+"'>\n\
 					"+ comment.entry +"\n\
 				</textarea>\n\
 			</form>\n\
@@ -75,6 +75,7 @@
 			newContent += comment.id+' - '+comment.user+"<br/>"+comment.entry;
 			*/
 		});
+		alert(newContent);
 		$('allComments41Project').set('html', newContent);
 	}
 	function getShowAllComments41ProjectJSON(projectName){
