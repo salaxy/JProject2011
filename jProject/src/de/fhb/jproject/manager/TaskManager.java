@@ -227,7 +227,8 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("showTask()");
-		//TODO DEBUGINFO
+		logger.debug("String projectName("+projectName+")");
+		logger.debug("int taskId("+taskId+")");
 		
 		
 		//EIGENTLICHE AKTIONEN
