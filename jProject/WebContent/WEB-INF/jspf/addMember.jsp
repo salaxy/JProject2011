@@ -18,7 +18,7 @@
 						<tr>
 							<td>
 								<label for="loginName">Member-LoginName:</label><br />
-								<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30"
+								<input value="MemberLoginName" name="loginName" type="text" size="20" maxlength="30" />
 							</td>
 						</tr>
 						<tr>

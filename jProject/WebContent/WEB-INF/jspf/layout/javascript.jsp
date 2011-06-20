@@ -9,22 +9,7 @@
 <script src="js/mootools-1.2.1-core.js"></script>
 <script type="text/javascript"> 
 	var hide = false;
-	
-	window.addEvent('domready', function() {
-		//time to implement basic show / hide
-		Element.extend({
-			//implement show
-			show: function(e) {
-				alert("Show");
-				this.setStyle('display','block');
-			},
-			//implement hide
-			hide: function(e) {
-				alert("Hide");
-				this.setStyle('display','none');
-			}
-		});
-	});
+
 	
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
@@ -35,7 +20,10 @@
 			newContent+="\
 	<div id='comment'>\n\
 		<div id='commentheader'>\n\
-			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"<div id='commentbuttons'>\n\
+																<a href='${aktServlet}?do=UpdateComment&commentId="+comment.id+"'><img src='../../../images/update.png' alt='update' /></a>\n\
+																<a href='${aktServlet}?do=DeleteComment&commentId="+comment.id+"'><img src='../../../images/delete.png' alt='delete' /></a>\n\
+													</div></h1>\n\
 		</div>\n\
 		<div id='commentbody'>\n\
 			"+ comment.entry +"\n\
@@ -70,10 +58,17 @@
 			newContent+="\
 	<div id='comment'>\n\
 		<div id='commentheader'>\n\
-			<h1>"+ comment.id +" | "+ comment.user +"</h1>\n\
+			<h1>"+ comment.id +" | "+ comment.user +"<div id='commentbuttons'>\n\
+																<a href='${aktServlet}?do=UpdateComment&commentId="+comment.id+"'><img src='../../../images/update.png' alt='update' /></a>\n\
+																<a href='${aktServlet}?do=DeleteComment&commentId="+comment.id+"'><img src='../../../images/delete.png' alt='delete' /></a>\n\
+													</div></h1>\n\
 		</div>\n\
 		<div id='commentbody'>\n\
-			"+ comment.entry +"\n\
+			<form method='POST' action='${aktServlet}'>\n\
+				<textarea name='entry' cols='75' rows='15' readonly="+((comment.user != '${aktUser}') || ('${isAllowedUpdateCommentAction}' != 'true'))+">\n\
+					"+ comment.entry +"\n\
+				</textarea>\n\
+			</form>\n\
 		</div>\n\
 	</div>"
 			/*TODO EDITBUTTON, DELETEBUTTON, usw.
