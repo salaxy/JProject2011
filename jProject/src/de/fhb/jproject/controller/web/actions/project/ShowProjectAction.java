@@ -143,9 +143,9 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				}
 				memberSet = mainManager.getProjectManager().showAllMember(projectName);
 				
-			}catch (ProjectException e) {
+			}/*catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
-			}catch (NullPointerException e) {
+			}*/catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
 			
@@ -192,21 +192,12 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				}
 				memberSet = mainManager.getProjectManager().showAllMember(projectName);
 				anzMember = memberSet.size();
-			}catch (ProjectException e) {
+			}/*catch (ProjectException e) {
 				logger.error(e.getMessage(), e);
-			}catch (NullPointerException e) {
+			}*/catch (NullPointerException e) {
 				logger.error(e.getMessage(), e);
 			}
 			
-			
-			
-			
-			/*TODO Aktuell geladenen Member nicht in der Liste anzeigen
-			if (memberSet.contains(member)){
-				logger.debug("YES!!!!!!");
-				memberSet.remove(member);
-			}
-			*/
 			/*XXX Testausgabe*/			
 			if (logger.getLevel()==Level.DEBUG) {
 				System.out.println("DEBUG IS SET");
@@ -219,8 +210,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				}
 			}
 			
-			//TODO anzahl documente, anzahl Sourcecode
-			//TODO fähigkeiten addMember, DeleteMember
+			//TODO fähigkeiten DeleteMember
 			
 			
 			
@@ -235,9 +225,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			req.setAttribute("project", project);
 			
 			//Statistische Daten
-			
-			
-				
 			req.setAttribute("anzMember", anzMember);
 			req.setAttribute("anzDocu", anzDocu);
 			req.setAttribute("anzSource", anzSource);
