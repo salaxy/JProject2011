@@ -25,7 +25,7 @@
 	</div>
 	<div id="infoBoxBig">
 		<form>
-			<textarea cols="75" rows="5">${sourceode.id} ${sourcecode.dateiname}
+			<textarea cols="75" rows="5" readonly="true">${sourceode.id} ${sourcecode.dateiname}
 ${sourcecodeContent}
 			</textarea>
 		</form>

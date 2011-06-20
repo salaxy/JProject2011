@@ -123,13 +123,15 @@ public class TaskManager {
 					
 		//task speichern
 		try {		
-			
+			clearSession();
 			//Member speichern
 			taskDA.save(task);
 		} catch (PersistentException e) {
 			
 			try {
-				terminDA.delete(termin);
+				if (termin != null) {
+					terminDA.delete(termin);
+				}
 			} catch (PersistentException e1) {
 				throw new ProjectException("Konnte Task nicht speichern und erstellten Termin nicht wieder leoschen! "+ e.getMessage());
 			}

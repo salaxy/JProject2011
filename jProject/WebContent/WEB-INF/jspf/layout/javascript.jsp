@@ -10,6 +10,22 @@
 <script type="text/javascript"> 
 	var hide = false;
 	
+	window.addEvent('domready', function() {
+		//time to implement basic show / hide
+		Element.extend({
+			//implement show
+			show: function(e) {
+				alert("Show");
+				this.setStyle('display','block');
+			},
+			//implement hide
+			hide: function(e) {
+				alert("Hide");
+				this.setStyle('display','none');
+			}
+		});
+	});
+	
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
 		var newContent = '';

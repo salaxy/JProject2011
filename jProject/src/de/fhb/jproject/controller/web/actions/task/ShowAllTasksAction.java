@@ -49,6 +49,9 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 		List<Task> taskList=null;
 		Task task = null;
 		
+		boolean isAllowedUpdateTaskAction = true;
+		boolean isAllowedAddNewTaskAction = true;
+		
 		try {				
 			
 			//Debugprint
@@ -90,6 +93,34 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+			
+			try {
+				/* Darf der User Task updaten? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
+						isAllowedUpdateTaskAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedUpdateTaskAction NO!");
+			}
+			
+			try {
+				/* Darf der User Task erstellen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
+						isAllowedAddNewTaskAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedAddNewTaskAction NO!");
+			}
+			
+			
+			
 			try{
 				//Wenn taskId == null dann gib mir den ersten
 				if (0 == taskId) {
@@ -116,6 +147,9 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
+			
+			session.setAttribute("isAllowedUpdateTaskAction", isAllowedUpdateTaskAction);
+			session.setAttribute("isAllowedAddNewTaskAction", isAllowedAddNewTaskAction);
 			
 			req.setAttribute("contentFile", "showAllTasks.jsp");
 		}catch (ProjectException e) {
