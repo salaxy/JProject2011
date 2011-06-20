@@ -4,17 +4,22 @@
  */
 package de.fhb.jproject.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.orm.PersistentException;
+
 import de.fhb.jproject.data.DAFactory;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.ProjectRoles;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
-import org.apache.log4j.Logger;
-import org.orm.PersistentException;
 
 /**
  *
@@ -404,5 +409,31 @@ public class ProjectRolesManager {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Holt alle Projektrollen als String-Liste
+	 * @return
+	 * @throws ProjectException
+	 */
+	public List<String> showAllProjectRoles()
+	throws ProjectException{ 
+
+		List<String> list=new ArrayList<String>(); 
+		List<ProjectRoles> projectRolesList=null;
+		
+		logger.info("showAllProjectRoles()");
+		
+		try {
+			projectRolesList=projectRolesDA.listAllProjectRoles();
+		} catch (PersistentException e) {
+			throw new ProjectException("Konnte Rollen nicht finden! "+ e.getMessage());
+		}
+		
+		for(ProjectRoles rolle : projectRolesList){
+			list.add(rolle.getRole());
+		}
+	
+		return list;
 	}
 }
