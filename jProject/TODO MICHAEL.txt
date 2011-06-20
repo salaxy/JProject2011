@@ -1,19 +1,20 @@
 GUI
 *********
 DeleteTask =>
-	Bestätigung.
+	Popup Bestätigung.
 DeleteDocument =>
-	Bestätigung.
+	Popup Bestätigung.
 DeleteSourcecode =>
-	Bestätigung.
+	Popup Bestätigung.
 DeleteMember =>
-	Bestätigung.
+	Popup Bestätigung.
 Adminconsole =>
-	User löschen,
+	User löschen + Popup Bestätigung,
 	usw.
 ShowProject =>
 	Dropdown mögliche Rollen,
-	Member editieren(rollenvergabe)
+	Member editieren(rollenvergabe),
+	Tasks Dieses Members anzeigen
 Übersicht =>
 	(optional)Projekt suchen
 
@@ -28,7 +29,7 @@ ProjectRoles =>
 	NEED showAllProjectRoles!(ohne Action)
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
-	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder Project nach bestätigung unwiederruflich löschen.
+	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
 	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
 	- wenn nein Member entfernen.
 (Semesterferien)SearchProject -> 
@@ -49,3 +50,6 @@ Password zu int machen wegen hashwert = int
 (Semesterferien)Datenbank auf JPA umbauen
 		
 
+Fragen Stefan Pratsch:
+redirect zu anderer action? mit parametern?
+Mootools hide show?
