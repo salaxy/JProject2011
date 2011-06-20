@@ -1,6 +1,7 @@
 package de.fhb.jproject.controller.web.actions.task;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -75,9 +76,14 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			String titel = req.getParameter("titel");
-			String aufgabenstellung = req.getParameter("aufgabenStellung");
+			String aufgabenstellung = req.getParameter("aufgabenstellung");
 			//yyyy-mm-dd <<< muss sooo aussehen
-			Date date = Date.valueOf(req.getParameter("date"));
+			Date date = null;
+			try {
+				date = Date.valueOf(req.getParameter("date"));
+			} catch (IllegalArgumentException e) {
+				logger.info(e.getMessage(), e);
+			}
 			boolean done = Boolean.getBoolean(req.getParameter("done"));
 			
 			//EINGABEFEHLER ABFANGEN
@@ -90,7 +96,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum updaten dieses Tasks!");
+						throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Tasks!");
 					}			
 				}
 				//Manager in aktion
@@ -98,7 +104,11 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
