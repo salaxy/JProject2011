@@ -166,6 +166,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("addNewProject()");
+		//TODO debuginfo aktUser
 		logger.debug("String name("+name+")"
 				+"String status("+status+")");
 				
@@ -230,6 +231,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("deleteProject()");
+		//TODO debuginfo aktUser
 		logger.debug("String name("+projectName+")");
 		
 		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
@@ -268,6 +270,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("deleteMember()");
+		//TODO debuginfo aktUser
 		logger.debug("String loginName("+loginName+")"
 				+"String projectName("+projectName+")");
 		
@@ -409,6 +412,8 @@ public class ProjectManager {
 		clearSession();
 		//debuglogging
 		logger.info("showAllOwnProjects()");
+		//TODO debuginfo aktUser
+		
 		Set<Project> list= null;	
 		User user=null;
 		
@@ -448,6 +453,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("showMember()");
+		//TODO debuginfo loginName
 		logger.debug("User aktUser("+aktUser+")"
 				+ "String name("+projectName+")");
 		
