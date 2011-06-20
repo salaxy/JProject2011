@@ -89,6 +89,7 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("commentDocu()");
+		//TODO debuginfo aktUser
 		logger.debug("int documentId("+documentId+")"
 				+"String inhalt("+inhalt+")");	
 		
@@ -159,6 +160,7 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("commentSource()");
+		//TODO debuginfo aktUser
 		logger.debug("int sourcecodeId("+sourcecodeId+")"
 				+"String inhalt("+inhalt+")");	
 		
@@ -237,6 +239,7 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("commentTask()");
+		//TODO debuginfo aktUser
 		logger.debug("int taskId("+taskId+")"
 				+"String inhalt("+inhalt+")");	
 		
@@ -312,6 +315,7 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("commentProject()");
+		//TODO debuginfo aktUser
 		logger.debug("String projectName("+projectName+")"
 				+"String inhalt("+inhalt+")");	
 		
@@ -381,6 +385,7 @@ public class CommentManager {
 		
 		//debuglogging
 		logger.info("deleteComment()");
+		//TODO debuginfo aktUser
 		logger.debug("String aktUser("+aktUser+")"
 				+"String projectName("+projectName+")"
 				+"int commentId("+ commentId+")");

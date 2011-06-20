@@ -71,6 +71,7 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("addNewTask()");
+		//TODO debuginfo
 		logger.debug("String projectName("+projectName+")"
 				+"String titel("+titel+")"
 				+"Date date("+date+")"
@@ -202,6 +203,7 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("showAllTasks()");
+		//TODO debuginfo
 		
 		//projekt holen
 		try {
@@ -269,6 +271,7 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("showAllOwnTasks()");
+		//TODO debuginfo aktUser
 		
 		
 		//EIGENTLICHE AKTIONEN
@@ -298,12 +301,12 @@ public class TaskManager {
 	/**
 	 * Einem Member eines Projektes eine Aufgabe/Task zuordnen
 	 * 
-	 * @param userLoginName
+	 * @param loginName
 	 * @param projectName
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void assignTask(String userLoginName, String projectName, int taskId)
+	public void assignTask(String loginName, String projectName, int taskId)
 	throws ProjectException{ 
 		
 		
@@ -316,7 +319,7 @@ public class TaskManager {
 		//debuglogging
 		logger.info("assignTask()");
 		logger.debug("String projectName(" + projectName + ")"
-				+ "String userLoginName(" + userLoginName + ")"
+				+ "String loginName(" + loginName + ")"
 				+ "int taskId(" + taskId + ")"
 				);	
 		
@@ -331,7 +334,7 @@ public class TaskManager {
 		
 		//zuzuordnenden user holen
 		try {
-			assignUser=userDA.getUserByORMID(userLoginName);
+			assignUser=userDA.getUserByORMID(loginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
 		}
@@ -372,12 +375,12 @@ public class TaskManager {
 	/**
 	 * User von einer Aufgabe abordern 
 	 * 
-	 * @param userLoginName
+	 * @param loginName
 	 * @param projectName
 	 * @param taskId
 	 * @throws ProjectException
 	 */
-	public void deAssignTask(String userLoginName, String projectName, int taskId)
+	public void deAssignTask(String loginName, String projectName, int taskId)
 	throws ProjectException{ 
 		
 		
@@ -391,7 +394,7 @@ public class TaskManager {
 		//debuglogging
 		logger.info("deAssignTask()");
 		logger.debug("String projectName(" + projectName + ")"
-				+ "String userLoginName(" + userLoginName + ")"
+				+ "String loginName(" + loginName + ")"
 				+ "int taskId(" + taskId + ")"
 				);	
 		
@@ -406,7 +409,7 @@ public class TaskManager {
 		
 		//zugeordneten user holen
 		try {
-			deassignUser=userDA.getUserByORMID(userLoginName);
+			deassignUser=userDA.getUserByORMID(loginName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zuzuordnenden User nicht finden! "+ e1.getMessage());
 		}

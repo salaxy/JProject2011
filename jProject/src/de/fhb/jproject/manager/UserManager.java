@@ -82,6 +82,7 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("showUserSettings()");
+		//TODO debuginfo loginName
 		
 		User user=null;
 		
@@ -112,6 +113,7 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("showUserInfo()");
+		//TODO debuginfo loginName
 		
 		try {
 			//holen der daten
@@ -180,6 +182,7 @@ public class UserManager {
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
 				"String skype,String telefon, String sprache, " +
 				"String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)");
+		//TODO debuginfo loginName
         logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
         		+",String "+telefonArray+", String "+sprache
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);
@@ -423,7 +426,8 @@ public class UserManager {
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
-        logger.debug("String "+"loginName("+loginName+"), String "+"password("+password+")");
+        logger.debug("String "+"loginName("+loginName+"), "
+				+ "String "+"password("+password+")");
 		
 		//abfrage ob user eingeloggt
 		//throw new ProjectException("Sie sind bereits eingeloggt");
@@ -478,7 +482,7 @@ public class UserManager {
 		
 		//debuglogging
         logger.info("register(String aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
-		
+		//TODO debuginfo
 		
 		User user=null;		
 		User userUeberpruf=null;
