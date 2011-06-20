@@ -223,15 +223,18 @@ public class ProjectManager {
 	 * @param aktUser
 	 * @throws ProjectException
 	 */
-	public void deleteProject(String projectName)
+	public void deleteProject(String aktUser, String projectName)
 	throws ProjectException{ 
 		
-		//TODO ÜBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!SONST DEADLOCK
 		Project project=null;	
 		
 		//debuglogging
 		logger.info("deleteProject()");
 		logger.debug("String name("+projectName+")");
+		
+		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
+		
+		
 		
 		//EIGENTLICHE AKTIONEN
 		//projekt holen
@@ -295,6 +298,17 @@ public class ProjectManager {
 			throw new ProjectException("Konnte zu entfernenden Member nicht finden! "+ e1.getMessage());
 		}
 
+		if(project.member.size()<2){
+			//TODO villt extra exception
+			throw new ProjectException("Sie sind der letzte Member ! Wollen Sie das Prject loeschen?");
+		}
+		
+		//TODO mhm wie soll man das dynamisch loesen??
+		if(delMember.getProjectRole()=="Leader"){
+			//TODO villt extra exception
+			throw new ProjectException("Sie sind Leader des Projects! Wollen Sie ihr Rechte an jemand anders uebertragen?");
+		}
+		
 		//Member loeschen
 		try {
 			//Member loeschen
@@ -304,7 +318,6 @@ public class ProjectManager {
 			
 			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
 		}
-		//TODO IF PROJECT.MEMBER.SIZE() == 0 => Delete Project!!!!!
 	}
 	
 	/**
