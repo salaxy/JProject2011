@@ -73,7 +73,11 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

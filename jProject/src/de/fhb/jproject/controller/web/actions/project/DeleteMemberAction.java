@@ -75,9 +75,11 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-			//TODO keine action aufrufen -> Redirect oder so
-			(new ShowProjectAction()).perform(req, resp);
-			//req.setAttribute("contentFile", "showProject.jsp");
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowProject", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

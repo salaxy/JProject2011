@@ -104,6 +104,9 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
+			
+			
+			
 			try {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
 			} catch (IOException e) {
