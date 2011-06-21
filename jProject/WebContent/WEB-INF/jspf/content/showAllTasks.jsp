@@ -35,7 +35,7 @@
 				<div id="addNew">
 					hallo
 				</div>
-				-->
+				
 				<script type="text/javascript"> 
 					var hide = false;
 					alert($('addNew'));
@@ -55,6 +55,7 @@
 						});
 					});
 				</script>
+				-->
 				<h3>Neuen Task hinzufügen</h3>
 				<fieldset>
 					<legend>Neuen Task hinzufügen</legend>

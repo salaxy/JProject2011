@@ -64,7 +64,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			try{
-				/* Darf der User Member löschen? (für GUI-Anzeige) */
+				/* Darf der User Comments ändern? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser, aktProject.getName())){

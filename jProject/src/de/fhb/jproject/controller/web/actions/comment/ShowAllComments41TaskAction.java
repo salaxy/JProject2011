@@ -43,7 +43,7 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 	throws ServletException {
 		HttpSession session = req.getSession();		
 		List<Comment> commentList=null;
-		
+		boolean isAllowedUpdateCommentAction = true;
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 
@@ -69,6 +69,17 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
+			}
+			try{
+				/* Darf der User Comments ändern? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser, aktProject.getName())){
+						isAllowedUpdateCommentAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteMemberAction NO!");
 			}
 			//RECHTE-ABFRAGE Global
 			try{
@@ -96,6 +107,11 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 					comm.put("id", comment.getId());
 					comm.put("entry", comment.getEntry());
 					comm.put("user", comment.getUser());
+					if (comment.getUser().getLoginName().equals(aktUser)) {
+						comm.put("isAllowedUpdateCommentAction", true);
+					}else{
+						comm.put("isAllowedUpdateCommentAction", isAllowedUpdateCommentAction);
+					}
 					json.append("comment", comm);
 					//json.append("comment", new JSONObject(comment));
 				} catch (JSONException e) {
