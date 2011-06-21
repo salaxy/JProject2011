@@ -53,6 +53,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		MemberSetCollection memberSet = null;
 		Member member = null;
 		User user = null;
+		List<String> projectRoles = null;
 		
 		int anzMember = 0;
 		int anzDocu = 0;
@@ -222,6 +223,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 
 				}
 			}
+			projectRoles = mainManager.getProjectRolesManager().showAllProjectRoles();
 					
 			
 			//setzen der Session
@@ -234,6 +236,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			req.setAttribute("member", member);
 			req.setAttribute("user", user);
 			req.setAttribute("project", project);
+			req.setAttribute("projectRoles", projectRoles);
 			
 			//Statistische Daten
 			req.setAttribute("anzMember", anzMember);
