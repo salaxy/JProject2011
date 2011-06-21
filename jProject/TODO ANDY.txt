@@ -7,6 +7,14 @@ Controller
 
 Manager
 *********
+
+Was mir selber aufgefallen ist:
+AddNewProject >>> Ueberprüfen ob project schon vorhanden, denn 
+man kann sich einfach darüber in ein bestehendes Project als Leader einschreiben (er macht dann nen update)
+das ist der HACK schlechthin!!! XD >>>korretur ist in Arbeit
+
+
+
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
