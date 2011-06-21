@@ -166,8 +166,8 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("addNewProject()");
-		//TODO debuginfo aktUser
-		logger.debug("String name("+name+")"
+		logger.debug("String aktUser("+aktUser+")"
+				+"String name("+name+")"
 				+"String status("+status+")");
 				
 		//EIGENTLICHE AKTIONEN
@@ -231,8 +231,8 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("deleteProject()");
-		//TODO debuginfo aktUser
-		logger.debug("String name("+projectName+")");
+		logger.debug("String aktUser("+aktUser+")"
+				+"String name("+projectName+")");
 		
 		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
 		
@@ -270,8 +270,8 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("deleteMember()");
-		//TODO debuginfo aktUser
-		logger.debug("String loginName("+loginName+")"
+		logger.debug("String aktUser("+aktUser+")"
+				+"String loginName("+loginName+")"
 				+"String projectName("+projectName+")");
 		
 		//EIGENTLICHE AKTIONEN
@@ -410,12 +410,13 @@ public class ProjectManager {
 	public MemberSetCollection showAllOwnProjects(String aktUser)
 	throws ProjectException{
 		clearSession();
-		//debuglogging
-		logger.info("showAllOwnProjects()");
-		//TODO debuginfo aktUser
 		
 		Set<Project> list= null;	
-		User user=null;
+		User user=null;	
+		
+		//debuglogging
+		logger.info("showAllOwnProjects()");
+		logger.debug("String aktUser("+aktUser+")");
 		
 		
 		// user neu holen um seiten effekte zu vermeiden
@@ -453,8 +454,8 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("showMember()");
-		//TODO debuginfo loginName
 		logger.debug("User aktUser("+aktUser+")"
+				+ "User aktUser("+aktUser+")"
 				+ "String name("+projectName+")");
 		
 		
@@ -496,8 +497,6 @@ public class ProjectManager {
 		//debuglogging
 		logger.info("showAllMember()");
 		logger.debug("String name("+projectName+")");
-		
-		
 		
 		//EIGENTLICHE AKTIONEN
 		try {
