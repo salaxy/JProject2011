@@ -99,6 +99,7 @@
 				url: "DataServlet?do=ShowAllComments41Docu&documentId="+documentId,
 				onComplete: updateShowAllComments41Document
 			}).get({'documentId':documentId});
+			alert(jsonRequest.toSource());
 			hide=true;
 		}else{
 			$('allComments41Docu').set('html', '');
