@@ -12,6 +12,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 
 
 /**
@@ -30,7 +31,8 @@ public class CommentProjectAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException{	
+	throws ServletException{
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");

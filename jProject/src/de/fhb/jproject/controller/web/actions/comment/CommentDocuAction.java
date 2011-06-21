@@ -12,6 +12,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import org.apache.log4j.Level;
 
 
 /**
@@ -31,6 +32,7 @@ public class CommentDocuAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -39,8 +41,8 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String documentId(" + req.getParameter("documentId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+					+ "int documentId(" + req.getParameter("documentId") + "), "
+					+ "String entry(" + req.getParameter("entry") + ")"
 					);
 			
 			//Parameter laden

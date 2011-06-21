@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Comment;
+import de.fhb.jproject.data.CommentSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -64,15 +65,19 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedDeleteCommentAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedDeleteCommentAction(aktUser, aktProject.getName())){
-						for (Object comment : mainManager.getUserManager().getAktUser(aktUser).comment.getCollection()) {
+						boolean isMine = false;
+						CommentSetCollection commentList = mainManager.getUserManager().getAktUser(aktUser).comment;
+						commentList.size();
+						for (Object comment : commentList.getCollection()) {
 							int id = ((Comment)comment).getId();
-							boolean isMine = false;
+							
+							logger.debug("ID("+id+") == commentID("+commentId+") ==> "+(id == commentId));
 							if (id == commentId) {
 								isMine = true;
 							}
-							if (!isMine) {
-								throw new ProjectException("Sie haben keine Rechte zum loeschen eines Comments!");
-							}
+						}
+						if (!isMine) {
+							throw new ProjectException("Sie haben keine Rechte zum Loeschen dieses Comments!");
 						}
 					}			
 				}

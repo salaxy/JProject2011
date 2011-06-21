@@ -133,6 +133,7 @@ public class CommentManager {
 			//Referenz auf Comment setzen
 			commentDocu.setComment(comment);
 			//Comment speichern
+			clearSession();
 			commentDA.save(comment);
 			
 			//CommentDocu speichern
@@ -200,6 +201,7 @@ public class CommentManager {
 		//Comment speichern
 		try {
 			//Member speichern
+			clearSession();
 			commentDA.save(comment);
 		} catch (PersistentException e) {
 			
@@ -278,6 +280,7 @@ public class CommentManager {
 		//Comment speichern
 		try {
 			//Member speichern
+			clearSession();
 			commentDA.save(comment);
 		} catch (PersistentException e) {
 			
@@ -353,6 +356,7 @@ public class CommentManager {
 		//Comment speichern
 		try {
 			//Member speichern
+			clearSession();
 			commentDA.save(comment);
 		} catch (PersistentException e) {
 			
@@ -383,20 +387,22 @@ public class CommentManager {
 	 */
 	public void deleteComment(String aktUser, String projectName, int commentId)
 	throws ProjectException{
-		
+		Comment comment = null;
 		//debuglogging
 		logger.info("deleteComment()");
 		logger.debug("String aktUser("+aktUser+")"
 				+"String projectName("+projectName+")"
 				+"int commentId("+ commentId+")");
-		
-		
-		
-		//EIGENTLICHE AKTIONEN
-		
+		try {
+			//EIGENTLICHE AKTIONEN
+			comment = commentDA.getCommentByORMID(commentId);
+		} catch (PersistentException ex) {
+			throw new ProjectException("Konnte Comment nicht finden!");
+		}
 		//loeschen des comments
 		try {
-			commentDA.delete(commentDA.getCommentByORMID(commentId));
+			clearSession();
+			commentDA.delete(comment);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht loeschen!");
 		}
@@ -435,6 +441,7 @@ public class CommentManager {
 		
 		//speichern des comments
 		try {
+			clearSession();
 			commentDA.save(comment);
 		} catch (PersistentException e) {
 			throw new ProjectException("Konnte Comment nicht speichern!");

@@ -14,6 +14,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 
 
 /**
@@ -36,7 +37,8 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException{	
+	throws ServletException{
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -59,6 +61,34 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			char [] projectNameChar;
+			
+			projectNameChar = projectName.toCharArray();
+			boolean accepted = false;
+			int x = 0;
+			for (char c : projectNameChar) {
+				accepted = false;
+				x = (int)c;
+				logger.debug("Char: "+c);
+				logger.debug("Value: "+x);
+				//Ist es eine Nummer? (48-57)
+				if(x<58 && x>47){
+					accepted = true;
+				}
+				//Ist es ein Buchstabe von A-Z (65-90)
+				if (accepted || (x<91 && x>64)) {
+					accepted = true;
+				}
+				//Ist es ein Buchstabe von a-z (97-122)
+				if (accepted || (x<123 && x>96)) {
+					accepted = true;
+				}
+				
+				if(!accepted){
+					throw new ProjectException("Ungültiger ProjectName!");
+				}
+			}
+			
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){

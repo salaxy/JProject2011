@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 
 
 /**
@@ -30,7 +30,8 @@ public class CommentTaskAction extends HttpRequestActionBase {
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException{	
+	throws ServletException{
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -40,7 +41,7 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "int taskId(" + req.getParameter("taskId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+					+ "String entry(" + req.getParameter("entry") + ")"
 					);
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
