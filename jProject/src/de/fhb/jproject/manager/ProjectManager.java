@@ -234,17 +234,25 @@ public class ProjectManager {
 		logger.debug("String aktUser("+aktUser+")"
 				+"String name("+projectName+")");
 		
-		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
-		
-		
-		
+
 		//EIGENTLICHE AKTIONEN
 		//projekt holen
 		try {
 			project=projectDA.getProjectByORMID(projectName);
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
+		}			
+		
+		//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER! Sonst Exception
+		for(Object m:project.member.getCollection()){
+			if(((Member)m).getProjectRole().equals("Leader")){
+				if(!((Member)m).getUserId().equals(aktUser))
+					throw new ProjectException("Sie können das Project icht löschen, da sie nicht der einzige Leader des Projectes sind! ");
+			}
+		
+		}
+		
+		
 		//loeschen
 		//Info: Member werden automatisch gel�scht durch das cascade in der DB
 		try {	
@@ -308,7 +316,7 @@ public class ProjectManager {
 		
 		//TODO mhm wie soll man das dynamisch loesen??
 		if(delMember.getProjectRole()=="Leader"){
-			//TODO villt extra exception
+			//XXX villt extra exception??
 			throw new ProjectException("Sie sind Leader des Projects! Wollen Sie ihr Rechte an jemand anders uebertragen?");
 		}
 		
