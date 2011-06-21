@@ -52,6 +52,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		Project project = null;
 		MemberSetCollection memberSet = null;
 		Member member = null;
+		User user = null;
 		
 		int anzMember = 0;
 		int anzDocu = 0;
@@ -182,6 +183,17 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
+			//RECHTE-ABFRAGE Global
+			try{
+				//TODO RECHTEABFRAGE
+				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Members!");		
+				}
+				//Manager in aktion
+				user = mainManager.getUserManager().showUserInfo(member.getUser().getLoginName());
+			}catch(NullPointerException e){
+				logger.error(e.getMessage(), e);
+			}
 			
 			//TODO NOCHMAL HOLEN FÜR KORREKTUR Oo
 			try {
@@ -220,6 +232,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());
 			req.setAttribute("member", member);
+			req.setAttribute("user", user);
 			req.setAttribute("project", project);
 			
 			//Statistische Daten

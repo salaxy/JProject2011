@@ -33,3 +33,27 @@ hallo
 		</div>
 	</div>
 </form>
+						
+<h3>Neuen Comment hinzufügen<input type='checkbox' onclick='showHideText(this,'addBox');' /></h3>
+<fieldset id='addBox' style='display:none;'>
+	<legend>Neuen Comment hinzufügen</legend>
+	<form method='POST' action='${sessionScope.aktServlet}'>
+		<input name='do' value='CommentProject' type='hidden' />
+		<input name='projectName' value='${aktProject}' type='hidden' />
+		<table border='0' cellspacing='3'>
+			<tbody>
+				<tr>
+					<td>
+						<label for='entry'>Comment:</label><br />
+						<textarea name='entry' cols='75' rows='1'>Comment</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input value='Add' type='submit' />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</fieldset>

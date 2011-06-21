@@ -10,6 +10,10 @@
 <script type="text/javascript"> 
 	var hide = false;
 
+	function showHideText(box, id) {
+		var elm = document.getElementById(id)
+		elm.style.display = box.checked? "inline":"none"
+	} 
 	function confirmDeleteMember(){
 		check = confirm('Wollen Sie diesen Member wirklich löschen?');
 		return check;
@@ -21,9 +25,31 @@
 	
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
-		var newContent = '';
+		var newContent = "\
+			<h3>Neuen Comment hinzufügen</h3>\n\
+			<fieldset>\n\
+				<legend>Neuen Comment hinzufügen</legend>\n\
+				<form method='POST' action='${sessionScope.aktServlet}'>\n\
+					<input name='do' value='CommentDocu' type='hidden' />\n\
+					<input name='documentId' value='${document.id}' type='hidden' />\n\
+					<table border='0' cellspacing='3'>\n\
+						<tbody>\n\
+							<tr>\n\
+								<td>\n\
+									<label for='entry'>Comment:</label><br />\n\
+									<textarea name='entry' cols='75' rows='1'>Comment</textarea>\n\
+								</td>\n\
+							</tr>\n\
+							<tr>\n\
+								<td>\n\
+									<input value='Add' type='submit' />\n\
+								</td>\n\
+							</tr>\n\
+						</tbody>\n\
+					</table>\n\
+				</form>\n\
+			</fieldset>";
 		//alert(json);
-		
 		json.comment.each(function(comment){
 			newContent+="\
 			<form method='POST' action='${aktServlet}'>\n\
@@ -50,7 +76,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15'>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
 			}else{
 				newContent+="\
 								</form>\n\
@@ -58,15 +84,13 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15' readonly>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
 			}
 			newContent+="\
 					</div>\n\
 				</div>\n\
 			</form>";
 		});
-		
-		
 		$('allComments41Docu').set('html', newContent);
 	}
 	function getShowAllComments41DocumentJSON(documentId){
@@ -84,7 +108,30 @@
 	
 	/* CommentProject AJAX */
 	function updateShowAllComments41Project(json){
-		var newContent = '';
+		var newContent = "\
+			<h3>Neuen Comment hinzufügen</h3>\n\
+			<fieldset>\n\
+				<legend>Neuen Comment hinzufügen</legend>\n\
+				<form method='POST' action='${sessionScope.aktServlet}'>\n\
+					<input name='do' value='CommentProject' type='hidden' />\n\
+					<input name='projectName' value='${aktProject}' type='hidden' />\n\
+					<table border='0' cellspacing='3'>\n\
+						<tbody>\n\
+							<tr>\n\
+								<td>\n\
+									<label for='entry'>Comment:</label><br />\n\
+									<textarea name='entry' cols='75' rows='1'>Comment</textarea>\n\
+								</td>\n\
+							</tr>\n\
+							<tr>\n\
+								<td>\n\
+									<input value='Add' type='submit' />\n\
+								</td>\n\
+							</tr>\n\
+						</tbody>\n\
+					</table>\n\
+				</form>\n\
+			</fieldset>";
 		//alert(json);
 		json.comment.each(function(comment){
 			newContent+="\
@@ -112,7 +159,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15'>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
 			}else{
 				newContent+="\
 								</form>\n\
@@ -120,7 +167,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15' readonly>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
 			}
 			newContent+="\
 					</div>\n\
@@ -145,7 +192,30 @@
 	
 	/* CommentSourcecode AJAX */
 	function updateShowAllComments41Source(json){
-		var newContent = '';
+		var newContent = "\
+			<h3>Neuen Comment hinzufügen</h3>\n\
+			<fieldset>\n\
+				<legend>Neuen Comment hinzufügen</legend>\n\
+				<form method='POST' action='${sessionScope.aktServlet}'>\n\
+					<input name='do' value='CommentSource' type='hidden' />\n\
+					<input name='sourcecodeId' value='${sourcecode.id}' type='hidden' />\n\
+					<table border='0' cellspacing='3'>\n\
+						<tbody>\n\
+							<tr>\n\
+								<td>\n\
+									<label for='entry'>Comment:</label><br />\n\
+									<textarea name='entry' cols='75' rows='1'>Comment</textarea>\n\
+								</td>\n\
+							</tr>\n\
+							<tr>\n\
+								<td>\n\
+									<input value='Add' type='submit' />\n\
+								</td>\n\
+							</tr>\n\
+						</tbody>\n\
+					</table>\n\
+				</form>\n\
+			</fieldset>";
 		//alert(json);
 		json.comment.each(function(comment){
 			newContent+="\
@@ -173,7 +243,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15'>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
 			}else{
 				newContent+="\
 								</form>\n\
@@ -181,7 +251,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15' readonly>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
 			}
 			newContent+="\
 					</div>\n\
@@ -206,7 +276,30 @@
 	
 	/* CommentTask AJAX */
 	function updateShowAllComments41Task(json){
-		var newContent = '';
+		var newContent = "\
+			<h3>Neuen Comment hinzufügen</h3>\n\
+			<fieldset>\n\
+				<legend>Neuen Comment hinzufügen</legend>\n\
+				<form method='POST' action='${sessionScope.aktServlet}'>\n\
+					<input name='do' value='CommentTask' type='hidden' />\n\
+					<input name='taskId' value='${task.id}' type='hidden' />\n\
+					<table border='0' cellspacing='3'>\n\
+						<tbody>\n\
+							<tr>\n\
+								<td>\n\
+									<label for='entry'>Comment:</label><br />\n\
+									<textarea name='entry' cols='75' rows='1'>Comment</textarea>\n\
+								</td>\n\
+							</tr>\n\
+							<tr>\n\
+								<td>\n\
+									<input value='Add' type='submit' />\n\
+								</td>\n\
+							</tr>\n\
+						</tbody>\n\
+					</table>\n\
+				</form>\n\
+			</fieldset>";
 		//alert(json);
 		json.comment.each(function(comment){
 			newContent+="\
@@ -234,7 +327,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15'>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
 			}else{
 				newContent+="\
 								</form>\n\
@@ -242,7 +335,7 @@
 						</h1>\n\
 					</div>\n\
 					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='15' readonly>"+ comment.entry +"</textarea>";
+						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
 			}
 			newContent+="\
 					</div>\n\

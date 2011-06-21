@@ -13,8 +13,8 @@
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
 	<h1>Documents</h1>
-	<c:forEach items="${documentList}" var="document" varStatus="i">
-		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentID=${document.id}">${document.dateiname}</a><br>
+	<c:forEach items="${documentList}" var="docu" varStatus="i">
+		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentId=${docu.id}">${docu.dateiname}</a><br>
 	</c:forEach>
 </div>
 
@@ -24,11 +24,23 @@
 		<jsp:include page='../addNewDocu.jsp' />
 	</div>
 	<div id="infoBoxBig">
-		<form>
-			<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
+		<h3>Aktuelles Dokument anzeigen</h3>
+		<fieldset>
+			<legend>Aktuelles Dokument</legend>
+			<form>
+				<table border="0" cellspacing="3">
+					<tbody>
+						<tr>
+							<td>
+								<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
 ${documentContent}
-			</textarea>
-		</form>
+								</textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</fieldset>
 	</div>
 	<div id="infoBoxBig">
 		
