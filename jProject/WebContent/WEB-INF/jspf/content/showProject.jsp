@@ -51,7 +51,7 @@
 		<!--TODO OUTSOURCING DELETEMEMBER-->
 		<c:choose>
 			<c:when test="${aktServlet != 'AdminServlet'}">
-				<form method="POST" action="${sessionScope.aktServlet}">
+				<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmSelfDeleteMember()">
 					<input name="do" value="DeleteMember" type="hidden" />
 					<input name="loginName" value="${sessionScope.aktUser}" type="hidden" />
 					<input value="Eigene Mitgliedschaft beenden" type="submit">
@@ -106,7 +106,7 @@
 	<div id="rightBox">
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedDeleteMember == true}">
-				<form method="POST" action="${sessionScope.aktServlet}">
+				<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteMember()">
 					<input name="do" value="DeleteMember" type="hidden" />
 					<input name="loginName" value="${member.user}" type="hidden" />
 					<input value="Diesen Member löschen" type="submit">

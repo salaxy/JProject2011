@@ -57,6 +57,7 @@ public class CommentManager {
 	
 	
 	public CommentManager(){
+		logger.setLevel(Level.DEBUG);
 		documentDA = DAFactory.getDAFactory().getDocumentDA();
 		sourcecodeDA = DAFactory.getDAFactory().getSourcecodeDA();
 		commentDA = DAFactory.getDAFactory().getCommentDA();

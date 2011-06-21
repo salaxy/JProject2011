@@ -52,5 +52,5 @@ Password zu int machen wegen hashwert = int
 		
 
 Fragen Stefan Pratsch:
-redirect zu anderer action? mit parametern?
+andere actions aufrufen
 Mootools hide show?

@@ -220,7 +220,6 @@ public class SourceManager {
 	 */
 	public Sourcecode showSource(int sourceId)throws ProjectException{
 		
-		
 		logger.info("showSource()");
 		logger.debug("int sourceId("+sourceId+")");
 		
@@ -290,7 +289,7 @@ public class SourceManager {
 	 * @throws NullPointerException
 	 * @throws ProjectException
 	 */
-	public String showDocuContent(String projectName, int sourceId)throws NullPointerException, ProjectException{
+	public String showSourceContent(String projectName, int sourceId)throws NullPointerException, ProjectException{
 		
 		
 		

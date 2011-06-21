@@ -29,12 +29,13 @@
 	<div id="infoBoxBig">
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedAddNewTaskAction == true}">
-				
+				<!--
 				<a href="#" onclick="$('addNew').show();">Show</a>
 				<a href="#" onclick="$('addNew').hide();">Hide</a><br />
 				<div id="addNew">
 					hallo
 				</div>
+				-->
 				<script type="text/javascript"> 
 					var hide = false;
 					alert($('addNew'));
