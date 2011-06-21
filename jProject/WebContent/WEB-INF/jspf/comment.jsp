@@ -57,3 +57,24 @@ hallo
 		</table>
 	</form>
 </fieldset>
+
+
+<div id='comment'>\n\
+	<h1>"+ comment.id +" | "+ comment.user +"\
+		<form method='POST' action='${aktServlet}'>\n\
+			<input name='do' value='DeleteComment' type='hidden' />\n\
+			<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+			<input value='Delete' type='submit' >\n\
+				<img src='../../../images/delete.png' alt='delete' />\n\
+			</input>\n\
+		</form>\n\
+	</h1>\n\
+	<form method='POST' action='${aktServlet}'>\n\
+		<input name='do' value='UpdateComment' type='hidden' />\n\
+		<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+		<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
+		<input value='Update' type='submit'>\n\
+			<img src='../../../images/update.png' alt='update' />\n\
+		</input>\n\
+	</form>\n\
+</div>\n\

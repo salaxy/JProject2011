@@ -14,10 +14,6 @@ man kann sich einfach darüber in ein bestehendes Project als Leader einschreibe
 das ist der HACK schlechthin!!! XD >>>korretur ist in Arbeit
 <<<<<Ja das is mir auch schon aufgefallen, hatte ich wohl vergessen mit aufzuschreiben :D
 
-Bei allen ShowAll... methoden =>
-	Sortierte Listen wiedergeben, nach alphabet/id
-	im GUI wechselt immer die reihenfolge :/
-	Anmerkung: geht das überhaupt?...wegen den ...SetCollections? <<< bitte um Rücksprache
 
 
 DeleteMember => 
@@ -42,12 +38,7 @@ Datenbank
 
 Bekannte Fehler
 **********
-Umlaute im Projektnamen -> epic fail,
-EPIC aber koennen wir nichts dagegegen tun? Oo 
->>> (-.,;:!"§$%&/()=? )
-=>>> wird abgefangen Exception>>>>> DONE
-soll das letzte nen leerzeichen sein???? (habs erstma weg gelassen)
-Anmerkung: das waren nur beispiele...also...alle möglichen sonderzeichen rausfiltern...am besten über den ascii code (einen bereich festlegen)
-Anmerkung2: LEERZEICHEN dürfen nicht akzeptiert werden! Akzeptierte Zeichen: A-Z, a-z und 0-9 Zusatz: _-
+Das mit den Umlauten hab ich jetzt schon umgesetzt...deins war an einer ungünstigen stelle <.<
+zudem zu flach gedacht ;D ASCII 4 da WIN
 
 																		
