@@ -101,7 +101,12 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 //			}		
 			
 			JSONObject json = new JSONObject();
-		
+			JSONObject dummy = new JSONObject();
+			try {
+				json.append("dummy", dummy);
+			} catch (JSONException ex) {
+				java.util.logging.Logger.getLogger(ShowAllComments41DocuAction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			}
 			for (Comment comment : commentList) {
 				try {
 					JSONObject comm = new JSONObject();
