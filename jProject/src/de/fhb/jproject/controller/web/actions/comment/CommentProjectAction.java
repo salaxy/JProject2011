@@ -40,7 +40,7 @@ public class CommentProjectAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+					+ "String entry(" + req.getParameter("entry") + ")"
 					);
 		
 			//Parameter laden

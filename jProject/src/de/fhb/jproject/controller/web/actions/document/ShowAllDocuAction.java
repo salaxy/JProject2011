@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Document;
+import de.fhb.jproject.data.DocumentSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
@@ -36,7 +37,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		Set<Document> documentList = null;
+		DocumentSetCollection documentList = null;
 		Document document = null;
 		String documentContent = null;
 		
@@ -78,13 +79,15 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 					}		
 				}
 				//Manager in aktion
-				documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName()).getCollection();
+				documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName());
+				documentList.size();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
 			
 			try {
+				//TODO HIER MUSS EIN FEHLER SEIN!
 				//Wenn documentId == null dann gib mir den ersten
 				if (0 == documentId) {
 					documentId = ((Document)documentList.toArray()[0]).getId();
@@ -108,14 +111,21 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 				}
 				logger.debug("docuId: "+documentId);
 				document = mainManager.getDocumentManager().showDocu(documentId);
-				documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
+				
+				try {
+					documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
+				} catch (NullPointerException e) {
+					logger.info(e.getMessage(), e);
+					documentContent = "Kann Document nicht lesen! ";
+				}
+				
 			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+				logger.info(e.getMessage(), e);
 				documentContent = "Kann Document nicht lesen! ";
 			}
 			
 			//setzen der Parameter
-			req.setAttribute("documentList", documentList);
+			req.setAttribute("documentList", documentList.getCollection());
 			req.setAttribute("document", document);
 			req.setAttribute("documentContent", documentContent);
 			

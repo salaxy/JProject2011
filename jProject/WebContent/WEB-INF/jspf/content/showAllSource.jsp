@@ -24,11 +24,23 @@
 		<jsp:include page='../addNewSource.jsp' />
 	</div>
 	<div id="infoBoxBig">
-		<form>
-			<textarea cols="75" rows="5" readonly="true">${sourceode.id} ${sourcecode.dateiname}
+		<h3>Aktuellen Sourcecode anzeigen</h3>
+		<fieldset>
+			<legend>Aktueller Sourcecode</legend>
+			<form>
+				<table border="0" cellspacing="3">
+					<tbody>
+						<tr>
+							<td>
+								<textarea cols="75" rows="5" readonly="true">${sourceode.id} ${sourcecode.dateiname}
 ${sourcecodeContent}
-			</textarea>
-		</form>
+								</textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</fieldset>
 	</div>
 	<div id="infoBoxBig">
 		<a href="DataServlet?do=DownloadSource&sourcecodeId=${sourcecode.id}">Download ${sourcecode.dateiname}</a>

@@ -56,8 +56,8 @@
 					});
 				</script>
 				-->
-				<h3>Neuen Task hinzufügen</h3>
-				<fieldset>
+				<h3>Neuen Task hinzufügen<input type="checkbox" onclick="showHideText(this,'addBox');" /></h3>
+				<fieldset id="addBox" style="display:none;">
 					<legend>Neuen Task hinzufügen</legend>
 					<form method="POST" action="${sessionScope.aktServlet}">
 						<input name="do" value="AddNewTask" type="hidden" />
@@ -89,6 +89,7 @@
 		
 	</div>
 	<div id="infoBoxBig">
+		<h3>Aktueller Task anzeigen</h3>
 		<fieldset>
 			<legend>Aktueller Task</legend>
 			<form method="POST" action="${sessionScope.aktServlet}">

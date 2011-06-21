@@ -154,6 +154,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 			reqDisp.forward(req, resp);
 		}
+		logger.info("--------------------------------------------------------------------------------------");
 	}
 
 	/*
@@ -202,7 +203,7 @@ public class JProjectServlet extends HttpServletControllerBase {
 			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 			reqDisp.forward(req, resp);
 		}
-		
+		logger.info("--------------------------------------------------------------------------------------");
 	}
 
 

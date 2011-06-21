@@ -75,7 +75,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 				}
 				//Manager in aktion
 				sourcecodeList = mainManager.getSourceManager().showAllSource(aktProject.getName()).getCollection();
-			
+				sourcecodeList.size();
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
@@ -103,7 +103,14 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 				}
 				logger.debug("sourceId: "+sourcecodeId);
 				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
-				sourcecodeContent = mainManager.getSourceManager().showSourceContent(aktProject.getName(), sourcecodeId);
+				
+				try {
+					
+					sourcecodeContent = mainManager.getSourceManager().showSourceContent(aktProject.getName(), sourcecodeId);
+				} catch (NullPointerException e) {
+					logger.info(e.getMessage(), e);
+					sourcecodeContent = "Kann Sourcecode nicht lesen! ";
+				}
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 				sourcecodeContent = "Kann Sourcecode nicht lesen! ";

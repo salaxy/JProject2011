@@ -5,8 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h3>Neuen Sourcecode hinzufügen</h3>
-<fieldset>
+<h3>Neuen Sourcecode hinzufügen<input type="checkbox" onclick="showHideText(this,'addBox');" /></h3>
+<fieldset id="addBox" style="display:none;">
 	<legend>Neuen Sourcecode hinzufügen</legend>
 	<form method="POST" action="DataServlet" enctype="multipart/form-data">
 		<input type="hidden" name="do" value="AddNewSource" />

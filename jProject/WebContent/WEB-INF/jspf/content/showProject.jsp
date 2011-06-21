@@ -74,6 +74,52 @@
 	
 	<!--TODO OUTSOURCING SHOWMEMBER-->
 	<h1>${member.user}</h1>
+	
+	<div id="rightBox">
+		<c:choose>
+			<c:when test="${sessionScope.isAllowedDeleteMember == true}">
+				<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteMember()">
+					<input name="do" value="DeleteMember" type="hidden" />
+					<input name="loginName" value="${member.user}" type="hidden" />
+					<input value="Diesen Member löschen" type="submit">
+				</form>
+			</c:when>
+		</c:choose>
+	</div>
+	<div id="infoBoxSmall">
+		<h3>User Info</h3>
+		<fieldset>
+			<legend>User Info</legend>
+			<table border="0" cellspacing="3">
+				<tbody>
+					<tr>
+						<td>Username:</td>
+						<td>${user}</td>
+					</tr>
+					<tr>
+						<td>Vorname:</td>
+						<td>${user.vorname}</td>
+					</tr>
+					<tr>
+						<td>Nachname:</td>
+						<td>${user.nachname}</td>
+					</tr>
+					<tr>
+						<td>Sprache:</td>
+						<td>${user.sprache}</td>
+					</tr>
+					<tr>
+						<td>Globale Rolle:</td>
+						<td>${user.globalRole}</td>
+					</tr>
+					<tr>
+						<td>Projekt Rolle:</td>
+						<td>${member.projectRole}</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+	</div>
 	<div id="infoBoxSmall">
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedAddMember == true}">
@@ -100,17 +146,6 @@
 						</table>
 					</form>
 				</fieldset>
-			</c:when>
-		</c:choose>
-	</div>
-	<div id="rightBox">
-		<c:choose>
-			<c:when test="${sessionScope.isAllowedDeleteMember == true}">
-				<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteMember()">
-					<input name="do" value="DeleteMember" type="hidden" />
-					<input name="loginName" value="${member.user}" type="hidden" />
-					<input value="Diesen Member löschen" type="submit">
-				</form>
 			</c:when>
 		</c:choose>
 	</div>
