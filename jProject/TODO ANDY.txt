@@ -14,10 +14,10 @@ DeleteMember =>
 	- wenn nein Member entfernen.
 	>>> STATUS: vorbereitet!
 
-TODO Fehlende Debug infos
+TODO Fehlende Debug infos >>>> DONE
 
 deleteProject(String aktUser, String projectName)
-//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
+//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!! >>> DONE
 
 DA-Schicht
 **********
@@ -31,5 +31,8 @@ Datenbank
 Bekannte Fehler
 **********
 Umlaute im Projektnamen -> epic fail,
-EPIC aber koennen wir nichts dagegegen tun? Oo >>>  wird gefiltert (-.,;:!"§$%&/()=? )
+EPIC aber koennen wir nichts dagegegen tun? Oo 
+>>> (-.,;:!"§$%&/()=? )
+=>>> wird abgefangen Exception>>>>> DONE
+soll das letzte nen leerzeichen sein???? (habs erstma weg gelassen)
 																		
