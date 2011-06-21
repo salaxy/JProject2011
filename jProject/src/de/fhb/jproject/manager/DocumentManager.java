@@ -344,8 +344,9 @@ public class DocumentManager {
 	 * @throws IOException
 	 */
 	private void saveDocument(FileItem fileItem, String projectName) throws IOException{
-		
-		//TODO debuginfo		
+				
+		logger.info("saveDocument()");
+		logger.debug("FileItem fileItem("+fileItem+")");
 		logger.debug("String projectName("+projectName+")");
 		
 
@@ -377,7 +378,12 @@ public class DocumentManager {
 	 * @throws IOException
 	 */
 	private String getDocuContent(String filename, String projectName) throws IOException{
-		//TODO debuginfo
+		
+		logger.info("getDocuContent()");
+		logger.debug("String filename("+filename+")");
+		logger.debug("String projectName("+projectName+")");
+		
+		
 		File file = new File(path + projectName + "/Document/" + filename);
 		FileInputStream in=new FileInputStream(file); 
 		byte[] data = new byte[1024];
