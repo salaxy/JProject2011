@@ -172,6 +172,29 @@ public class ProjectManager {
 				
 		//EIGENTLICHE AKTIONEN
 		
+		// pruefen ob der Name sonderzeichen enthält
+		if(name.contains("-")
+				||name.contains(".")
+				||name.contains(",")
+				||name.contains(":")
+				||name.contains("!")
+				||name.contains("\"")
+				||name.contains("§")
+				||name.contains("$")
+				||name.contains("%")
+				||name.contains("&")
+				||name.contains("/")
+				||name.contains("(")
+				||name.contains(")")
+				||name.contains("=")
+				||name.contains("?"))
+		{
+			throw new ProjectException("Konnte Project nicht erstellen," +
+					"da eines der folgenden Sonderzeichen enthalten ist: " +
+					"-.,;:!\"§$%&/()=?");
+		}
+		
+		
 		//projekt holen
 		project=projectDA.createProject();
 		//project parameter setzen
