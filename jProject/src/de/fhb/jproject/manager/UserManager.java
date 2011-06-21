@@ -57,8 +57,7 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("deleteUser(String loginName)");
-        logger.debug("String loginName("+loginName+")"
-				);
+        logger.debug("String loginName("+loginName+")");
 		
 		try {
 			//loeschen des users
@@ -82,7 +81,7 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("showUserSettings()");
-		//TODO debuginfo loginName
+		logger.debug("String aktUser("+loginName+")");
 		
 		User user=null;
 		
@@ -113,7 +112,7 @@ public class UserManager {
 		
 		//debuglogging
 		logger.info("showUserInfo()");
-		//TODO debuginfo loginName
+		logger.debug("String loginName("+loginName+")");
 		
 		try {
 			//holen der daten
