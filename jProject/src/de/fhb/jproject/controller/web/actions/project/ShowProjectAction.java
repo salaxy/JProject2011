@@ -60,7 +60,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		
 		boolean isAllowedAddMemberAction = true;
 		boolean isAllowedDeleteMemberAction = true;
-		boolean isAllowedUpdateCommentAction = true;
 		
 		try {		
 			
@@ -129,18 +128,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, projectName)){
 						isAllowedDeleteMemberAction = false;
-					}			
-				}
-			} catch (ProjectException e) {
-				logger.info("isAllowedDeleteMemberAction NO!");
-			}
-			
-			try{
-				/* Darf der User Member löschen? (für GUI-Anzeige) */
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser, projectName)){
-						isAllowedUpdateCommentAction = false;
 					}			
 				}
 			} catch (ProjectException e) {
@@ -229,7 +216,6 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			session.setAttribute("aktProject", project);
 			session.setAttribute("isAllowedAddMember", isAllowedAddMemberAction);
 			session.setAttribute("isAllowedDeleteMember", isAllowedDeleteMemberAction);
-			session.setAttribute("isAllowedUpdateCommentAction", isAllowedUpdateCommentAction);
 			
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());

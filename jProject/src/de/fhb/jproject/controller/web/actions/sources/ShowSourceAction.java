@@ -54,7 +54,7 @@ public class ShowSourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.info(e.getMessage(), e);
 			}
 			
 			//EINGABEFEHLER ABFANGEN
@@ -74,7 +74,7 @@ public class ShowSourceAction extends HttpRequestActionBase {
 				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
 				sourcecodeContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), sourcecodeId);
 			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+				logger.info(e.getMessage(), e);
 				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 			}
 			

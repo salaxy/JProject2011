@@ -6,26 +6,30 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 hallo 
-<!--
-<div id='comment'>
-	<div id='commentheader'>
-		<h1>"+ comment.id +" | "+ comment.user +"
-			<div id='commentbuttons'>
-				<a href='${aktServlet}?do=UpdateComment&commentId="+comment.id+"'>
-					<img src='../../../images/update.png' alt='update' />
-				</a>
-				<a href='${aktServlet}?do=DeleteComment&commentId="+comment.id+"'>
-					<img src='../../../images/delete.png' alt='delete' />
-				</a>
-			</div>
-		</h1>
-	</div>
-	<div id='commentbody'>
-		<form method='POST' action='${aktServlet}'>
-			<textarea name='entry' cols='75' rows='15' readonly="+((comment.user != '${aktUser}') || ('${isAllowedUpdateCommentAction}' != 'true'))+">
+<form method='POST' action='${aktServlet}'>
+	<input name='do' value='UpdateComment' type='hidden' />
+	<input name='commentId' value='"+comment.id+"' type='hidden' />
+	<div id='comment'>
+		<div id='commentheader'>
+			<h1>"+ comment.id +" | "+ comment.user +"
+				<div id='commentbuttons'>
+					<form method='POST' action='${aktServlet}'>
+						<input name='do' value='DeleteComment' type='hidden' />
+						<input name='commentId' value='"+comment.id+"' type='hidden' />
+						<input value='Delete' type='submit' >
+							<img src='../../../images/delete.png' alt='delete' />
+						</input>
+					</form>
+					<input value='Update' type='submit'>
+						<img src='../../../images/update.png' alt='update' />
+					</input>
+				</div>
+			</h1>
+		</div>
+		<div id='commentbody'>
+			<textarea name='entry' cols='75' rows='15'>
 				"+ comment.entry +"
 			</textarea>
-		</form>
+		</div>
 	</div>
-</div>"
--->
+</form>

@@ -41,8 +41,8 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String commentId(" + req.getParameter("commentId") + ")"
-					+ "int inhalt(" + req.getParameter("inhalt") + "), "
+					+ "int commentId(" + req.getParameter("commentId") + ")"
+					+ "String entry(" + req.getParameter("entry") + "), "
 					);
 			
 				
@@ -55,7 +55,7 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 			} catch (NumberFormatException e) {
 				logger.error(e.getMessage(), e);
 			}
-			String entry = req.getParameter("inhalt");
+			String entry = req.getParameter("entry");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -74,7 +74,7 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 								isMine = true;
 							}
 							if (!isMine) {
-								throw new ProjectException("Sie haben keine Rechte zum updaten dieses Comments!");
+								throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Comments!");
 							}
 						}
 					}			

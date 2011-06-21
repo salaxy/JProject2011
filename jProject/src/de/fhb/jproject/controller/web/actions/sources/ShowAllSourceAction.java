@@ -103,7 +103,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 				}
 				logger.debug("sourceId: "+sourcecodeId);
 				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
-				sourcecodeContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), sourcecodeId);
+				sourcecodeContent = mainManager.getSourceManager().showSourceContent(aktProject.getName(), sourcecodeId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
