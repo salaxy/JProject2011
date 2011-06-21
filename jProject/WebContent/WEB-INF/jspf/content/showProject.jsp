@@ -134,7 +134,20 @@
 								<tr>
 									<td>
 										<label for="rolle">Rolle:</label><br />
-										<input name="rolle" value="${member.projectRole}" type="text" size="20" maxlength="30" />
+										<!--<input name="rolle" value="${member.projectRole}" type="text" size="20" maxlength="30" />-->
+										<select name="rolle" >
+											<c:forEach items="${projectRoles}" var="role" varStatus="i">
+												<c:choose>
+													<c:when test="${member.projectRole eq role}">
+														<option value="${role}" selected>${role}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${role}">${role}</option>
+													</c:otherwise>
+												</c:choose>
+
+											</c:forEach>
+										</select>
 									</td>
 								</tr>
 								<tr>
