@@ -6,8 +6,6 @@ DeleteDocument =>
 	Popup Bestätigung.
 DeleteSourcecode =>
 	Popup Bestätigung.
-DeleteMember =>
-	Popup Bestätigung.
 Adminconsole =>
 	User löschen + Popup Bestätigung,
 	usw.
@@ -24,10 +22,6 @@ TODO USERREDIRECTS
 
 Manager
 *********
-(DONE)ProjectManager =>
-	NEED ShowMember!(ohne Action)
-ProjectRoles =>
-	NEED showAllProjectRoles!(ohne Action)
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
