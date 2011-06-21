@@ -344,7 +344,11 @@ public class DocumentManager {
 	 * @throws IOException
 	 */
 	private void saveDocument(FileItem fileItem, String projectName) throws IOException{
-		//TODO debuginfo
+		
+		//TODO debuginfo		
+		logger.debug("String projectName("+projectName+")");
+		
+
 		File file = new File(path + projectName + "/Document/" + fileItem.getName());
 		FileOutputStream out = new FileOutputStream(file);
 		byte[] data = new byte[1024];
