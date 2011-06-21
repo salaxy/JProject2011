@@ -7,9 +7,6 @@ Controller
 
 Manager
 *********
-ProjectRoles =>
-	NEED showAllProjectRoles!(ohne Action) >>> DONE
-	
 DeleteMember => 
 	Überprüfen ob LETZTER Leader, 
 	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
@@ -17,9 +14,7 @@ DeleteMember =>
 	- wenn nein Member entfernen.
 	>>> STATUS: vorbereitet!
 
-Fehlende Debug infos >>>  DONE, solange wie keine weiteren Ausstände auffallen (mir selbst oder euch)
-
-UTF 8...ja ich wars doch, da war irgentwas anderes drin ...echt komisch..>>> DONE
+TODO Fehlende Debug infos
 
 deleteProject(String aktUser, String projectName)
 //TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!!
