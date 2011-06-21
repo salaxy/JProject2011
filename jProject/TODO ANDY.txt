@@ -12,7 +12,12 @@ Was mir selber aufgefallen ist:
 AddNewProject >>> Ueberprüfen ob project schon vorhanden, denn 
 man kann sich einfach darüber in ein bestehendes Project als Leader einschreiben (er macht dann nen update)
 das ist der HACK schlechthin!!! XD >>>korretur ist in Arbeit
+<<<<<Ja das is mir auch schon aufgefallen, hatte ich wohl vergessen mit aufzuschreiben :D
 
+Bei allen ShowAll... methoden =>
+	Sortierte Listen wiedergeben, nach alphabet/id
+	im GUI wechselt immer die reihenfolge :/
+	Anmerkung: geht das überhaupt?...wegen den ...SetCollections? <<< bitte um Rücksprache
 
 
 DeleteMember => 
@@ -22,7 +27,6 @@ DeleteMember =>
 	- wenn nein Member entfernen.
 	>>> STATUS: vorbereitet!
 
-TODO Fehlende Debug infos >>>> DONE
 
 deleteProject(String aktUser, String projectName)
 //TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!! >>> DONE
@@ -43,10 +47,7 @@ EPIC aber koennen wir nichts dagegegen tun? Oo
 >>> (-.,;:!"§$%&/()=? )
 =>>> wird abgefangen Exception>>>>> DONE
 soll das letzte nen leerzeichen sein???? (habs erstma weg gelassen)
-FUNZT ^^ :)
-Aber ich glaube diese Prüfung müssen wir nicht nur hier einbauen
-
-PS. bin dabei nen bissel am Testen alles Queer beet, ;)
-den restl. Tag mach ich dann erstma SE wegn morgen 
+Anmerkung: das waren nur beispiele...also...alle möglichen sonderzeichen rausfiltern...am besten über den ascii code (einen bereich festlegen)
+Anmerkung2: LEERZEICHEN dürfen nicht akzeptiert werden! Akzeptierte Zeichen: A-Z, a-z und 0-9 Zusatz: _-
 
 																		

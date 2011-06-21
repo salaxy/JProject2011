@@ -49,48 +49,49 @@
 					</table>\n\
 				</form>\n\
 			</fieldset>";
-		//alert(json);
-		json.comment.each(function(comment){
-			newContent+="\
-			<form method='POST' action='${aktServlet}'>\n\
-				<input name='do' value='UpdateComment' type='hidden' />\n\
-				<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-				<div id='comment'>\n\
-					<div id='commentheader'>\n\
-						<h1>"+ comment.id +" | "+ comment.user +"\
-							<div id='commentbuttons'>\n\
-								<form method='POST' action='${aktServlet}'>\n\
-									<input name='do' value='DeleteComment' type='hidden' />\n\
-									<input name='commentId' value='"+comment.id+"' type='hidden' />";
-							
-			if(comment.isAllowedUpdateCommentAction){
+		if(json.comment != null){
+			json.comment.each(function(comment){
 				newContent+="\
-									<input value='Delete' type='submit' >\n\
-										<img src='../../../images/delete.png' alt='delete' />\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<div id='comment'>\n\
+						<div id='commentheader'>\n\
+							<h1>"+ comment.id +" | "+ comment.user +"\
+								<div id='commentbuttons'>\n\
+									<form method='POST' action='${aktServlet}'>\n\
+										<input name='do' value='DeleteComment' type='hidden' />\n\
+										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+
+				if(comment.isAllowedUpdateCommentAction){
+					newContent+="\
+										<input value='Delete' type='submit' >\n\
+											<img src='../../../images/delete.png' alt='delete' />\n\
+										</input>\n\
+									</form>\n\
+									<input value='Update' type='submit'>\n\
+										<img src='../../../images/update.png' alt='update' />\n\
 									</input>\n\
-								</form>\n\
-								<input value='Update' type='submit'>\n\
-									<img src='../../../images/update.png' alt='update' />\n\
-								</input>\n\
-							</div>\n\
-						</h1>\n\
-					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
-			}else{
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+				}else{
+					newContent+="\
+									</form>\n\
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				}
 				newContent+="\
-								</form>\n\
-							</div>\n\
-						</h1>\n\
+						</div>\n\
 					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
-			}
-			newContent+="\
-					</div>\n\
-				</div>\n\
-			</form>";
-		});
+				</form>";
+			});
+		}
 		$('allComments41Docu').set('html', newContent);
 	}
 	function getShowAllComments41DocumentJSON(documentId){
@@ -99,7 +100,6 @@
 				url: "DataServlet?do=ShowAllComments41Docu&documentId="+documentId,
 				onComplete: updateShowAllComments41Document
 			}).get({'documentId':documentId});
-			alert(jsonRequest.toSource());
 			hide=true;
 		}else{
 			$('allComments41Docu').set('html', '');
@@ -133,48 +133,49 @@
 					</table>\n\
 				</form>\n\
 			</fieldset>";
-		//alert(json);
-		json.comment.each(function(comment){
-			newContent+="\
-			<form method='POST' action='${aktServlet}'>\n\
-				<input name='do' value='UpdateComment' type='hidden' />\n\
-				<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-				<div id='comment'>\n\
-					<div id='commentheader'>\n\
-						<h1>"+ comment.id +" | "+ comment.user +"\
-							<div id='commentbuttons'>\n\
-								<form method='POST' action='${aktServlet}'>\n\
-									<input name='do' value='DeleteComment' type='hidden' />\n\
-									<input name='commentId' value='"+comment.id+"' type='hidden' />";
-							
-			if(comment.isAllowedUpdateCommentAction){
+		if(json.comment != null){
+			json.comment.each(function(comment){
 				newContent+="\
-									<input value='Delete' type='submit' >\n\
-										<img src='../../../images/delete.png' alt='delete' />\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<div id='comment'>\n\
+						<div id='commentheader'>\n\
+							<h1>"+ comment.id +" | "+ comment.user +"\
+								<div id='commentbuttons'>\n\
+									<form method='POST' action='${aktServlet}'>\n\
+										<input name='do' value='DeleteComment' type='hidden' />\n\
+										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+
+				if(comment.isAllowedUpdateCommentAction){
+					newContent+="\
+										<input value='Delete' type='submit' >\n\
+											<img src='../../../images/delete.png' alt='delete' />\n\
+										</input>\n\
+									</form>\n\
+									<input value='Update' type='submit'>\n\
+										<img src='../../../images/update.png' alt='update' />\n\
 									</input>\n\
-								</form>\n\
-								<input value='Update' type='submit'>\n\
-									<img src='../../../images/update.png' alt='update' />\n\
-								</input>\n\
-							</div>\n\
-						</h1>\n\
-					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
-			}else{
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+				}else{
+					newContent+="\
+									</form>\n\
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				}
 				newContent+="\
-								</form>\n\
-							</div>\n\
-						</h1>\n\
+						</div>\n\
 					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
-			}
-			newContent+="\
-					</div>\n\
-				</div>\n\
-			</form>";
-		});
+				</form>";
+			});
+		}
 		$('allComments41Project').set('html', newContent);
 	}
 	function getShowAllComments41ProjectJSON(projectName){
@@ -217,48 +218,49 @@
 					</table>\n\
 				</form>\n\
 			</fieldset>";
-		//alert(json);
-		json.comment.each(function(comment){
-			newContent+="\
-			<form method='POST' action='${aktServlet}'>\n\
-				<input name='do' value='UpdateComment' type='hidden' />\n\
-				<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-				<div id='comment'>\n\
-					<div id='commentheader'>\n\
-						<h1>"+ comment.id +" | "+ comment.user +"\
-							<div id='commentbuttons'>\n\
-								<form method='POST' action='${aktServlet}'>\n\
-									<input name='do' value='DeleteComment' type='hidden' />\n\
-									<input name='commentId' value='"+comment.id+"' type='hidden' />";
-							
-			if(comment.isAllowedUpdateCommentAction){
+		if(json.comment != null){
+			json.comment.each(function(comment){
 				newContent+="\
-									<input value='Delete' type='submit' >\n\
-										<img src='../../../images/delete.png' alt='delete' />\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<div id='comment'>\n\
+						<div id='commentheader'>\n\
+							<h1>"+ comment.id +" | "+ comment.user +"\
+								<div id='commentbuttons'>\n\
+									<form method='POST' action='${aktServlet}'>\n\
+										<input name='do' value='DeleteComment' type='hidden' />\n\
+										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+
+				if(comment.isAllowedUpdateCommentAction){
+					newContent+="\
+										<input value='Delete' type='submit' >\n\
+											<img src='../../../images/delete.png' alt='delete' />\n\
+										</input>\n\
+									</form>\n\
+									<input value='Update' type='submit'>\n\
+										<img src='../../../images/update.png' alt='update' />\n\
 									</input>\n\
-								</form>\n\
-								<input value='Update' type='submit'>\n\
-									<img src='../../../images/update.png' alt='update' />\n\
-								</input>\n\
-							</div>\n\
-						</h1>\n\
-					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
-			}else{
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+				}else{
+					newContent+="\
+									</form>\n\
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				}
 				newContent+="\
-								</form>\n\
-							</div>\n\
-						</h1>\n\
+						</div>\n\
 					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
-			}
-			newContent+="\
-					</div>\n\
-				</div>\n\
-			</form>";
-		});
+				</form>";
+			});
+		}
 		$('allComments41Source').set('html', newContent);
 	}
 	function getShowAllComments41SourceJSON(sourcecodeId){
@@ -301,48 +303,49 @@
 					</table>\n\
 				</form>\n\
 			</fieldset>";
-		//alert(json);
-		json.comment.each(function(comment){
-			newContent+="\
-			<form method='POST' action='${aktServlet}'>\n\
-				<input name='do' value='UpdateComment' type='hidden' />\n\
-				<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-				<div id='comment'>\n\
-					<div id='commentheader'>\n\
-						<h1>"+ comment.id +" | "+ comment.user +"\
-							<div id='commentbuttons'>\n\
-								<form method='POST' action='${aktServlet}'>\n\
-									<input name='do' value='DeleteComment' type='hidden' />\n\
-									<input name='commentId' value='"+comment.id+"' type='hidden' />";
-							
-			if(comment.isAllowedUpdateCommentAction){
+		if(json.comment != null){
+			json.comment.each(function(comment){
 				newContent+="\
-									<input value='Delete' type='submit' >\n\
-										<img src='../../../images/delete.png' alt='delete' />\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<div id='comment'>\n\
+						<div id='commentheader'>\n\
+							<h1>"+ comment.id +" | "+ comment.user +"\
+								<div id='commentbuttons'>\n\
+									<form method='POST' action='${aktServlet}'>\n\
+										<input name='do' value='DeleteComment' type='hidden' />\n\
+										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+
+				if(comment.isAllowedUpdateCommentAction){
+					newContent+="\
+										<input value='Delete' type='submit' >\n\
+											<img src='../../../images/delete.png' alt='delete' />\n\
+										</input>\n\
+									</form>\n\
+									<input value='Update' type='submit'>\n\
+										<img src='../../../images/update.png' alt='update' />\n\
 									</input>\n\
-								</form>\n\
-								<input value='Update' type='submit'>\n\
-									<img src='../../../images/update.png' alt='update' />\n\
-								</input>\n\
-							</div>\n\
-						</h1>\n\
-					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
-			}else{
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+				}else{
+					newContent+="\
+									</form>\n\
+								</div>\n\
+							</h1>\n\
+						</div>\n\
+						<div id='commentbody'>\n\
+							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				}
 				newContent+="\
-								</form>\n\
-							</div>\n\
-						</h1>\n\
+						</div>\n\
 					</div>\n\
-					<div id='commentbody'>\n\
-						<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
-			}
-			newContent+="\
-					</div>\n\
-				</div>\n\
-			</form>";
-		});
+				</form>";
+			});
+		}
 		$('allComments41Task').set('html', newContent);
 	}
 	function getShowAllComments41TaskJSON(taskId){
