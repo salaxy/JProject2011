@@ -71,9 +71,9 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("addNewTask()");
-		//TODO debuginfo
 		logger.debug("String projectName("+projectName+")"
 				+"String titel("+titel+")"
+				+"String aufgabenStellung("+aufgabenStellung+")"
 				+"Date date("+date+")"
 				);	
 		
@@ -203,7 +203,7 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("showAllTasks()");
-		//TODO debuginfo
+		logger.debug("String projectName("+projectName+")");
 		
 		//projekt holen
 		try {
@@ -271,7 +271,7 @@ public class TaskManager {
 		
 		//debuglogging
 		logger.info("showAllOwnTasks()");
-		//TODO debuginfo aktUser
+		logger.debug("String aktUser("+aktUser+")");
 		
 		
 		//EIGENTLICHE AKTIONEN
