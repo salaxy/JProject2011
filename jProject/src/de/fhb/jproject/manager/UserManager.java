@@ -181,7 +181,7 @@ public class UserManager {
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
 				"String skype,String telefon, String sprache, " +
 				"String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)");
-		//TODO debuginfo loginName
+		logger.debug("String loginName("+loginName+")");
         logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
         		+",String "+telefonArray+", String "+sprache
         		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);
@@ -480,8 +480,14 @@ public class UserManager {
 	throws ProjectException{
 		
 		//debuglogging
-        logger.info("register(String aktUser, String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
-		//TODO debuginfo
+        logger.info("register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
+        logger.debug("String loginName("+loginName+")"
+				+"String loginName("+loginName+")"
+				+"String passwort("+passwort+")"
+				+"String passwortWdhl("+passwortWdhl+")"
+				+"String nachname("+nachname+")"
+				+"String vorname("+vorname+")"
+				);      
 		
 		User user=null;		
 		User userUeberpruf=null;
