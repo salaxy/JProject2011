@@ -3,7 +3,14 @@ package de.fhb.jproject.manager;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-
+/**
+ * Hauptmanager fuer die Aktionen (Haupt BO-Klasse),
+ * besitzt die Untermanager(BOs) zu den einzelnen Teilbereichen
+ * an Abfragen und Aktionen des systems
+ * 
+ * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>
+ * 
+ */
 public class MainManager{
 	
     private static final Logger rootLogger = Logger.getRootLogger();
