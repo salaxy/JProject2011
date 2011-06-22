@@ -10,8 +10,6 @@ Adminconsole =>
 	User löschen + Popup Bestätigung,
 	usw.
 ShowProject =>
-	Dropdown mögliche Rollen,
-	Member editieren(rollenvergabe),
 	Tasks Dieses Members anzeigen
 Übersicht =>
 	(optional)Projekt suchen
@@ -22,11 +20,6 @@ TODO USERREDIRECTS
 
 Manager
 *********
-DeleteMember => 
-	Überprüfen ob LETZTER Leader, 
-	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
-	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
-	- wenn nein Member entfernen.
 (Semesterferien)SearchProject -> 
 	Livesuche
 (Semesterferien)SearchUser -> 
@@ -47,4 +40,3 @@ Password zu int machen wegen hashwert = int
 
 Fragen Stefan Pratsch:
 andere actions aufrufen
-Mootools hide show?
