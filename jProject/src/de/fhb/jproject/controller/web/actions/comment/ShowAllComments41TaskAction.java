@@ -95,9 +95,6 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			if (commentList.isEmpty()) {
-				System.out.println("IS VOLLKOMMEN LEER!!!!");
-			}
 //			for( Comment c : commentList){
 //				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
 //			}		

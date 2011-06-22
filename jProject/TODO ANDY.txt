@@ -9,6 +9,9 @@ Manager
 *********
 TODO TESTEN, TESTEN, TESTEN!!!!!!!!!!
 
+AddNewMember =>
+	Member schon vorhanden?
+
 DA-Schicht
 **********
 
