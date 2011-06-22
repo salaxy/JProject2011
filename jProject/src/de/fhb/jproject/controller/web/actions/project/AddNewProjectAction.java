@@ -1,5 +1,6 @@
 package de.fhb.jproject.controller.web.actions.project;
 
+import de.fhb.commons.CheckString;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 	throws ServletException{
 		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
+		CheckString check = new CheckString();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		try {		
@@ -47,7 +49,6 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String userLoginName(" + req.getParameter("userLoginName") + "), "
 					+ "String projectName(" + req.getParameter("projectName") + ")"
 					+ "String status(" + req.getParameter("status") + ")"
 					);
@@ -61,33 +62,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			char [] projectNameChar;
-			
-			projectNameChar = projectName.toCharArray();
-			boolean accepted = false;
-			int x = 0;
-			for (char c : projectNameChar) {
-				accepted = false;
-				x = (int)c;
-				logger.debug("Char: "+c);
-				logger.debug("Value: "+x);
-				//Ist es eine Nummer? (48-57)
-				if(x<58 && x>47){
-					accepted = true;
-				}
-				//Ist es ein Buchstabe von A-Z (65-90)
-				if (accepted || (x<91 && x>64)) {
-					accepted = true;
-				}
-				//Ist es ein Buchstabe von a-z (97-122)
-				if (accepted || (x<123 && x>96)) {
-					accepted = true;
-				}
-				
-				if(!accepted){
-					throw new ProjectException("Ungültiger ProjectName!");
-				}
-			}
+			check.checkIT("Projectname",projectName);
 			
 			//RECHTE-ABFRAGE Global
 			try{
@@ -101,7 +76,9 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowProject", null);
+				String[] param = new String[1];
+				param[0] = "projectName="+projectName;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowProject", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

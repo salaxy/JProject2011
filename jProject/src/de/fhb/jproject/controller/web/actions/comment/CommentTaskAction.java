@@ -10,6 +10,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 
@@ -73,7 +74,13 @@ public class CommentTaskAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				String[] param = new String[1];
+				param[0] = "taskId="+taskId;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", param);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

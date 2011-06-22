@@ -60,6 +60,7 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			//yyyy-mm-dd <<< muss sooo aussehen
 			//Date date = Date.valueOf(req.getParameter("date"));
 			Date date = null;
+			int taskId = 0;
 			try {
 				date = Date.valueOf(req.getParameter("date"));
 			} catch (IllegalArgumentException e) {
@@ -79,13 +80,15 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				mainManager.getTaskManager().addNewTask(aktProject.getName(), titel, aufgabenstellung, date);
+				taskId = mainManager.getTaskManager().addNewTask(aktProject.getName(), titel, aufgabenstellung, date);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
+				String[] param = new String[1];
+				param[0] = "taskId="+taskId;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

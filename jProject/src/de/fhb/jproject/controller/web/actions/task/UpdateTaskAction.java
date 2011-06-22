@@ -108,11 +108,12 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
+				String[] param = new String[1];
+				param[0] = "taskId="+taskId;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
-
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

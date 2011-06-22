@@ -66,7 +66,11 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
+			try {
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllUser", null);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

@@ -61,7 +61,7 @@ public class TaskManager {
 	 * @param date
 	 * @throws ProjectException
 	 */
-	public void addNewTask(String projectName, String titel, String aufgabenStellung, Date date)
+	public int addNewTask(String projectName, String titel, String aufgabenStellung, Date date)
 	throws ProjectException{ 
 		
 		
@@ -113,6 +113,7 @@ public class TaskManager {
 			try {		
 
 				//Member speichern
+				clearSession();
 				terminDA.save(termin);
 			} catch (PersistentException e) {
 
@@ -128,6 +129,7 @@ public class TaskManager {
 		try {		
 			clearSession();
 			//Member speichern
+			
 			taskDA.save(task);
 		} catch (PersistentException e) {
 			
@@ -140,6 +142,7 @@ public class TaskManager {
 			}
 			throw new ProjectException("Konnte Task nicht speichern! "+ e.getMessage());
 		}
+		return task.getId();
 	}	
 	
 	/**
@@ -153,8 +156,6 @@ public class TaskManager {
 	public void  deleteTask(int taskId, String projectName)
 	throws ProjectException{ 
 		
-		//INFO: projektName ist zum loeschen an sich nicht notwendig,
-		//jedoch notwendig um die Rechte zum loeschen abzufragen
 		
 		Task task=null;
 		
@@ -365,6 +366,7 @@ public class TaskManager {
 		try {	
 			
 			//task loeschen
+			clearSession();
 			memberDA.save(assignMember);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
@@ -440,6 +442,7 @@ public class TaskManager {
 		try {	
 			
 			//task loeschen
+			clearSession();
 			memberDA.save(deassignMember);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Member nicht speichern! "+ e.getMessage());
@@ -527,6 +530,7 @@ public class TaskManager {
 			try {		
 				
 				//Member speichern
+				clearSession();
 				terminDA.save(termin);
 			} catch (PersistentException e) {
 				
@@ -542,6 +546,7 @@ public class TaskManager {
 		try {		
 			
 			//Member speichern
+			clearSession();
 			taskDA.save(task);
 		} catch (PersistentException e) {
 			

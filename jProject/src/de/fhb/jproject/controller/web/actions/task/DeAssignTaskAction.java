@@ -74,7 +74,9 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
+				String[] param = new String[1];
+				param[0] = "taskId="+taskId;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

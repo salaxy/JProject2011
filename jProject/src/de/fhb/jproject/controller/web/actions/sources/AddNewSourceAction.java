@@ -72,7 +72,7 @@ private MainManager mainManager;
 			
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllSource", null);
+				super.redirect(req, resp, "JProjectServlet", "ShowAllSource", null);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

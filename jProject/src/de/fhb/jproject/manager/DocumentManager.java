@@ -108,6 +108,7 @@ public class DocumentManager {
 				
 				try {
 					// alles speichern
+					clearSession();
 					docuDA.save(docu);
 					saveDocument(fileItem, project.getName());
 				} catch (PersistentException e) {
@@ -116,7 +117,7 @@ public class DocumentManager {
 					try {
 					docuDA.delete(docu);
 					} catch (PersistentException g){
-						throw new ProjectException("Konnte Dokument nach Fehlschlag nicht aus der Datenbank l�schen!");
+						throw new ProjectException("Konnte Dokument nach Fehlschlag nicht aus der Datenbank loeschen!");
 					}
 					throw new ProjectException("Konnte Document nicht speichern! "+ e.getMessage());
 				}

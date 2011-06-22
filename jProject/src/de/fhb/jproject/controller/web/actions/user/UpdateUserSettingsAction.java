@@ -10,6 +10,7 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import javax.servlet.http.HttpSession;
 
 
@@ -88,7 +89,13 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			
 			//setzen der Parameter
 			
-			req.setAttribute("contentFile", "showUserSettings.jsp");
+			try {
+				String[] param = new String[1];
+				param[0] = "loginName="+loginName;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowUserSettings", param);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
