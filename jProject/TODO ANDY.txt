@@ -7,25 +7,7 @@ Controller
 
 Manager
 *********
-
-Was mir selber aufgefallen ist:
-AddNewProject >>> Ueberprüfen ob project schon vorhanden, denn 
-man kann sich einfach darüber in ein bestehendes Project als Leader einschreiben (er macht dann nen update)
-das ist der HACK schlechthin!!! XD >>>korretur ist in Arbeit
-<<<<<Ja das is mir auch schon aufgefallen, hatte ich wohl vergessen mit aufzuschreiben :D
-
-
-
-DeleteMember => 
-	Überprüfen ob LETZTER Leader, 
-	- wenn ja und noch Member vorhanden fragen ob Rechte übertragen oder PROJECT nach bestätigung unwiederruflich LÖSCHEN.
-	- wenn ja und keine Member mehr vorhanden Projekt unwiederruflich nach bestätigung löschen.
-	- wenn nein Member entfernen.
-	>>> STATUS: vorbereitet!
-
-
-deleteProject(String aktUser, String projectName)
-//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER!!!!!!! >>> DONE
+TODO TESTEN, TESTEN, TESTEN!!!!!!!!!!
 
 DA-Schicht
 **********
@@ -38,7 +20,5 @@ Datenbank
 
 Bekannte Fehler
 **********
-Das mit den Umlauten hab ich jetzt schon umgesetzt...deins war an einer ungünstigen stelle <.<
-zudem zu flach gedacht ;D ASCII 4 da WIN
 
 																		
