@@ -85,7 +85,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				member = mainManager.getProjectManager().showMember(aktUser, loginName, aktProject.getName());
+				member = mainManager.getProjectManager().showMember(loginName, aktProject.getName());
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}

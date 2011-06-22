@@ -23,33 +23,46 @@
 	<div id="infoBoxBig">
 		<jsp:include page='../addNewSource.jsp' />
 	</div>
-	<div id="infoBoxBig">
-		<h3>Aktuellen Sourcecode anzeigen</h3>
-		<fieldset>
-			<legend>Aktueller Sourcecode</legend>
-			<form>
-				<table border="0" cellspacing="3">
-					<tbody>
-						<tr>
-							<td>
-								<textarea cols="75" rows="5" readonly="true">${sourceode.id} ${sourcecode.dateiname}
+	<c:choose>
+		<c:when test="${!empty sourcecodeList}">
+			<div id="infoBoxBig">
+				<h3>Aktuellen Sourcecode anzeigen</h3>
+				<fieldset>
+					<legend>Aktueller Sourcecode</legend>
+					<form>
+						<table border="0" cellspacing="3">
+							<tbody>
+								<tr>
+									<td>
+										<textarea cols="75" rows="5" readonly="true">${sourceode.id} ${sourcecode.dateiname}
 ${sourcecodeContent}
-								</textarea>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</fieldset>
-	</div>
-	<div id="infoBoxBig">
-		<a href="DataServlet?do=DownloadSource&sourcecodeId=${sourcecode.id}">Download ${sourcecode.dateiname}</a>
-	</div>
+										</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+			<div id="infoBoxBig">
+				<a href="DataServlet?do=DownloadSource&sourcecodeId=${sourcecode.id}">Download ${sourcecode.dateiname}</a>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="infoBoxBig">
+				Kein Sourcecode vorhanden!
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 <div id="footercontent">
-	<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${sourcecode.id})" />
-	<div id="allComments41Source">
-		
-	</div>
+	<c:choose>
+		<c:when test="${!empty sourcecodeList}">
+			<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${sourcecode.id})" />
+			<div id="allComments41Source">
+
+			</div>
+		</c:when>
+	</c:choose>
 </div>
