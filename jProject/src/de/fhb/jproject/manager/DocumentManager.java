@@ -32,7 +32,7 @@ public class DocumentManager {
 	
 	private DocumentDA docuDA;
 	private ProjectDA projectDA;
-	private String path="F:/";
+	private String path="";
 	
 	private static final Logger logger = Logger.getLogger(DocumentManager.class);
 	
@@ -344,22 +344,26 @@ public class DocumentManager {
 	 * @throws IOException
 	 */
 	private void saveDocument(FileItem fileItem, String projectName) throws IOException{
-				
+		/* Process p = Runtime.getRuntime().exec("chmod 777 file.txt"); */		
 		logger.info("saveDocument()");
 		logger.debug("FileItem fileItem("+fileItem+")");
 		logger.debug("String projectName("+projectName+")");
 		
 
+		File dirFile = new File(path + projectName + "/Document/");
+		dirFile.mkdirs();
 		File file = new File(path + projectName + "/Document/" + fileItem.getName());
+		System.out.println("PATH: "+file.getAbsolutePath());
+		
 		FileOutputStream out = new FileOutputStream(file);
 		byte[] data = new byte[1024];
 	    int length=0;
 	    InputStream in = fileItem.getInputStream();
-		
+		/*
 		if (file.exists()) {
 			file.delete();
 		}
-		
+		*/
 	    file.createNewFile();
 		
 		//solange ich noch daten von inputstream erhalte speicher

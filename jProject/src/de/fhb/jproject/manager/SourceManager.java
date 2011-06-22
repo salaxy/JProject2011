@@ -342,16 +342,20 @@ public class SourceManager {
 		logger.debug("FileItem fileItem("+fileItem+")"
 				+ "String projectName("+projectName+")");
 		
+		File dirFile = new File(path + projectName + "/Sourcecode/");
+		dirFile.mkdirs();
 		File file = new File(path + projectName + "/Sourcecode/" + fileItem.getName());
+		System.out.println("PATH: "+file.getAbsolutePath());
+		
 		FileOutputStream out = new FileOutputStream(file);
 		byte[] data = new byte[1024];
 	    int length=0;
 	    InputStream in = fileItem.getInputStream();
-		
+		/*
 		if (file.exists()) {
 			file.delete();
 		}
-		
+		*/
 	    file.createNewFile();
 		
 		//solange ich noch daten von inputstream erhalte speicher
