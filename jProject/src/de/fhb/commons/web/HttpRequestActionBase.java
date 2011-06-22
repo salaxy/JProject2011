@@ -60,13 +60,20 @@ public abstract class HttpRequestActionBase {
 	protected void redirect(HttpServletRequest req, HttpServletResponse resp, String aktServlet, String action, String[] parameter) throws ServletException, IOException {
 		String redirectTo = "";
 		String params = "";
-		if (parameter != null) {
-			for (String param : parameter) {
-				params += "&"+param;
+		
+		if (action == null) {
+			redirectTo = aktServlet;
+			System.out.println("redirectTo: "+redirectTo);
+		}else{
+			if (parameter != null) {
+				for (String param : parameter) {
+					params += "&"+param;
+				}
 			}
+			redirectTo = aktServlet+"?do="+action+""+params;
+			System.out.println("redirectTo: "+redirectTo);
 		}
-		redirectTo = aktServlet+"?do="+action+""+params;
-		System.out.println("redirectTo: "+redirectTo);
+		
 		resp.sendRedirect(redirectTo);
 	}
 }
