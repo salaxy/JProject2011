@@ -404,9 +404,7 @@ public class ProjectRolesManager {
 		try {
 			projectRolesDA.loadProjectRolesByORMID(getMember(getUser(aktUser), getProject(projectName)).getProjectRole());
 		} catch (PersistentException ex) {
-			return false;
-		} catch (NullPointerException ex) {
-			return false;
+			throw new ProjectException("Konnte nicht überprüfen, ob Sie Member dieses Projektes sind! "+ex);
 		}
 		return true;
 	}
