@@ -41,6 +41,7 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();		
 		List<Comment> commentList=null;
 		boolean isAllowedUpdateCommentAction = true;
@@ -79,7 +80,7 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
-				logger.info("isAllowedDeleteMemberAction NO!");
+				logger.info("isAllowedUpdateCommentAction NO!");
 			}
 			//RECHTE-ABFRAGE Global
 			try{

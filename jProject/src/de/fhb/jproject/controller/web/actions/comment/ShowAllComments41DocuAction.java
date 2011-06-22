@@ -80,7 +80,7 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
-				logger.info("isAllowedDeleteMemberAction NO!");
+				logger.info("isAllowedUpdateCommentAction NO!");
 			}
 			//RECHTE-ABFRAGE Global
 			try{

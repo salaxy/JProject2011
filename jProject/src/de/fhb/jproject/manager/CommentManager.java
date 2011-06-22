@@ -460,7 +460,6 @@ public class CommentManager {
 	public List<Comment> showAllComments41Docu(String aktUser, String projectName, int documentId)
 	throws ProjectException{
 		
-		
 		List<Comment> list=null;
 		
 		//debuglogging
@@ -493,7 +492,6 @@ public class CommentManager {
 	public List<Comment>  showAllComments41Source(String aktUser, String projectName, int sourcecodeId)
 	throws ProjectException{
 		
-		
 		List<Comment> list=null;
 		
 		//debuglogging
@@ -523,7 +521,6 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Task(String aktUser, String projectName, int taskId)
 	throws ProjectException{
-		
 		
 		List<Comment> list=null;
 		
@@ -555,7 +552,6 @@ public class CommentManager {
 	 */
 	public List<Comment> showAllComments41Project(String aktUser, String projectName)
 	throws ProjectException{
-		
 		
 		List<Comment> list=null;
 		
