@@ -99,6 +99,11 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte den User nicht finden! "+ e1.getMessage());
 		}
+		
+		if (user == null) {
+			throw new ProjectException("Kein User gefunden!");
+		}
+		
 		try {
 			testMember = memberDA.loadMemberByORMID(user, project);
 		} catch (PersistentException e) {
