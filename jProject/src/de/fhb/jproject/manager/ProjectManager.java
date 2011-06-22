@@ -173,8 +173,17 @@ public class ProjectManager {
 		//EIGENTLICHE AKTIONEN
 		
 		
-		
-		//TODO ÜBERPRÜFEN OB PROJECT MIT DIESEM NAMEN SCHON EXISTIERT
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(name);
+		} catch (PersistentException e1) {
+			logger.debug("Project existiert noch nich! Alles Okay!");
+		}
+		//Überprüfen ob project schon existiert
+		if(project != null){
+			logger.error("Project existiert schon!");
+			throw new ProjectException("ProjectName Existiert schon! Bitte wählen Sie einen anderen Namen.");
+		}
 		
 		
 		
@@ -249,18 +258,19 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}			
 		
-		//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER! Sonst Exception
+		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER! Sonst Exception
+		//Anmerkung: und was ist wenns nen admin is?
 		for(Object m:project.member.getCollection()){
 			if(((Member)m).getProjectRole().equals("Leader")){
-				if(!((Member)m).getUserId().equals(aktUser))
-					throw new ProjectException("Sie können das Project icht löschen, da sie nicht der einzige Leader des Projectes sind! ");
+				if(!((Member)m).getUser().getLoginName().equals(aktUser))
+					throw new ProjectException("Sie können das Project nicht löschen, da sie nicht der einzige Leader des Projectes sind! ");
 			}
 		
 		}
 		
 		
 		//loeschen
-		//Info: Member werden automatisch gel�scht durch das cascade in der DB
+		//Info: Member werden automatisch geloescht durch das cascade in der DB
 		try {	
 			projectDA.delete(project);
 		} catch (PersistentException e) {
@@ -276,11 +286,12 @@ public class ProjectManager {
 	 */
 	public void deleteMember(String aktUser, String loginName, String projectName)
 	throws ProjectException{ 
-		
+		clearSession();
 		
 		Project project=null;
 		Member delMember=null;
 		User user=null;
+		boolean lastMember = false;
 		
 		//debuglogging
 		logger.info("deleteMember()");
@@ -294,6 +305,19 @@ public class ProjectManager {
 			loginName=aktUser;
 		}
 		
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+		}
+		
+		logger.debug("Memberanzahl = "+project.member.size());
+		if(project.member.size()<2){
+			logger.debug("Letzter Member im Project!");
+			lastMember = true;
+		}
+		
 		//User holen
 		try {
 			user=userDA.getUserByORMID(loginName);
@@ -301,12 +325,6 @@ public class ProjectManager {
 			throw new ProjectException("Konnte User nicht finden! "+ e1.getMessage());
 		}
 		
-		//projekt holen
-		try {
-			project=projectDA.getProjectByORMID(projectName);
-		} catch (PersistentException e1) {
-			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
-		}	
 		
 		//zuloeschenden Member holen
 		try {
@@ -314,23 +332,28 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte zu entfernenden Member nicht finden! "+ e1.getMessage());
 		}
-
-		if(project.member.size()<2){
-			//TODO villt extra exception
-			throw new ProjectException("Sie sind der letzte Member ! Wollen Sie das Prject loeschen?");
-		}
+		
+		
+		
 		
 		//TODO mhm wie soll man das dynamisch loesen??
+		/*
 		if(delMember.getProjectRole()=="Leader"){
 			//XXX villt extra exception??
 			throw new ProjectException("Sie sind Leader des Projects! Wollen Sie ihr Rechte an jemand anders uebertragen?");
 		}
-		
+		*/
 		//Member loeschen
 		try {
 			//Member loeschen
 			clearSession();
-			memberDA.delete(delMember);
+			
+			if (lastMember) {
+				logger.debug("Lösche Project!");
+				deleteProject(aktUser, projectName);
+			}else{
+				memberDA.delete(delMember);
+			}
 		} catch (PersistentException e) {
 			
 			throw new ProjectException("Konnte Member nicht entfernen! "+ e.getMessage());
