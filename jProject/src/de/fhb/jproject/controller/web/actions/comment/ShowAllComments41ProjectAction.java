@@ -17,6 +17,7 @@ import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +41,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
-		
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();		
 		List<Comment> commentList=null;
 		boolean isAllowedUpdateCommentAction = true;
@@ -58,6 +59,8 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			
+			logger.debug("aktProject"+aktProject.getName()); 
+			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
 			if(aktUser == null){
@@ -72,7 +75,7 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
-				logger.info("isAllowedDeleteMemberAction NO!");
+				logger.info("isAllowedUpdateCommentAction NO!");
 			}
 			//RECHTE-ABFRAGE Global
 			try{

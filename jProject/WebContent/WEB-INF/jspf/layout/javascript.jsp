@@ -133,44 +133,41 @@
 		if(json.comment != null){
 			json.comment.each(function(comment){
 				newContent+="\
-				<form method='POST' action='${aktServlet}'>\n\
-					<input name='do' value='UpdateComment' type='hidden' />\n\
-					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-					<div id='comment'>\n\
-						<div id='commentheader'>\n\
-							<h1>"+ comment.id +" | "+ comment.user +"\
-								<div id='commentbuttons'>\n\
-									<form method='POST' action='${aktServlet}'>\n\
-										<input name='do' value='DeleteComment' type='hidden' />\n\
-										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+			<div id='comment'>\n\
+				<h1>"+ comment.id +" | "+ comment.user +"\n\
+							";
 
 				if(comment.isAllowedUpdateCommentAction){
 					newContent+="\
-										<input value='Delete' type='submit' >\n\
-											<img src='../../../images/delete.png' alt='delete' />\n\
-										</input>\n\
-									</form>\n\
-									<input value='Update' type='submit'>\n\
-										<img src='../../../images/update.png' alt='update' />\n\
-									</input>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+					<form method='POST' action='${aktServlet}'>\n\
+						<input name='do' value='DeleteComment' type='hidden' />\n\
+						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+						<input value='Delete' type='submit' >\n\
+							<img src='../../../images/delete.png' alt='delete' />\n\
+						</input>\n\
+					</form>\n\
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
+					<br />\n\
+					<input value='Update' type='submit'>\n\
+						<img src='../../../images/update.png' alt='update' />\n\
+					</input>\n\
+							";
 				}else{
 					newContent+="\
-									</form>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4' readonly>"+ comment.entry +"</textarea>\n\
+							";
 				}
 				newContent+="\
-						</div>\n\
-					</div>\n\
-				</form>";
+				</form>\n\
+			</div>";
 			});
 		}
 		$('allComments41Project').set('html', newContent);
@@ -218,44 +215,41 @@
 		if(json.comment != null){
 			json.comment.each(function(comment){
 				newContent+="\
-				<form method='POST' action='${aktServlet}'>\n\
-					<input name='do' value='UpdateComment' type='hidden' />\n\
-					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-					<div id='comment'>\n\
-						<div id='commentheader'>\n\
-							<h1>"+ comment.id +" | "+ comment.user +"\
-								<div id='commentbuttons'>\n\
-									<form method='POST' action='${aktServlet}'>\n\
-										<input name='do' value='DeleteComment' type='hidden' />\n\
-										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+			<div id='comment'>\n\
+				<h1>"+ comment.id +" | "+ comment.user +"\n\
+							";
 
 				if(comment.isAllowedUpdateCommentAction){
 					newContent+="\
-										<input value='Delete' type='submit' >\n\
-											<img src='../../../images/delete.png' alt='delete' />\n\
-										</input>\n\
-									</form>\n\
-									<input value='Update' type='submit'>\n\
-										<img src='../../../images/update.png' alt='update' />\n\
-									</input>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+					<form method='POST' action='${aktServlet}'>\n\
+						<input name='do' value='DeleteComment' type='hidden' />\n\
+						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+						<input value='Delete' type='submit' >\n\
+							<img src='../../../images/delete.png' alt='delete' />\n\
+						</input>\n\
+					</form>\n\
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
+					<br />\n\
+					<input value='Update' type='submit'>\n\
+						<img src='../../../images/update.png' alt='update' />\n\
+					</input>\n\
+							";
 				}else{
 					newContent+="\
-									</form>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4' readonly>"+ comment.entry +"</textarea>\n\
+							";
 				}
 				newContent+="\
-						</div>\n\
-					</div>\n\
-				</form>";
+				</form>\n\
+			</div>";
 			});
 		}
 		$('allComments41Source').set('html', newContent);
@@ -303,44 +297,41 @@
 		if(json.comment != null){
 			json.comment.each(function(comment){
 				newContent+="\
-				<form method='POST' action='${aktServlet}'>\n\
-					<input name='do' value='UpdateComment' type='hidden' />\n\
-					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-					<div id='comment'>\n\
-						<div id='commentheader'>\n\
-							<h1>"+ comment.id +" | "+ comment.user +"\
-								<div id='commentbuttons'>\n\
-									<form method='POST' action='${aktServlet}'>\n\
-										<input name='do' value='DeleteComment' type='hidden' />\n\
-										<input name='commentId' value='"+comment.id+"' type='hidden' />";
+			<div id='comment'>\n\
+				<h1>"+ comment.id +" | "+ comment.user +"\n\
+							";
 
 				if(comment.isAllowedUpdateCommentAction){
 					newContent+="\
-										<input value='Delete' type='submit' >\n\
-											<img src='../../../images/delete.png' alt='delete' />\n\
-										</input>\n\
-									</form>\n\
-									<input value='Update' type='submit'>\n\
-										<img src='../../../images/update.png' alt='update' />\n\
-									</input>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>";
+					<form method='POST' action='${aktServlet}'>\n\
+						<input name='do' value='DeleteComment' type='hidden' />\n\
+						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+						<input value='Delete' type='submit' >\n\
+							<img src='../../../images/delete.png' alt='delete' />\n\
+						</input>\n\
+					</form>\n\
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
+					<br />\n\
+					<input value='Update' type='submit'>\n\
+						<img src='../../../images/update.png' alt='update' />\n\
+					</input>\n\
+							";
 				}else{
 					newContent+="\
-									</form>\n\
-								</div>\n\
-							</h1>\n\
-						</div>\n\
-						<div id='commentbody'>\n\
-							<textarea name='entry' cols='75' rows='1' readonly>"+ comment.entry +"</textarea>";
+				</h1>\n\
+				<form method='POST' action='${aktServlet}'>\n\
+					<input name='do' value='UpdateComment' type='hidden' />\n\
+					<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
+					<textarea name='entry' cols='75' rows='4' readonly>"+ comment.entry +"</textarea>\n\
+							";
 				}
 				newContent+="\
-						</div>\n\
-					</div>\n\
-				</form>";
+				</form>\n\
+			</div>";
 			});
 		}
 		$('allComments41Task').set('html', newContent);
