@@ -108,6 +108,12 @@ public class ProjectManager {
 		//testen ob neuer Member oder Update
 		if (testMember != null) {
 			//UPDATE MEMBER
+			
+			//TODO gucken ob noch min. ein member.projectrole == leader
+			//wenn nicht Exception(dasch der letzte leader, den kann man nich ändern)
+			//wenn ja, weiter wie gehabt
+			
+			
 			//rolle setzen
 			testMember.setProjectRole(rolle);
 			
