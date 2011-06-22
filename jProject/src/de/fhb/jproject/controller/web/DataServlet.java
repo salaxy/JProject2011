@@ -151,13 +151,17 @@ public class DataServlet extends HttpServletControllerBase {
 				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
 			}
 			logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-			reqDisp.forward(req, resp);
+			logger.info("sending naviFile: "+req.getAttribute("naviFile"));
+
+			if (resp.getHeader("Location") == null) {
+				RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+				reqDisp.forward(req, resp);
+			}
+			
 		}else{
 			super.doGet(req, resp);
 		}
-		
+		logger.info("--------------------------------------------------------------------------------------");
 		
 	}
 
@@ -227,12 +231,17 @@ public class DataServlet extends HttpServletControllerBase {
 				req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
 			}
 			logger.info("sending contentFile: "+req.getAttribute("contentFile"));
-		
-			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
-			reqDisp.forward(req, resp);
+			logger.info("sending naviFile: "+req.getAttribute("naviFile"));
+
+			if (resp.getHeader("Location") == null) {
+				RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
+				reqDisp.forward(req, resp);
+			}
+			
 		}else{
 			super.doPost(req, resp);
 		}
+		logger.info("--------------------------------------------------------------------------------------");
 	}
 	// <editor-fold defaultstate="collapsed" desc="Click on the + sign on the left to edit the code.">
 	/** 
