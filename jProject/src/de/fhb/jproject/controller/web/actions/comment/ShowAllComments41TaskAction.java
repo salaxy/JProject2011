@@ -91,11 +91,13 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				commentList=mainManager.getCommentManager().showAllComments41Source(aktUser, aktProject.getName(), taskId);
+				commentList=mainManager.getCommentManager().showAllComments41Task(aktUser, aktProject.getName(), taskId);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
-			
+			if (commentList.isEmpty()) {
+				System.out.println("IS VOLLKOMMEN LEER!!!!");
+			}
 //			for( Comment c : commentList){
 //				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
 //			}		
