@@ -1,11 +1,11 @@
 package de.fhb.jproject.controller.web.actions.user;
 
+import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class RegisterAction extends HttpRequestActionBase {
 	throws ServletException{	
 		
 		HttpSession session = req.getSession();
-		
+		CheckString check = new CheckString();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
@@ -62,6 +62,9 @@ public class RegisterAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			check.checkIT("Loginname",loginName);
+			check.checkIT("Vorname",vorname);
+			check.checkIT("Nachname",nachname);
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
@@ -73,7 +76,13 @@ public class RegisterAction extends HttpRequestActionBase {
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				String[] param = new String[1];
+				param[0] = "loginName="+loginName;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllUser", param);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

@@ -110,6 +110,7 @@ public class SourceManager {
 				
 				try {
 					// alles speichern
+					clearSession();
 					sourceDA.save(source);
 					saveSourcecode(fileItem, project.getName());
 				} catch (PersistentException e) {

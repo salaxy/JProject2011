@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 
 /**
+ * UNUSED
  * Action, die alle mitgeschickten Parameter ausgibt: 
  * <parametername>: <value>
  * 

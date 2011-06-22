@@ -80,7 +80,9 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 			}
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllSource", null);
+				String[] param = new String[1];
+				param[0] = "sourcecodeId="+sourcecodeId;
+				super.redirect(req, resp, "JProjectServlet", "ShowAllSource", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

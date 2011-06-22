@@ -76,7 +76,9 @@ private MainManager mainManager;
 			}
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllDocu", null);
+				String[] param = new String[1];
+				param[0] = "documentId="+documentId;
+				super.redirect(req, resp, "JProjectServlet", "ShowAllDocu", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}

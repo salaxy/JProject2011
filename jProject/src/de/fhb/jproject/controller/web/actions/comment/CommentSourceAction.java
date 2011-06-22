@@ -12,6 +12,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import java.io.IOException;
 import org.apache.log4j.Level;
 
 
@@ -70,13 +71,18 @@ public class CommentSourceAction extends HttpRequestActionBase {
 					}			
 				}
 				//Manager in aktion
-				logger.debug("hallo");
 				mainManager.getCommentManager().commentSource(aktUser, sourcecodeId, entry);
 			}catch(NullPointerException e){
 				logger.error(e.getMessage(), e);
 			}
 			
-
+			try {
+				String[] param = new String[1];
+				param[0] = "sourcecodeId="+sourcecodeId;
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllSource", param);
+			} catch (IOException e) {
+				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");

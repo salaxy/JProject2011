@@ -109,9 +109,33 @@ public class ProjectManager {
 		if (testMember != null) {
 			//UPDATE MEMBER
 			
-			//TODO gucken ob noch min. ein member.projectrole == leader
-			//wenn nicht Exception(dasch der letzte leader, den kann man nich ändern)
-			//wenn ja, weiter wie gehabt
+			//Wenn die Alte Rolle == Leader, dann beachte
+			if (testMember.getProjectRole().equals("Leader") && !rolle.equals("Leader")) {
+				clearSession();
+			
+			
+				//projekt holen
+				try {
+					project=projectDA.getProjectByORMID(projectName);
+				} catch (PersistentException e1) {
+					throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
+				}
+
+
+				int i = 0;
+				for (Object mem : project.member.getCollection()) {
+					if (!(i>=2)) {
+						
+						if (((Member)mem).getProjectRole().equals("Leader")) {
+							i++;
+							//logger.debug("Member "+((Member)mem).getUser().getLoginName()+" ist der "+i+". Leader!");
+						}
+					}
+				}
+				if (i<2) {
+					throw new ProjectException("Ein Project muss mindestens ein Leader haben!");
+				}
+			}
 			
 			
 			//rolle setzen
@@ -318,11 +342,7 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
 		
-		logger.debug("Memberanzahl = "+project.member.size());
-		if(project.member.size()<2){
-			logger.debug("Letzter Member im Project!");
-			lastMember = true;
-		}
+		
 		
 		//User holen
 		try {
@@ -340,15 +360,39 @@ public class ProjectManager {
 		}
 		
 		
-		
-		
-		//TODO mhm wie soll man das dynamisch loesen??
-		/*
-		if(delMember.getProjectRole()=="Leader"){
-			//XXX villt extra exception??
-			throw new ProjectException("Sie sind Leader des Projects! Wollen Sie ihr Rechte an jemand anders uebertragen?");
+		clearSession();
+		//projekt holen
+		try {
+			project=projectDA.getProjectByORMID(projectName);
+		} catch (PersistentException e1) {
+			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}
-		*/
+		
+		logger.debug("Memberanzahl = "+project.member.size());
+		if(project.member.size()<2){
+			logger.debug("Letzter Member im Project!");
+			lastMember = true;
+		}else{
+			if (delMember.getProjectRole().equals("Leader")) {
+				int i = 0;
+				for (Object mem : project.member.getCollection()) {
+					if (!(i>=2)) {
+
+						if (((Member)mem).getProjectRole().equals("Leader")) {
+							i++;
+							//logger.debug("Member "+((Member)mem).getUser().getLoginName()+" ist der "+i+". Leader!");
+						}
+					}
+				}
+				if (i<2) {
+					throw new ProjectException("Ein Project muss mindestens ein Leader haben! "
+							+ "<br>Löschen Sie bitte vorher alle anderen Member um das Project zu löschen "
+							+ "<br>oder übergeben Sie Ihre Rechte an einen anderen Member.");
+				}
+			}
+			
+		}
+		
 		//Member loeschen
 		try {
 			//Member loeschen
