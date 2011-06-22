@@ -232,6 +232,7 @@ public class ProjectManager {
 		//Project speichern
 		try {
 			//Member speichern
+			clearSession();
 			projectDA.save(project);
 		} catch (PersistentException e) {
 			

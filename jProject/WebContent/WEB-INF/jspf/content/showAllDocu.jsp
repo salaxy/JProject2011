@@ -23,34 +23,46 @@
 	<div id="infoBoxBig">
 		<jsp:include page='../addNewDocu.jsp' />
 	</div>
-	<div id="infoBoxBig">
-		<h3>Aktuelles Dokument anzeigen</h3>
-		<fieldset>
-			<legend>Aktuelles Dokument</legend>
-			<form>
-				<table border="0" cellspacing="3">
-					<tbody>
-						<tr>
-							<td>
-								<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
+	<c:choose>
+		<c:when test="${!empty documentList}">
+			<div id="infoBoxBig">
+				<h3>Aktuelles Dokument anzeigen</h3>
+				<fieldset>
+					<legend>Aktuelles Dokument</legend>
+					<form>
+						<table border="0" cellspacing="3">
+							<tbody>
+								<tr>
+									<td>
+										<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
 ${documentContent}
-								</textarea>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</fieldset>
-	</div>
-	<div id="infoBoxBig">
-		
-		<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">Download ${document.dateiname}</a>
-	</div>
+										</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+			<div id="infoBoxBig">
+				<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">Download ${document.dateiname}</a>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="infoBoxBig">
+				Kein Document vorhanden!
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 <div id="footercontent">
-	<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${document.id})" />
-	<div id="allComments41Docu">
-		
-	</div>
+	<c:choose>
+		<c:when test="${!empty documentList}">
+			<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${document.id})" />
+			<div id="allComments41Docu">
+
+			</div>
+		</c:when>
+	</c:choose>
 </div>

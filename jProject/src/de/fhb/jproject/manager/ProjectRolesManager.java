@@ -378,6 +378,9 @@ public class ProjectRolesManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
+		if (aktMember == null) {
+			throw new ProjectException("Der User ist kein Member in diesem Project!");
+		}
 		return aktMember;
 	}
 	private User getUser(String loginName)throws ProjectException{
