@@ -32,7 +32,7 @@ public class DocumentManager {
 	
 	private DocumentDA docuDA;
 	private ProjectDA projectDA;
-	private String path="";
+	private String path="Projects/";
 	
 	private static final Logger logger = Logger.getLogger(DocumentManager.class);
 	

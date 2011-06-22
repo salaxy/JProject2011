@@ -35,7 +35,7 @@ public class SourceManager {
 	
 	private SourcecodeDA sourceDA;
 	private ProjectDA projectDA;
-	private String path="F:/";
+	private String path="Projects/";
 	
 	private static final Logger logger = Logger.getLogger(SourceManager.class);
 	
