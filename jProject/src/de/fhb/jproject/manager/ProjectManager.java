@@ -532,7 +532,7 @@ public class ProjectManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public Member showMember(String aktUser, String loginName, String projectName)
+	public Member showMember(String loginName, String projectName)
 	throws ProjectException{
 		clearSession();
 		Project project = null;
@@ -541,8 +541,7 @@ public class ProjectManager {
 		
 		//debuglogging
 		logger.info("showMember()");
-		logger.debug("User aktUser("+aktUser+")"
-				+ "User aktUser("+aktUser+")"
+		logger.debug("String loginName("+loginName+")"
 				+ "String name("+projectName+")");
 		
 		
