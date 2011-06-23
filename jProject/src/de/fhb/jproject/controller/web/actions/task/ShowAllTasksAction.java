@@ -51,6 +51,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 		
 		boolean isAllowedUpdateTaskAction = true;
 		boolean isAllowedAddNewTaskAction = true;
+		boolean isAllowedDeleteTaskAction = true;
 		
 		try {				
 			
@@ -69,7 +70,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.info("Konnte TaskID nicht entziffern! Zeige erstes Element in Liste an. ", e);
 			}
 			
 			//EINGABEFEHLER ABFANGEN
@@ -77,22 +78,34 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+			
+			try {
+				/* Darf der User Tasks löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks dieses Projektes!");
-						}
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteTaskAction(aktUser, aktProject.getName())){
+						isAllowedDeleteTaskAction = false;
+						logger.info("isAllowedDeleteTaskAction NO!");
 					}			
 				}
-				//Manager in aktion
-				taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteTaskAction NO!");
 			}
+			
+			
+			
+			//RECHTE-ABFRAGE Global
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks dieses Projektes!");
+					}
+				}			
+			}
+			//Manager in aktion
+			taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
+			
 			
 			
 			try {
@@ -121,37 +134,29 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			
 			
 			
-			try{
+			if (!taskList.isEmpty()) {
 				//Wenn taskId == null dann gib mir den ersten
 				if (0 == taskId) {
 					taskId = taskList.get(0).getId();
 				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("TaskID ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
-			}catch(NullPointerException e){
-				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
 			}
 			
-			try {
-				//TODO DRINGEND RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
-					}			
-				}
-				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			//TODO DRINGEND RECHTEABFRAGE
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
+				}			
 			}
+			task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
+			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
 			
-			session.setAttribute("isAllowedUpdateTaskAction", isAllowedUpdateTaskAction);
-			session.setAttribute("isAllowedAddNewTaskAction", isAllowedAddNewTaskAction);
+			req.setAttribute("isAllowedUpdateTaskAction", isAllowedUpdateTaskAction);
+			req.setAttribute("isAllowedAddNewTaskAction", isAllowedAddNewTaskAction);
+			req.setAttribute("isAllowedDeleteTaskAction", isAllowedDeleteTaskAction);
 			
 			req.setAttribute("contentFile", "showAllTasks.jsp");
 		}catch (ProjectException e) {

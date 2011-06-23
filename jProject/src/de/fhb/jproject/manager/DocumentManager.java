@@ -173,6 +173,7 @@ public class DocumentManager {
 			
 			
 			//docu loeschen
+			clearSession();
 			docuDA.delete(docu);
 			docuFile.delete();
 		} catch (PersistentException e) {

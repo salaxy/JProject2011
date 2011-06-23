@@ -73,16 +73,20 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte TaskID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige TaskID!");
 			}
 			String titel = req.getParameter("titel");
 			String aufgabenstellung = req.getParameter("aufgabenstellung");
 			//yyyy-mm-dd <<< muss sooo aussehen
 			Date date = null;
 			try {
-				date = Date.valueOf(req.getParameter("date"));
+				if (date != null) {
+					date = Date.valueOf(req.getParameter("date"));
+				}
 			} catch (IllegalArgumentException e) {
-				logger.info(e.getMessage(), e);
+				logger.error("Konnte Datum nicht entziffern! ", e);
+				throw new ProjectException("Ungültiges Datum!");
 			}
 			boolean done = Boolean.getBoolean(req.getParameter("done"));
 			

@@ -55,7 +55,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.info("Konnte TaskID nicht entziffern! Zeige erstes Element in Liste an. ", e);
 			}
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt

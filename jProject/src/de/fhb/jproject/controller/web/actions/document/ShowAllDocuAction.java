@@ -41,6 +41,8 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 		Document document = null;
 		String documentContent = null;
 		
+		boolean isAllowedDeleteDocuAction = true;
+		
 		
 		try {		
 			
@@ -59,7 +61,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			try {
 				documentId = Integer.valueOf(req.getParameter("documentId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.info("Konnte DocumentID nicht entziffern! Zeige erstes Element in Liste an. ", e);
 			}
 			
 			//EINGABEFEHLER ABFANGEN
@@ -67,6 +69,20 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			
+			try {
+				/* Darf der User Dokumente löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteDocuAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteDocuAction(aktUser, aktProject.getName())){
+						isAllowedDeleteDocuAction = false;
+						logger.info("isAllowedDeleteDocuAction NO!");
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteDocuAction NO!");
+			}
+			
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser)){
@@ -128,6 +144,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			req.setAttribute("documentList", documentList.getCollection());
 			req.setAttribute("document", document);
 			req.setAttribute("documentContent", documentContent);
+			req.setAttribute("isAllowedDeleteDocuAction", isAllowedDeleteDocuAction);
 			
 			req.setAttribute("contentFile", "showAllDocu.jsp");
 		}catch (ProjectException e) {

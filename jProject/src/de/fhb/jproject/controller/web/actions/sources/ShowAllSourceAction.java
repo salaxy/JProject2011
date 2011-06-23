@@ -40,6 +40,9 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 		Set<Sourcecode> sourcecodeList = null;
 		Sourcecode sourcecode = null;
 		String sourcecodeContent = null;
+		
+		boolean isAllowedDeleteSourceAction = true;
+		
 		try {		
 			
 			//Debugprint
@@ -55,7 +58,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.info("Konnte SourcecodeID nicht entziffern! Zeige erstes Element in Liste an. ", e);
 			}
 			 
 			//EINGABEFEHLER ABFANGEN
@@ -63,13 +66,27 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			
+			try {
+				/* Darf der User Sourcecode löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteSourceAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedDeleteSourceAction(aktUser, aktProject.getName())){
+						isAllowedDeleteSourceAction = false;
+						logger.info("isAllowedDeleteSourceAction NO!");
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteSourceAction NO!");
+			}
+			
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllSourceAction(aktUser, aktProject.getName())){
 						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Sourcecodes dieses Projektes!");
+							throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Sourcecodes dieses Projektes!");
 						}
 					}			
 				}
@@ -120,6 +137,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			req.setAttribute("sourcecodeList", sourcecodeList);
 			req.setAttribute("sourcecode", sourcecode);
 			req.setAttribute("sourcecodeContent", sourcecodeContent);
+			req.setAttribute("isAllowedDeleteSourceAction", isAllowedDeleteSourceAction);
 			
 			req.setAttribute("contentFile", "showAllSource.jsp");
 		}catch (ProjectException e) {

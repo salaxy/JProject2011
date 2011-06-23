@@ -62,9 +62,12 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			Date date = null;
 			int taskId = 0;
 			try {
-				date = Date.valueOf(req.getParameter("date"));
+				if (date != null) {
+					date = Date.valueOf(req.getParameter("date"));
+				}
 			} catch (IllegalArgumentException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte Datum nicht entziffern! ", e);
+				throw new ProjectException("Ungültiges Datum!");
 			}
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt

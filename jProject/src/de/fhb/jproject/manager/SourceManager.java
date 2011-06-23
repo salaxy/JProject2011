@@ -173,6 +173,7 @@ public class SourceManager {
 			
 			
 			//sourcecode loeschen
+			clearSession();
 			sourceDA.delete(source);
 			sourceFile.delete();
 		} catch (PersistentException e) {

@@ -53,7 +53,7 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			try {
 				documentId = Integer.valueOf(req.getParameter("documentId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte DocumentID nicht entziffern! ", e);
 			}
 			String entry = req.getParameter("entry");
 			
@@ -62,19 +62,16 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
+			
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedCommentDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines DocumentComments!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getCommentManager().commentDocu(aktUser, documentId, entry);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedCommentDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedCommentDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines DocumentComments!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getCommentManager().commentDocu(aktUser, documentId, entry);
 			
 			try {
 				String[] param = new String[1];
@@ -84,10 +81,6 @@ public class CommentDocuAction extends HttpRequestActionBase {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

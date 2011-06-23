@@ -62,7 +62,8 @@ public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte SourcecodeID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige SourcecodeID!");
 			}
 			
 			//EINGABEFEHLER ABFANGEN
@@ -82,62 +83,53 @@ public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 				logger.info("isAllowedUpdateCommentAction NO!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41SourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41SourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller SourcecodeComments!");
-					}			
-				}
-				//Manager in aktion
-				commentList=mainManager.getCommentManager().showAllComments41Source(aktUser, aktProject.getName(), sourcecodeId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41SourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41SourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller SourcecodeComments!");
+				}			
 			}
+			//Manager in aktion
+			commentList=mainManager.getCommentManager().showAllComments41Source(aktUser, aktProject.getName(), sourcecodeId);
 			
 //			for( Comment c : commentList){
 //				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
 //			}		
 			
-			JSONObject json = new JSONObject();
-		
-			for (Comment comment : commentList) {
-				try {
-					JSONObject comm = new JSONObject();
-					comm.put("id", comment.getId());
-					comm.put("entry", comment.getEntry());
-					comm.put("user", comment.getUser());
-					if (comment.getUser().getLoginName().equals(aktUser)) {
-						comm.put("isAllowedUpdateCommentAction", true);
-					}else{
-						comm.put("isAllowedUpdateCommentAction", isAllowedUpdateCommentAction);
+			if (!commentList.isEmpty()) {
+				JSONObject json = new JSONObject();
+				for (Comment comment : commentList) {
+					try {
+						JSONObject comm = new JSONObject();
+						comm.put("id", comment.getId());
+						comm.put("entry", comment.getEntry());
+						comm.put("user", comment.getUser());
+						if (comment.getUser().getLoginName().equals(aktUser)) {
+							comm.put("isAllowedUpdateCommentAction", true);
+						}else{
+							comm.put("isAllowedUpdateCommentAction", isAllowedUpdateCommentAction);
+						}
+						json.append("comment", comm);
+						//json.append("comment", new JSONObject(comment));
+					} catch (JSONException e) {
+						logger.error("Konnte JSON nicht packen! "+e.getMessage(), e);
+						throw new ProjectException("Konnte JSON nicht packen! "+ e);
 					}
-					json.append("comment", comm);
-					//json.append("comment", new JSONObject(comment));
-				} catch (JSONException e) {
-					logger.error(e.getMessage(), e);
-					req.setAttribute("contentFile", "error.jsp");
-					req.setAttribute("errorString", e.getMessage());
 				}
-			}
-			resp.setContentType("application/json");
-			try {
-				//forward(req, resp, "/snippet.jsp");
-				resp.getWriter().println(json);
-			} catch (IOException e) {
-				logger.error(e.getMessage(), e);
-				req.setAttribute("contentFile", "error.jsp");
-				req.setAttribute("errorString", e.getMessage());
+				resp.setContentType("application/json");
+				try {
+					//forward(req, resp, "/snippet.jsp");
+					resp.getWriter().println(json);
+				} catch (IOException e) {
+					logger.error("Konnte JSON nicht senden! "+e.getMessage(), e);
+					throw new ProjectException("Konnte JSON nicht senden! "+ e);
+				}
 			}
 
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}		
+		}
 	}
 }

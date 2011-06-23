@@ -14,6 +14,9 @@
 	<!--TODO OUTSOURCING-->
 	<h1>Documents</h1>
 	<c:forEach items="${documentList}" var="docu" varStatus="i">
+		<c:if test="${isAllowedDeleteDocuAction}">
+			<input value="X" onclick="window.location.href = '${sessionScope.aktServlet}?do=DeleteDocu&documentId=${docu.id}';" type="button" />
+		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentId=${docu.id}">${docu.dateiname}</a><br>
 	</c:forEach>
 </div>

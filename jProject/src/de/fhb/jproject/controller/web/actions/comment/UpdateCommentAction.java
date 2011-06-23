@@ -56,7 +56,8 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 			try {
 				commentId = Integer.valueOf(req.getParameter("commentId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte CommentID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige CommentID!");
 			}
 			String entry = req.getParameter("entry");
 			
@@ -66,16 +67,17 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser, aktProject.getName())){
-						boolean isMine = false;
-						CommentSetCollection commentList = mainManager.getUserManager().getAktUser(aktUser).comment;
+			if(!mainManager.getGlobalRolesManager().isAllowedUpdateCommentAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedUpdateCommentAction(aktUser, aktProject.getName())){
+					boolean isMine = false;
+					CommentSetCollection commentList = mainManager.getUserManager().getAktUser(aktUser).comment;
+
+					if (!commentList.isEmpty()) {
 						commentList.size();
 						for (Object comment : commentList.getCollection()) {
 							int id = ((Comment)comment).getId();
-							
+
 							logger.debug("ID("+id+") == commentID("+commentId+") ==> "+(id == commentId));
 							if (id == commentId) {
 								isMine = true;
@@ -84,13 +86,11 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 						if (!isMine) {
 							throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Comments!");
 						}
-					}			
-				}
-				//Manager in aktion
-				mainManager.getCommentManager().updateComment(aktUser, aktProject.getName(), commentId, entry);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+					}
+				}			
 			}
+			//Manager in aktion
+			mainManager.getCommentManager().updateComment(aktUser, aktProject.getName(), commentId, entry);
 			
 			try {
 				String[] param = new String[1];
@@ -100,10 +100,6 @@ public class UpdateCommentAction extends HttpRequestActionBase {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
