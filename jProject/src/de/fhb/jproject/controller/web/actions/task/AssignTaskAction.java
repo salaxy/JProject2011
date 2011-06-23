@@ -43,13 +43,13 @@ public class AssignTaskAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "int taskId(" + req.getParameter("taskId") + ")"
-					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
+					+ "String loginName(" + req.getParameter("userLoginName") + ")"
 					);
 			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
-			String loginName = req.getParameter("userLoginName");
+			String loginName = req.getParameter("loginName");
 			int taskId = 0;
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));

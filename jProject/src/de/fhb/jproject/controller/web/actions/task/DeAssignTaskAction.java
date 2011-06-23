@@ -43,12 +43,12 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "int taskId(" + req.getParameter("taskId") + ")"
-					+ "String userLoginName(" + req.getParameter("userLoginName") + ")"
+					+ "String loginName(" + req.getParameter("loginName") + ")"
 					);
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
-			String loginName = req.getParameter("userLoginName");
+			String loginName = req.getParameter("loginName");
 			int taskId = 0;
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));

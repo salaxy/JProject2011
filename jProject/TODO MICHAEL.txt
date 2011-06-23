@@ -1,5 +1,6 @@
 GUI
 *********
+Logo verkleinern
 Adminconsole =>
 	User löschen,
 	Popup Bestätigung,
@@ -12,7 +13,6 @@ ShowProject =>
 Controller
 *********
 TODO USERREDIRECTS
-TODO REDIRECT -> ProjectException werfen!!!
 
 Manager
 *********

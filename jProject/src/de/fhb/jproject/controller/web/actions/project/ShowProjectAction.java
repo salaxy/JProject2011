@@ -12,6 +12,7 @@ import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
+import de.fhb.jproject.data.TaskSetCollection;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.GlobalRolesManager;
@@ -54,6 +55,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		Project project = null;
 		MemberSetCollection memberSet = null;
 		Member member = null;
+		TaskSetCollection memberTasks= null;
 		User user = null;
 		List<String> projectRoles = null;
 		
@@ -64,6 +66,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 		
 		boolean isAllowedAddMemberAction = true;
 		boolean isAllowedDeleteMemberAction = true;
+		boolean isAllowedShowAllTasksAction = true;
 		
 		try {		
 			
@@ -137,6 +140,18 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				logger.info("isAllowedDeleteMemberAction NO!");
 			}
 			
+			try{
+				/* Darf der User Member löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, projectName)){
+						isAllowedShowAllTasksAction = false;
+					}			
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedShowAllTasksAction NO!");
+			}
+			
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
@@ -144,6 +159,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				}			
 			}
 			memberSet = mainManager.getProjectManager().showAllMember(projectName);
+			
+			
 			
 			
 			if(!memberSet.isEmpty()){
@@ -172,6 +189,8 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					}
 					//Manager in aktion
 					user = mainManager.getUserManager().showUserInfo(member.getUser().getLoginName());
+					memberTasks = member.task;
+					memberTasks.size();
 				}
 				
 			}
@@ -212,6 +231,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());
 			req.setAttribute("member", member);
+			req.setAttribute("memberTasks", memberTasks.getCollection());
 			req.setAttribute("user", user);
 			req.setAttribute("project", project);
 			req.setAttribute("projectRoles", projectRoles);
