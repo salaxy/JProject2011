@@ -39,6 +39,7 @@ public class UserManager {
     public UserManager(){		
     	//debuglogging
 		logger.info("new UserControl()");
+		logger.setLevel(Level.DEBUG);
 		userDA = DAFactory.getDAFactory().getUserDA();
 		
     }
