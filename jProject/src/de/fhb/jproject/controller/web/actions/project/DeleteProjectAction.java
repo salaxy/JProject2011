@@ -59,18 +59,14 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteProjectAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getProjectManager().deleteProject(aktUser, projectName);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDeleteProjectAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getProjectManager().deleteProject(aktUser, projectName);
 			
 			try {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), null, null);
@@ -81,11 +77,6 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}
-		
+		}		
 	}
 }

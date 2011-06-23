@@ -34,6 +34,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException {
 		
@@ -63,33 +64,20 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				//TODO DRINGEND RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
-					}			
-				}
-				//Manager in aktion
-				taskList=mainManager.getTaskManager().showAllOwnTasks(aktUser);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			//TODO DRINGEND RECHTEABFRAGE
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
+				}			
 			}
-			try{
+			//Manager in aktion
+			taskList=mainManager.getTaskManager().showAllOwnTasks(aktUser);
+			if(!taskList.isEmpty()){
 				//Wenn taskId == null dann gib mir den ersten
 				if (0 == taskId) {
 					taskId = taskList.get(0).getId();
 				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("TaskID ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
-			}catch(NullPointerException e){
-				logger.error("Keine Tasks vorhanden!"+e.getMessage(), e);
-			}
-			
-			try {
 				//TODO DRINGEND RECHTEABFRAGE
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
@@ -98,9 +86,8 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 					}			
 				}
 				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
 			}
+				
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
@@ -110,11 +97,6 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

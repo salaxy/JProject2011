@@ -58,7 +58,6 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			String titel = req.getParameter("titel");
 			String aufgabenstellung = req.getParameter("aufgabenstellung");
 			//yyyy-mm-dd <<< muss sooo aussehen
-			//Date date = Date.valueOf(req.getParameter("date"));
 			Date date = null;
 			int taskId = 0;
 			try {
@@ -75,18 +74,14 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
-					}			
-				}
-				//Manager in aktion
-				taskId = mainManager.getTaskManager().addNewTask(aktProject.getName(), titel, aufgabenstellung, date);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
+				}			
 			}
+			//Manager in aktion
+			taskId = mainManager.getTaskManager().addNewTask(aktProject.getName(), titel, aufgabenstellung, date);
 			
 			try {
 				String[] param = new String[1];
@@ -99,11 +94,6 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

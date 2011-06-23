@@ -48,18 +48,12 @@ public class LogoutAction extends HttpRequestActionBase {
 				session.invalidate();
 			}
 			
-			//XXX syso entfernen
-			System.out.println("Erfolgreich ausgeloggt!");
+			logger.debug("Erfolgreich ausgeloggt!");
 
 		}catch(NullPointerException e){
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

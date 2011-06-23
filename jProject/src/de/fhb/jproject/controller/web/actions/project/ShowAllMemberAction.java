@@ -62,53 +62,46 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
-					}			
-				}
-				//Manager in aktion
-				memberSet=mainManager.getProjectManager().showAllMember(aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Member!");
+				}			
 			}
+			//Manager in aktion
+			memberSet=mainManager.getProjectManager().showAllMember(aktProject.getName());
 			
-			//RECHTE-ABFRAGE Global
-			try{
+			if (!memberSet.isEmpty()) {
+				//RECHTE-ABFRAGE Global
 				//TODO RECHTEABFRAGE
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Members!");
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Members!");
 					}			
 				}
 				//Manager in aktion
 				member = mainManager.getProjectManager().showMember(loginName, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-			}
-			//XXX Testausgabe
-			if (logger.getLevel()==Level.DEBUG) {
-				logger.debug("Size: "+memberSet.size());
+				
+				
+				//XXX Testausgabe
+				if (logger.getLevel()==Level.DEBUG) {
+					logger.debug("Size: "+memberSet.size());
 
-				for (Object o : memberSet.getCollection()) {
-					Member mem = (Member)o;
-					logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
+					for (Object o : memberSet.getCollection()) {
+						Member mem = (Member)o;
+						logger.debug("Member: "+mem.getUser()+" Projectname: "+mem.getProject().getName()+" ORMID: "+mem.getProject().getORMID()+" Status: "+mem.getProject().getStatus());
 
+					}
 				}
 			}
+			
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());
 			req.setAttribute("member", member);
 
 			req.setAttribute("contentFile", "showAllMember.jsp");
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

@@ -48,6 +48,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
@@ -96,20 +97,14 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Tasks!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getTaskManager().updateTask(aktProject.getName(), taskId, titel, aufgabenstellung, date, done);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedUpdateTaskAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Tasks!");
+				}			
 			}
-			
-			
+			//Manager in aktion
+			mainManager.getTaskManager().updateTask(aktProject.getName(), taskId, titel, aufgabenstellung, date, done);
 			
 			try {
 				String[] param = new String[1];
@@ -122,11 +117,6 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

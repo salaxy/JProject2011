@@ -63,22 +63,18 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateSourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					//TODO DRINGEND RECHTE_ABFRAGE
-					/*
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
-					}
-					 * 
-					 */
+			if(!mainManager.getGlobalRolesManager().isAllowedUpdateSourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				//TODO DRINGEND RECHTE_ABFRAGE
+				/*
+				if(!mainManager.getProjectRolesManager().isAllowedUpdateSourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
 				}
-				//Manager in aktion
-				mainManager.getSourceManager().updateSource(aktProject.getName(), data, sourcecodeId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+				 * 
+				 */
 			}
+			//Manager in aktion
+			mainManager.getSourceManager().updateSource(aktProject.getName(), data, sourcecodeId);
 			
 			try {
 				String[] param = new String[1];
@@ -86,16 +82,12 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 				super.redirect(req, resp, "JProjectServlet", "ShowAllSource", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+				//TODO DRINGEND BEI ALLEN REDIRECTS PROJECTEXCEPTION WERFEN!!!!!
 			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

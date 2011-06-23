@@ -59,18 +59,14 @@ public class AddMemberAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen/Bearbeiten eines Members!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getProjectManager().addMember(loginName, aktProject.getName(), rolle);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen/Bearbeiten eines Members!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getProjectManager().addMember(loginName, aktProject.getName(), rolle);
 			
 			try {
 				String[] param = new String[1];
@@ -83,11 +79,6 @@ public class AddMemberAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

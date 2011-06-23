@@ -69,18 +69,14 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getTaskManager().deleteTask(taskId, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getTaskManager().deleteTask(taskId, aktProject.getName());
 			
 			try {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", null);
@@ -91,11 +87,6 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

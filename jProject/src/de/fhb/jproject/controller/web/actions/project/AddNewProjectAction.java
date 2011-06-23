@@ -65,15 +65,11 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			check.checkIT("Projectname",projectName);
 			
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines Projektes!");			
-				}
-				//Manager in aktion
-				mainManager.getProjectManager().addNewProject(aktUser, projectName, status);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines Projektes!");			
 			}
+			//Manager in aktion
+			mainManager.getProjectManager().addNewProject(aktUser, projectName, status);
 			
 			try {
 				String[] param = new String[1];
@@ -86,11 +82,6 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }
