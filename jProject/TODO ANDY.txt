@@ -5,6 +5,9 @@ GUI
 Controller
 *********
 
+Javadoc in den Actions fertig machen!...
+bitte ein beispiel für ein top javadoc!
+
 Manager
 *********
 TODO TESTEN, TESTEN, TESTEN!!!!!!!!!!
