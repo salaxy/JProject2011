@@ -5,8 +5,9 @@ Adminconsole =>
 	User löschen,
 	Popup Bestätigung,
 	usw.
-ShowProject =>
-	Tasks Dieses Members anzeigen
+ShowUserInfo =>
+	Alle Tasks des Users anzeigen.
+
 Übersicht =>
 	(optional)Projekt suchen
 
