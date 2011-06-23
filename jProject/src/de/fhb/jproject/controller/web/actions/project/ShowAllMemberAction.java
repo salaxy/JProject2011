@@ -84,7 +84,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 				member = mainManager.getProjectManager().showMember(loginName, aktProject.getName());
 				
 				
-				//XXX Testausgabe
+				//DEBUG Testausgabe
 				if (logger.getLevel()==Level.DEBUG) {
 					logger.debug("Size: "+memberSet.size());
 

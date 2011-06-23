@@ -21,16 +21,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Action die angesprochen wird, wenn eine Task/Aufgabe geupdated wird
  * 
- * Hinweise: 
- * es sollen nur die parameter die geaendert werden mitgeben werden, andere komplett weglassen
- * d.h. also kein leerstring mitgeben sondern den parameter gar nicht uebergebn
- * so das z.b wenn der titel nicht geaendert wird req.getParameter("titel")=null ergibt
- * taskid und projectName sind aber pflichtparameter!!!
- * 
- * @micha ist auch wichtig wenn man z.b. nicht will das etwas drin steht, dann kann man dann einen leerstring mitgebn
- * also ueberpruefe ich nciht auf leerstring, weil das ja auch gewollt sein koennte,
- * gib mir irgentwann mal rueckmeldung ob das so umsetzen kannst, es waere ein leichtes es spaeter noch zu aendern
- * XXX diese nachricht spaeter loeschen
  * 
  * !!!Parameter "done" MUSS entweder der String "true" oder "false" sein!!!
  * !!!Parameter "date" MUSS die Form "yyyy-mm-dd" haben!!!
@@ -112,6 +102,7 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllTasks", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+				throw new ProjectException("Konnte Redirect nicht ausführen!");
 			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

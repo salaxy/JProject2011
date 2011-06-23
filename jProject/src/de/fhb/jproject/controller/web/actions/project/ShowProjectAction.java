@@ -188,7 +188,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			if(!memberSet.isEmpty()){
 				anzMember = memberSet.size();
 
-				/*XXX Testausgabe*/			
+				//DEBUG Testausgabe			
 				if (logger.getLevel()==Level.DEBUG) {
 					System.out.println("DEBUG IS SET");
 					logger.debug("Size: "+memberSet.size());

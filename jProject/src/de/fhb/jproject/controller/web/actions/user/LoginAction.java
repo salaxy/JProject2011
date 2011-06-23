@@ -48,10 +48,11 @@ public class LoginAction extends HttpRequestActionBase {
 					+ "String password(" + req.getParameter("password") + ")"
 					);
 			
+			String loginName = req.getParameter("loginName").toLowerCase();
+			String/*TODO PasswordHash int*/ password = req.getParameter("password")/*TODO PasswordHash .hashCode()*/;
+			
 			//Manager in aktion
-			user = mainManager.getUserManager().login(
-						req.getParameter("loginName").toLowerCase(),
-						req.getParameter("password"));
+			user = mainManager.getUserManager().login(loginName, password);
 			synchronized(session){
 
 				session.setAttribute("aktUser", user.getLoginName());

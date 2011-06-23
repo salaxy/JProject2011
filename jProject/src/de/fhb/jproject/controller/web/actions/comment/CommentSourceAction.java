@@ -79,6 +79,7 @@ public class CommentSourceAction extends HttpRequestActionBase {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllSource", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+				throw new ProjectException("Konnte Redirect nicht ausführen!");
 			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

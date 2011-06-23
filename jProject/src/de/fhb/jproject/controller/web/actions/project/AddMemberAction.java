@@ -33,6 +33,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{	
 		HttpSession session = req.getSession();
@@ -50,7 +51,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
-			String loginName = req.getParameter("loginName");
+			String loginName = req.getParameter("loginName").toLowerCase();
 			String rolle = req.getParameter("rolle");
 			
 			//EINGABEFEHLER ABFANGEN
@@ -74,6 +75,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowProject", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
+				throw new ProjectException("Konnte Redirect nicht ausführen!");
 			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

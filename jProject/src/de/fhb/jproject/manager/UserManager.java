@@ -171,7 +171,7 @@ public class UserManager {
 	 * @throws ProjectException
 	 */
 	public void updateUserSettings(String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
-			String[] telefonArray, String sprache, String neuesPasswortEins, String neuesPasswortZwei/*, String altesPasswort*/)
+			String[] telefonArray, String sprache, String/*TODO PasswordHash int*/ neuesPasswortEins, String/*TODO PasswordHash int*/ neuesPasswortZwei/*, String altesPasswort*/)
 	throws ProjectException{
 		
 		User user=null;
@@ -185,7 +185,7 @@ public class UserManager {
 		logger.debug("String loginName("+loginName+")");
         logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
         		+",String "+telefonArray+", String "+sprache
-        		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);
+        		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);/*TODO PasswordHash int*/
 		
 		
 		//EIGENTLICHE AKTIONEN
@@ -355,10 +355,11 @@ public class UserManager {
 		
 		
 		//passwort
+		/*TODO PasswordHash into action, ==*/
 		if(!(neuesPasswortEins==null)&&!(neuesPasswortEins.isEmpty())&&!(neuesPasswortEins.equals(user.getPassword()))){
 			
 			if(neuesPasswortZwei==null){
-				throw new ProjectException("neues Passwort Zwei nicht mitgegebn!");				
+				throw new ProjectException("neues Passwort Zwei nicht mitgegeben!");				
 			}
 			
 			if(!neuesPasswortEins.equals(neuesPasswortZwei)){
@@ -420,20 +421,21 @@ public class UserManager {
 	 * @return User
 	 * @throws ProjectException
 	 */
-	public User login(String loginName, String password)
+	public User login(String loginName, String/*TODO PasswordHash int*/ password)
 	throws ProjectException{
 		
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
-        logger.debug("String "+"loginName("+loginName+"), "
-				+ "String "+"password("+password+")");
+        logger.debug("String loginName("+loginName+"), "
+				+ "String password("+password+")");/*TODO PasswordHash int*/
 		
 		//abfrage ob user eingeloggt
 		//throw new ProjectException("Sie sind bereits eingeloggt");
 		User user = null;
 
 		//eingabefehler abfangen
+		//TODO PasswordHash into action
 		if(loginName==null||password==null||password.equals("")){
 			throw new ProjectException("Ungueltige Eingabe");
 		}
@@ -445,6 +447,7 @@ public class UserManager {
 		} catch (PersistentException ex) {
 			throw new ProjectException("Falscher Benutzername! ");
 		}
+		//TODO PasswordHash ==
 		if(!user.getPassword().equals(password)){
 			throw new ProjectException("Falsches Passwort!");
 		}
@@ -477,15 +480,15 @@ public class UserManager {
 	 * @param vorname
 	 * @throws ProjectException
 	 */
-	public void register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)
+	public void register(String loginName, String/*TODO PasswordHash int*/ passwort, String/*TODO PasswordHash int*/ passwortWdhl, String nachname, String vorname)
 	throws ProjectException{
 		
 		//debuglogging
         logger.info("register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
         logger.debug("String loginName("+loginName+")"
 				+"String loginName("+loginName+")"
-				+"String passwort("+passwort+")"
-				+"String passwortWdhl("+passwortWdhl+")"
+				+"String passwort("+passwort+")"/*TODO PasswordHash int*/
+				+"String passwortWdhl("+passwortWdhl+")"/*TODO PasswordHash int*/
 				+"String nachname("+nachname+")"
 				+"String vorname("+vorname+")"
 				);      
@@ -523,14 +526,15 @@ public class UserManager {
 		
 		
 		//betreffend passwort
+		/*TODO PasswordHash into action*/
 		if(passwort==null||passwortWdhl==null){
 			throw new ProjectException("kein passwort oder passwortWdhl mitgegeben!");
 		}
-		
+		/*TODO PasswordHash into action*/
 		if(passwort.isEmpty()){
 			throw new ProjectException("Leeres Passwort!");
 		}
-		
+		/*TODO PasswordHash ==*/
 		if(!passwort.equals(passwortWdhl)){
 			throw new ProjectException("Passwort neu eingeben!!");
 		}
