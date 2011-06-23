@@ -7,7 +7,8 @@ DeleteDocument =>
 DeleteSourcecode =>
 	Popup Bestätigung.
 Adminconsole =>
-	User löschen + Popup Bestätigung,
+	User löschen,
+	Popup Bestätigung,
 	usw.
 ShowProject =>
 	Tasks Dieses Members anzeigen
@@ -17,6 +18,7 @@ ShowProject =>
 Controller
 *********
 TODO USERREDIRECTS
+TODO REDIRECT -> ProjectException werfen!!!
 
 Manager
 *********

@@ -15,9 +15,15 @@
 	<h1>Sourcecodes</h1>
 	<c:forEach items="${sourcecodeList}" var="sourcecode" varStatus="i">
 		<c:if test="${isAllowedDeleteSourceAction}">
-			<input value="X" onclick="window.location.href = '${sessionScope.aktServlet}?do=DeleteSource&sourcecodeId=${sourcecode.id}';" type="button" />
+			<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteSource()">
+				<input name="do" value="DeleteSource" type="hidden" />
+				<input name="sourcecodeId" value="${sourcecode.id}" type="hidden" />
+				<input value="X" type="submit" />
 		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllSource&sourcecodeId=${sourcecode.id}">${sourcecode.dateiname}</a><br>
+		<c:if test="${isAllowedDeleteSourceAction}">
+			</form>
+		</c:if>
 	</c:forEach>
 </div>
 
