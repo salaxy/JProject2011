@@ -67,7 +67,7 @@ public class CommentSourceAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedCommentSourceAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines SourcecodeComments!");
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines SourcecodeComments!");
 				}			
 			}
 			//Manager in aktion

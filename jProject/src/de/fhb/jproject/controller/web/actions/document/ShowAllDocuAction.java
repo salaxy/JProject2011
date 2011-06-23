@@ -84,41 +84,26 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			}
 			
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser, aktProject.getName())){
-						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-							throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
-						}
-						
-					}		
-				}
-				//Manager in aktion
-				documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName());
-				documentList.size();
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllDocuAction(aktUser, aktProject.getName())){
+					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Documents dieses Projektes!");
+					}
+
+				}		
 			}
+			//Manager in aktion
+			documentList=mainManager.getDocumentManager().showAllDocu(aktProject.getName());
+			documentList.size();
 			
 			
-			try {
-				//TODO HIER MUSS EIN FEHLER SEIN!
+			if(!documentList.isEmpty()) {
 				//Wenn documentId == null dann gib mir den ersten
 				if (0 == documentId) {
 					documentId = ((Document)documentList.toArray()[0]).getId();
 				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("DocumentID ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine Dokumente vorhanden!"+e.getMessage(), e);
-			}catch(NullPointerException e){
-				logger.error("Keine Dokumente vorhanden!"+e.getMessage(), e);
-			}
 			
-			
-			
-			try {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser, aktProject.getName())){
@@ -127,17 +112,13 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 				}
 				logger.debug("docuId: "+documentId);
 				document = mainManager.getDocumentManager().showDocu(documentId);
-				
+
 				try {
 					documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
 				} catch (NullPointerException e) {
 					logger.info(e.getMessage(), e);
 					documentContent = "Kann Document nicht lesen! ";
 				}
-				
-			}catch(NullPointerException e){
-				logger.info(e.getMessage(), e);
-				documentContent = "Kann Document nicht lesen! ";
 			}
 			
 			//setzen der Parameter
@@ -151,11 +132,6 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}
-		
+		}		
 	}
 }

@@ -67,7 +67,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines Projektes!");			
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines Projektes!");			
 				}
 				//Manager in aktion
 				mainManager.getProjectManager().addNewProject(aktUser, projectName, status);

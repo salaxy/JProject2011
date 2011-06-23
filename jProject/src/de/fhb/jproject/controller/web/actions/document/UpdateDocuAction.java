@@ -63,18 +63,14 @@ private MainManager mainManager;
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedUpdateDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedUpdateDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum updaten dieses Documents!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getDocumentManager().updateDocu(aktProject.getName(), data, documentId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedUpdateDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedUpdateDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Documents!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getDocumentManager().updateDocu(aktProject.getName(), data, documentId);
 			
 			try {
 				String[] param = new String[1];
@@ -87,11 +83,6 @@ private MainManager mainManager;
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

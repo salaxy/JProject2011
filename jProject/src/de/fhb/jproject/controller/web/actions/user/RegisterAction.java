@@ -68,7 +68,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Users!");	
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Users!");	
 				}
 				//Manager in aktion
 				mainManager.getUserManager().register(loginName, passwort, passwortWdhl, nachname, vorname);

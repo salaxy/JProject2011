@@ -68,7 +68,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");
+						throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
 					}			
 				}
 				//Manager in aktion
@@ -94,7 +94,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
 					}			
 				}
 				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);

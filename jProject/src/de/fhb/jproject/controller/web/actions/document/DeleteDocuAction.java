@@ -62,18 +62,14 @@ private MainManager mainManager;
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum loeschen dieses Dokuments!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getDocumentManager().deleteDocu(documentId, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDeleteDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum loeschen dieses Dokuments!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getDocumentManager().deleteDocu(documentId, aktProject.getName());
 			
 			try {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllDocu", null);
@@ -81,10 +77,6 @@ private MainManager mainManager;
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
