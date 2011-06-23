@@ -1,11 +1,5 @@
 GUI
 *********
-DeleteTask =>
-	Popup Bestätigung.
-DeleteDocument =>
-	Popup Bestätigung.
-DeleteSourcecode =>
-	Popup Bestätigung.
 Adminconsole =>
 	User löschen,
 	Popup Bestätigung,

@@ -89,11 +89,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 
 				String aktUser = (String) session.getAttribute("aktUser");
 				MemberSetCollection ownProjectList = null;
-				System.out.println("MainManager: "+session.getAttribute("mainManager"));
 				
 				try {
 					if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser)){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller eigenen Projekte!");		
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller eigenen Projekte!");		
 					}
 					//Manager in aktion
 					ownProjectList = mainManager.getProjectManager().showAllOwnProjects(aktUser);
@@ -101,8 +100,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 					logger.error(ex.getMessage(), ex);
 					req.setAttribute("contentFile", "error.jsp");
 					req.setAttribute("errorString", ex.getMessage());
-				} catch(NullPointerException e){
-					logger.error(e.getMessage(), e);
 				}
 				//Show all other loggedIn-Stuff...
 				//Session fuer topNaviLinks
@@ -123,8 +120,8 @@ public class JProjectServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 		synchronized(session){
 			mainManager = (MainManager)session.getAttribute("mainManager");
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+			//mainManager fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null) {
 				mainManager = new MainManager();
 
 				//HttpSession ist nicht Threadsave deswegn Synchronized
@@ -133,7 +130,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 				session.setAttribute("mainManager", mainManager);
 				
 			}
-			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
 			session.setAttribute("aktServlet", "JProjectServlet");
 		}
 		try {
@@ -172,8 +168,8 @@ public class JProjectServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 		synchronized(session){
 			mainManager = (MainManager)session.getAttribute("mainManager");
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+			//mainManager fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null) {
 				mainManager = new MainManager();
 
 				//HttpSession ist nicht Threadsave deswegn Synchronized
@@ -182,7 +178,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 				session.setAttribute("mainManager", mainManager);
 				
 			}
-			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
 			session.setAttribute("aktServlet", "JProjectServlet");
 		}
 		try {

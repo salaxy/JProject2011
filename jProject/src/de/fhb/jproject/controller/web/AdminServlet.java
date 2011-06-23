@@ -96,7 +96,7 @@ public class AdminServlet extends HttpServletControllerBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Projekte!");
 				}
 				//Manager in aktion
 				projectList=mainManager.getProjectManager().showAllProjects();
@@ -105,8 +105,6 @@ public class AdminServlet extends HttpServletControllerBase {
 				logger.error(ex.getMessage(), ex);
 				req.setAttribute("contentFile", "error.jsp");
 				req.setAttribute("errorString", ex.getMessage());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
 			}
 			
 			try{
@@ -120,8 +118,6 @@ public class AdminServlet extends HttpServletControllerBase {
 				logger.error(ex.getMessage(), ex);
 				req.setAttribute("contentFile", "error.jsp");
 				req.setAttribute("errorString", ex.getMessage());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
 			}
 			
 			
@@ -140,8 +136,8 @@ public class AdminServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 		synchronized(session){
 			mainManager = (MainManager)session.getAttribute("mainManager");
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+			//mainManger fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null) {
 				mainManager = new MainManager();
 
 				//HttpSession ist nicht Threadsave deswegn Synchronized
@@ -149,7 +145,6 @@ public class AdminServlet extends HttpServletControllerBase {
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
-			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
 			session.setAttribute("aktServlet", "AdminServlet");
 		}
 		try {
@@ -160,11 +155,6 @@ public class AdminServlet extends HttpServletControllerBase {
 			//req.setAttribute("triedLogin", true);
 			req.setAttribute("contentFile", "welcome.jsp");
 			req.setAttribute("naviFile", "welcomenavi.jsp");
-			/*
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
-			 * 
-			 */
 		}
 		
 		
@@ -175,6 +165,7 @@ public class AdminServlet extends HttpServletControllerBase {
 			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 			reqDisp.forward(req, resp);
 		}
+		logger.info("--------------------------------------------------------------------------------------");
 	}
 
 	/*
@@ -192,8 +183,8 @@ public class AdminServlet extends HttpServletControllerBase {
 		HttpSession session = req.getSession();
 		synchronized(session){
 			mainManager = (MainManager)session.getAttribute("mainManager");
-			//Player fuer die Session erzeugen falls noch nicht erzeugt
-			if (session.getAttribute("mainManager") == null/* || getOperation(req).equals("Login")*/) {
+			//mainManager fuer die Session erzeugen falls noch nicht erzeugt
+			if (session.getAttribute("mainManager") == null) {
 				mainManager = new MainManager();
 
 				//HttpSession ist nicht Threadsave deswegn Synchronized
@@ -201,7 +192,6 @@ public class AdminServlet extends HttpServletControllerBase {
 				session.setAttribute("aktUser", null);
 				session.setAttribute("mainManager", mainManager);
 			}
-			//TODO irgendwie an die annotation rankommen per ServletConfig -> how to init?
 			session.setAttribute("aktServlet", "AdminServlet");
 		}
 		try {
@@ -212,11 +202,6 @@ public class AdminServlet extends HttpServletControllerBase {
 			//req.setAttribute("triedLogin", true);
 			req.setAttribute("contentFile", "welcome.jsp");
 			req.setAttribute("naviFile", "welcomenavi.jsp");
-			/*
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", "ERROR 404 - Konnte Seite nicht finden!");
-			 * 
-			 */
 		}
 		
 		
@@ -227,7 +212,7 @@ public class AdminServlet extends HttpServletControllerBase {
 			RequestDispatcher reqDisp = req.getRequestDispatcher("index.jsp");
 			reqDisp.forward(req, resp);
 		}
-		
+		logger.info("--------------------------------------------------------------------------------------");
 	}
 
 

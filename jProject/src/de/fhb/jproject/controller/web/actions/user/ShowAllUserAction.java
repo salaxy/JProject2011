@@ -63,40 +63,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			//Manager in aktion
 			userList=mainManager.getUserManager().showAllUser();
 			
-			/* TODO ENTFERNEN
-			try{
-				//Wenn loginName == null dann gib mir den ersten
-				if (null == loginName) {
-					loginName = userList.get(0).getLoginName();
-				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("loginName ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine User vorhanden!"+e.getMessage(), e);
-			}
 			
-			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
-					if(!aktUser.equals(loginName)){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Users!");
-					}
-				}			
-				
-				//Manager in aktion
-				user = mainManager.getUserManager().showUserInfo(loginName);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-			}
-			//XXX Testausgabe
-//			for( User user : userList){
-//				System.out.println("User: "+user.getLoginName());
-//			}
-			 * 
-			 * 
-			 */
-			//Daten dem Reqest mitgeben
-			//req.setAttribute("user", user);
 			req.setAttribute("userList", userList);
 			
 			
