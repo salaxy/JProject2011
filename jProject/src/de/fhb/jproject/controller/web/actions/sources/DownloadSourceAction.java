@@ -56,7 +56,8 @@ public class DownloadSourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte SourcecodeID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige SourcecodeID!");
 			}
 			BufferedInputStream buf=null;
 			ServletOutputStream myOut=null;

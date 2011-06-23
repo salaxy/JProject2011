@@ -53,7 +53,8 @@ public class CommentSourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte SourcecodeID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige SourcecodeID!");
 			}
 			String entry = req.getParameter("entry");
 			
@@ -63,18 +64,14 @@ public class CommentSourceAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentSourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines SourcecodeComments!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getCommentManager().commentSource(aktUser, sourcecodeId, entry);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedCommentSourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines SourcecodeComments!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getCommentManager().commentSource(aktUser, sourcecodeId, entry);
 			
 			try {
 				String[] param = new String[1];
@@ -84,10 +81,6 @@ public class CommentSourceAction extends HttpRequestActionBase {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

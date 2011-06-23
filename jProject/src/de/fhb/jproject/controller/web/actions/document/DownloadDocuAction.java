@@ -54,7 +54,8 @@ private MainManager mainManager;
 			try {
 				documentId = Integer.valueOf(req.getParameter("documentId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte DocumentID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige DocumentID!");
 			}
 			BufferedInputStream buf=null;
 			ServletOutputStream myOut=null;

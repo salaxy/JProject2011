@@ -55,7 +55,8 @@ public class ShowSourceAction extends HttpRequestActionBase {
 			try {
 				sourcecodeId = Integer.valueOf(req.getParameter("sourcecodeId"));
 			} catch (NumberFormatException e) {
-				logger.info(e.getMessage(), e);
+				logger.error("Konnte SourcecodeID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige SourcecodeID!");
 			}
 			
 			//EINGABEFEHLER ABFANGEN

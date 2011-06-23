@@ -19,6 +19,9 @@
 	<!--TODO OUTSOURCING-->
 	<h1>Tasks</h1>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
+		<c:if test="${isAllowedDeleteTaskAction}">
+			<input value="X" onclick="window.location.href = '${sessionScope.aktServlet}?do=DeleteTask&taskId=${task.id}';" type="button" />
+		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
 	</c:forEach>
 
@@ -28,7 +31,7 @@
 	<h1>${task.titel}</h1>
 	<div id="infoBoxBig">
 		<c:choose>
-			<c:when test="${sessionScope.isAllowedAddNewTaskAction == true}">
+			<c:when test="${isAllowedAddNewTaskAction == true}">
 				<h3>Neuen Task hinzufügen<input type="checkbox" onclick="showHideText(this,'addBox');" /></h3>
 				<fieldset id="addBox" style="display:none;">
 					<legend>Neuen Task hinzufügen</legend>
@@ -90,7 +93,7 @@
 								<tr>
 									<td>
 										<c:choose>
-											<c:when test="${sessionScope.isAllowedUpdateTaskAction == true}">
+											<c:when test="${isAllowedUpdateTaskAction == true}">
 												<input value="Update" type="submit" />
 											</c:when>
 										</c:choose>

@@ -57,17 +57,14 @@ public class CommentProjectAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser)){
-					if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines ProjectComments!");
-					}
+			if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser)){
+				if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines ProjectComments!");
 				}
-				//Manager in aktion
-				mainManager.getCommentManager().commentProject(aktUser, aktProject.getName(), entry);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
 			}
+			//Manager in aktion
+			mainManager.getCommentManager().commentProject(aktUser, aktProject.getName(), entry);
+		
 			
 			try {
 				String[] param = new String[1];

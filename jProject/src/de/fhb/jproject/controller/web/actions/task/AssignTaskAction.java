@@ -54,7 +54,8 @@ public class AssignTaskAction extends HttpRequestActionBase {
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
 			} catch (NumberFormatException e) {
-				logger.error(e.getMessage(), e);
+				logger.error("Konnte TaskID nicht entziffern! ", e);
+				throw new ProjectException("Ungültige TaskID!");
 			}
 			
 			//EINGABEFEHLER ABFANGEN

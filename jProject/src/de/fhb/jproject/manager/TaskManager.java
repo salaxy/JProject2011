@@ -244,9 +244,9 @@ public class TaskManager {
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht finden! "+ e.getMessage());
 		}catch (NullPointerException e) {
-			throw new ProjectException("Keine TaskId mitgegeben! "+ e.getMessage());
+			throw new ProjectException("Ungültige TaskId mitgegeben! "+ e.getMessage());
 		}catch(IllegalArgumentException e){
-			throw new ProjectException("Keine TaskId fehlerhaft! "+ e.getMessage());
+			throw new ProjectException("TaskId fehlerhaft! "+ e.getMessage());
 		}
 		
 		return task;
