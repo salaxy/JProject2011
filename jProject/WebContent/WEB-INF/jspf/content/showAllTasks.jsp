@@ -20,9 +20,15 @@
 	<h1>Tasks</h1>
 	<c:forEach items="${taskList}" var="task" varStatus="i">
 		<c:if test="${isAllowedDeleteTaskAction}">
-			<input value="X" onclick="window.location.href = '${sessionScope.aktServlet}?do=DeleteTask&taskId=${task.id}';" type="button" />
+			<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteTask()">
+				<input name="do" value="DeleteTask" type="hidden" />
+				<input name="taskId" value="${task.id}" type="hidden" />
+				<input value="X" type="submit" />
 		</c:if>
-		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br>
+		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a>
+		<c:if test="${isAllowedDeleteTaskAction}">
+			</form>
+		</c:if>
 	</c:forEach>
 
 </div>

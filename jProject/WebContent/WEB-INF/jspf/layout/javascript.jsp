@@ -22,7 +22,18 @@
 		check = confirm('Wollen Sie Ihre Mitgliedschaft in diesem Projekt wirklich beenden?');
 		return check;
 	}
-	
+	function confirmDeleteDocu(){
+		check = confirm('Wollen Sie dieses Dokument wirklich löschen?');
+		return check;
+	}
+	function confirmDeleteSource(){
+		check = confirm('Wollen Sie diesen Sourcecode wirklich löschen?');
+		return check;
+	}
+	function confirmDeleteTask(){
+		check = confirm('Wollen Sie diesen Task wirklich löschen?');
+		return check;
+	}
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
 		var newContent = "\
