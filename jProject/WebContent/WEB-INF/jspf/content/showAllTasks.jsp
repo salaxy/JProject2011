@@ -81,6 +81,7 @@
 							<input name="do" value="AssignTask" type="hidden" />
 							<input name="taskId" value="${task.id}" type="hidden" />
 							<select name="loginName">
+								<option>&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 								<c:forEach items="${memberList}" var="member" varStatus="i">
 									<option>${member.user}</option>
 								</c:forEach>
@@ -93,6 +94,7 @@
 							<input name="do" value="DeAssignTask" type="hidden" />
 							<input name="taskId" value="${task.id}" type="hidden" />
 							<select name="loginName">
+								<option>&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 								<c:forEach items="${taskMemberList}" var="member" varStatus="i">
 									<option>${member.user}</option>
 								</c:forEach>
@@ -117,7 +119,7 @@
 								<tr>
 									<td>
 										<label for="aufgabenstellung">Aufgabenstellung:</label><br />
-										<textarea name="aufgabenstellung" cols="75" rows="15" <% if(Boolean.valueOf(""+session.getAttribute("isAllowedUpdateTaskAction")) != true){out.print("readonly");} %>>${task.aufgabenstellung}</textarea>
+										<textarea name="aufgabenstellung" cols="70" rows="15" <% if(Boolean.valueOf(""+session.getAttribute("isAllowedUpdateTaskAction")) != true){out.print("readonly");} %>>${task.aufgabenstellung}</textarea>
 									</td>
 								</tr>
 								<tr>
@@ -147,9 +149,9 @@
 <div id="footercontent">
 	<c:choose>
 		<c:when test="${!empty taskList}">
-			<input value="Show Comments" type="button" onclick="getShowAllComments41TaskJSON(${task.id});" />
+			
 			<div id="allComments41Task">
-
+				<input value="Show Comments" type="button" onclick="getShowAllComments41TaskJSON(${task.id});" />
 			</div>
 		</c:when>
 	</c:choose>

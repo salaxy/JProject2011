@@ -36,7 +36,7 @@
 	}
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
-		var newContent = "\
+		var newContent = "\<input value='Hide Comments' type='button' onclick='getShowAllComments41DocumentJSON(${task.id});' />\n\
 			<h3>Neuen Comment hinzufügen</h3>\n\
 			<fieldset>\n\
 				<legend>Neuen Comment hinzufügen</legend>\n\
@@ -64,7 +64,7 @@
 			json.comment.each(function(comment){
 				newContent+="\
 			<div id='comment'>\n\
-				<h1>"+ comment.id +" | "+ comment.user +"\n\
+				<h1>"+ comment.user +"\n\
 							";
 
 				if(comment.isAllowedUpdateCommentAction){
@@ -72,9 +72,7 @@
 					<form method='POST' action='${aktServlet}'>\n\
 						<input name='do' value='DeleteComment' type='hidden' />\n\
 						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-						<input value='Delete' type='submit' >\n\
-							<img src='../../../images/delete.png' alt='delete' />\n\
-						</input>\n\
+						<input value='Delete' type='submit' />\n\
 					</form>\n\
 				</h1>\n\
 				<form method='POST' action='${aktServlet}'>\n\
@@ -83,8 +81,6 @@
 					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
 					<br />\n\
 					<input value='Update' type='submit'>\n\
-						<img src='../../../images/update.png' alt='update' />\n\
-					</input>\n\
 							";
 				}else{
 					newContent+="\
@@ -110,14 +106,14 @@
 			}).get({'documentId':documentId});
 			hide=true;
 		}else{
-			$('allComments41Docu').set('html', '');
+			$('allComments41Docu').set('html', '<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${task.id});" />');
 			hide=false;
 		};
 	}
 	
 	/* CommentProject AJAX */
 	function updateShowAllComments41Project(json){
-		var newContent = "\
+		var newContent = "\<input value='Hide Comments' type='button' onclick='getShowAllComments41ProjectJSON(${task.id});' />\n\
 			<h3>Neuen Comment hinzufügen</h3>\n\
 			<fieldset>\n\
 				<legend>Neuen Comment hinzufügen</legend>\n\
@@ -145,7 +141,7 @@
 			json.comment.each(function(comment){
 				newContent+="\
 			<div id='comment'>\n\
-				<h1>"+ comment.id +" | "+ comment.user +"\n\
+				<h1>"+ comment.user +"\n\
 							";
 
 				if(comment.isAllowedUpdateCommentAction){
@@ -153,9 +149,7 @@
 					<form method='POST' action='${aktServlet}'>\n\
 						<input name='do' value='DeleteComment' type='hidden' />\n\
 						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-						<input value='Delete' type='submit' >\n\
-							<img src='../../../images/delete.png' alt='delete' />\n\
-						</input>\n\
+						<input value='Delete' type='submit' />\n\
 					</form>\n\
 				</h1>\n\
 				<form method='POST' action='${aktServlet}'>\n\
@@ -164,8 +158,6 @@
 					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
 					<br />\n\
 					<input value='Update' type='submit'>\n\
-						<img src='../../../images/update.png' alt='update' />\n\
-					</input>\n\
 							";
 				}else{
 					newContent+="\
@@ -192,14 +184,14 @@
 		
 			hide=true;
 		}else{
-			$('allComments41Project').set('html', '');
+			$('allComments41Project').set('html', '<input value="Show Comments" type="button" onclick="getShowAllComments41ProjectJSON(${task.id});" />');
 			hide=false;
 		};
 	}
 	
 	/* CommentSourcecode AJAX */
 	function updateShowAllComments41Source(json){
-		var newContent = "\
+		var newContent = "\<input value='Hide Comments' type='button' onclick='getShowAllComments41SourceJSON(${task.id});' />\n\
 			<h3>Neuen Comment hinzufügen</h3>\n\
 			<fieldset>\n\
 				<legend>Neuen Comment hinzufügen</legend>\n\
@@ -227,7 +219,7 @@
 			json.comment.each(function(comment){
 				newContent+="\
 			<div id='comment'>\n\
-				<h1>"+ comment.id +" | "+ comment.user +"\n\
+				<h1>"+ comment.user +"\n\
 							";
 
 				if(comment.isAllowedUpdateCommentAction){
@@ -235,9 +227,7 @@
 					<form method='POST' action='${aktServlet}'>\n\
 						<input name='do' value='DeleteComment' type='hidden' />\n\
 						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-						<input value='Delete' type='submit' >\n\
-							<img src='../../../images/delete.png' alt='delete' />\n\
-						</input>\n\
+						<input value='Delete' type='submit' />\n\
 					</form>\n\
 				</h1>\n\
 				<form method='POST' action='${aktServlet}'>\n\
@@ -246,8 +236,6 @@
 					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
 					<br />\n\
 					<input value='Update' type='submit'>\n\
-						<img src='../../../images/update.png' alt='update' />\n\
-					</input>\n\
 							";
 				}else{
 					newContent+="\
@@ -274,7 +262,7 @@
 		
 			hide=true;
 		}else{
-			$('allComments41Source').set('html', '');
+			$('allComments41Source').set('html', '<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${task.id});" />');
 			hide=false;
 		};
 	}
@@ -282,7 +270,8 @@
 	/* CommentTask AJAX */
 	function updateShowAllComments41Task(json){
 		var newContent = "\
-			<h3>Neuen Comment hinzufügen</h3>\n\
+		<input value='Hide Comments' type='button' onclick='getShowAllComments41TaskJSON(${task.id});' />\n\
+		<h3>Neuen Comment hinzufügen</h3>\n\
 			<fieldset>\n\
 				<legend>Neuen Comment hinzufügen</legend>\n\
 				<form method='POST' action='${sessionScope.aktServlet}'>\n\
@@ -309,7 +298,7 @@
 			json.comment.each(function(comment){
 				newContent+="\
 			<div id='comment'>\n\
-				<h1>"+ comment.id +" | "+ comment.user +"\n\
+				<h1>"+ comment.user +"\n\
 							";
 
 				if(comment.isAllowedUpdateCommentAction){
@@ -317,9 +306,7 @@
 					<form method='POST' action='${aktServlet}'>\n\
 						<input name='do' value='DeleteComment' type='hidden' />\n\
 						<input name='commentId' value='"+comment.id+"' type='hidden' />\n\
-						<input value='Delete' type='submit' >\n\
-							<img src='../../../images/delete.png' alt='delete' />\n\
-						</input>\n\
+						<input value='Delete' type='submit' />\n\
 					</form>\n\
 				</h1>\n\
 				<form method='POST' action='${aktServlet}'>\n\
@@ -328,8 +315,6 @@
 					<textarea name='entry' cols='75' rows='4'>"+ comment.entry +"</textarea>\n\
 					<br />\n\
 					<input value='Update' type='submit'>\n\
-						<img src='../../../images/update.png' alt='update' />\n\
-					</input>\n\
 							";
 				}else{
 					newContent+="\
@@ -356,7 +341,7 @@
 		
 			hide=true;
 		}else{
-			$('allComments41Task').set('html', '');
+			$('allComments41Task').set('html', '<input value="Show Comments" type="button" onclick="getShowAllComments41TaskJSON(${task.id});" />');
 			hide=false;
 		};
 	}
