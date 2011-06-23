@@ -5,7 +5,7 @@ Adminconsole =>
 	User löschen,
 	Popup Bestätigung,
 	usw.
-ShowUserInfo =>
+ShowUserSettings =>
 	Alle Tasks des Users anzeigen.
 
 Übersicht =>
