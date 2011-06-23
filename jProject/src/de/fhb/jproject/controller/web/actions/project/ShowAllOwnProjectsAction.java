@@ -59,7 +59,7 @@ public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 			}
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnProjectsAction(aktUser)){
-				throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Projecte dieses Users!");		
 			}
 			//Manager in aktion
 			ownProjectList = mainManager.getProjectManager().showAllOwnProjects(aktUser);

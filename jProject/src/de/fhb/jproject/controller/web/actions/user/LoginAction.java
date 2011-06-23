@@ -50,7 +50,7 @@ public class LoginAction extends HttpRequestActionBase {
 			
 			//Manager in aktion
 			user = mainManager.getUserManager().login(
-						req.getParameter("loginName"),
+						req.getParameter("loginName").toLowerCase(),
 						req.getParameter("password"));
 			synchronized(session){
 
