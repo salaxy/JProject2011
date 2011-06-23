@@ -63,28 +63,26 @@ private MainManager mainManager;
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Documents!");
-					}			
-				}
-				//Manager in aktion
-				document = mainManager.getDocumentManager().showDocu(documentId);
+			
+			if(!mainManager.getGlobalRolesManager().isAllowedShowDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Documents!");
+				}			
+			}
+			logger.debug("docuId: "+documentId);
+			document = mainManager.getDocumentManager().showDocu(documentId);
+
+			try {
 				documentContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), documentId);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			} catch (NullPointerException e) {
+				logger.info(e.getMessage(), e);
+				documentContent = "Kann Document nicht lesen! ";
 			}
 			
 			req.setAttribute("document", document);
 			req.setAttribute("documentContent", documentContent);
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

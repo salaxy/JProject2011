@@ -58,18 +58,14 @@ private MainManager mainManager;
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedAddNewDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedAddNewDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Documents!");
-					}			
-				}
-				//Manager in aktion
-				mainManager.getDocumentManager().addNewDocu(aktProject.getName(), data);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedAddNewDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedAddNewDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Documents!");
+				}			
 			}
+			//Manager in aktion
+			mainManager.getDocumentManager().addNewDocu(aktProject.getName(), data);
 			
 			try {
 				super.redirect(req, resp, "JProjectServlet", "ShowAllDocu", null);
@@ -77,10 +73,6 @@ private MainManager mainManager;
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

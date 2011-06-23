@@ -65,7 +65,7 @@ public class CommentTaskAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedCommentTaskAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedCommentTaskAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines TaskComments!");
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines TaskComments!");
 				}			
 			}
 			//Manager in aktion

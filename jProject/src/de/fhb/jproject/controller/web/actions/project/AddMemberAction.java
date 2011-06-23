@@ -63,7 +63,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedAddMemberAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufuegen/bearbeiten eines Members!");
+						throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen/Bearbeiten eines Members!");
 					}			
 				}
 				//Manager in aktion

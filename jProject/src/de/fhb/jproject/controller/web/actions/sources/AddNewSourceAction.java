@@ -61,7 +61,7 @@ private MainManager mainManager;
 				if(!mainManager.getGlobalRolesManager().isAllowedAddNewSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedAddNewSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anlegen eines Sourcecodes!");
+						throw new ProjectException("Sie haben keine Rechte zum Anlegen eines Sourcecodes!");
 					}			
 				}
 				//Manager in aktion

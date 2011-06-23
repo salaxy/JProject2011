@@ -56,7 +56,7 @@ public class SearchUserAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");	
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");	
 				}
 				//Manager in aktion
 				userList = mainManager.getUserManager().searchUser(searchValue);

@@ -67,7 +67,7 @@ public class CommentDocuAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedCommentDocuAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedCommentDocuAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines DocumentComments!");
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines DocumentComments!");
 				}			
 			}
 			//Manager in aktion

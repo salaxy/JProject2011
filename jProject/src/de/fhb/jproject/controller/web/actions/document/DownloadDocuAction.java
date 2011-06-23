@@ -67,18 +67,14 @@ private MainManager mainManager;
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDownloadDocuAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDownloadDocuAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum download dieses Documents!");
-					}			
-				}
-				//Manager in aktion
-				myfile = mainManager.getDocumentManager().downloadDocu(documentId, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDownloadDocuAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDownloadDocuAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum download dieses Documents!");
+				}			
 			}
+			//Manager in aktion
+			myfile = mainManager.getDocumentManager().downloadDocu(documentId, aktProject.getName());
 			
 			try{
 
@@ -102,7 +98,8 @@ private MainManager mainManager;
 					myOut.write(readBytes);
 				}
 			} catch (IOException e){
-				logger.error("Konnte File nicht schreiben! "+e.getMessage(), e);
+				logger.error("Konnte File nicht lesen! "+e.getMessage(), e);
+				throw new ProjectException("Konnte File nicht lesen!");
 			} finally {
 				//close the input/output streams
 				try {
@@ -114,14 +111,11 @@ private MainManager mainManager;
 					}
 				} catch (IOException e) {
 					logger.error("Konnte Stream nicht schließen! "+e.getMessage(), e);
+					throw new ProjectException("Konnte Stream nicht schließen!");
 				}
 			}
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

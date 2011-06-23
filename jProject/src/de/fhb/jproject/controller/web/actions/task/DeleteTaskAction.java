@@ -73,7 +73,7 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedAddNewTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum hinzufügen eines Tasks!");
+						throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
 					}			
 				}
 				//Manager in aktion

@@ -59,7 +59,7 @@ public class CommentProjectAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedCommentProjectAction(aktUser)){
 				if(!mainManager.getProjectRolesManager().isAllowedCommentSourceAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum hinzufuegen eines ProjectComments!");
+					throw new ProjectException("Sie haben keine Rechte zum Hinzufuegen eines ProjectComments!");
 				}
 			}
 			//Manager in aktion
