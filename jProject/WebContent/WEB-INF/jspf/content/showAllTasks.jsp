@@ -76,6 +76,30 @@
 				<h3>Aktueller Task anzeigen</h3>
 				<fieldset>
 					<legend>Aktueller Task</legend>
+					<c:if test="${isAllowedAssignTaskAction}">
+						<form method="POST" action="${sessionScope.aktServlet}">
+							<input name="do" value="AssignTask" type="hidden" />
+							<input name="taskId" value="${task.id}" type="hidden" />
+							<select name="loginName">
+								<c:forEach items="${memberList}" var="member" varStatus="i">
+									<option>${member.user}</option>
+								</c:forEach>
+							</select>
+							<input value="Zuweisen" type="submit" />
+						</form>
+					</c:if>
+					<c:if test="${isAllowedDeAssignTaskAction}">
+						<form method="POST" action="${sessionScope.aktServlet}">
+							<input name="do" value="DeAssignTask" type="hidden" />
+							<input name="taskId" value="${task.id}" type="hidden" />
+							<select name="loginName">
+								<c:forEach items="${taskMemberList}" var="member" varStatus="i">
+									<option>${member.user}</option>
+								</c:forEach>
+							</select>
+							<input value="Ablösen" type="submit" />
+						</form>
+					</c:if>
 					<form method="POST" action="${sessionScope.aktServlet}">
 						<input name="do" value="UpdateTask" type="hidden" />
 						<input name="taskId" value="${task.id}" type="hidden" />

@@ -116,6 +116,14 @@
 						<td>Projekt Rolle:</td>
 						<td>${member.projectRole}</td>
 					</tr>
+					<tr>
+						<td>Tasks:</td>
+						<td>
+							<c:forEach items="${memberTasks}" var="task" varStatus="i">
+								<a href="${aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br />
+							</c:forEach>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</fieldset>

@@ -1,7 +1,9 @@
 package de.fhb.jproject.controller.web.actions.task;
 
+import de.fhb.jproject.data.MemberSetCollection;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Level;
 
 
 /**
@@ -43,6 +46,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 	 */
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
+		logger.setLevel(Level.DEBUG);
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
@@ -52,6 +56,12 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 		boolean isAllowedUpdateTaskAction = true;
 		boolean isAllowedAddNewTaskAction = true;
 		boolean isAllowedDeleteTaskAction = true;
+		boolean isAllowedShowAllMemberAction = true;
+		boolean isAllowedAssignTaskAction = true;
+		boolean isAllowedDeAssignTaskAction = true;
+		MemberSetCollection memberSet = null;
+		Set memberSetDiff = null;
+		Set taskMemberSet = null;
 		
 		try {				
 			
@@ -79,6 +89,19 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			
+			try{
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
+						isAllowedShowAllMemberAction = false;
+					}			
+				}
+
+			} catch (ProjectException e) {
+				logger.info("isAllowedShowAllMemberAction NO!");
+			}
+			
+			
 			try {
 				/* Darf der User Tasks löschen? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedDeleteTaskAction(aktUser)){
@@ -97,7 +120,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
 					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
 						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Tasks dieses Projektes!");
 					}
@@ -105,6 +128,8 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			}
 			//Manager in aktion
 			taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
+			
+			
 			
 			
 			
@@ -131,8 +156,23 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			} catch (ProjectException e) {
 				logger.info("isAllowedAddNewTaskAction NO!");
 			}
+			try {
+				/* Darf der User Task anhängen? (für GUI-Anzeige) */
+				if(!mainManager.getProjectRolesManager().isAllowedAssignTaskAction(aktUser, aktProject.getName())){
+					isAllowedAssignTaskAction = false;
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedAssignTaskAction NO!");
+			}
 			
-			
+			try {
+				/* Darf der User Task ablösen? (für GUI-Anzeige) */
+				if(!mainManager.getProjectRolesManager().isAllowedDeAssignTaskAction(aktUser, aktProject.getName())){
+					isAllowedDeAssignTaskAction = false;
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeAssignTaskAction NO!");
+			}
 			
 			if (!taskList.isEmpty()) {
 				//Wenn taskId == null dann gib mir den ersten
@@ -142,22 +182,42 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				//TODO DRINGEND RECHTEABFRAGE
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
 					}			
 				}
+				
+				if (isAllowedShowAllMemberAction) {
+					memberSet = mainManager.getProjectManager().showAllMember(aktProject.getName());
+					memberSet.size();
+				}
+				
 				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
+				
+				taskMemberSet = task.memberUser.getCollection();
+				memberSetDiff = memberSet.getCollection();
+				if (!taskMemberSet.isEmpty()) {
+					memberSetDiff.removeAll(taskMemberSet);
+				}
+				
 			}
+			
 			
 			
 			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
+			req.setAttribute("memberList", memberSetDiff);
+			req.setAttribute("taskMemberList", taskMemberSet);
 			
 			req.setAttribute("isAllowedUpdateTaskAction", isAllowedUpdateTaskAction);
 			req.setAttribute("isAllowedAddNewTaskAction", isAllowedAddNewTaskAction);
 			req.setAttribute("isAllowedDeleteTaskAction", isAllowedDeleteTaskAction);
+			req.setAttribute("isAllowedShowAllMemberAction", isAllowedShowAllMemberAction);
+			req.setAttribute("isAllowedAssignTaskAction", isAllowedAssignTaskAction);
+			req.setAttribute("isAllowedDeAssignTaskAction", isAllowedDeAssignTaskAction);
+			
 			
 			req.setAttribute("contentFile", "showAllTasks.jsp");
 		}catch (ProjectException e) {

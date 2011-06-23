@@ -310,7 +310,7 @@ public class ProjectRolesManager {
 		}
 	}
 	
-	public boolean isAllowedShowAllTaskAction(String loginName, String projectName) throws ProjectException{
+	public boolean isAllowedShowAllTasksAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
 		try {
