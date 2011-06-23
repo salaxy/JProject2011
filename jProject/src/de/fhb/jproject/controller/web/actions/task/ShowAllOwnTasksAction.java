@@ -67,7 +67,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			//TODO DRINGEND RECHTEABFRAGE
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
 					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
 				}			
 			}
@@ -81,7 +81,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 				//TODO DRINGEND RECHTEABFRAGE
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
 					}			
 				}
