@@ -1,5 +1,6 @@
 package de.fhb.jproject.controller.web.actions.user;
 
+import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
+		CheckString check = new CheckString();
 		
 		try {
 			
@@ -46,6 +48,16 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			String loginName = req.getParameter("loginName"); 
+			
+			String nachname = req.getParameter("nachname");
+			String vorname = req.getParameter("vorname");
+			/*req.getParameter("neuIcq")*/
+			/*req.getParameter("neuSkype")*/
+			/*req.getParameter("neutelefon")*/
+			String sprache = req.getParameter("sprache");
+			String pw1 = req.getParameter("neuesPasswortEins");
+			String pw2 = req.getParameter("neuesPasswortZwei");
+			/*req.getParameter("altesPasswort")*/
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -58,17 +70,20 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 					throw new ProjectException("Sie haben keine Rechte zum updaten der UserSettings!");
 				}
 			}
-
+			check.checkIT("Nachname",nachname);
+			check.checkIT("Vorname",vorname);
+			check.checkIT("Sprache",sprache);
+			
 			//Manager in aktion
 			mainManager.getUserManager().updateUserSettings(loginName, 
-															req.getParameter("nachname"), 
-															req.getParameter("vorname"), 
+															nachname, 
+															vorname, 
 															/*req.getParameter("neuIcq")*/null, 
 															/*req.getParameter("neuSkype")*/null, 
 															/*req.getParameter("neutelefon")*/null, 
-															req.getParameter("sprache"), 
-															req.getParameter("neuesPasswortEins"), 
-															req.getParameter("neuesPasswortZwei")/*, 
+															sprache, 
+															pw1, 
+															pw2/*, 
 															req.getParameter("altesPasswort")*/);
 
 			
