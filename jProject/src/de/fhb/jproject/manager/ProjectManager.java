@@ -520,14 +520,7 @@ public class ProjectManager {
 			throw new ProjectException("Kann User nicht finden! "+ ex);
 		}
 		
-		//projekte in liste eintragen
-		/*XXX Testausgabe
-		for (Member aktMember : user.member.toArray()) {
-			list.add(aktMember.getProject());
-		}
-		*/
 		
-		//TODO LATER Projectliste übergeben nicht memberliste
 		return user.member;
 	}
 	/**

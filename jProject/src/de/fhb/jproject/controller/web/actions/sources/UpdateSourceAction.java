@@ -82,7 +82,7 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 				super.redirect(req, resp, "JProjectServlet", "ShowAllSource", param);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
-				//TODO DRINGEND BEI ALLEN REDIRECTS PROJECTEXCEPTION WERFEN!!!!!
+				throw new ProjectException("Konnte Redirect nicht ausführen!");
 			}
 		}catch (ProjectException e) {
 			logger.error(e.getMessage(), e);

@@ -63,7 +63,7 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 			//Manager in aktion
 			projectList=mainManager.getProjectManager().searchProjects(searchValue);
 			
-			//XXX Testausgabe
+			//DEBUG Testausgabe
 			if(logger.getLevel()==Level.DEBUG){
 				for( Project p : projectList){
 					logger.debug("Project: "+p.getName());
