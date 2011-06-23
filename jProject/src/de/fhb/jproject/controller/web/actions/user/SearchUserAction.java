@@ -54,21 +54,12 @@ public class SearchUserAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");	
-				}
-				//Manager in aktion
-				userList = mainManager.getUserManager().searchUser(searchValue);
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");	
 			}
+			//Manager in aktion
+			userList = mainManager.getUserManager().searchUser(searchValue);
 			
-			//XXX Testausgabe
-//			for( User user : userList){
-//				System.out.println("User: "+user.getLoginName());
-//			}
 			
 			//Daten dem Reqest mitgeben
 			req.setAttribute("userList", userList);
@@ -80,10 +71,6 @@ public class SearchUserAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}	
+		}
 	}
 }

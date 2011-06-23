@@ -14,6 +14,7 @@ import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
+import org.apache.log4j.Level;
 
 
 /**
@@ -56,27 +57,21 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedSearchProjectsAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
-				}
-				//Manager in aktion
-				projectList=mainManager.getProjectManager().searchProjects(searchValue);
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedSearchProjectsAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");		
 			}
+			//Manager in aktion
+			projectList=mainManager.getProjectManager().searchProjects(searchValue);
+			
 			//XXX Testausgabe
-			for( Project p : projectList){
-				System.out.println("Project: "+p.getName());
+			if(logger.getLevel()==Level.DEBUG){
+				for( Project p : projectList){
+					logger.debug("Project: "+p.getName());
+				}
 			}
 			//TODO PARAMETERÜBERGABE
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

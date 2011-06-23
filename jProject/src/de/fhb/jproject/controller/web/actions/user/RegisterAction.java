@@ -66,15 +66,11 @@ public class RegisterAction extends HttpRequestActionBase {
 			check.checkIT("Vorname",vorname);
 			check.checkIT("Nachname",nachname);
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Users!");	
-				}
-				//Manager in aktion
-				mainManager.getUserManager().register(loginName, passwort, passwortWdhl, nachname, vorname);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Users!");	
 			}
+			//Manager in aktion
+			mainManager.getUserManager().register(loginName, passwort, passwortWdhl, nachname, vorname);
 			
 			try {
 				String[] param = new String[1];
@@ -84,10 +80,6 @@ public class RegisterAction extends HttpRequestActionBase {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

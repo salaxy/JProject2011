@@ -58,27 +58,17 @@ public class OpenAdminconsole extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
-				}
-				//Manager in aktion
-				projectList=mainManager.getProjectManager().showAllProjects();
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Projekte!");
 			}
+			//Manager in aktion
+			projectList=mainManager.getProjectManager().showAllProjects();
 			
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller User!");	
-				}
-				//Manager in aktion
-				userList=mainManager.getUserManager().showAllUser();
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
 			}
+			//Manager in aktion
+			userList=mainManager.getUserManager().showAllUser();
 			
 			try{
 				/* Darf der User Member löschen? (für GUI-Anzeige) */
@@ -89,11 +79,6 @@ public class OpenAdminconsole extends HttpRequestActionBase {
 				logger.info("isAllowedDeleteMemberAction NO!");
 			}
 			
-			/*
-			for( Project p : projectList){
-				System.out.println("Project: "+p.getName());
-			}		
-			*/
 			//setzen der Parameter
 			req.setAttribute("anzProjects", projectList.size());
 			req.setAttribute("anzUser", userList.size());
@@ -104,10 +89,6 @@ public class OpenAdminconsole extends HttpRequestActionBase {
 			
 			req.setAttribute("contentFile", "adminoverview.jsp");
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

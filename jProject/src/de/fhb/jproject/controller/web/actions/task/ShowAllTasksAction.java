@@ -99,7 +99,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
 					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Tasks dieses Projektes!");
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Tasks dieses Projektes!");
 					}
 				}			
 			}
@@ -139,16 +139,17 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				if (0 == taskId) {
 					taskId = taskList.get(0).getId();
 				}
+				//TODO DRINGEND RECHTEABFRAGE
+				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+					//RECHTE-ABFRAGE Projekt
+					if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
+					}			
+				}
+				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
 			}
 			
-			//TODO DRINGEND RECHTEABFRAGE
-			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedShowAllTaskAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Tasks!");
-				}			
-			}
-			task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
+			
 			
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
@@ -163,11 +164,6 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

@@ -69,60 +69,58 @@ public class DownloadSourceAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDownloadSourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDownloadSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum downloaden dieses Sourcecodes!");
-					}			
-				}
-				//Manager in aktion
-				myfile = mainManager.getSourceManager().downloadSource(sourcecodeId, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDownloadSourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDownloadSourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum downloaden dieses Sourcecodes!");
+				}			
 			}
-			try{
+			//Manager in aktion
+			myfile = mainManager.getSourceManager().downloadSource(sourcecodeId, aktProject.getName());
+				
+			
+			if(myfile != null){
+				try{
 
-				myOut = resp.getOutputStream( );
+					myOut = resp.getOutputStream( );
 
 
-				//set response headers
-				resp.setContentType("text/plain");
+					//set response headers
+					resp.setContentType("text/plain");
 
-				resp.addHeader("Content-Disposition", 
-							   "attachment; filename="+myfile.getName());
+					resp.addHeader("Content-Disposition", 
+								   "attachment; filename="+myfile.getName());
 
-				resp.setContentLength( (int) myfile.length( ) );
+					resp.setContentLength( (int) myfile.length( ) );
 
-				FileInputStream input = new FileInputStream(myfile);
-				buf = new BufferedInputStream(input);
-				int readBytes = 0;
+					FileInputStream input = new FileInputStream(myfile);
+					buf = new BufferedInputStream(input);
+					int readBytes = 0;
 
-				//read from the file; write to the ServletOutputStream
-				while((readBytes = buf.read( )) != -1){
-					myOut.write(readBytes);
-				}
-			} catch (IOException e){
-				logger.error("Konnte File nicht schreiben! "+e.getMessage(), e);
-			} finally {
-				//close the input/output streams
-				try {
-					if (myOut != null){
-						myOut.close( );
+					//read from the file; write to the ServletOutputStream
+					while((readBytes = buf.read( )) != -1){
+						myOut.write(readBytes);
 					}
-					if (buf != null){
-						buf.close( );
+				} catch (IOException e){
+					logger.error("Konnte File nicht auslesen! "+e.getMessage(), e);
+					throw new ProjectException("Konnte File nicht auslesen!");
+				} finally {
+					//close the input/output streams
+					try {
+						if (myOut != null){
+							myOut.close( );
+						}
+						if (buf != null){
+							buf.close( );
+						}
+					} catch (IOException e) {
+						logger.error("Konnte Stream nicht schließen! "+e.getMessage(), e);
+						throw new ProjectException("Konnte Stream nicht schließen!");
 					}
-				} catch (IOException e) {
-					logger.error("Konnte Stream nicht schließen! "+e.getMessage(), e);
 				}
 			}
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

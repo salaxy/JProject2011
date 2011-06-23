@@ -293,10 +293,10 @@ public class JProjectServlet extends HttpServletControllerBase {
 		action = new SearchProjectsAction();
 		actions.put("SearchProjects", action);
 		
-		//TODO Eventuell nur fuer admin
+		/*Nur Admin
 		action = new ShowAllProjectsAction();
 		actions.put("ShowAllProjects", action);
-		
+		*/
 		action = new ShowAllOwnProjectsAction();
 		actions.put("ShowAllOwnProjects", action);		
 		

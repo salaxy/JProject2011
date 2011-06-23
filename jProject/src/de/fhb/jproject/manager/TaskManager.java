@@ -182,6 +182,7 @@ public class TaskManager {
 		try {	
 			
 			//task loeschen
+			clearSession();
 			taskDA.delete(task);
 		} catch (PersistentException e) {
 			throw new ProjectException("Kann Task nicht loeschen! "+ e.getMessage());

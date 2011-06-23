@@ -65,17 +65,19 @@ public class ShowSourceAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
+			if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser, aktProject.getName())){
+					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
+				}			
+			}
+			logger.debug("sourceId: "+sourcecodeId);
+			sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
+
 			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
-					}			
-				}
-				logger.debug("sourceId: "+sourcecodeId);
-				sourcecode = mainManager.getSourceManager().showSource(sourcecodeId);
-				sourcecodeContent = mainManager.getDocumentManager().showDocuContent(aktProject.getName(), sourcecodeId);
-			}catch(NullPointerException e){
+
+				sourcecodeContent = mainManager.getSourceManager().showSourceContent(aktProject.getName(), sourcecodeId);
+			} catch (NullPointerException e) {
 				logger.info(e.getMessage(), e);
 				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 			}
@@ -85,10 +87,6 @@ public class ShowSourceAction extends HttpRequestActionBase {
 			req.setAttribute("sourcecodeContent", sourcecodeContent);
 
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

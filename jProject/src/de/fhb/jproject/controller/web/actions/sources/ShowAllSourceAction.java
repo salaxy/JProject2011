@@ -81,37 +81,24 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			}
 			
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllSourceAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllSourceAction(aktUser, aktProject.getName())){
-						if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-							throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Sourcecodes dieses Projektes!");
-						}
-					}			
-				}
-				//Manager in aktion
-				sourcecodeList = mainManager.getSourceManager().showAllSource(aktProject.getName()).getCollection();
-				sourcecodeList.size();
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllSourceAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllSourceAction(aktUser, aktProject.getName())){
+					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Sourcecodes dieses Projektes!");
+					}
+				}			
 			}
-			try {
+			//Manager in aktion
+			sourcecodeList = mainManager.getSourceManager().showAllSource(aktProject.getName()).getCollection();
+			sourcecodeList.size();
+				
+			if(!sourcecodeList.isEmpty()) {
 				//Wenn sourcecodeId == null dann gib mir den ersten
 				if (0 == sourcecodeId) {
 					sourcecodeId = ((Sourcecode)sourcecodeList.toArray()[0]).getId();
 				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("sourcecodeID ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine Sourcecodes vorhanden!"+e.getMessage(), e);
-			}catch(NullPointerException e){
-				logger.error("Keine Sourcecodes vorhanden!"+e.getMessage(), e);
-			}
-			
-			
-			
-			try {
+				
 				if(!mainManager.getGlobalRolesManager().isAllowedShowSourceAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowSourceAction(aktUser, aktProject.getName())){
@@ -128,9 +115,6 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 					logger.info(e.getMessage(), e);
 					sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 				}
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-				sourcecodeContent = "Kann Sourcecode nicht lesen! ";
 			}
 			
 			//setzen der Parameter
@@ -144,11 +128,6 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

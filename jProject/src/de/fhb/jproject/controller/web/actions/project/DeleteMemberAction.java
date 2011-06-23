@@ -59,21 +59,17 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, aktProject.getName())){
-						if (!aktUser.equals(loginName)) {
-							System.out.println("loginName: "+loginName);
-							throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
-						}	
-					}			
-				}
-				//Manager in aktion
-				mainManager.getProjectManager().deleteMember(aktUser, loginName, aktProject.getName());
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteMemberAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedDeleteMemberAction(aktUser, aktProject.getName())){
+					if (!aktUser.equals(loginName)) {
+						System.out.println("loginName: "+loginName);
+						throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+					}	
+				}			
 			}
+			//Manager in aktion
+			mainManager.getProjectManager().deleteMember(aktUser, loginName, aktProject.getName());
 			
 			try {
 				String[] param = new String[1];
@@ -83,10 +79,6 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 			}
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

@@ -294,7 +294,7 @@ public class ProjectManager {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}			
 		
-		//TODO UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER! Sonst Exception
+		//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER
 		//Anmerkung: und was ist wenns nen admin is?
 		for(Object m:project.member.getCollection()){
 			if(((Member)m).getProjectRole().equals("Leader")){

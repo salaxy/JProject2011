@@ -62,52 +62,17 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
-				}
-				//Manager in aktion
-				projectList=mainManager.getProjectManager().showAllProjects();
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllProjectsAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Projekte!");
+			}
+			//Manager in aktion
+			projectList=mainManager.getProjectManager().showAllProjects();
 			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-			}
-			/*
-			try{
-				//Wenn projectName == null dann gib mir den ersten
-				if (null == projectName) {
-					projectName = projectList.get(0).getName();
-				}
-			} catch (IllegalArgumentException e) {
-				throw new ProjectException("ProjectName ungültig "+e);
-			}catch(ArrayIndexOutOfBoundsException e){
-				logger.error("Keine Projekte vorhanden!"+e.getMessage(), e);
-			}
-			
-			try {
-				if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projekts!");	
-				}
-				project = mainManager.getProjectManager().showProject(projectName);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-			}
-			 * 
-			 */
-			/*
-			for( Project p : projectList){
-				System.out.println("Project: "+p.getName());
-			}		
-			*/
 			//setzen der Parameter
 			req.setAttribute("projectList", projectList);
 			//req.setAttribute("project", project);
 			
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());

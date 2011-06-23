@@ -87,17 +87,14 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllComments41TaskAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedShowAllComments41TaskAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller TaskComments!");
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller TaskComments!");
 				}			
 			}
 			//Manager in aktion
 			commentList=mainManager.getCommentManager().showAllComments41Task(aktUser, aktProject.getName(), taskId);
-//			for( Comment c : commentList){
-//				System.out.println("Comment: "+ c.getId()+" "+ c.getEntry());
-//			}		
 			
+			JSONObject json = new JSONObject();
 			if (!commentList.isEmpty()) {
-				JSONObject json = new JSONObject();
 				for (Comment comment : commentList) {
 					try {
 						JSONObject comm = new JSONObject();
@@ -116,14 +113,14 @@ public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 						throw new ProjectException("Konnte JSON nicht packen! "+ e);
 					}
 				}
-				resp.setContentType("application/json");
-				try {
-					//forward(req, resp, "/snippet.jsp");
-					resp.getWriter().println(json);
-				} catch (IOException e) {
-					logger.error("Konnte JSON nicht senden! "+e.getMessage(), e);
-					throw new ProjectException("Konnte JSON nicht senden! "+ e);
-				}
+			}
+			resp.setContentType("application/json");
+			try {
+				//forward(req, resp, "/snippet.jsp");
+				resp.getWriter().println(json);
+			} catch (IOException e) {
+				logger.error("Konnte JSON nicht senden! "+e.getMessage(), e);
+				throw new ProjectException("Konnte JSON nicht senden! "+ e);
 			}
 
 		}catch (ProjectException e) {

@@ -57,17 +57,13 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
-					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
-				}
-				//Manager in aktion
-				userList=mainManager.getUserManager().showAllUser();
-			
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
+				throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
 			}
+			//Manager in aktion
+			userList=mainManager.getUserManager().showAllUser();
 			
+			/* TODO ENTFERNEN
 			try{
 				//Wenn loginName == null dann gib mir den ersten
 				if (null == loginName) {
@@ -96,9 +92,11 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 //			for( User user : userList){
 //				System.out.println("User: "+user.getLoginName());
 //			}
-
+			 * 
+			 * 
+			 */
 			//Daten dem Reqest mitgeben
-			req.setAttribute("user", user);
+			//req.setAttribute("user", user);
 			req.setAttribute("userList", userList);
 			
 			
@@ -108,10 +106,6 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}	
+		}
 	}
 }

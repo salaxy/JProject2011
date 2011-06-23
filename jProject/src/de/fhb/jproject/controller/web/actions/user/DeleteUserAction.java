@@ -46,7 +46,7 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
-			String loginName = req.getParameter("userLoginName");
+			String loginName = req.getParameter("loginName");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -54,18 +54,15 @@ public class DeleteUserAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
-					if(!aktUser.equals(loginName)){
-						throw new ProjectException("Sie haben keine Rechte zum löschen dieses Users!");
-					}
-						
+			if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
+				if(!aktUser.equals(loginName)){
+					throw new ProjectException("Sie haben keine Rechte zum Löschen dieses Users!");
 				}
-				//Manager in aktion
-				mainManager.getUserManager().deleteUser(loginName);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
+
 			}
+			//Manager in aktion
+			mainManager.getUserManager().deleteUser(loginName);
+			
 			try {
 				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllUser", null);
 			} catch (IOException e) {
@@ -76,11 +73,6 @@ public class DeleteUserAction extends HttpRequestActionBase {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
 		}
-		
 	}
 }

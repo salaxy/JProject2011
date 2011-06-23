@@ -29,6 +29,7 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException {
 		HttpSession session = req.getSession();
@@ -63,18 +64,14 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 				logger.info("isAllowedUpdateUserSettings NO!");
 			}
 			//RECHTE-ABFRAGE Global
-			try{
-				if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser)){
-					if(!aktUser.equals(loginName)){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen der UserSettings!");
-					}
-				}			
-				
-				//Manager in aktion
-				user = mainManager.getUserManager().showUserSettings(loginName);
-			}catch(NullPointerException e){
-				logger.error(e.getMessage(), e);
-			}
+			if(!mainManager.getGlobalRolesManager().isAllowedShowUserSettingsAction(aktUser)){
+				if(!aktUser.equals(loginName)){
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen der UserSettings!");
+				}
+			}			
+
+			//Manager in aktion
+			user = mainManager.getUserManager().showUserSettings(loginName);
 			
 			//setzen der Parameter
 			req.setAttribute("user", user);
@@ -83,10 +80,6 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 			
 			req.setAttribute("contentFile", "showUserSettings.jsp");
 		}catch (ProjectException e) {
-			logger.error(e.getMessage(), e);
-			req.setAttribute("contentFile", "error.jsp");
-			req.setAttribute("errorString", e.getMessage());
-		}catch (IllegalArgumentException e) {
 			logger.error(e.getMessage(), e);
 			req.setAttribute("contentFile", "error.jsp");
 			req.setAttribute("errorString", e.getMessage());
