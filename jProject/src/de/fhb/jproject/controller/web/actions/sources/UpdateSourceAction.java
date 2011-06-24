@@ -65,13 +65,9 @@ public class UpdateSourceAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedUpdateSourceAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
-				//TODO DRINGEND RECHTE_ABFRAGE
-				/*
 				if(!mainManager.getProjectRolesManager().isAllowedUpdateSourceAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Sourcecodes!");
+					throw new ProjectException("Sie haben keine Rechte zum Updaten dieses Sourcecodes!");
 				}
-				 * 
-				 */
 			}
 			//Manager in aktion
 			mainManager.getSourceManager().updateSource(aktProject.getName(), data, sourcecodeId);

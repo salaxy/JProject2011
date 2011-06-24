@@ -74,9 +74,10 @@ public class OpenAdminconsole extends HttpRequestActionBase {
 			try{
 				/* Darf der User Member löschen? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
-					isAllowedRegister = false;			
+					isAllowedRegister = false;	
 				}
 			} catch (ProjectException e) {
+				isAllowedRegister = false;
 				logger.info("isAllowedDeleteMemberAction NO!");
 			}
 			

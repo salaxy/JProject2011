@@ -62,6 +62,7 @@ public class ShowUserInfoAction extends HttpRequestActionBase {
 					isAllowedShowUserSettings = false;			
 				}
 			} catch (ProjectException e) {
+				isAllowedShowUserSettings = false;
 				logger.info("isAllowedShowUserSettings NO!");
 			}
 			//RECHTE-ABFRAGE Global

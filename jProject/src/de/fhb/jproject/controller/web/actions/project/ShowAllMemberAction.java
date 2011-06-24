@@ -73,10 +73,9 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			
 			if (!memberSet.isEmpty()) {
 				//RECHTE-ABFRAGE Global
-				//TODO RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowMemberAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Members!");
 					}			
 				}

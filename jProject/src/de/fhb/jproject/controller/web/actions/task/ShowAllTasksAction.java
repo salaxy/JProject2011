@@ -107,10 +107,12 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, aktProject.getName())){
 						isAllowedShowAllMemberAction = false;
+						logger.info("isAllowedShowAllMemberAction NO!");
 					}			
 				}
 
 			} catch (ProjectException e) {
+				isAllowedShowAllMemberAction = false;
 				logger.info("isAllowedShowAllMemberAction NO!");
 			}
 			
@@ -125,6 +127,7 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedDeleteTaskAction = false;
 				logger.info("isAllowedDeleteTaskAction NO!");
 			}
 			
@@ -135,9 +138,11 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedUpdateTaskAction(aktUser, aktProject.getName())){
 						isAllowedUpdateTaskAction = false;
+						logger.info("isAllowedUpdateTaskAction NO!");
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedUpdateTaskAction = false;
 				logger.info("isAllowedUpdateTaskAction NO!");
 			}
 			
@@ -147,17 +152,21 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedAddNewTaskAction(aktUser, aktProject.getName())){
 						isAllowedAddNewTaskAction = false;
+						logger.info("isAllowedAddNewTaskAction NO!");
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedAddNewTaskAction = false;
 				logger.info("isAllowedAddNewTaskAction NO!");
 			}
 			try {
 				/* Darf der User Task anhängen? (für GUI-Anzeige) */
 				if(!mainManager.getProjectRolesManager().isAllowedAssignTaskAction(aktUser, aktProject.getName())){
 					isAllowedAssignTaskAction = false;
+					logger.info("isAllowedAssignTaskAction NO!");
 				}
 			} catch (ProjectException e) {
+				isAllowedAssignTaskAction = false;
 				logger.info("isAllowedAssignTaskAction NO!");
 			}
 			
@@ -165,8 +174,10 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				/* Darf der User Task ablösen? (für GUI-Anzeige) */
 				if(!mainManager.getProjectRolesManager().isAllowedDeAssignTaskAction(aktUser, aktProject.getName())){
 					isAllowedDeAssignTaskAction = false;
+					logger.info("isAllowedDeAssignTaskAction NO!");
 				}
 			} catch (ProjectException e) {
+				isAllowedDeAssignTaskAction = false;
 				logger.info("isAllowedDeAssignTaskAction NO!");
 			}
 			
@@ -175,10 +186,10 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				if (0 == taskId) {
 					taskId = taskList.get(0).getId();
 				}
-				//TODO DRINGEND RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Global
+				if(!mainManager.getGlobalRolesManager().isAllowedShowTaskAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
+					if(!mainManager.getProjectRolesManager().isAllowedShowTaskAction(aktUser, aktProject.getName())){
 						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
 					}			
 				}

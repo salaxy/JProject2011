@@ -77,6 +77,7 @@ public class ShowAllSourceAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedDeleteSourceAction = false;
 				logger.info("isAllowedDeleteSourceAction NO!");
 			}
 			

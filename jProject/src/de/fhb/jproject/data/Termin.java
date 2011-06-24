@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Termin {
+import java.io.Serializable;
+public class Termin implements Serializable {
 	public Termin() {
 	}
 	

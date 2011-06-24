@@ -72,6 +72,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 					isAllowedDeleteUserAction = false;
 				}
 			} catch (ProjectException e) {
+				isAllowedDeleteUserAction = false;
 				logger.info("isAllowedDeleteUserAction NO!");
 			}
 			req.setAttribute("userList", userList);

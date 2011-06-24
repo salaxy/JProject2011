@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Task {
+import java.io.Serializable;
+public class Task implements Serializable {
 	public Task() {
 	}
 	

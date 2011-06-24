@@ -81,6 +81,7 @@ public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedUpdateCommentAction = false;
 				logger.info("isAllowedUpdateCommentAction NO!");
 			}
 			//RECHTE-ABFRAGE Global

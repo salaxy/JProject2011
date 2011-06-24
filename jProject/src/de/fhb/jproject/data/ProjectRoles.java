@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class ProjectRoles {
+import java.io.Serializable;
+public class ProjectRoles implements Serializable {
 	public ProjectRoles() {
 	}
 	
@@ -84,6 +85,10 @@ public class ProjectRoles {
 	private boolean deAssignTaskAction;
 	
 	private boolean assignTaskAction;
+	
+	private boolean showTaskAction;
+	
+	private boolean showMemberAction;
 	
 	public void setRole(String value) {
 		this.role = value;
@@ -359,6 +364,22 @@ public class ProjectRoles {
 	
 	public boolean getAssignTaskAction() {
 		return assignTaskAction;
+	}
+	
+	public void setShowTaskAction(boolean value) {
+		this.showTaskAction = value;
+	}
+	
+	public boolean getShowTaskAction() {
+		return showTaskAction;
+	}
+	
+	public void setShowMemberAction(boolean value) {
+		this.showMemberAction = value;
+	}
+	
+	public boolean getShowMemberAction() {
+		return showMemberAction;
 	}
 	
 	public String toString() {

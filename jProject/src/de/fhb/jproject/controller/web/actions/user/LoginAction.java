@@ -58,8 +58,9 @@ public class LoginAction extends HttpRequestActionBase {
 				session.setAttribute("aktUser", user.getLoginName());
 				session.setAttribute("mainManager", mainManager);
 
-				//TODO RECHTEKONROLLE -> ADD showAdminconsole
-				if(user.getGlobalRole().equals("Admin")){
+				
+				//RECHTE-ABFRAGE Global
+				if(mainManager.getGlobalRolesManager().isAllowedOpenAdminconsoleAction(loginName)){
 					session.setAttribute("isAdmin", true);
 				}
 			}

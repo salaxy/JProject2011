@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Licensee: DuKe TeAm
 License Type: Purchased
 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class lazy="false" name="de.fhb.jproject.data.Project" table="`Project`">
-    <id column="`Name`" name="name" type="string">
-      <generator class="native">
+	<class name="de.fhb.jproject.data.Project" table="`Project`" lazy="false">
+		<id name="name" column="`Name`" type="string">
+			<generator class="native">
 			</generator>
-    </id>
-    <property column="`Status`" lazy="false" length="255" name="status" not-null="false" type="string"/>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Member">
-      <key column="`Project`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.Member"/>
-    </set>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Sourcecode">
-      <key column="`Project`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.Sourcecode"/>
-    </set>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Document">
-      <key column="`Project`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.Document"/>
-    </set>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_Task">
-      <key column="`Project`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.Task"/>
-    </set>
-    <set cascade="save-update,lock" inverse="true" lazy="true" name="ORM_CommentProject">
-      <key column="`Project`" not-null="true"/>
-      <one-to-many class="de.fhb.jproject.data.CommentProject"/>
-    </set>
-  </class>
+		</id>
+		<property name="status" column="`Status`" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Member" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`Project`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.Member"/>
+		</set>
+		<set name="ORM_Sourcecode" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`Project`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.Sourcecode"/>
+		</set>
+		<set name="ORM_Document" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`Project`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.Document"/>
+		</set>
+		<set name="ORM_Task" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`Project`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.Task"/>
+		</set>
+		<set name="ORM_CommentProject" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="`Project`" not-null="true"/>
+			<one-to-many class="de.fhb.jproject.data.CommentProject"/>
+		</set>
+	</class>
 </hibernate-mapping>

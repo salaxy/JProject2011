@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Sourcecode {
+import java.io.Serializable;
+public class Sourcecode implements Serializable {
 	public Sourcecode() {
 	}
 	

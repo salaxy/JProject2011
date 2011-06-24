@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class ICQ {
+import java.io.Serializable;
+public class ICQ implements Serializable {
 	public ICQ() {
 	}
 	

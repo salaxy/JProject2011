@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class GlobalRoles {
+import java.io.Serializable;
+public class GlobalRoles implements Serializable {
 	public GlobalRoles() {
 	}
 	
@@ -104,6 +105,14 @@ public class GlobalRoles {
 	private boolean showAllOwnTasksAction;
 	
 	private boolean updateTaskAction;
+	
+	private boolean openAdminconsoleAction;
+	
+	private boolean changeGlobalRoleAction;
+	
+	private boolean showTaskAction;
+	
+	private boolean showMemberAction;
 	
 	public void setRole(String value) {
 		this.role = value;
@@ -459,6 +468,38 @@ public class GlobalRoles {
 	
 	public boolean getUpdateTaskAction() {
 		return updateTaskAction;
+	}
+	
+	public void setOpenAdminconsoleAction(boolean value) {
+		this.openAdminconsoleAction = value;
+	}
+	
+	public boolean getOpenAdminconsoleAction() {
+		return openAdminconsoleAction;
+	}
+	
+	public void setChangeGlobalRoleAction(boolean value) {
+		this.changeGlobalRoleAction = value;
+	}
+	
+	public boolean getChangeGlobalRoleAction() {
+		return changeGlobalRoleAction;
+	}
+	
+	public void setShowTaskAction(boolean value) {
+		this.showTaskAction = value;
+	}
+	
+	public boolean getShowTaskAction() {
+		return showTaskAction;
+	}
+	
+	public void setShowMemberAction(boolean value) {
+		this.showMemberAction = value;
+	}
+	
+	public boolean getShowMemberAction() {
+		return showMemberAction;
 	}
 	
 	public String toString() {

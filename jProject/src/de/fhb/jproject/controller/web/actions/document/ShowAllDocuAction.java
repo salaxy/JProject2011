@@ -80,6 +80,7 @@ public class ShowAllDocuAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedDeleteDocuAction = false;
 				logger.info("isAllowedDeleteDocuAction NO!");
 			}
 			

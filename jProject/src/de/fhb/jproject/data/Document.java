@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Document {
+import java.io.Serializable;
+public class Document implements Serializable {
 	public Document() {
 	}
 	
