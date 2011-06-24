@@ -18,6 +18,8 @@ AddNewMember =>
 	habs mir angeguckt...
 	mhm...wir benutzen es gleichzeitig zum updaten....?
 	dann müssten wir das trennen in update und AddMember?
+	bullshit...einen member zum projekt adden...und was is nun wenn ein member schon in nem projekt ist?...
+	dann soll natürlich ne fehlermeldung kommen...sonst wird er überschreiben
 
 DA-Schicht
 **********
@@ -25,7 +27,7 @@ DA-Schicht
 
 Datenbank
 **********
-	
+DB UPDATEN
 		
 
 Bekannte Fehler
