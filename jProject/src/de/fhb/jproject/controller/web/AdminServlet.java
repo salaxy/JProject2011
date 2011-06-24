@@ -82,6 +82,9 @@ public class AdminServlet extends HttpServletControllerBase {
 		List<Project> projectList = null;
 		List<User> userList = null;
 		
+		boolean isAllowedDeleteUserAction = true;
+		boolean isAllowedDeleteProjectAction = true;
+		
 		
 		if (!(session.getAttribute("aktUser")==null)) {
 			
@@ -100,6 +103,16 @@ public class AdminServlet extends HttpServletControllerBase {
 				}
 				//Manager in aktion
 				projectList=mainManager.getProjectManager().showAllProjects();
+				
+				try {
+					/* Darf dieser User User löschen? (für GUI-Anzeige) */
+					if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser)){
+						logger.info("isAllowedDeleteProjectAction NO!");
+						isAllowedDeleteProjectAction = false;
+					}
+				} catch (ProjectException e) {
+					logger.info("isAllowedDeleteProjectAction NO!");
+				}
 			
 			} catch (ProjectException ex) {
 				logger.error(ex.getMessage(), ex);
@@ -111,6 +124,17 @@ public class AdminServlet extends HttpServletControllerBase {
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllUserAction(aktUser)){
 					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller User!");	
 				}
+				
+				try {
+					/* Darf dieser User User löschen? (für GUI-Anzeige) */
+					if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
+						logger.info("isAllowedDeleteUserAction NO!");
+						isAllowedDeleteUserAction = false;
+					}
+				} catch (ProjectException e) {
+					logger.info("isAllowedDeleteUserAction NO!");
+				}
+				
 				//Manager in aktion
 				userList=mainManager.getUserManager().showAllUser();
 			
@@ -120,7 +144,8 @@ public class AdminServlet extends HttpServletControllerBase {
 				req.setAttribute("errorString", ex.getMessage());
 			}
 			
-			
+			req.setAttribute("isAllowedDeleteProjectAction", isAllowedDeleteProjectAction);
+			req.setAttribute("isAllowedDeleteUserAction", isAllowedDeleteUserAction);
 			req.setAttribute("projectList", projectList);
 			req.setAttribute("userList", userList);
 			

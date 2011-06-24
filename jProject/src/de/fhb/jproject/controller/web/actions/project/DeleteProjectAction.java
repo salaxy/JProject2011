@@ -62,14 +62,14 @@ public class DeleteProjectAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedDeleteProjectAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedDeleteProjectAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum loeschen eines Members!");
+					throw new ProjectException("Sie haben keine Rechte zum Loeschen dieses Projektes!");
 				}			
 			}
 			//Manager in aktion
-			mainManager.getProjectManager().deleteProject(aktUser, projectName);
+			mainManager.getProjectManager().deleteProject(aktUser, projectName, mainManager.getGlobalRolesManager());
 			
 			try {
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), null, null);
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "OpenAdminconsole", null);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 				throw new ProjectException("Konnte Redirect nicht ausführen!");

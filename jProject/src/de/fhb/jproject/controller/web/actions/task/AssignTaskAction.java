@@ -68,6 +68,9 @@ public class AssignTaskAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie haben keine Rechte zum vergeben von Tasks!");
 			}			
 
+			if(loginName.equals("")){
+				throw new ProjectException("Bitte wählen sie einen Member aus.");
+			}
 			//Manager in aktion
 			mainManager.getTaskManager().assignTask(loginName, aktProject.getName(), taskId);
 			
