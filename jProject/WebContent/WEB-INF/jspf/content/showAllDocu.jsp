@@ -21,9 +21,14 @@
 				<input value="X" type="submit" />
 		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentId=${docu.id}">${docu.dateiname}</a>
-		<c:if test="${isAllowedDeleteDocuAction}">
-			</form>
-		</c:if>
+		<c:choose>
+			<c:when test="${isAllowedDeleteDocuAction}">
+				</form>
+			</c:when>
+			<c:otherwise>
+				<br />
+			</c:otherwise>
+		</c:choose>
 		
 	</c:forEach>
 </div>
@@ -69,9 +74,8 @@ ${documentContent}
 <div id="footercontent">
 	<c:choose>
 		<c:when test="${!empty documentList}">
-			<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${document.id})" />
 			<div id="allComments41Docu">
-
+				<input value="Show Comments" type="button" onclick="getShowAllComments41DocumentJSON(${document.id})" />
 			</div>
 		</c:when>
 	</c:choose>
