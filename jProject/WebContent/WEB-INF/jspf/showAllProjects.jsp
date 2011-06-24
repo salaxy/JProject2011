@@ -8,5 +8,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:forEach items="${projectList}" var="project" varStatus="i">
+	<c:if test="${isAllowedDeleteProjectAction}">
+		<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteProject()">
+			<input name="do" value="DeleteProject" type="hidden" />
+			<input name="projectName" value="${project.name}" type="hidden" />
+			<input value="X" type="submit" />
+	</c:if>
 	<a href="${sessionScope.aktServlet}?do=ShowProject&projectName=${project.name}">${project}</a><br>
+	<c:if test="${isAllowedDeleteProjectAction}">
+		</form>
+	</c:if>
 </c:forEach>

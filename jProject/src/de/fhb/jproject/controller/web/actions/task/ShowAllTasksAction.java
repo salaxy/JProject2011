@@ -89,6 +89,19 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			
+			//RECHTE-ABFRAGE Global
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Projekt
+				if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
+					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Tasks dieses Projektes!");
+					}
+				}			
+			}
+			//Manager in aktion
+			taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
+			
+			
 			try{
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
@@ -114,23 +127,6 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 			} catch (ProjectException e) {
 				logger.info("isAllowedDeleteTaskAction NO!");
 			}
-			
-			
-			
-			//RECHTE-ABFRAGE Global
-			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
-					if (!mainManager.getProjectRolesManager().isMember(aktUser, aktProject.getName())) {
-						throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Tasks dieses Projektes!");
-					}
-				}			
-			}
-			//Manager in aktion
-			taskList=mainManager.getTaskManager().showAllTasks(aktProject.getName());
-			
-			
-			
 			
 			
 			try {
@@ -192,14 +188,18 @@ public class ShowAllTasksAction extends HttpRequestActionBase {
 					memberSet.size();
 				}
 				
-				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
+				task = mainManager.getTaskManager().showTask(taskId);
 				
-				taskMemberSet = task.memberUser.getCollection();
-				memberSetDiff = memberSet.getCollection();
-				if (!taskMemberSet.isEmpty()) {
-					memberSetDiff.removeAll(taskMemberSet);
+				if (isAllowedShowAllMemberAction) {
+					taskMemberSet = task.memberUser.getCollection();
+
+					if(isAllowedAssignTaskAction){
+						memberSetDiff = memberSet.getCollection();
+						if (!taskMemberSet.isEmpty()) {
+							memberSetDiff.removeAll(taskMemberSet);
+						}
+					}
 				}
-				
 			}
 			
 			

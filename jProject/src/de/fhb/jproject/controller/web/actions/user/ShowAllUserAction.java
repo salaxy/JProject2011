@@ -38,6 +38,8 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 		
 		List <User> userList = null;
 		User user = null;
+		
+		boolean isAllowedDeleteUserAction = true;
 	
 		HttpSession session = req.getSession();
 		//Manager holen
@@ -49,7 +51,7 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
-			String loginName = req.getParameter("loginName");
+			//String loginName = req.getParameter("loginName");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -63,10 +65,18 @@ public class ShowAllUserAction extends HttpRequestActionBase {
 			//Manager in aktion
 			userList=mainManager.getUserManager().showAllUser();
 			
-			
+			try {
+				/* Darf dieser User User löschen? (für GUI-Anzeige) */
+				if(!mainManager.getGlobalRolesManager().isAllowedDeleteUserAction(aktUser)){
+					logger.info("isAllowedDeleteUserAction NO!");
+					isAllowedDeleteUserAction = false;
+				}
+			} catch (ProjectException e) {
+				logger.info("isAllowedDeleteUserAction NO!");
+			}
 			req.setAttribute("userList", userList);
 			
-			
+			req.setAttribute("isAllowedDeleteUserAction", isAllowedDeleteUserAction);
 			
 			req.setAttribute("contentFile", "showAllUser.jsp");
 		}catch (ProjectException e) {

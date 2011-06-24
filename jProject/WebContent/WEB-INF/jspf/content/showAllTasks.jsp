@@ -26,9 +26,14 @@
 				<input value="X" type="submit" />
 		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a>
-		<c:if test="${isAllowedDeleteTaskAction}">
-			</form>
-		</c:if>
+		<c:choose>
+			<c:when test="${isAllowedDeleteTaskAction}">
+				</form>
+			</c:when>
+			<c:otherwise>
+				<br />
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
 
 </div>
@@ -76,32 +81,48 @@
 				<h3>Aktueller Task anzeigen</h3>
 				<fieldset>
 					<legend>Aktueller Task</legend>
-					<c:if test="${isAllowedAssignTaskAction}">
-						<form method="POST" action="${sessionScope.aktServlet}">
-							<input name="do" value="AssignTask" type="hidden" />
-							<input name="taskId" value="${task.id}" type="hidden" />
-							<select name="loginName">
-								<option>&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-								<c:forEach items="${memberList}" var="member" varStatus="i">
-									<option>${member.user}</option>
-								</c:forEach>
-							</select>
-							<input value="Zuweisen" type="submit" />
-						</form>
-					</c:if>
-					<c:if test="${isAllowedDeAssignTaskAction}">
-						<form method="POST" action="${sessionScope.aktServlet}">
-							<input name="do" value="DeAssignTask" type="hidden" />
-							<input name="taskId" value="${task.id}" type="hidden" />
-							<select name="loginName">
-								<option>&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-								<c:forEach items="${taskMemberList}" var="member" varStatus="i">
-									<option>${member.user}</option>
-								</c:forEach>
-							</select>
-							<input value="Ablösen" type="submit" />
-						</form>
-					</c:if>
+					<!--TODO start: if isAllowedShowAllMember-->
+					<table border="0" cellspacing="3">
+						<tbody>
+							<tr>
+								<td>
+									<c:if test="${isAllowedAssignTaskAction}">
+										<fieldset>
+											<legend>Einem Member diesen Task zuweisen</legend>
+											<form method="POST" action="${sessionScope.aktServlet}">
+												<input name="do" value="AssignTask" type="hidden" />
+												<input name="taskId" value="${task.id}" type="hidden" />
+												<select id ="selectbox" name="loginName">
+													<c:forEach items="${memberList}" var="member" varStatus="i">
+														<option>${member.user}</option>
+													</c:forEach>
+												</select>
+												<input value="Zuweisen" type="submit" />
+											</form>
+										</fieldset>
+									</c:if>
+								</td>
+								<td>
+									<c:if test="${isAllowedDeAssignTaskAction}">
+										<fieldset>
+											<legend>Einen Member von diesem Task ablösen</legend>
+											<form method="POST" action="${sessionScope.aktServlet}">
+												<input name="do" value="DeAssignTask" type="hidden" />
+												<input name="taskId" value="${task.id}" type="hidden" />
+												<select id ="selectbox" name="loginName">
+													<c:forEach items="${taskMemberList}" var="member" varStatus="i">
+														<option>${member.user}</option>
+													</c:forEach>
+												</select>
+												<input value="Ablösen" type="submit" />
+											</form>
+										</fieldset>
+									</c:if>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--TODO end-->
 					<form method="POST" action="${sessionScope.aktServlet}">
 						<input name="do" value="UpdateTask" type="hidden" />
 						<input name="taskId" value="${task.id}" type="hidden" />
