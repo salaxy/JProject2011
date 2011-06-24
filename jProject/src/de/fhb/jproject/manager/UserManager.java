@@ -62,6 +62,7 @@ public class UserManager {
 		
 		try {
 			//loeschen des users
+			clearSession();
 			userDA.delete(loginName);
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann User nicht loeschen! "+ ex);

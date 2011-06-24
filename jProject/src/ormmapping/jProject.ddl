@@ -3,7 +3,7 @@ CREATE TABLE `User` (
   `Password`   varchar(255) NOT NULL, 
   `Vorname`    varchar(255) NOT NULL, 
   `Nachname`   varchar(255) NOT NULL, 
-  `Sprache`    varchar(255) DEFAULT 'deutsch' NOT NULL, 
+  `Sprache`    varchar(255) DEFAULT 'Deutsch' NOT NULL, 
   `GlobalRole` varchar(255) DEFAULT 'Member' NOT NULL, 
   PRIMARY KEY (`LoginName`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `Project` (
@@ -173,7 +173,7 @@ CREATE TABLE `GlobalRoles` (
   PRIMARY KEY (`Role`)) ENGINE=InnoDB CHARACTER SET UTF8;
 ALTER TABLE `Member` ADD INDEX `FKMember111780` (`User`), ADD CONSTRAINT `FKMember111780` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Member` ADD INDEX `FKMember203878` (`Project`), ADD CONSTRAINT `FKMember203878` FOREIGN KEY (`Project`) REFERENCES `Project` (`Name`) ON UPDATE Cascade ON DELETE Cascade;
-ALTER TABLE `Comment` ADD INDEX `FKComment124517` (`User`), ADD CONSTRAINT `FKComment124517` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade;
+ALTER TABLE `Comment` ADD INDEX `FKComment124517` (`User`), ADD CONSTRAINT `FKComment124517` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `ICQ` ADD INDEX `FKICQ715377` (`UserLoginName`), ADD CONSTRAINT `FKICQ715377` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Skype` ADD INDEX `FKSkype602880` (`UserLoginName`), ADD CONSTRAINT `FKSkype602880` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Telefon` ADD INDEX `FKTelefon936160` (`UserLoginName`), ADD CONSTRAINT `FKTelefon936160` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
@@ -194,11 +194,15 @@ ALTER TABLE `CommentTask` ADD INDEX `FKCommentTas995932` (`TaskID`), ADD CONSTRA
 INSERT INTO `User`
   (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`, `GlobalRole`) 
 VALUES 
-  ('UserLoginName', 'Password', 'Vorname', 'Nachname', 'Sprache', 'Member');
+  ('userloginname', 'Password', 'Vorname', 'Nachname', 'Sprache', 'Member');
 INSERT INTO `User`
   (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`, `GlobalRole`) 
 VALUES 
-  ('reuschel', 'reuschel', 'tino', 'reuschel', 'deutsch', 'Admin');
+  ('reuschel', 'reuschel', 'tino', 'reuschel', 'Deutsch', 'Admin');
+INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`, `GlobalRole`) 
+VALUES 
+  ('admin', 'Password', 'voradmin', 'nachadmin', 'Deutsch', 'Admin');
 INSERT INTO `Project`
   (`Name`, `Status`) 
 VALUES 
@@ -218,7 +222,7 @@ VALUES
 INSERT INTO `ICQ`
   (`UserLoginName`, `ICQNumber`) 
 VALUES 
-  ('UserLoginName', '123456789');
+  ('userloginname', '123456789');
 INSERT INTO `ICQ`
   (`UserLoginName`, `ICQNumber`) 
 VALUES 
@@ -226,7 +230,7 @@ VALUES
 INSERT INTO `Skype`
   (`UserLoginName`, `SkypeName`) 
 VALUES 
-  ('UserLoginName', 'SkypeName');
+  ('userloginname', 'SkypeName');
 INSERT INTO `Skype`
   (`UserLoginName`, `SkypeName`) 
 VALUES 
@@ -234,11 +238,11 @@ VALUES
 INSERT INTO `Telefon`
   (`UserLoginName`, `TelNumber`) 
 VALUES 
-  ('UserLoginName', '12345678');
+  ('userloginname', '12345678');
 INSERT INTO `Comment`
   (`ID`, `User`, `Entry`) 
 VALUES 
-  (1, 'UserLoginName', 'Entry');
+  (1, 'userloginname', 'Entry');
 INSERT INTO `Task`
   (`ID`, `Project`, `Titel`, `Aufgabenstellung`, `Done`, `TerminID`) 
 VALUES 
@@ -246,7 +250,7 @@ VALUES
 INSERT INTO `Member`
   (`User`, `Project`, `ProjectRole`) 
 VALUES 
-  ('UserLoginName', 'ProjectName', 'Leader');
+  ('userloginname', 'ProjectName', 'Leader');
 INSERT INTO `Member`
   (`User`, `Project`, `ProjectRole`) 
 VALUES 
@@ -254,7 +258,7 @@ VALUES
 INSERT INTO `TODO`
   (`MemberUser`, `MemberProject`, `TaskID`) 
 VALUES 
-  ('UserLoginName', 'ProjectName', 1);
+  ('userloginname', 'ProjectName', 1);
 INSERT INTO `CommentProject`
   (`CommentID`, `Project`) 
 VALUES 

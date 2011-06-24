@@ -55,7 +55,7 @@
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
-      <DefaultValue>deutsch</DefaultValue>
+      <DefaultValue>Deutsch</DefaultValue>
       <UserTypes/>
     </Column>
     <Column name="GlobalRole">
@@ -261,7 +261,7 @@
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
+      <IDGenerator>assigned</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
       <UserTypes/>
@@ -1527,6 +1527,7 @@
     <ReferenceTable>Comment</ReferenceTable>
     <ReferencedTable>User</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
+    <OnDelete>Cascade</OnDelete>
     <Columns>
       <Column>User</Column>
     </Columns>
