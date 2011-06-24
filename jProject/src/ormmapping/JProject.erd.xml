@@ -936,6 +936,28 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+    <Column name="ShowTaskAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ShowMemberAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
   </Entity>
   <Entity name="GlobalRoles">
     <Column name="Role">
@@ -1432,6 +1454,50 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+    <Column name="OpenAdminconsoleAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ChangeGlobalRoleAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ShowTaskAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="ShowMemberAction">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
   </Entity>
   <ForeignKey name="FKMember111780">
     <ReferenceTable>Member</ReferenceTable>
@@ -1461,7 +1527,6 @@
     <ReferenceTable>Comment</ReferenceTable>
     <ReferencedTable>User</ReferencedTable>
     <OnUpdate>Cascade</OnUpdate>
-    <OnDelete>Cascade</OnDelete>
     <Columns>
       <Column>User</Column>
     </Columns>

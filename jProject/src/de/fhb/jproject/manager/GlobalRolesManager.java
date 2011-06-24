@@ -471,6 +471,33 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	public boolean isAllowedShowTaskAction(String loginName) throws ProjectException {
+		logger.info("isAllowedShowTaskAction(String loginName)");
+		logger.debug("String loginName(" + loginName + ")");
+		try {
+			return globalRolesDA.loadGlobalRolesByORMID(getUser(loginName).getGlobalRole()).getShowTaskAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
+		}
+	}
+	public boolean isAllowedShowMemberAction(String loginName) throws ProjectException {
+		logger.info("isAllowedShowMemberAction(String loginName)");
+		logger.debug("String loginName(" + loginName + ")");
+		try {
+			return globalRolesDA.loadGlobalRolesByORMID(getUser(loginName).getGlobalRole()).getShowMemberAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
+		}
+	}
+	public boolean isAllowedOpenAdminconsoleAction(String loginName) throws ProjectException {
+		logger.info("isAllowedOpenAdminconsoleAction(String loginName)");
+		logger.debug("String loginName(" + loginName + ")");
+		try {
+			return globalRolesDA.loadGlobalRolesByORMID(getUser(loginName).getGlobalRole()).getOpenAdminconsoleAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
+		}
+	}
 	private User getUser(String loginName)throws ProjectException{
 		User aktUser = null;
 		try {

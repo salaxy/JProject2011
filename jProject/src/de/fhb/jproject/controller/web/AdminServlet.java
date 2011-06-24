@@ -111,6 +111,7 @@ public class AdminServlet extends HttpServletControllerBase {
 						isAllowedDeleteProjectAction = false;
 					}
 				} catch (ProjectException e) {
+					isAllowedDeleteProjectAction = false;
 					logger.info("isAllowedDeleteProjectAction NO!");
 				}
 			
@@ -132,6 +133,7 @@ public class AdminServlet extends HttpServletControllerBase {
 						isAllowedDeleteUserAction = false;
 					}
 				} catch (ProjectException e) {
+					isAllowedDeleteUserAction = false;
 					logger.info("isAllowedDeleteUserAction NO!");
 				}
 				

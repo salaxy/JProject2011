@@ -10,7 +10,6 @@ ShowUserSettings =>
 
 Controller
 *********
-TODO USERREDIRECTS
 
 Manager
 *********
@@ -25,15 +24,10 @@ DA-Schicht
 
 Datenbank
 **********
-User -> Comment =>
+(done...noch testen)User -> Comment =>
 	Cascade Delete wegmachn
 	(wenn user gelöscht comments nicht löschen!)
 
-GlobalRoles =>
-	ShowTask
-
-ProjectRoles =>
-	ShowTask
 
 Password zu int machen wegen hashwert = int
 (done...DB updaten)VPP -> GlobalRoles -> add changeGlobalRole

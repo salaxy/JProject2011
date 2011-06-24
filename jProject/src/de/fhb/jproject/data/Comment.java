@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Comment {
+import java.io.Serializable;
+public class Comment implements Serializable {
 	public Comment() {
 	}
 	

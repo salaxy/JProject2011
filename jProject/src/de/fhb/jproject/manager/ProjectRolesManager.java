@@ -280,7 +280,7 @@ public class ProjectRolesManager {
 		}
 	}
 	
-	public boolean isAllowedUpdatesourceAction(String loginName, String projectName) throws ProjectException{
+	public boolean isAllowedUpdateSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedUpdatesourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
 		try {
@@ -365,6 +365,24 @@ public class ProjectRolesManager {
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
 		try {
 			return projectRolesDA.loadProjectRolesByORMID(getMember(getUser(loginName), getProject(projectName)).getProjectRole()).getDeAssignTaskAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
+		}
+	}
+	public boolean isAllowedShowTaskAction(String loginName, String projectName) throws ProjectException{
+		logger.info("isAllowedShowTaskAction(String loginName, String projectName)");
+		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
+		try {
+			return projectRolesDA.loadProjectRolesByORMID(getMember(getUser(loginName), getProject(projectName)).getProjectRole()).getShowTaskAction();
+		} catch (PersistentException ex) {
+			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
+		}
+	}
+	public boolean isAllowedShowMemberAction(String loginName, String projectName) throws ProjectException{
+		logger.info("isAllowedShowMemberAction(String loginName, String projectName)");
+		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
+		try {
+			return projectRolesDA.loadProjectRolesByORMID(getMember(getUser(loginName), getProject(projectName)).getProjectRole()).getShowMemberAction();
 		} catch (PersistentException ex) {
 			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
 		}

@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Telefon {
+import java.io.Serializable;
+public class Telefon implements Serializable {
 	public Telefon() {
 	}
 	

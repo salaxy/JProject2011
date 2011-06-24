@@ -13,7 +13,8 @@
  */
 package de.fhb.jproject.data;
 
-public class Skype {
+import java.io.Serializable;
+public class Skype implements Serializable {
 	public Skype() {
 	}
 	

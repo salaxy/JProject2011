@@ -105,7 +105,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedShowProjectAction(aktUser)){
 				if (!mainManager.getProjectRolesManager().isMember(aktUser, projectName)) {
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Projektes!");
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Projektes!");
 				}
 			}
 			//Manager in aktion
@@ -126,6 +126,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedAddMemberAction = false;
 				logger.info("isAllowedAddMemberAction NO!");
 			}
 			try{
@@ -137,6 +138,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedDeleteMemberAction = false;
 				logger.info("isAllowedDeleteMemberAction NO!");
 			}
 			
@@ -149,13 +151,14 @@ public class ShowProjectAction extends HttpRequestActionBase {
 					}			
 				}
 			} catch (ProjectException e) {
+				isAllowedShowAllTasksAction = false;
 				logger.info("isAllowedShowAllTasksAction NO!");
 			}
 			
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Member!");
 				}			
 			}
 			memberSet = mainManager.getProjectManager().showAllMember(projectName);
@@ -172,11 +175,10 @@ public class ShowProjectAction extends HttpRequestActionBase {
 
 
 				//RECHTE-ABFRAGE Global
-				//TODO RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
+				if(!mainManager.getGlobalRolesManager().isAllowedShowMemberAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Members!");
+					if(!mainManager.getProjectRolesManager().isAllowedShowMemberAction(aktUser, projectName)){
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Members!");
 					}			
 				}
 				//Manager in aktion
@@ -185,7 +187,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 				if(member != null){
 					//RECHTE-ABFRAGE Global
 					if(!mainManager.getGlobalRolesManager().isAllowedShowUserInfoAction(aktUser)){
-						throw new ProjectException("Sie haben keine Rechte zum anzeigen dieses Users!");		
+						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Users!");		
 					}
 					//Manager in aktion
 					user = mainManager.getUserManager().showUserInfo(member.getUser().getLoginName());
@@ -199,7 +201,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			if(!mainManager.getGlobalRolesManager().isAllowedShowAllMemberAction(aktUser)){
 				//RECHTE-ABFRAGE Projekt
 				if(!mainManager.getProjectRolesManager().isAllowedShowAllMemberAction(aktUser, projectName)){
-					throw new ProjectException("Sie haben keine Rechte zum anzeigen aller Member!");
+					throw new ProjectException("Sie haben keine Rechte zum Anzeigen aller Member!");
 				}			
 			}
 			memberSet = mainManager.getProjectManager().showAllMember(projectName);

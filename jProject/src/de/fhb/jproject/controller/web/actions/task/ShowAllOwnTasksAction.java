@@ -82,10 +82,10 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 					if (0 == taskId) {
 						taskId = taskList.get(0).getId();
 					}
-					//TODO DRINGEND RECHTEABFRAGE ShowTask
-					if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+					//RECHTE-ABFRAGE Global
+					if(!mainManager.getGlobalRolesManager().isAllowedShowTaskAction(aktUser)){
 						//RECHTE-ABFRAGE Projekt
-						if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
+						if(!mainManager.getProjectRolesManager().isAllowedShowTaskAction(aktUser, aktProject.getName())){
 							throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
 						}			
 					}

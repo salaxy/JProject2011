@@ -61,6 +61,7 @@ public class ShowUserSettingsAction extends HttpRequestActionBase {
 					}
 				}
 			} catch (ProjectException e) {
+				isAllowedUpdateUserSettings = false;
 				logger.info("isAllowedUpdateUserSettings NO!");
 			}
 			//RECHTE-ABFRAGE Global
