@@ -6,7 +6,8 @@ Controller
 *********
 
 Javadoc in den Actions fertig machen!...
-bitte ein beispiel für ein top javadoc!
+bitte ein beispiel von dir micher ... für ein top javadoc!
+bevor ichs dann vervielfältige...?
 
 Manager
 *********
@@ -14,6 +15,9 @@ TODO TESTEN, TESTEN, TESTEN!!!!!!!!!!
 
 AddNewMember =>
 	Member schon vorhanden?
+	habs mir angeguckt...
+	mhm...wir benutzen es gleichzeitig zum updaten....?
+	dann müssten wir das trennen in update und AddMember?
 
 DA-Schicht
 **********
