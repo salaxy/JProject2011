@@ -118,6 +118,8 @@ CREATE TABLE `ProjectRoles` (
   `DeleteProjectAction`            tinyint(1) NOT NULL, 
   `DeAssignTaskAction`             tinyint(1) NOT NULL, 
   `AssignTaskAction`               tinyint(1) NOT NULL, 
+  `ShowTaskAction`                 tinyint(1) NOT NULL, 
+  `ShowMemberAction`               tinyint(1) NOT NULL, 
   PRIMARY KEY (`Role`)) ENGINE=InnoDB CHARACTER SET UTF8;
 CREATE TABLE `GlobalRoles` (
   `Role`                           varchar(255) NOT NULL, 
@@ -164,10 +166,14 @@ CREATE TABLE `GlobalRoles` (
   `ShowAllTasksAction`             tinyint(1) NOT NULL, 
   `ShowAllOwnTasksAction`          tinyint(1) NOT NULL, 
   `UpdateTaskAction`               tinyint(1) NOT NULL, 
+  `OpenAdminconsoleAction`         tinyint(1) NOT NULL, 
+  `ChangeGlobalRoleAction`         tinyint(1) NOT NULL, 
+  `ShowTaskAction`                 tinyint(1) NOT NULL, 
+  `ShowMemberAction`               tinyint(1) NOT NULL, 
   PRIMARY KEY (`Role`)) ENGINE=InnoDB CHARACTER SET UTF8;
 ALTER TABLE `Member` ADD INDEX `FKMember111780` (`User`), ADD CONSTRAINT `FKMember111780` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Member` ADD INDEX `FKMember203878` (`Project`), ADD CONSTRAINT `FKMember203878` FOREIGN KEY (`Project`) REFERENCES `Project` (`Name`) ON UPDATE Cascade ON DELETE Cascade;
-ALTER TABLE `Comment` ADD INDEX `FKComment124517` (`User`), ADD CONSTRAINT `FKComment124517` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
+ALTER TABLE `Comment` ADD INDEX `FKComment124517` (`User`), ADD CONSTRAINT `FKComment124517` FOREIGN KEY (`User`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade;
 ALTER TABLE `ICQ` ADD INDEX `FKICQ715377` (`UserLoginName`), ADD CONSTRAINT `FKICQ715377` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Skype` ADD INDEX `FKSkype602880` (`UserLoginName`), ADD CONSTRAINT `FKSkype602880` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE `Telefon` ADD INDEX `FKTelefon936160` (`UserLoginName`), ADD CONSTRAINT `FKTelefon936160` FOREIGN KEY (`UserLoginName`) REFERENCES `User` (`LoginName`) ON UPDATE Cascade ON DELETE Cascade;
@@ -189,10 +195,18 @@ INSERT INTO `User`
   (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`, `GlobalRole`) 
 VALUES 
   ('UserLoginName', 'Password', 'Vorname', 'Nachname', 'Sprache', 'Member');
+INSERT INTO `User`
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`, `GlobalRole`) 
+VALUES 
+  ('reuschel', 'reuschel', 'tino', 'reuschel', 'deutsch', 'Admin');
 INSERT INTO `Project`
   (`Name`, `Status`) 
 VALUES 
   ('ProjectName', 'Status');
+INSERT INTO `Project`
+  (`Name`, `Status`) 
+VALUES 
+  ('Testprojekt', 'grün');
 INSERT INTO `Sourcecode`
   (`ID`, `Project`, `Dateiname`) 
 VALUES 
@@ -205,10 +219,18 @@ INSERT INTO `ICQ`
   (`UserLoginName`, `ICQNumber`) 
 VALUES 
   ('UserLoginName', '123456789');
+INSERT INTO `ICQ`
+  (`UserLoginName`, `ICQNumber`) 
+VALUES 
+  ('reuschel', '323553773');
 INSERT INTO `Skype`
   (`UserLoginName`, `SkypeName`) 
 VALUES 
   ('UserLoginName', 'SkypeName');
+INSERT INTO `Skype`
+  (`UserLoginName`, `SkypeName`) 
+VALUES 
+  ('reuschel', 'chaos_dragon.de@hotmail.de');
 INSERT INTO `Telefon`
   (`UserLoginName`, `TelNumber`) 
 VALUES 
@@ -225,6 +247,10 @@ INSERT INTO `Member`
   (`User`, `Project`, `ProjectRole`) 
 VALUES 
   ('UserLoginName', 'ProjectName', 'Leader');
+INSERT INTO `Member`
+  (`User`, `Project`, `ProjectRole`) 
+VALUES 
+  ('reuschel', 'Testprojekt', 'Leader');
 INSERT INTO `TODO`
   (`MemberUser`, `MemberProject`, `TaskID`) 
 VALUES 
@@ -246,18 +272,18 @@ INSERT INTO `CommentTask`
 VALUES 
   (1, 1);
 INSERT INTO `ProjectRoles`
-  (`Role`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction`, `DeAssignTaskAction`, `AssignTaskAction`) 
+  (`Role`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction`, `DeAssignTaskAction`, `AssignTaskAction`, `ShowTaskAction`, `ShowMemberAction`) 
 VALUES 
-  ('Leader', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+  ('Leader', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO `ProjectRoles`
-  (`Role`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction`, `DeAssignTaskAction`, `AssignTaskAction`) 
+  (`Role`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `DeleteProjectAction`, `DeAssignTaskAction`, `AssignTaskAction`, `ShowTaskAction`, `ShowMemberAction`) 
 VALUES 
-  ('Member', 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+  ('Member', 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1);
 INSERT INTO `GlobalRoles`
-  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`) 
+  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `OpenAdminconsoleAction`, `ChangeGlobalRoleAction`, `ShowTaskAction`, `ShowMemberAction`) 
 VALUES 
-  ('Admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+  ('Admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO `GlobalRoles`
-  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`) 
+  (`Role`, `AddNewProjectAction`, `DeleteProjectAction`, `ShowProjectAction`, `SearchProjectsAction`, `ShowAllProjectsAction`, `ShowAllOwnProjectAction`, `DeleteUserAction`, `ShowUserSettingsAction`, `UpdateUserSettingsAction`, `ShowUserInfoAction`, `SearchUserAction`, `ShowAllUserAction`, `RegisterAction`, `CommentDocuAction`, `CommentSourceAction`, `CommentTaskAction`, `CommentProjectAction`, `DeleteCommentAction`, `ShowAllComments41DocuAction`, `ShowAllComments41SourceAction`, `ShowAllComments41TaskAction`, `ShowAllComments41ProjectAction`, `UpdateCommentAction`, `AddNewDocuAction`, `DeleteDocuAction`, `DownloadDocuAction`, `ShowDocuAction`, `ShowAllDocuAction`, `UpdateDocuAction`, `AddMemberAction`, `DeleteMemberAction`, `ShowAllMemberAction`, `AddNewSourceAction`, `DeleteSourceAction`, `DownloadSourceAction`, `ShowSourceAction`, `ShowAllSourceAction`, `UpdateSourceAction`, `AddNewTaskAction`, `DeleteTaskAction`, `ShowAllTasksAction`, `ShowAllOwnTasksAction`, `UpdateTaskAction`, `OpenAdminconsoleAction`, `ChangeGlobalRoleAction`, `ShowTaskAction`, `ShowMemberAction`) 
 VALUES 
-  ('Member', 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  ('Member', 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
