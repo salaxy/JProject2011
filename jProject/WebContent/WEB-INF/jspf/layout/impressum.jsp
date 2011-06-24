@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <br /><br /><br />
+<!--
 <p>
 	<a href="http://validator.w3.org/check?uri=referer"><img
 		src="http://www.w3.org/Icons/valid-xhtml11"
@@ -17,6 +18,7 @@
 			alt="CSS ist valide!" />
 	</a>
 </p>
+-->
 <br /><br />
 <c:choose>
 	<c:when test="${isAdmin == true}">

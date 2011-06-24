@@ -275,7 +275,7 @@ public class ProjectManager {
 	 * @param aktUser
 	 * @throws ProjectException
 	 */
-	public void deleteProject(String aktUser, String projectName)
+	public void deleteProject(String aktUser, String projectName, GlobalRolesManager globalRoles)
 	throws ProjectException{ 
 		
 		Project project=null;	
@@ -293,16 +293,18 @@ public class ProjectManager {
 		} catch (PersistentException e1) {
 			throw new ProjectException("Konnte Projekt nicht finden! "+ e1.getMessage());
 		}			
-		
-		//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER
-		//Anmerkung: und was ist wenns nen admin is?
-		for(Object m:project.member.getCollection()){
-			if(((Member)m).getProjectRole().equals("Leader")){
-				if(!((Member)m).getUser().getLoginName().equals(aktUser))
-					throw new ProjectException("Sie können das Project nicht löschen, da sie nicht der einzige Leader des Projectes sind! ");
+		if(!globalRoles.isAllowedDeleteProjectAction(aktUser)){
+			//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER
+			//Anmerkung: und was ist wenns nen admin is?
+			for(Object m:project.member.getCollection()){
+				if(((Member)m).getProjectRole().equals("Leader")){
+					if(!((Member)m).getUser().getLoginName().equals(aktUser))
+						throw new ProjectException("Sie können das Project nicht löschen, da sie nicht der einzige Leader des Projectes sind! ");
+				}
+
 			}
-		
 		}
+		
 		
 		
 		//loeschen
@@ -320,7 +322,7 @@ public class ProjectManager {
 	 * @param projectName
 	 * @throws ProjectException
 	 */
-	public void deleteMember(String aktUser, String loginName, String projectName)
+	public void deleteMember(String aktUser, String loginName, String projectName, GlobalRolesManager globalRoles)
 	throws ProjectException{ 
 		clearSession();
 		
@@ -406,7 +408,7 @@ public class ProjectManager {
 			
 			if (lastMember) {
 				logger.debug("Lösche Project!");
-				deleteProject(aktUser, projectName);
+				deleteProject(aktUser, projectName, globalRoles);
 			}else{
 				memberDA.delete(delMember);
 			}

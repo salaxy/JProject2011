@@ -34,6 +34,14 @@
 		check = confirm('Wollen Sie diesen Task wirklich löschen?');
 		return check;
 	}
+	function confirmDeleteUser(){
+		check = confirm('Wollen Sie diesen User wirklich löschen?');
+		return check;
+	}
+	function confirmDeleteProject(){
+		check = confirm('Wollen Sie dieses Projekt wirklich löschen?');
+		return check;
+	}
 	/* CommentDocument AJAX */
 	function updateShowAllComments41Document(json){
 		var newContent = "\<input value='Hide Comments' type='button' onclick='getShowAllComments41DocumentJSON(${task.id});' />\n\

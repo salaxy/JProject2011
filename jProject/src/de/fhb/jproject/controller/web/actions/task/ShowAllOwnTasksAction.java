@@ -41,6 +41,8 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();		
 		List<Task> taskList=null;
 		Task task = null;
+		
+		boolean isAllowedShowAllOwnTasks = true;
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 
@@ -52,6 +54,7 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
+			String loginName = (String) req.getParameter("loginName");
 			int taskId = 0;
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
@@ -64,33 +67,39 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
 			//RECHTE-ABFRAGE Global
-			//TODO DRINGEND RECHTEABFRAGE
-			if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-				//RECHTE-ABFRAGE Projekt
-				if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
-					throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Tasks!");
-				}			
-			}
-			//Manager in aktion
-			taskList=mainManager.getTaskManager().showAllOwnTasks(aktUser);
-			if(!taskList.isEmpty()){
-				//Wenn taskId == null dann gib mir den ersten
-				if (0 == taskId) {
-					taskId = taskList.get(0).getId();
+			if(!mainManager.getGlobalRolesManager().isAllowedShowAllOwnTasksAction(aktUser)){
+				//RECHTE-ABFRAGE Eigner
+				if(!aktUser.equals(loginName)){
+					//throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieser Tasks!");
+					isAllowedShowAllOwnTasks = false;
 				}
-				//TODO DRINGEND RECHTEABFRAGE
-				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
-					//RECHTE-ABFRAGE Projekt
-					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
-						throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
-					}			
-				}
-				task = mainManager.getTaskManager().showTask(aktProject.getName(), taskId);
 			}
+			if(isAllowedShowAllOwnTasks){
+				//Manager in aktion
+				taskList = mainManager.getTaskManager().showAllOwnTasks(loginName);
+				if(!taskList.isEmpty()){
+					//Wenn taskId == null dann gib mir den ersten
+					if (0 == taskId) {
+						taskId = taskList.get(0).getId();
+					}
+					//TODO DRINGEND RECHTEABFRAGE ShowTask
+					if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
+						//RECHTE-ABFRAGE Projekt
+						if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, aktProject.getName())){
+							throw new ProjectException("Sie haben keine Rechte zum Anzeigen dieses Tasks!");
+						}			
+					}
+
+					task = mainManager.getTaskManager().showTask(taskId);
+				}
+			}
+			
 				
 			//setzen der Parameter
 			req.setAttribute("taskList", taskList);
 			req.setAttribute("task", task);
+			
+			req.setAttribute("isAllowedShowAllOwnTasks", isAllowedShowAllOwnTasks);
 			
 			req.setAttribute("contentFile", "showAllOwnTasks.jsp");
 		}catch (ProjectException e) {

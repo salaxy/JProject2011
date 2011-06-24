@@ -75,7 +75,7 @@ public class RegisterAction extends HttpRequestActionBase {
 			try {
 				String[] param = new String[1];
 				param[0] = "loginName="+loginName;
-				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "ShowAllUser", param);
+				super.redirect(req, resp, (String)session.getAttribute("aktServlet"), "OpenAdminconsole", null);
 			} catch (IOException e) {
 				logger.error("Konnte Redirect nicht ausführen! "+e.getMessage(), e);
 				throw new ProjectException("Konnte Redirect nicht ausführen!");
