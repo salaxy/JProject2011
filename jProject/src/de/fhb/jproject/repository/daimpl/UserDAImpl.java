@@ -28,7 +28,7 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
 	public void delete(String loginName) throws PersistentException{
 		logger.info("delete(String loginName)");
 		logger.debug("String loginName("+loginName+")");
-		delete(loadUserByORMID(loginName));
+		delete(getUserByORMID(loginName));
 	}
 	@Override
 	public List<User> listAllUsers() throws PersistentException {

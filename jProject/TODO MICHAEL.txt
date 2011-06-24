@@ -24,15 +24,14 @@ DA-Schicht
 
 Datenbank
 **********
-(done...noch testen)User -> Comment =>
+(KEINE CHANCE)User -> Comment =>
 	Cascade Delete wegmachn
-	(wenn user gelöscht comments nicht löschen!)
+	(wenn user gelöscht, comments nicht löschen!)
+	(das geht einfach nich...er kann dann kein null rausladen aus der db -.-)
+	(IDEE: verknüpfung aufheben und nur nen string in comment reinschreiben...kein FK)<---javaebene
 
 
-Password zu int machen wegen hashwert = int
-(done...DB updaten)VPP -> GlobalRoles -> add changeGlobalRole
-(done...DB updaten)VPP -> GlobalRoles -> add openAdminconsole 
-(done...DB updaten)VPP -> GlobalRoles -> showProjects für Member = 0
+(optional)Password zu int machen wegen hashwert = int
 (Semesterferien)Datenbank auf JPA umbauen
 		
 

@@ -14,7 +14,7 @@ License Type: Purchased
 		<property name="vorname" column="`Vorname`" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="nachname" column="`Nachname`" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="sprache" type="string" length="255" not-null="true" lazy="false">
-			<column name="`Sprache`" default="deutsch"/>
+			<column name="`Sprache`" default="Deutsch"/>
 		</property>
 		<property name="globalRole" type="string" length="255" not-null="true" lazy="false">
 			<column name="`GlobalRole`" default="Member"/>

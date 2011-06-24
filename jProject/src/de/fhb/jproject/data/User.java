@@ -53,7 +53,7 @@ public class User implements Serializable {
 	
 	private String nachname;
 	
-	private String sprache = "deutsch";
+	private String sprache = "Deutsch";
 	
 	private String globalRole = "Member";
 	
