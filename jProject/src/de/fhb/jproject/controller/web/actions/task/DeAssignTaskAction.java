@@ -66,7 +66,9 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 			if(!mainManager.getProjectRolesManager().isAllowedDeAssignTaskAction(aktUser, aktProject.getName())){
 				throw new ProjectException("Sie haben keine Rechte zum abnehmen von Tasks!");
 			}			
-
+			if(loginName.equals("")){
+				throw new ProjectException("Bitte wählen sie einen Member aus.");
+			}
 			//Manager in aktion
 			mainManager.getTaskManager().deAssignTask(loginName, aktProject.getName(), taskId);
 			

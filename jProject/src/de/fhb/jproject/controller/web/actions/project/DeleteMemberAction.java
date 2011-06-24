@@ -69,7 +69,7 @@ public class DeleteMemberAction extends HttpRequestActionBase {
 				}			
 			}
 			//Manager in aktion
-			mainManager.getProjectManager().deleteMember(aktUser, loginName, aktProject.getName());
+			mainManager.getProjectManager().deleteMember(aktUser, loginName, aktProject.getName(), mainManager.getGlobalRolesManager());
 			
 			try {
 				String[] param = new String[1];
