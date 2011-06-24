@@ -225,15 +225,13 @@ public class TaskManager {
 	 * @return
 	 * @throws ProjectException
 	 */
-	public Task showTask(String projectName,int taskId)
+	public Task showTask(int taskId)
 	throws ProjectException{ 
-		
 		
 		Task task=null;
 		
 		//debuglogging
 		logger.info("showTask()");
-		logger.debug("String projectName("+projectName+")");
 		logger.debug("int taskId("+taskId+")");
 		
 		

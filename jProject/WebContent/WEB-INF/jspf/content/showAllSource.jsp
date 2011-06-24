@@ -21,9 +21,14 @@
 				<input value="X" type="submit" />
 		</c:if>
 		<a href="${sessionScope.aktServlet}?do=ShowAllSource&sourcecodeId=${sourcecode.id}">${sourcecode.dateiname}</a><br>
-		<c:if test="${isAllowedDeleteSourceAction}">
-			</form>
-		</c:if>
+		<c:choose>
+			<c:when test="${isAllowedDeleteSourceAction}">
+				</form>
+			</c:when>
+			<c:otherwise>
+				<br />
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
 </div>
 
@@ -68,9 +73,8 @@ ${sourcecodeContent}
 <div id="footercontent">
 	<c:choose>
 		<c:when test="${!empty sourcecodeList}">
-			<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${sourcecode.id})" />
 			<div id="allComments41Source">
-
+				<input value="Show Comments" type="button" onclick="getShowAllComments41SourceJSON(${sourcecode.id})" />
 			</div>
 		</c:when>
 	</c:choose>

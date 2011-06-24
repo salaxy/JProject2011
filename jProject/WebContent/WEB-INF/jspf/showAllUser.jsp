@@ -8,6 +8,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:forEach items="${userList}" var="user" varStatus="i">
-	<a href="${sessionScope.aktServlet}?do=ShowUserInfo&loginName=${user.loginName}">${user}</a><br>
+	<c:if test="${isAllowedDeleteUserAction}">
+		<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteUser()">
+			<input name="do" value="DeleteUser" type="hidden" />
+			<input name="loginName" value="${user.loginName}" type="hidden" />
+			<input value="X" type="submit" />
+	</c:if>
+	<a href="${sessionScope.aktServlet}?do=ShowUserInfo&loginName=${user.loginName}">${user}</a><br />
+	<c:if test="${isAllowedDeleteUserAction}">
+		</form>
+	</c:if>
 </c:forEach>
 

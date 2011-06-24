@@ -1,12 +1,9 @@
 GUI
 *********
-Logo verkleinern
-Adminconsole =>
-	User löschen,
-	Popup Bestätigung,
-	usw.
+
 ShowUserSettings =>
-	Alle Tasks des Users anzeigen.
+	Alle Tasks des Users anzeigen,
+	Selfdelete.
 
 Übersicht =>
 	(optional)Projekt suchen
@@ -28,6 +25,16 @@ DA-Schicht
 
 Datenbank
 **********
+User -> Comment =>
+	Cascade Delete wegmachn
+	(wenn user gelöscht comments nicht löschen!)
+
+GlobalRoles =>
+	ShowTask
+
+ProjectRoles =>
+	ShowTask
+
 Password zu int machen wegen hashwert = int
 (done...DB updaten)VPP -> GlobalRoles -> add changeGlobalRole
 (done...DB updaten)VPP -> GlobalRoles -> add openAdminconsole 
