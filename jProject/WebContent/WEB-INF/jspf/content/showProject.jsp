@@ -117,12 +117,14 @@
 						<td>${member.projectRole}</td>
 					</tr>
 					<tr>
-						<td>Tasks:</td>
-						<td>
-							<c:forEach items="${memberTasks}" var="task" varStatus="i">
-								<a href="${aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br />
-							</c:forEach>
-						</td>
+						<c:if test="${sessionScope.isAllowedShowAllTasks == true}">
+							<td>Tasks:</td>
+							<td>
+								<c:forEach items="${memberTasks}" var="task" varStatus="i">
+									<a href="${aktServlet}?do=ShowAllTasks&taskId=${task.id}">${task.titel}</a><br />
+								</c:forEach>
+							</td>
+						</c:if>
 					</tr>
 				</tbody>
 			</table>
@@ -135,7 +137,7 @@
 				<fieldset>
 					<legend>Einstellungen dieses Members ändern</legend>
 					<form method="POST" action="${sessionScope.aktServlet}">
-						<input name="do" value="AddMember" type="hidden" />
+						<input name="do" value="UpdateMember" type="hidden" />
 						<input name="loginName" value="${member.user}" type="hidden" />
 						<table border="0" cellspacing="3">
 							<tbody>

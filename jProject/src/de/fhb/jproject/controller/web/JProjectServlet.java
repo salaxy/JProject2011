@@ -38,6 +38,7 @@ import de.fhb.jproject.controller.web.actions.project.ShowAllMemberAction;
 import de.fhb.jproject.controller.web.actions.project.ShowAllOwnProjectsAction;
 import de.fhb.jproject.controller.web.actions.project.ShowAllProjectsAction;
 import de.fhb.jproject.controller.web.actions.project.ShowProjectAction;
+import de.fhb.jproject.controller.web.actions.project.UpdateMemberAction;
 import de.fhb.jproject.controller.web.actions.sources.AddNewSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.DeleteSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.DownloadSourceAction;
@@ -163,7 +164,6 @@ public class JProjectServlet extends HttpServletControllerBase {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		
 		//Session holen
 		HttpSession session = req.getSession();
 		synchronized(session){
@@ -270,6 +270,9 @@ public class JProjectServlet extends HttpServletControllerBase {
 		
 		// !!! Projekt Actions !!!
 
+		action = new UpdateMemberAction();
+		actions.put("UpdateMember", action);
+		
 		action = new AddMemberAction();
 		actions.put("AddMember", action);
 		

@@ -8,31 +8,46 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.JProjectPersistentManager;
 import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.MemberSetCollection;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.TaskSetCollection;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
-import de.fhb.jproject.manager.GlobalRolesManager;
 import de.fhb.jproject.manager.MainManager;
-import de.fhb.jproject.manager.ProjectRolesManager;
 import java.util.List;
-import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
-import org.orm.PersistentException;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die das angeklickte Project darstellt.
+ * Es werden allgemeine Informationen zum Project dargestellt und Optionen zur Memberverwaltung bereitgestellt.
+ * Zuvor werden jedoch die Rechte überprüft.
  * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * Projectname(für Wechsel des aktProject): request -> projectName
+ * Loginname(für Memberauswahl): request -> loginName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedAddMemberAction
+ * isAllowedDeleteMemberAction
+ * isAllowedShowAllTasksAction
+ * 
+ * 
+ * Managermethoden:
+ * ShowProject,
+ * ShowAllMember,
+ * ShowMember
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
- * 
+ * Beispiel-Aufruf:
  * do=ShowProject&projectName=ProjectName
  * 
  */
@@ -116,7 +131,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			anzSource = project.sourcecode.size();
 			anzTask = project.task.size();
 			
-			
+			//TODO Rechteüberprüfung isAllowedUpdateMember
 			try {
 				/* Darf der User Member hinzufügen? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedAddMemberAction(aktUser)){
@@ -143,7 +158,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			}
 			
 			try{
-				/* Darf der User Member löschen? (für GUI-Anzeige) */
+				/* Darf der User alle Tasks sehen? (für GUI-Anzeige) */
 				if(!mainManager.getGlobalRolesManager().isAllowedShowAllTasksAction(aktUser)){
 					//RECHTE-ABFRAGE Projekt
 					if(!mainManager.getProjectRolesManager().isAllowedShowAllTasksAction(aktUser, projectName)){
@@ -229,6 +244,7 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			session.setAttribute("aktProject", project);
 			session.setAttribute("isAllowedAddMember", isAllowedAddMemberAction);
 			session.setAttribute("isAllowedDeleteMember", isAllowedDeleteMemberAction);
+			session.setAttribute("isAllowedShowAllTasks", isAllowedShowAllTasksAction);
 			
 			//setzen der Parameter
 			req.setAttribute("memberList", memberSet.getCollection());

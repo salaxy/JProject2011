@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 //import org.apache.catalina.servlets.WebdavServlet;
 
@@ -22,19 +24,19 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	 * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
 	 */
 	public void init(ServletConfig conf) throws ServletException {
-			HttpRequestActionBase action = null;
-			actions = new HashMap();
-			
-		    // ... erzeuge deine Aktionen
-		    // action = new MyAction();
-			// ... und fuege Sie unter dem aufzurufenden Namen 
-			// der HashMap hinzu. Es handelt sich hier um eine 
-			// vereinfachte Factory, die eine Aktion ueber die 
-			// Namensgebung zurueck liefert
-		    // actions.put("meineAktion", action);
-		    // ... und das mit allen Aktionen, die durch das 
-			// Servelt verwaltet werden sollen
-		    // ...  
+		HttpRequestActionBase action = null;
+		actions = new HashMap();
+
+		// ... erzeuge deine Aktionen
+		// action = new MyAction();
+		// ... und fuege Sie unter dem aufzurufenden Namen 
+		// der HashMap hinzu. Es handelt sich hier um eine 
+		// vereinfachte Factory, die eine Aktion ueber die 
+		// Namensgebung zurueck liefert
+		// actions.put("meineAktion", action);
+		// ... und das mit allen Aktionen, die durch das 
+		// Servelt verwaltet werden sollen
+		// ...  
 	}
 	
 	  
@@ -67,7 +69,6 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	    // dann wird die entsprechende Aktion aus der Map geholt ...
 	    HttpRequestActionBase action = (HttpRequestActionBase)actions.get(op);
 	    // ... und angestossen
-	    
 		action.perform(req, resp);
 	}
 	

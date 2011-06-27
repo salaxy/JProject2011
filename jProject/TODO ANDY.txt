@@ -5,21 +5,12 @@ GUI
 Controller
 *********
 
-Javadoc in den Actions fertig machen!...
-bitte ein beispiel von dir micher ... für ein top javadoc!
-bevor ichs dann vervielfältige...?
+Javadoc in den Actions fertig machen!...Beispiel in ShowProjectAction
 
 Manager
 *********
 TODO TESTEN, TESTEN, TESTEN!!!!!!!!!!
 
-AddNewMember =>
-	Member schon vorhanden?
-	habs mir angeguckt...
-	mhm...wir benutzen es gleichzeitig zum updaten....?
-	dann müssten wir das trennen in update und AddMember?
-	bullshit...einen member zum projekt adden...und was is nun wenn ein member schon in nem projekt ist?...
-	dann soll natürlich ne fehlermeldung kommen...sonst wird er überschreiben
 
 DA-Schicht
 **********
@@ -33,4 +24,19 @@ DB UPDATEN
 Bekannte Fehler
 **********
 
-																		
+Docu
+**********
+Admin selbst verantwortlich für löschen von Usern =>
+	möglicher Seiteneffekt -> Projekte ohne Leader
+
+Passwort Hashwert ->
+	kommt später,
+	momemntan klartext zum testen
+
+Verwendete Technologien:
+	Hibernate,
+	JavaScript mit Mootools,
+	JSTL,
+	HTML,
+	CSS,
+	

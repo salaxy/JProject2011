@@ -38,6 +38,7 @@ import de.fhb.jproject.controller.web.actions.project.ShowAllMemberAction;
 import de.fhb.jproject.controller.web.actions.project.ShowAllOwnProjectsAction;
 import de.fhb.jproject.controller.web.actions.project.ShowAllProjectsAction;
 import de.fhb.jproject.controller.web.actions.project.ShowProjectAction;
+import de.fhb.jproject.controller.web.actions.project.UpdateMemberAction;
 import de.fhb.jproject.controller.web.actions.sources.AddNewSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.DeleteSourceAction;
 import de.fhb.jproject.controller.web.actions.sources.DownloadSourceAction;
@@ -314,6 +315,9 @@ public class AdminServlet extends HttpServletControllerBase {
 		
 		// !!! Projekt Actions !!!
 
+		action = new UpdateMemberAction();
+		actions.put("UpdateMember", action);
+		
 		action = new AddMemberAction();
 		actions.put("AddMember", action);
 		
