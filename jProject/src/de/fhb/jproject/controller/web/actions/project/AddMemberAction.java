@@ -53,6 +53,7 @@ public class AddMemberAction extends HttpRequestActionBase {
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String loginName = req.getParameter("loginName").toLowerCase();
 			String rolle = req.getParameter("rolle");
+			boolean isMember = false;
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt
@@ -67,7 +68,19 @@ public class AddMemberAction extends HttpRequestActionBase {
 				}			
 			}
 			//Manager in aktion
-			mainManager.getProjectManager().addMember(loginName, aktProject.getName(), rolle);
+			try {
+				isMember = mainManager.getProjectRolesManager().isMember(loginName, aktProject.getName());
+			} catch (ProjectException e) {
+				logger.debug("Kein Member in diesem Project. Alles Okay!");
+			}
+			
+			
+			if(!isMember){
+				mainManager.getProjectManager().addMember(loginName, aktProject.getName(), rolle);
+			}else{
+				throw new ProjectException("Der angegebene User ist bereits Member in diesem Projekt!");
+			}
+			
 			
 			try {
 				String[] param = new String[1];
