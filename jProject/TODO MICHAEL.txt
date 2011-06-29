@@ -8,6 +8,9 @@ ShowUserSettings =>
 Übersicht =>
 	(optional)Projekt suchen
 
+Impressum =>
+	Tino und Andy hinzufügen.
+
 Controller
 *********
 
@@ -31,9 +34,16 @@ Datenbank
 	(IDEE: verknüpfung aufheben und nur nen string in comment reinschreiben...kein FK)<---javaebene
 
 
-(optional)Password zu int machen wegen hashwert = int
+(optional)Password zu int machen wegen hashwert = int(NE DOCH NICH!...String, weil int-wert egal)
 (Semesterferien)Datenbank auf JPA umbauen
 		
 
 Fragen Stefan Pratsch:
 andere actions aufrufen
+
+Bekannte "Fehler":
+**********
+
+Wenn user über adminconsole gelöscht ->
+	Comments weg,
+	Projekt ohne leader möglich.
