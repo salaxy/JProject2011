@@ -295,7 +295,6 @@ public class ProjectManager {
 		}			
 		if(!globalRoles.isAllowedDeleteProjectAction(aktUser)){
 			//UEBERPRÜFEN OB ANGEGEBENER USER EINZIGER LEADER
-			//Anmerkung: und was ist wenns nen admin is?
 			for(Object m:project.member.getCollection()){
 				if(((Member)m).getProjectRole().equals("Leader")){
 					if(!((Member)m).getUser().getLoginName().equals(aktUser))
