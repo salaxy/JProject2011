@@ -1,5 +1,6 @@
 package de.fhb.jproject.controller.web.actions.user;
 
+import de.fhb.commons.CheckPassword;
 import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,8 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 		HttpSession session = req.getSession();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
-		CheckString check = new CheckString();
-		
+		CheckString checkString = new CheckString();
+		CheckPassword checkPassword = new CheckPassword();
 		try {
 			
 			//Debugprint
@@ -55,8 +56,8 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			/*req.getParameter("neuSkype")*/
 			/*req.getParameter("neutelefon")*/
 			String sprache = req.getParameter("sprache");
-			String pw1 = req.getParameter("neuesPasswortEins");
-			String pw2 = req.getParameter("neuesPasswortZwei");
+			String passwort = req.getParameter("neuesPasswortEins");
+			String passwortWdhl = req.getParameter("neuesPasswortZwei");
 			/*req.getParameter("altesPasswort")*/
 			
 			//EINGABEFEHLER ABFANGEN
@@ -67,12 +68,20 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedUpdateUserSettingsAction(aktUser)){
 				if(!aktUser.equals(loginName)){
-					throw new ProjectException("Sie haben keine Rechte zum updaten der UserSettings!");
+					throw new ProjectException("Sie haben keine Rechte zum Updaten der UserSettings!");
 				}
 			}
-			check.checkIT("Nachname",nachname);
-			check.checkIT("Vorname",vorname);
-			check.checkIT("Sprache",sprache);
+			checkString.checkIT("Nachname",nachname);
+			checkString.checkIT("Vorname",vorname);
+			checkString.checkIT("Sprache",sprache);
+			checkPassword.checkIT(passwort, passwortWdhl);
+			
+			
+			/* 5maligen Haswert des Passworts ermitteln */
+			/* TODO zufälligen Salt hinzufügen und in der Datenbank speichern */
+			for (int i = 0; i < 5; i++) {
+				passwort = ""+passwort.hashCode();
+			}
 			
 			//Manager in aktion
 			mainManager.getUserManager().updateUserSettings(loginName, 
@@ -82,8 +91,7 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 															/*req.getParameter("neuSkype")*/null, 
 															/*req.getParameter("neutelefon")*/null, 
 															sprache, 
-															pw1, 
-															pw2/*, 
+															passwort/*, 
 															req.getParameter("altesPasswort")*/);
 
 			

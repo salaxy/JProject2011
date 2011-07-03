@@ -1,5 +1,6 @@
 package de.fhb.jproject.controller.web.actions.user;
 
+import de.fhb.commons.CheckPassword;
 import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,8 @@ public class RegisterAction extends HttpRequestActionBase {
 	throws ServletException{	
 		
 		HttpSession session = req.getSession();
-		CheckString check = new CheckString();
+		CheckString checkString = new CheckString();
+		CheckPassword checkPassword = new CheckPassword();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
@@ -62,60 +64,18 @@ public class RegisterAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			check.checkIT("Loginname",loginName);
-			check.checkIT("Vorname",vorname);
-			check.checkIT("Nachname",nachname);
+			
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedRegisterAction(aktUser)){
 				throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Users!");	
 			}
-			/*
-			 * Loginname-Überprüfung
-			 */
-			//betreffen loginName
-			if(loginName==null){
-				throw new ProjectException("Fehler bei der Übertragung des Loginnamen(Parameter ist leer)!");
-			}
-
-			if(loginName.isEmpty()){
-				throw new ProjectException("Bitte geben Sie einen Loginnamen an!");
-			}
-			//mindestlaenge 5 zeichen
-			if(loginName.length()<5){
-				throw new ProjectException("Der Loginname muss mind. 5 Zeichen lang sein!");
-			}
 			
-			/*
-			 * Sonstige-Überprüfung
-			 */
-			if(vorname==null||nachname==null){
-				throw new ProjectException("Fehler bei der Übertragung des Vornamen oder Nachnamen(Parameter ist leer)!");
-			}
-
-			if(vorname.isEmpty()){
-				throw new ProjectException("Bitte geben Sie einen Vorname an!");
-			}
-
-			if(nachname.isEmpty()){
-				throw new ProjectException("Bitte geben sie einen Nachname an!");
-			}
+			checkString.checkIT("Loginname",loginName);
+			checkString.checkIT("Vorname",vorname);
+			checkString.checkIT("Nachname",nachname);
+			checkPassword.checkIT(passwort, passwortWdhl);
 			
-			/*
-			 * Passwort-Überprüfung
-			 */
-			/* Überprüfen ob Passwort-Parameter angegeben sind */
-			if(passwort==null||passwortWdhl==null){
-				throw new ProjectException("Kein Passwort oder Passwort-Wiederholung angegeben!");
-			}
-			/* Überprüfen ob Passwort und PasswortWdhl gleich sind */
-			if(!passwort.equals(passwortWdhl)){
-				throw new ProjectException("Passwort und Passwort-Wiederholung sind unterschiedlich!");
-			}
-
-			/* Überprüfen ob Passwort mind. 5 Zeichen lang ist */
-			if(passwort.length()<5){
-				throw new ProjectException("Das Passwort muss mind. 5 Zeichen lang sein!");
-			}
+			
 			/* 5maligen Haswert des Passworts ermitteln */
 			/* TODO zufälligen Salt hinzufügen und in der Datenbank speichern */
 			for (int i = 0; i < 5; i++) {
