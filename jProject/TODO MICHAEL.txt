@@ -1,3 +1,11 @@
+5-maliger Hashwert des Passwortes realisiert!
+
+	bitte in der DB anlegen:
+		LoginName = Admin
+		Passwort = 504672848  (KlartextPasswort = Password)
+
+
+
 GUI
 *********
 

@@ -397,7 +397,7 @@ public class ProjectRolesManager {
 			throw new ProjectException("Konnte Member nicht finden! "+ e1.getMessage());
 		}
 		if (aktMember == null) {
-			throw new ProjectException("Der User ist kein Member in diesem Project!");
+			throw new ProjectException("Sie sind kein Member in diesem Project!");
 		}
 		return aktMember;
 	}
