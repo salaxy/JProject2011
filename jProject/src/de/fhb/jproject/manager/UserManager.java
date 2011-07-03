@@ -172,7 +172,7 @@ public class UserManager {
 	 * @throws ProjectException
 	 */
 	public void updateUserSettings(String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
-			String[] telefonArray, String sprache, String/*TODO PasswordHash int*/ neuesPasswortEins, String/*TODO PasswordHash int*/ neuesPasswortZwei/*, String altesPasswort*/)
+			String[] telefonArray, String sprache, String neuesPasswortEins)
 	throws ProjectException{
 		
 		User user=null;
@@ -182,11 +182,11 @@ public class UserManager {
 		//debuglogging
 		logger.info("updateUserSettings(String name, String vorname, String icq, " +
 				"String skype,String telefon, String sprache, " +
-				"String neuesPasswortEins, String neuesPasswortZwei, String altesPasswort)");
+				"String neuesPasswortEins)");
 		logger.debug("String loginName("+loginName+")");
         logger.debug("updateUserSettings(String "+ nachName+", String "+vorname+", String "+icqArray+", String "+skypeArray
         		+",String "+telefonArray+", String "+sprache
-        		+", String "+neuesPasswortEins+", String "+neuesPasswortZwei/*+", String "+altesPasswort+")"*/);/*TODO PasswordHash int*/
+        		+", String "+neuesPasswortEins+")");
 		
 		
 		//EIGENTLICHE AKTIONEN
@@ -203,14 +203,14 @@ public class UserManager {
 		//aendern der user einstellungen
 		//wenn nicht leerer String und geaendert
 		//nachname
-		if(!(nachName==null)&&!(nachName.isEmpty())&&!(nachName.equals(user.getNachname()))){
+		if(!(nachName.equals(user.getNachname()))){
 			//aendern
 			user.setNachname(nachName);
 			changed = true;
 		}
 		
 		//vorname
-		if(!(vorname==null)&&!(vorname.isEmpty())&&!(vorname.equals(user.getVorname()))){
+		if(!(vorname.equals(user.getVorname()))){
 			//aendern
 			user.setVorname(vorname);
 			changed = true;
@@ -347,7 +347,7 @@ public class UserManager {
 		
 		
 		//sprache
-		if(!(sprache==null)&&!(sprache.isEmpty())&&!(sprache.equals(user.getSprache()))){
+		if(!(sprache.equals(user.getSprache()))){
 			//aendern
 			user.setSprache(sprache);
 			changed = true;
@@ -356,25 +356,9 @@ public class UserManager {
 		
 		
 		//passwort
-		/*TODO PasswordHash into action, ==*/
-		if(!(neuesPasswortEins==null)&&!(neuesPasswortEins.isEmpty())&&!(neuesPasswortEins.equals(user.getPassword()))){
+		if(!(neuesPasswortEins.equals(user.getPassword()))){
 			
-			if(neuesPasswortZwei==null){
-				throw new ProjectException("neues Passwort Zwei nicht mitgegeben!");				
-			}
 			
-			if(!neuesPasswortEins.equals(neuesPasswortZwei)){
-				throw new ProjectException("Neue passwoerter sind nicht gleich!");
-			}
-			/*
-			if(altesPasswort==null){
-				throw new ProjectException("Altes Passwort nicht mitgegebn!!");		
-			}
-			
-			if(!altesPasswort.equals(user.getPassword())){
-				throw new ProjectException("Altes Passwort falsch!");		
-			}
-			*/
 			//aendern
 			user.setPassword(neuesPasswortEins);
 			changed = true;
