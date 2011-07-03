@@ -49,7 +49,13 @@ public class LoginAction extends HttpRequestActionBase {
 					);
 			
 			String loginName = req.getParameter("loginName").toLowerCase();
-			String/*TODO PasswordHash int*/ password = req.getParameter("password")/*TODO PasswordHash .hashCode()*/;
+			String password = req.getParameter("password");
+			
+			/* 5maligen Haswert des Passworts ermitteln */
+			/* TODO zufälligen Salt aus der Datenbank lesen */
+			for (int i = 0; i < 5; i++) {
+				password = ""+password.hashCode();
+			}
 			
 			//Manager in aktion
 			user = mainManager.getUserManager().login(loginName, password);

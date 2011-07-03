@@ -422,14 +422,14 @@ public class UserManager {
 	 * @return User
 	 * @throws ProjectException
 	 */
-	public User login(String loginName, String/*TODO PasswordHash int*/ password)
+	public User login(String loginName, String password)
 	throws ProjectException{
 		
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
         logger.debug("String loginName("+loginName+"), "
-				+ "String password("+password+")");/*TODO PasswordHash int*/
+				+ "String password("+password+")");
 		
 		//abfrage ob user eingeloggt
 		//throw new ProjectException("Sie sind bereits eingeloggt");
@@ -481,15 +481,14 @@ public class UserManager {
 	 * @param vorname
 	 * @throws ProjectException
 	 */
-	public void register(String loginName, String/*TODO PasswordHash int*/ passwort, String/*TODO PasswordHash int*/ passwortWdhl, String nachname, String vorname)
+	public void register(String loginName, String passwort, String nachname, String vorname)
 	throws ProjectException{
 		
 		//debuglogging
         logger.info("register(String loginName, String passwort, String passwortWdhl, String nachname, String vorname)");
         logger.debug("String loginName("+loginName+")"
 				+"String loginName("+loginName+")"
-				+"String passwort("+passwort+")"/*TODO PasswordHash int*/
-				+"String passwortWdhl("+passwortWdhl+")"/*TODO PasswordHash int*/
+				+"String passwort("+passwort+")"
 				+"String nachname("+nachname+")"
 				+"String vorname("+vorname+")"
 				);      
@@ -506,57 +505,6 @@ public class UserManager {
 		
 		if(userUeberpruf!=null){
 			throw new ProjectException("UserName existiert schon!");	
-		}
-		
-		//eingabe fehler abfangen
-		
-		//betreffen loginName
-		if(loginName==null){
-			throw new ProjectException("kein loginName oder loginNameWdhl mitgegeben!");
-		}
-		
-		if(loginName.isEmpty()){
-			throw new ProjectException("Leerer loginName!");
-		}
-		
-		
-		//mindestlaenge 5 zeichen
-		if(loginName.length()<5){
-			throw new ProjectException("loginName mind. 5 zeichen!!");
-		}
-		
-		
-		//betreffend passwort
-		/*TODO PasswordHash into action*/
-		if(passwort==null||passwortWdhl==null){
-			throw new ProjectException("kein passwort oder passwortWdhl mitgegeben!");
-		}
-		/*TODO PasswordHash into action*/
-		if(passwort.isEmpty()){
-			throw new ProjectException("Leeres Passwort!");
-		}
-		/*TODO PasswordHash ==*/
-		if(!passwort.equals(passwortWdhl)){
-			throw new ProjectException("Passwort neu eingeben!!");
-		}
-		
-		//mindestlaenge 5 zeichen
-		if(passwort.length()<5){
-			throw new ProjectException("passwort mind. 5 zeichen!!");
-		}
-		
-		
-		
-		if(vorname==null||nachname==null){
-			throw new ProjectException("kein vorname oder nachname mitgegeben!");
-		}
-		
-		if(vorname.isEmpty()){
-			throw new ProjectException("Leerer Vorname!");
-		}
-		
-		if(nachname.isEmpty()){
-			throw new ProjectException("Leerer Nachname!");
 		}
 		
 		

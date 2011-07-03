@@ -126,7 +126,9 @@ public class ShowProjectAction extends HttpRequestActionBase {
 			//Manager in aktion
 			project=mainManager.getProjectManager().showProject(projectName);
 
-
+			if (project == null) {
+				throw new ProjectException("Konnte Projekt nicht finden!");
+			}
 			anzDocu = project.document.size();
 			anzSource = project.sourcecode.size();
 			anzTask = project.task.size();

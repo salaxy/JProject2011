@@ -15,7 +15,7 @@
 				<tr>
 					<td>
 						<label for="projectName">Projectname:</label><br />
-						<input value="Projectname"	name="projectName"	type="text" size="20" maxlength="30">
+						<input value="Projectname"	name="projectName"	type="text" size="20" maxlength="15">
 					</td>
 				</tr>
 				<tr>
