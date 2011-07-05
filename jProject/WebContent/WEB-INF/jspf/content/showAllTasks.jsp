@@ -53,7 +53,7 @@
 								<tr>
 									<td>
 										<label for="titel">Titel:</label><br />
-										<input name="titel" value="Titel" type="text" />
+										<input name="titel" value="Titel" type="text" maxlength="14"/>
 									</td>
 								</tr>
 								<tr>
@@ -134,7 +134,7 @@
 								<tr>
 									<td>
 										<label for="titel">Titel:</label><br />
-										<input name="titel" value="${task.titel}" type="text" />
+										<input name="titel" value="${task.titel}" type="text" maxlength="14"/>
 									</td>
 								</tr>
 								<tr>

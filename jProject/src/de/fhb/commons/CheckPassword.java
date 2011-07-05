@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  */
 public class CheckPassword {
 	private static final Logger logger = Logger.getLogger(CheckString.class);
-	private final int PASSWORD_LENGTH = 5;
+	private final int PASSWORD_MIN_LENGTH = 5;
 	
 	public CheckPassword(){
 		logger.setLevel(Level.DEBUG);
@@ -33,7 +33,7 @@ public class CheckPassword {
 		}
 
 		/* Überprüfen ob Passwort mind. 5 Zeichen lang ist */
-		if(passwort.length() < PASSWORD_LENGTH){
+		if(passwort.length() < PASSWORD_MIN_LENGTH){
 			throw new ProjectException("Das Passwort muss mind. 5 Zeichen lang sein!");
 		}
 	}

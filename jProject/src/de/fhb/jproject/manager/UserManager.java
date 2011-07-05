@@ -28,7 +28,8 @@ public class UserManager {
 	
 	private UserDA userDA;
 	
-	private final String STANDARDLANGUAGE="Deutsch";
+	private final String LANG_STD = "Deutsch";
+	private final String GLOBAL_ROLE_STD = "Member";
 	
 	private static final Logger logger = Logger.getLogger(UserManager.class);
     
@@ -494,8 +495,8 @@ public class UserManager {
 		
 		//setzen der parameter des users
 		user=userDA.createUser();
-		user.setGlobalRole("Member");
-		user.setSprache(this.STANDARDLANGUAGE);
+		user.setGlobalRole(GLOBAL_ROLE_STD);
+		user.setSprache(LANG_STD);
 		user.setVorname(vorname);
 		user.setNachname(nachname);
 		user.setLoginName(loginName);
