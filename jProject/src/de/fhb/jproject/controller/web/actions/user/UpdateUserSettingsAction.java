@@ -1,6 +1,5 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import de.fhb.commons.CheckPassword;
 import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,6 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		CheckString checkString = new CheckString();
-		CheckPassword checkPassword = new CheckPassword();
 		try {
 			
 			//Debugprint
@@ -71,10 +69,10 @@ public class UpdateUserSettingsAction extends HttpRequestActionBase {
 					throw new ProjectException("Sie haben keine Rechte zum Updaten der UserSettings!");
 				}
 			}
-			checkString.checkIT("Nachname",nachname);
-			checkString.checkIT("Vorname",vorname);
-			checkString.checkIT("Sprache",sprache);
-			checkPassword.checkIT(passwort, passwortWdhl);
+			checkString.checkString("Nachname",nachname);
+			checkString.checkString("Vorname",vorname);
+			checkString.checkString("Sprache",sprache);
+			checkString.checkPassword(passwort, passwortWdhl);
 			
 			
 			/* 5maligen Haswert des Passworts ermitteln */

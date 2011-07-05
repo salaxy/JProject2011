@@ -37,6 +37,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 	/* (non-Javadoc)
 	 * @see de.fhb.music.controller.we.actions.HttpRequestActionBase#perform(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void perform(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException{
 		logger.setLevel(Level.DEBUG);
@@ -62,7 +63,7 @@ public class AddNewProjectAction extends HttpRequestActionBase {
 			if(aktUser == null){
 				throw new ProjectException("Sie sind nicht eingeloggt!");
 			}
-			check.checkIT("Projectname",projectName);
+			check.checkString("Projectname",projectName);
 			
 			//RECHTE-ABFRAGE Global
 			if(!mainManager.getGlobalRolesManager().isAllowedAddNewProjectAction(aktUser)){

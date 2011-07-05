@@ -1,6 +1,5 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import de.fhb.commons.CheckPassword;
 import de.fhb.commons.CheckString;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,6 @@ public class RegisterAction extends HttpRequestActionBase {
 		
 		HttpSession session = req.getSession();
 		CheckString checkString = new CheckString();
-		CheckPassword checkPassword = new CheckPassword();
 		//Manager holen
 		mainManager=(MainManager) session.getAttribute("mainManager");
 		
@@ -70,10 +68,10 @@ public class RegisterAction extends HttpRequestActionBase {
 				throw new ProjectException("Sie haben keine Rechte zum Hinzufügen eines Users!");	
 			}
 			
-			checkString.checkIT("Loginname",loginName);
-			checkString.checkIT("Vorname",vorname);
-			checkString.checkIT("Nachname",nachname);
-			checkPassword.checkIT(passwort, passwortWdhl);
+			checkString.checkString("Loginname",loginName);
+			checkString.checkString("Vorname",vorname);
+			checkString.checkString("Nachname",nachname);
+			checkString.checkPassword(passwort, passwortWdhl);
 			
 			
 			/* 5maligen Haswert des Passworts ermitteln */
