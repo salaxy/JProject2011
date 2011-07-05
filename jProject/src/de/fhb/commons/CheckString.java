@@ -14,11 +14,12 @@ import org.apache.log4j.Logger;
  */
 public class CheckString {
 	private static final Logger logger = Logger.getLogger(CheckString.class);
+	private final int PASSWORD_MIN_LENGTH = 5;
 	
 	public CheckString(){
 		logger.setLevel(Level.DEBUG);
 	}
-	public void checkIT(String valueName, String stringToCheck) throws ProjectException{
+	public void checkString(String valueName, String stringToCheck) throws ProjectException{
 		if ((valueName != null) && (stringToCheck !=null)) {
 			char [] charToCheck = null;
 			
@@ -51,5 +52,23 @@ public class CheckString {
 			throw new ProjectException("Unerlaubtes null-Value! "+valueName);
 		}
 		
+	}
+	public void checkPassword(String passwort, String passwortWdhl) throws ProjectException{
+		/*
+		 * Passwort-Überprüfung
+		 */
+		/* Überprüfen ob Passwort-Parameter angegeben sind */
+		if(passwort==null||passwortWdhl==null){
+			throw new ProjectException("Kein Passwort oder Passwort-Wiederholung angegeben!");
+		}
+		/* Überprüfen ob Passwort und PasswortWdhl gleich sind */
+		if(!passwort.equals(passwortWdhl)){
+			throw new ProjectException("Passwort und Passwort-Wiederholung sind unterschiedlich!");
+		}
+
+		/* Überprüfen ob Passwort mind. 5 Zeichen lang ist */
+		if(passwort.length() < PASSWORD_MIN_LENGTH){
+			throw new ProjectException("Das Passwort muss mind. 5 Zeichen lang sein!");
+		}
 	}
 }
