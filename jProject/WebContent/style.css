@@ -92,11 +92,13 @@ img {
 
 /* ----------navi-------------- */
 #navi {
-	background-image: url(images/navbar.png);
-	background-position: center;
+	/*background-image: url(images/navbar.png);
+	background-position: center;*/
 	height: 36px;
 	margin-top: -36px;
+	position: absolute;
 	border-left: 1px solid #ffffff;
+	
 }
 
 .buttonleft {
@@ -207,6 +209,7 @@ img {
 	width:150px; 
 	float:left;
 	margin-left:-1px;
+	overflow:auto;
 }
 /* -----------------Inhalt--------------------- */ 
 #contentcontentsmall{
