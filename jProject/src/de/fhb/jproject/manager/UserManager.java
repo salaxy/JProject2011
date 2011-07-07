@@ -409,7 +409,7 @@ public class UserManager {
 	 */
 	public User login(String loginName, String password)
 	throws ProjectException{
-		
+		clearSession();
 		
 		//debuglogging
         logger.info("login(String loginName, String password)");
@@ -428,12 +428,11 @@ public class UserManager {
 
 		try {
 			//user suchen
-			user = userDA.loadUserByORMID(loginName);
+			user = userDA.getUserByORMID(loginName);
 			
 		} catch (PersistentException ex) {
 			throw new ProjectException("Falscher Benutzername! ");
 		}
-		//TODO PasswordHash ==
 		if(!user.getPassword().equals(password)){
 			throw new ProjectException("Falsches Passwort!");
 		}

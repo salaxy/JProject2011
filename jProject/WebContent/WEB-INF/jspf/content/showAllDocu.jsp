@@ -13,24 +13,7 @@
 <div id="leftcontent">
 	<!--TODO OUTSOURCING-->
 	<h1>Documents</h1>
-	<c:forEach items="${documentList}" var="docu" varStatus="i">
-		<c:if test="${isAllowedDeleteDocuAction}">
-			<form method="POST" action="${sessionScope.aktServlet}" onsubmit="return confirmDeleteDocu()">
-				<input name="do" value="DeleteDocu" type="hidden" />
-				<input name="documentId" value="${docu.id}" type="hidden" />
-				<input value="X" type="submit" />
-		</c:if>
-		<a href="${sessionScope.aktServlet}?do=ShowAllDocu&documentId=${docu.id}">${docu.dateiname}</a>
-		<c:choose>
-			<c:when test="${isAllowedDeleteDocuAction}">
-				</form>
-			</c:when>
-			<c:otherwise>
-				<br />
-			</c:otherwise>
-		</c:choose>
-		
-	</c:forEach>
+	<jsp:include page='../showAllDocu.jsp' />
 </div>
 
 <div id="contentcontentsmall">
@@ -38,37 +21,7 @@
 	<div id="infoBoxBig">
 		<jsp:include page='../addNewDocu.jsp' />
 	</div>
-	<c:choose>
-		<c:when test="${!empty documentList}">
-			<div id="infoBoxBig">
-				<h3>Aktuelles Dokument anzeigen</h3>
-				<fieldset>
-					<legend>Aktuelles Dokument</legend>
-					<form>
-						<table border="0" cellspacing="3">
-							<tbody>
-								<tr>
-									<td>
-										<textarea cols="75" rows="5" readonly="true">${document.id} ${document.dateiname}
-${documentContent}
-										</textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</form>
-				</fieldset>
-			</div>
-			<div id="infoBoxBig">
-				<a href="DataServlet?do=DownloadDocu&documentId=${document.id}">Download ${document.dateiname}</a>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div id="infoBoxBig">
-				Kein Document vorhanden!
-			</div>
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page='../showDocu.jsp' />
 </div>
 
 <div id="footercontent">
