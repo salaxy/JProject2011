@@ -2,7 +2,7 @@
 
 	bitte in der DB anlegen:
 		LoginName = Admin
-		Passwort = 504672848  (KlartextPasswort = Password)
+		Passwort = 8be3c943b1609fffbfc51aad666d0a04adf83c9d  (KlartextPasswort = Password)
 
 
 
