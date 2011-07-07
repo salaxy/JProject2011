@@ -26,5 +26,5 @@
 	</c:when>
 </c:choose>
 <br />
-Copyright Michael Koppen<br />
+Copyright Michael Koppen, Andy Klay, Tino Reuschel<br />
 Michael Koppen, Vereinsstraße 33a, 14770 Brandenburg an der Havel, Tel.: 1234/56789, Fax 1234/56789, koppen@fh-brandenburg.de
