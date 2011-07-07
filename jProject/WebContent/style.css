@@ -209,7 +209,7 @@ img {
 	width:150px; 
 	float:left;
 	margin-left:-1px;
-	overflow:auto;
+	/*overflow:auto;*/
 }
 /* -----------------Inhalt--------------------- */ 
 #contentcontentsmall{
