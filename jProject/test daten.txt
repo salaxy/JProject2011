@@ -35,9 +35,9 @@ VALUES
   
   
     INSERT INTO `User`
-  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`) 
+  (`LoginName`, `Password`, `Vorname`, `Nachname`, `Sprache`,`GlobalRole`) 
 VALUES 
-  ('vier', 'Password', 'xerses', 'Nachname', 'Sprache');
+  ('xerses', '8be3c943b1609fffbfc51aad666d0a04adf83c9d', 'xerses', 'Nachname', 'Sprache', 'Admin');
   
   
   
