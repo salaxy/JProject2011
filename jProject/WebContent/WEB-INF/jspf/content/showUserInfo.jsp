@@ -12,39 +12,11 @@
 
 <div id="contentcontentbig">	
 	<div id="infoBoxBig">
-		<!--TODO OUTSOURCING SHOWUSERINFO-->
 		<h3>User Info</h3>
-		<fieldset>
-			<legend>User Info</legend>
-			<table border="0" cellspacing="3">
-				<tbody>
-					<tr>
-						<td>Username:</td>
-						<td>${user}</td>
-					</tr>
-					<tr>
-						<td>Vorname:</td>
-						<td>${user.vorname}</td>
-					</tr>
-					<tr>
-						<td>Nachname:</td>
-						<td>${user.nachname}</td>
-					</tr>
-					<tr>
-						<td>Sprache:</td>
-						<td>${user.sprache}</td>
-					</tr>
-					<tr>
-						<td>Rolle:</td>
-						<td>${user.globalRole}</td>
-					</tr>
-				</tbody>
-			</table>
-		</fieldset>
+		<jsp:include page="../showUserInfo.jsp" />
 	</div>
 	
 	<div id="rightBox">
-		<!--TODO OUTSOURCING SHOWUSERSETTINGS-->
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedShowUserSettings == true}">
 				<form method="POST" action="${sessionScope.aktServlet}">
@@ -56,7 +28,6 @@
 	</div>
 					
 	<div id="rightBox">
-		<!--TODO OUTSOURCING DELETEUSER-->
 		<!--TODO REALISIERUNG-->
 		<c:choose>
 			<c:when test="${sessionScope.isAllowedDeleteUser == true}">

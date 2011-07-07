@@ -1,7 +1,11 @@
 package de.fhb.jproject.controller.web.actions.user;
 
+import de.fhb.commons.HashIt;
 import de.fhb.jproject.exceptions.ProjectException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +16,7 @@ import org.apache.log4j.Logger;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.manager.MainManager;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpSession;
 
 
@@ -37,6 +42,7 @@ public class LoginAction extends HttpRequestActionBase {
 		//Manager holen
 		mainManager = new MainManager()/*(MainManager) session.getAttribute("mainManager")*/;
 		User user = null;
+		HashIt hash = new HashIt();
 
 		
 		try {
@@ -51,11 +57,21 @@ public class LoginAction extends HttpRequestActionBase {
 			String loginName = req.getParameter("loginName").toLowerCase();
 			String password = req.getParameter("password");
 			
-			/* 5maligen Haswert des Passworts ermitteln */
-			/* TODO zufälligen Salt aus der Datenbank lesen */
-			for (int i = 0; i < 5; i++) {
-				password = ""+password.hashCode();
-			}
+			
+			//TODO EINGABE CHECKEN
+			
+			try {
+				/* TODO zufälligen Salt aus der Datenbank lesen */
+				password = hash.calcSHA1(password);
+				System.out.println("Password: "+password);
+			} catch (NoSuchAlgorithmException ex) {
+				logger.error("Konnte Algorithmus zum hashen nicht finden.", ex);
+				throw new ProjectException("Konnte Algorithmus zum hashen nicht finden.");
+			} catch (UnsupportedEncodingException ex) {
+				logger.error("Konnte Password nicht encodieren.", ex);
+				throw new ProjectException("Konnte Password nicht encodieren.");
+			} 
+			
 			
 			//Manager in aktion
 			user = mainManager.getUserManager().login(loginName, password);
