@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.document.ShowAllDocuAction;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.BufferedInputStream;
@@ -20,10 +19,28 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Download eines Sourcecodes angesprochen wird
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * downloadSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=DownloadSourceAction&sourcecodeId=1
+ * 
  */
 public class DownloadSourceAction extends HttpRequestActionBase {
 

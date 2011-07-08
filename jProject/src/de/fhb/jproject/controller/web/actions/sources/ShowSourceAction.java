@@ -8,19 +8,35 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.document.ShowAllDocuAction;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Sourcecode;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
-
 /**
- * UNUSED
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Anzeigen eines Sourcecode in einem Projekt angesprochen wird
+ * (UNUSED)
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * showSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowSourceAction&sourcecodeId=1
+ * 
  */
 public class ShowSourceAction extends HttpRequestActionBase {
 
@@ -43,11 +59,11 @@ public class ShowSourceAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			/*TODO logger.debug("Parameter: "
-					+ "String documentId(" + req.getParameter("documentId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+			logger.debug("Parameter: "
+					+ "String sourcecodeId(" + req.getParameter("sourcecodeId")
 					);
-			*/
+					
+					
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
