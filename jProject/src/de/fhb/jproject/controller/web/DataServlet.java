@@ -40,8 +40,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 /**
- *
- * @author MacYser
+ * 
+ * DataServlet ist zum Verwalten von POST Requests.
+ * Dieses Servlet is spezialisiert auf alle Anfragen die speziell die Übermittlung von Daten/JSONObjekte betreffen.
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class DataServlet extends HttpServletControllerBase {
 
