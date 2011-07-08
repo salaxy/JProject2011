@@ -15,13 +15,29 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 
-
 /**
- * Action die angesprochen wird wenn ein Project kommentiert wird
+ * Action die angesprochen wird wenn in einem Project kommentiert wird
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=CommentProject&projectName=ProjectName&inhalt=KickOffStarted!
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * projectName(Id des projects): request -> projectName
+ * entry(Inhalt des Comments): request -> entry
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * commentProject
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=CommentProject&projectName=ProjectName&entry=KickOffStarted
  */
 public class CommentProjectAction extends HttpRequestActionBase {
 

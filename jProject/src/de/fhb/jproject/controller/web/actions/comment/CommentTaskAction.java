@@ -14,13 +14,30 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 
-
 /**
  * Action die angesprochen wird wenn eine Aufgabe kommentiert wird
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=CommentTask&taskId=1&inhalt=DieseAufgabeIstDringend!
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * taskId(Id des Tasks): request -> taskId
+ * entry(Inhalt des Comments): request -> entry
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * commentTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=CommentSource&taskId=1&entry=DieseAufgabeIstDringend
+ * 
  */
 public class CommentTaskAction extends HttpRequestActionBase {
 
