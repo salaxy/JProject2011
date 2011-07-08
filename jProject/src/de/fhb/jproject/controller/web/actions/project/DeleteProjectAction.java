@@ -10,22 +10,33 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Löschen eines Projektes angesprochen wird
  * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * projectName(Bezeichnung des Projektes): request -> projectName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * deleteProject
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- *
- *  STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
- *  
- *  http://localhost:8080/jProject/JProjectServlet?do=DeleteProject&projectName=Blubb
+ * Beispiel-Aufruf:
+ * do=DeleteProject&projectName=Bezeichnung
  */
 public class DeleteProjectAction extends HttpRequestActionBase {
 

@@ -3,31 +3,38 @@ package de.fhb.jproject.controller.web.actions.project;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.Member;
 import de.fhb.jproject.data.MemberSetCollection;
-import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpSession;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 
 /**
- * UNUSED
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Anzeigen aller eigenen Projekte angesprochen wird
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * showAllOwnProjects
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllOwnProjects
+ * 
  */
 public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	private MainManager mainManager;

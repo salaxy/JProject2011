@@ -1,29 +1,40 @@
 package de.fhb.jproject.controller.web.actions.project;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import javax.servlet.http.HttpSession;
-
 
 /**
- * UNUSED
- * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
+ * Action, die beim Anzeigen aller Projekte angesprochen wird
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	http://localhost:8080/jProject/JProjectServlet?do=ShowAllProjects
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * showAllProjects
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllProjects
+ * 
  */
 public class ShowAllProjectsAction extends HttpRequestActionBase {
 
@@ -53,8 +64,8 @@ public class ShowAllProjectsAction extends HttpRequestActionBase {
 				
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
-			Project aktProject = (Project)session.getAttribute("aktProject");
-			String projectName = req.getParameter("projectName");
+//			Project aktProject = (Project)session.getAttribute("aktProject");
+//			String projectName = req.getParameter("projectName");
 			
 			//EINGABEFEHLER ABFANGEN
 			//abfrage ob user eingeloggt

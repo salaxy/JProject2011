@@ -10,23 +10,33 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 
-
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Hinzufügen eines neuen Projekts angesprochen wird
  * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * projectName(Bezeichnung des Projektes): request -> projectName
+ * status(Projectstatus): request -> status
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * addNewProject
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS:  FREIGEGEBEN - ERFOLGREICH GETESTET
- * 
- * JProjectServlet?do=AddNewProject&projectName=Blaxx&status=neu
+ * Beispiel-Aufruf:
+ * do=AddNewProject&projectName=NeuesProjekt&status=beginn
  * 
  */
 public class AddNewProjectAction extends HttpRequestActionBase {

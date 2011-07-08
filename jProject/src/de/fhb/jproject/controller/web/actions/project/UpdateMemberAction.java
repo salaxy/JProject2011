@@ -18,12 +18,31 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Updaten eines Members angesprochen wird
  * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * Loginname(für Memberauswahl): request -> loginName
+ * rolle(Projectrolle): request -> rolle
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * addMember
+ * 
+ * 
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
+ * Beispiel-Aufruf:
+ * do=UpdateMember&loginName=Michael&rolle=Leader
+ * 
  */
 public class UpdateMemberAction extends HttpRequestActionBase {
 
