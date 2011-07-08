@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  * Parameter: 
  * Aktueller User: Session -> aktUser
  * Aktuelles Project: Session -> aktProject
- * documentId: request -> documentId
+ * (optional)documentId: request -> documentId
  * 
  * 
  * Rechteüberprüfung für GUI:
