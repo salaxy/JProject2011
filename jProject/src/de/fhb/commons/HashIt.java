@@ -23,6 +23,9 @@ import java.util.Formatter;
 
 public class HashIt {
 
+	/*
+	 * Diese Methode führt die eigentliche Berechnung des Hashwertes aus.
+	 */
     private String calculateHash(MessageDigest algorithm, String pw) throws UnsupportedEncodingException{
 
         // get the hash value as byte array
@@ -30,7 +33,9 @@ public class HashIt {
 
         return byteArray2Hex(hash);
     }
-
+	/*
+	 * Diese Methode formatiert den Byte-Array in einen Hexwert.
+	 */
     private String byteArray2Hex(byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
