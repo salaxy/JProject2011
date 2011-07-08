@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Spezieller Kommentar zu einem Task
+ */
 public class CommentTask implements Serializable {
 	public CommentTask() {
 	}

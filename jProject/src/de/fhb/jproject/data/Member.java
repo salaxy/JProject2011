@@ -14,6 +14,10 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Member ist Assoziationsklasse zwischen User und Project.
+ * Ein Member ist also ein User der in ein Projekt involviert ist.
+ */
 public class Member implements Serializable {
 	public Member() {
 	}
@@ -107,10 +111,16 @@ public class Member implements Serializable {
 	
 	private java.util.Set ORM_task = new java.util.HashSet();
 	
+	/**
+	 * Projektrolle des Member in einem Projekt.
+	 */
 	public void setProjectRole(String value) {
 		this.projectRole = value;
 	}
 	
+	/**
+	 * Projektrolle des Member in einem Projekt.
+	 */
 	public String getProjectRole() {
 		return projectRole;
 	}

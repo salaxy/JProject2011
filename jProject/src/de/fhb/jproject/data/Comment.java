@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Kommentar zu Sourcecode/Document/Project/Task. Beinhaltet spezielle Kommentare.
+ */
 public class Comment implements Serializable {
 	public Comment() {
 	}
@@ -73,10 +76,16 @@ public class Comment implements Serializable {
 		return getId();
 	}
 	
+	/**
+	 * Der eigentliche Inhalt des Kommentars
+	 */
 	public void setEntry(String value) {
 		this.entry = value;
 	}
 	
+	/**
+	 * Der eigentliche Inhalt des Kommentars
+	 */
 	public String getEntry() {
 		return entry;
 	}

@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Der User stellt jeglichen Benutzer des System dar mit nötigen Daten zum Einloggen und zum Identifizieren.
+ */
 public class User implements Serializable {
 	public User() {
 	}
@@ -79,42 +82,72 @@ public class User implements Serializable {
 		return getLoginName();
 	}
 	
+	/**
+	 * Passwort zum Einloggen in das System
+	 */
 	public void setPassword(String value) {
 		this.password = value;
 	}
 	
+	/**
+	 * Passwort zum Einloggen in das System
+	 */
 	public String getPassword() {
 		return password;
 	}
 	
+	/**
+	 * Vorname des Useres
+	 */
 	public void setVorname(String value) {
 		this.vorname = value;
 	}
 	
+	/**
+	 * Vorname des Useres
+	 */
 	public String getVorname() {
 		return vorname;
 	}
 	
+	/**
+	 * Nachname des Users
+	 */
 	public void setNachname(String value) {
 		this.nachname = value;
 	}
 	
+	/**
+	 * Nachname des Users
+	 */
 	public String getNachname() {
 		return nachname;
 	}
 	
+	/**
+	 * Spracheinstellung des Users
+	 */
 	public void setSprache(String value) {
 		this.sprache = value;
 	}
 	
+	/**
+	 * Spracheinstellung des Users
+	 */
 	public String getSprache() {
 		return sprache;
 	}
 	
+	/**
+	 * Globale Rolle des Users im System
+	 */
 	public void setGlobalRole(String value) {
 		this.globalRole = value;
 	}
 	
+	/**
+	 * Globale Rolle des Users im System
+	 */
 	public String getGlobalRole() {
 		return globalRole;
 	}

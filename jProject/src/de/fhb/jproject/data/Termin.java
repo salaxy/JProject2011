@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ein Termin ist ein festgelegtes Kalenderdatum.
+ */
 public class Termin implements Serializable {
 	public Termin() {
 	}
@@ -51,10 +54,16 @@ public class Termin implements Serializable {
 		return getId();
 	}
 	
+	/**
+	 * Datum
+	 */
 	public void setTermin(java.util.Date value) {
 		this.termin = value;
 	}
 	
+	/**
+	 * Datum
+	 */
 	public java.util.Date getTermin() {
 		return termin;
 	}

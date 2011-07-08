@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Spezieller Kommentar zu einem Sourcecode
+ */
 public class CommentSourcecode implements Serializable {
 	public CommentSourcecode() {
 	}

@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ein bis mehrere User können in einem Project involviert sein zum Lösen einer Problemstellung. 
+ */
 public class Project implements Serializable {
 	public Project() {
 	}
@@ -71,10 +74,16 @@ public class Project implements Serializable {
 		return getName();
 	}
 	
+	/**
+	 * Status des Projects.
+	 */
 	public void setStatus(String value) {
 		this.status = value;
 	}
 	
+	/**
+	 * Status des Projects.
+	 */
 	public String getStatus() {
 		return status;
 	}

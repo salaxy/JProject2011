@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ein Sourcecode ist ein in der Informatik, für Menschen lesbare, in einer Programmiersprache geschriebene Text eines Computerprogramms.
+ */
 public class Sourcecode implements Serializable {
 	public Sourcecode() {
 	}
@@ -63,10 +66,16 @@ public class Sourcecode implements Serializable {
 		return getId();
 	}
 	
+	/**
+	 * Der Pfad der Datei des Sourcecodes im System.
+	 */
 	public void setDateiname(String value) {
 		this.dateiname = value;
 	}
 	
+	/**
+	 * Der Pfad der Datei des Sourcecodes im System.
+	 */
 	public String getDateiname() {
 		return dateiname;
 	}

@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * ICQ stellt eine Adresse für einen Messenger dar.
+ */
 public class ICQ implements Serializable {
 	public ICQ() {
 	}

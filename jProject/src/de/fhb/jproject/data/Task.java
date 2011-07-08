@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ein Task ist eine Aufgabe die es in einem Projekt zu erledigen gilt.
+ */
 public class Task implements Serializable {
 	public Task() {
 	}
@@ -78,26 +81,44 @@ public class Task implements Serializable {
 		return getId();
 	}
 	
+	/**
+	 * Bezeichnung der Task
+	 */
 	public void setTitel(String value) {
 		this.titel = value;
 	}
 	
+	/**
+	 * Bezeichnung der Task
+	 */
 	public String getTitel() {
 		return titel;
 	}
 	
+	/**
+	 * Formulierter Inhalt der Aufgabenstellung
+	 */
 	public void setAufgabenstellung(String value) {
 		this.aufgabenstellung = value;
 	}
 	
+	/**
+	 * Formulierter Inhalt der Aufgabenstellung
+	 */
 	public String getAufgabenstellung() {
 		return aufgabenstellung;
 	}
 	
+	/**
+	 * Flag für den Status ob ein Task erledigt ist oder nicht.
+	 */
 	public void setDone(boolean value) {
 		this.done = value;
 	}
 	
+	/**
+	 * Flag für den Status ob ein Task erledigt ist oder nicht.
+	 */
 	public boolean getDone() {
 		return done;
 	}

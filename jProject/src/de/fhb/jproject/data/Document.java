@@ -14,6 +14,10 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ein Document ist eine vom Menschen verfasste Datei
+ * mit Informationen, deren Darstellung unterschiedlich sein kann.
+ */
 public class Document implements Serializable {
 	public Document() {
 	}
@@ -63,10 +67,16 @@ public class Document implements Serializable {
 		return getId();
 	}
 	
+	/**
+	 * Der Pfad der Datei des Dokuments im System.
+	 */
 	public void setDateiname(String value) {
 		this.dateiname = value;
 	}
 	
+	/**
+	 * Der Pfad der Datei des Dokuments im System.
+	 */
 	public String getDateiname() {
 		return dateiname;
 	}

@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Skype stellt eine Adresse für einen Messenger dar
+ */
 public class Skype implements Serializable {
 	public Skype() {
 	}
