@@ -16,12 +16,13 @@ import org.apache.log4j.Logger;
 
 /**
  * Action, die beim Anzeigen aller Dokumente in einem Projekt angesprochen wird,
- * dabei wird das erste Element detailiert angezeigt
+ * dabei wird das erste Element detailiert angezeigt falls der Parameter documentId null ist.
+ * Andernfalls wird das entsprechende Dokument angezeigt.
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser
  * Aktuelles Project: Session -> aktProject
- * documentId(Id des Documents 0 für alle): request -> documentId
+ * documentId: request -> documentId
  * 
  * 
  * Rechteüberprüfung für GUI:
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  * Beispiel-Aufruf:
- * do=ShowAllDocuAction&documentId=0
+ * do=ShowAllDocuAction
  * 
  */
 public class ShowAllDocuAction extends HttpRequestActionBase {

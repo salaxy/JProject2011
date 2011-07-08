@@ -16,13 +16,14 @@ import org.apache.log4j.Logger;
 
 /**
  * Action, die beim Anzeigen aller Sourcecodes in einem Projekt angesprochen wird,
- * dabei wird das erste Element detailiert angezeigt
+ * dabei wird das erste Element detailiert angezeigt falls der Parameter sourceodeId null ist.
+ * Wenn der Parameter nicht null ist wird der entsprechende Sourcecode angezeigt.
  * 
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser
  * Aktuelles Project: Session -> aktProject
- * sourcecodeId(Id des Sourcecodes 0 für alle): request -> sourcecodeId
+ * sourcecodeId: request -> sourcecodeId
  * 
  * 
  * Rechteüberprüfung für GUI:
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  * Beispiel-Aufruf:
- * do=ShowAllSourceAction&sourcecodeId=0
+ * do=ShowAllSourceAction
  * 
  */
 public class ShowAllSourceAction extends HttpRequestActionBase {
