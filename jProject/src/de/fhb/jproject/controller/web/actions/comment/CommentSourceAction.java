@@ -15,13 +15,30 @@ import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 import org.apache.log4j.Level;
 
-
 /**
  * Action die angesprochen wird wenn ein Sourcecode kommentiert wird
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=CommentSource&sourcecodeId=1&inhalt=GuterSource
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * entry(Inhalt des Comments): request -> entry
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * commentSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=CommentSource&sourcecodeId=1&entry=GuterSource
+ * 
  */
 public class CommentSourceAction extends HttpRequestActionBase {
 

@@ -22,13 +22,29 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-/**
+/** 
  * Action die angesprochen wenn zu einem Sourcecode alle Kommentare angezeigt werden
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=ShowAllComments41Source&sourcecodeId=1&projectName=ProjectName
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * showAllComments41Source
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllComments41Source&sourcecodeId=1
+ * 
  */
 public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 

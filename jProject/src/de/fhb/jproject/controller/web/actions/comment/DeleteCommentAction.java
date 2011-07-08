@@ -17,13 +17,29 @@ import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
 
-
-/**
+/** 
  * Action die angesprochen wird wenn ein Kommentar geloescht werden soll
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=DeleteComment&projectName=ProjectName&commentId=1
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * commentId(Id des Comments): request -> commentId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * deleteComment
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=DeleteComment&commentId=1
+ * 
  */
 public class DeleteCommentAction extends HttpRequestActionBase {
 

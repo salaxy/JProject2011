@@ -22,13 +22,29 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-/**
+/** 
  * Action die angesprochen wenn zu einem Task alle Kommentare angezeigt werden
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=ShowAllComments41Task&taskId=1&projectName=ProjectName
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * taskId(Id des Tasks): request -> taskId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * ShowAllComments41Task
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllComments41Task&taskId=1
+ * 
  */
 public class ShowAllComments41TaskAction extends HttpRequestActionBase {
 
