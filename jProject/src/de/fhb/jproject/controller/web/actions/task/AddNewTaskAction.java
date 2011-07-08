@@ -1,32 +1,45 @@
 package de.fhb.jproject.controller.web.actions.task;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.controller.web.actions.project.AddMemberAction;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.sql.Date;
-import javax.servlet.http.HttpSession;
 
 
 /**
- * Action die angesprochen wird wenn eine Aufgabe einem Projekt hingefuegt wird
+ * Action, die beim Hinzufügen eines neuen Tasks in einem Projekt angesprochen wird
  * 
- * Hinweise:
- * - Parameter "date" MUSS die Form "yyyy-mm-dd" haben
- *  
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=AddNewTask&projectName=ProjectName&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
- * @author  Andy Klay <klay@fh-brandenburg.de> 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * titel(Bezeichnung des Tasks): request -> titel
+ * aufgabenStellung(formulierte Aufgabenstellung): request -> aufgabenStellung
+ * date(Datum der Form "yyyy-mm-dd"): request -> date
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * addNewTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=AddNewTask&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
+ * 
  */
 public class AddNewTaskAction extends HttpRequestActionBase {
 
@@ -46,7 +59,6 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"
 					+ "Date date(" + req.getParameter("date") + ")"
@@ -57,11 +69,11 @@ public class AddNewTaskAction extends HttpRequestActionBase {
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String titel = req.getParameter("titel");
 			String aufgabenstellung = req.getParameter("aufgabenstellung");
-			//yyyy-mm-dd <<< muss sooo aussehen
+			//yyyy-mm-dd <<< Datumsstring muss sooo aussehen
 			Date date = null;
 			int taskId = 0;
 			try {
-				if (date != null) {
+				if(date != null){
 					date = Date.valueOf(req.getParameter("date"));
 				}
 			} catch (IllegalArgumentException e) {
