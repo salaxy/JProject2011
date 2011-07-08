@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Spezieller Kommentar zu einem Dokument
+ */
 public class CommentDocument implements Serializable {
 	public CommentDocument() {
 	}

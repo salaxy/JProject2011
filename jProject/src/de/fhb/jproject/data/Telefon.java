@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Ist eine Telefonnummer
+ */
 public class Telefon implements Serializable {
 	public Telefon() {
 	}

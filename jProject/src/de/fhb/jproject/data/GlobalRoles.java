@@ -14,6 +14,9 @@
 package de.fhb.jproject.data;
 
 import java.io.Serializable;
+/**
+ * Eine GlobalRole ist eine Rolle, die ein User im System einnehmen kann. D.h. welche Aktionen dieser tätigen kann und darf bzw. nicht darf.
+ */
 public class GlobalRoles implements Serializable {
 	public GlobalRoles() {
 	}
