@@ -10,22 +10,32 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import javax.servlet.http.HttpSession;
 
-
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Löschen eines Members angesprochen wird
  * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * userLoginName(loginname eines Users der Member ist): request -> userLoginName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * deleteMember
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- *  STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
- *  
- *  do=DeleteMember&userLoginName=karl&projectName=ProjectName
- * 
+ * Beispiel-Aufruf:
+ * do=DeleteMember&userLoginName=karl
  */
 public class DeleteMemberAction extends HttpRequestActionBase {
 

@@ -11,18 +11,33 @@ import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import org.apache.log4j.Level;
 
-
 /**
- * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
+ * Action, die beim Suchen von Projekten angesprochen wird
+ * (UNUSED)
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	http://localhost:8080/jProject/JProjectServlet?do=SearchProjects&searchValue=a
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * searchValue(Teil einer Bezeichnung eines gesuchten Projektes): request -> searchValue
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * searchProjects
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=SearchProjects&searchValue=a
+ * 
  */
 public class SearchProjectsAction extends HttpRequestActionBase {
 
