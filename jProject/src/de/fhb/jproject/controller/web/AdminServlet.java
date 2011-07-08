@@ -71,7 +71,14 @@ import java.util.List;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import org.apache.log4j.Logger;
-
+/*
+ * AdminServlet ist zum Verwalten der GET und POST Requests.
+ * Dieses Servlet is spezialisiert auf alle Anfragen die speziell den Admin betreffen.
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ */
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServletControllerBase {
 
