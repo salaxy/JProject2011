@@ -5,8 +5,11 @@
 package de.fhb.commons;
 
 /**
+ * Diese Klasse generiert einen SHA1- oder MD5-Haswert von einem String.
  *
- * @author MacYser
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -35,7 +38,9 @@ public class HashIt {
         }
         return formatter.toString();
     }
-
+	/*
+	 * Diese Methode generiert den SHA1-Hashwert von einem String.
+	 */
     public String calcSHA1(String pw) 
 			throws UnsupportedEncodingException, NoSuchAlgorithmException{
 
@@ -43,6 +48,9 @@ public class HashIt {
 
         return calculateHash(sha1, pw);
     }
+	/*
+	 * Diese Methode generiert den MD5-Hashwert von einem String.
+	 */
 	public String calcMD5(String pw) 
 			throws UnsupportedEncodingException, NoSuchAlgorithmException{
 

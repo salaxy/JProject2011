@@ -9,8 +9,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
- *
- * @author MacYser
+ * Diese Klasse ist zum Kontrollieren von Strings.
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class CheckString {
 	private static final Logger logger = Logger.getLogger(CheckString.class);
@@ -19,6 +22,10 @@ public class CheckString {
 	public CheckString(){
 		logger.setLevel(Level.DEBUG);
 	}
+	/*
+	 * Diese Methode kontrolliert ob der String für das System geeignet ist.
+	 * Erlaubt sind nur Eingaben von 0-9, A-Z und a-z.
+	 */
 	public void checkString(String valueName, String stringToCheck) throws ProjectException{
 		if ((valueName != null) && (stringToCheck !=null)) {
 			char [] charToCheck = null;
@@ -53,6 +60,11 @@ public class CheckString {
 		}
 		
 	}
+	/*
+	 * Diese Methode kontrolliert ob das Passwort für das System geeignet ist.
+	 * Das Passwort darf nicht null sein, 
+	 * Beide Passwörter müssen gleich sein und das passwort muss mindestens 5 zeichen lang sein.
+	 */
 	public void checkPassword(String passwort, String passwortWdhl) throws ProjectException{
 		/*
 		 * Passwort-Überprüfung
