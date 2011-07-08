@@ -5,29 +5,39 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.controller.web.actions.project.DeleteMemberAction;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import javax.servlet.http.HttpSession;
+
 
 
 /**
- * Action die aufgerufen wird wenn ein Task geloescht werden soll
+ * Action, die beim Löschen eines Tasks angesprochen wird
  * 
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * taskId(Id des Tasks): request -> taskId
  * 
- * STATUS: FREIGEGEBEN - ERFOLGREICH GETESTET
- *  
- * URL BEISPIEL: JProjectServlet?do=DeleteTask&projectName=ProjectName&taskId=2
- *  
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * deleteTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=DeleteTask&taskId=1
  * 
  */
 public class DeleteTaskAction extends HttpRequestActionBase {
@@ -49,7 +59,6 @@ public class DeleteTaskAction extends HttpRequestActionBase {
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
 					+ "int taskId(" + req.getParameter("taskId") + "), "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
 					);
 			
 			//Parameter laden

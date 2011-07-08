@@ -1,33 +1,46 @@
 package de.fhb.jproject.controller.web.actions.task;
 
 import java.io.IOException;
-import java.util.logging.Level;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.sql.Date;
-import javax.servlet.http.HttpSession;
 
 
 /**
- * Action die angesprochen wird, wenn eine Task/Aufgabe geupdated wird
+ * Action, die beim Updaten einer Task in einem Projekt angesprochen wird
+ * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * taskId(Id des Tasks): request -> taskId
+ * (optional)titel(titel des Tasks): request -> titel
+ * (optional)aufgabenStellung(aufgabenStellung des Tasks): request -> aufgabenStellung
+ * (optional)date(Termin des Tasks): request -> date
+ * (optional)done(Status des Tasks): request -> done
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
  * 
  * 
- * !!!Parameter "done" MUSS entweder der String "true" oder "false" sein!!!
- * !!!Parameter "date" MUSS die Form "yyyy-mm-dd" haben!!!
- *  
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=UpdateTask&projectName=ProjectName&taskId=5&titel=DeineAufgabe&date=2011-06-10&done=true
- * @author  Andy Klay <klay@fh-brandenburg.de> 
+ * Managermethoden:
+ * updateTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=UpdateTask&taskId=5&titel=DeineAufgabe&date=2011-06-10&done=true
  * 
  */
 public class UpdateTaskAction extends HttpRequestActionBase {
@@ -49,7 +62,6 @@ public class UpdateTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "int taskId(" + req.getParameter("taskId") + ")"
 					+ "String titel(" + req.getParameter("titel") + ")"
 					+ "String aufgabenStellung(" + req.getParameter("aufgabenStellung") + ")"

@@ -1,30 +1,43 @@
 package de.fhb.jproject.controller.web.actions.task;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Task;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import javax.servlet.http.HttpSession;
-
 
 /**
- * Aktion die ausgefuehrt wird, wenn die eigenen Tasks/Aufgaben
+ * Action die ausgefuehrt wird, wenn die eigenen Tasks
  * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
  * 
- * STATUS:	FREIGEGEBEN und getestet
- * URL:		JProjectServlet?do=ShowAllOwnTasks
- * @author	Andy Klay <klay@fh-brandenburg.de>
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * loginName(für den Member): request -> loginName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedShowAllOwnTasks
+ * 
+ * Managermethoden:
+ * deAssignTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllOwnTasks
+ * 
  */
 public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 
@@ -50,12 +63,16 @@ public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
+			logger.debug("Parameter: "
+					+ "int loginName(" + req.getParameter("loginName") + "), "
+					);
 			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
 			String loginName = (String) req.getParameter("loginName");
 			int taskId = 0;
+			
 			try {
 				taskId = Integer.valueOf(req.getParameter("taskId"));
 			} catch (NumberFormatException e) {

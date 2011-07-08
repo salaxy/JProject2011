@@ -5,23 +5,38 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import javax.servlet.http.HttpSession;
 
 
 /**
- * Action die angesprochen wird, wenn einem Member von einem Task/Aufgabe abgordert wird
+ * Action, die beim Abordern eines Member des Projekts von einem Task, angesprochen wird
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=DeAssignTask&projectName=ProjectName&userLoginName=karl&taskId=5 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * taskId(Id des Tasks): request -> taskId
+ * loginName(für Memberauswahl): request -> loginName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * deAssignTask
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=DeAssignTask&loginName=karl&taskId=5
  */
 public class DeAssignTaskAction extends HttpRequestActionBase {
 
@@ -41,10 +56,10 @@ public class DeAssignTaskAction extends HttpRequestActionBase {
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
 			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + "), "
 					+ "int taskId(" + req.getParameter("taskId") + ")"
 					+ "String loginName(" + req.getParameter("loginName") + ")"
 					);
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
