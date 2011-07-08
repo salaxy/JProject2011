@@ -15,7 +15,9 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Action, die beim Anzeigen aller Sourcecodes in einem Projekt angesprochen wird
+ * Action, die beim Anzeigen aller Sourcecodes in einem Projekt angesprochen wird,
+ * dabei wird das erste Element detailiert angezeigt
+ * 
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser
@@ -35,9 +37,7 @@ import org.apache.log4j.Logger;
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  * Beispiel-Aufruf:
- * do=ShowAllSourceAction&
- * ?????????????????????
- * TODO
+ * do=ShowAllSourceAction&sourcecodeId=0
  * 
  */
 public class ShowAllSourceAction extends HttpRequestActionBase {
