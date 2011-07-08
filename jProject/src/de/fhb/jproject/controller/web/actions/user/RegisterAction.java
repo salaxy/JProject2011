@@ -17,12 +17,31 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
-* Action die angesprochen wird wenn jemand als User registriert wird (vom Admin beispielsweise)
-* 
-* STATUS:	NICHT FREIGEGEBEN 
-* URL: 		do=Register&loginName=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
-* @author  	Andy Klay <klay@fh-brandenburg.de>
-*/
+ * Action, die beim Hinzufügen eines neuen Users angesprochen wird
+ * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * loginName: request -> loginName
+ * passwort: request -> passwort
+ * passwortWdhl: request -> passwortWdhl
+ * nachname: request -> nachname
+ * vorname: request -> vorname
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * register
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=Register&loginName=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
+ * 
+ */
 public class RegisterAction extends HttpRequestActionBase {
 
 	private MainManager mainManager;

@@ -1,6 +1,5 @@
 package de.fhb.jproject.controller.web.actions.user;
 
-import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
@@ -17,11 +15,26 @@ import javax.servlet.http.HttpSession;
 
 
 /**
-* Action die angesprochen wird wenn sich jemand Informationen ueber einen Andern user anschauen will
-* 
-* STATUS:	FREIGEGEBEN 
-* URL: 		
-* @author  	Andy Klay <klay@fh-brandenburg.de>
+ * Action, die beim Anzeigen der Info eines Users angesprochen wird.
+ * 
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * loginName: request -> loginName
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedShowUserSettings
+ * 
+ * Managermethoden:
+ * showUserInfo
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=showUserInfo&loginName=loginName
+ * 
  */
 public class ShowUserInfoAction extends HttpRequestActionBase {
 

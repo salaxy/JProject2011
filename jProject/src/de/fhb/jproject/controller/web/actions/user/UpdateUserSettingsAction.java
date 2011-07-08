@@ -19,12 +19,29 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action die angesprochen wird wenn eine User seine Daten aenderst
+ * Action, die beim Ändern von Settings eines Users angesprochen wird.
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	JProjectServlet?do=UpdateUserSettings&nachname=MeinNeuerNachname&vorname=MeinNeuerVorname&sprache=NeueSprache&neuesPasswortEins=pw&neuesPasswortZwei=pw&altesPasswort=password
- * drei parameter fehlen !! neuIcq, neuSkype, neutelefon
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * loginName: request -> loginName
+ * nachname: request -> nachname
+ * vorname: request -> vorname
+ * neuesPasswortEins: request -> neuesPasswortEins
+ * neuesPasswortZwei: request -> neuesPasswortZwei
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * updateUserSettings
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=updateUserSettings&loginName=neuerUser&nachname=Schmidt&vorname=Kurt&neuesPasswortEins=bla&neuesPasswortZwei=bla
+ * 
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
 

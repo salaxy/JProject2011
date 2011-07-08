@@ -21,10 +21,26 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Login eines Users angesprochen wird.
  * 
- * @author klay
+ * Parameter: 
+ * loginName des Accounts: request -> loginname
+ * password des Accounts: request -> password
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedOpenAdminconsoleAction
+ * 
+ * 
+ * Managermethoden:
+ * login
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=Login&loginName=Bert&password=berta
+ * 
  */
 public class LoginAction extends HttpRequestActionBase {
 
