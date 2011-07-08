@@ -17,11 +17,25 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * UNUSED
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Anzeigen aller User angesprochen wird.
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedDeleteUserAction
+ * 
+ * Managermethoden:
+ * showAllUser
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=showAllUser
+ * 
  */
 public class ShowAllUserAction extends HttpRequestActionBase {
 

@@ -13,10 +13,25 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Logout eines Users angesprochen wird.
  * 
- * @author klay
+ * Parameter: 
+ * keine
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * logout
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=Logout
+ * 
  */
 public class LogoutAction extends HttpRequestActionBase {
 

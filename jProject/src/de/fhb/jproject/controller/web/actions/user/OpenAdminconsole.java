@@ -17,12 +17,26 @@ import javax.servlet.http.HttpSession;
 
 
 /**
+ * Action, die beim öffnen der AdminConsole angesprochen wird.
  * 
- * Action die angesprochen wird wenn alle Projekte angezeigt werden sollen
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
  * 
- * STATUS:	FREIGEGEBEN 
- * URL: 	http://localhost:8080/jProject/AdminServlet?do=OpenAdminconsole
+ * Rechteüberprüfung für GUI:
+ * isAllowedRegister
+ * 
+ * 
+ * Managermethoden:
+ * showAllProjects
+ * showAllUser
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=OpenAdminconsole
+ * 
  */
 public class OpenAdminconsole extends HttpRequestActionBase {
 
