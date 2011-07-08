@@ -17,6 +17,7 @@ import de.fhb.jproject.manager.MainManager;
 
 /**
  * Action, die beim Suchen eines Users angesprochen wird.
+ * (UNUSED)
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser
