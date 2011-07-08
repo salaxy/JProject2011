@@ -16,10 +16,28 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Löschen eines Sourcecodes angesprochen wird
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * 
+ * Managermethoden:
+ * deleteSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=DeleteSourceAction&sourcecodeId=1
+ * 
  */
 public class DeleteSourceAction extends HttpRequestActionBase {
 
@@ -40,11 +58,10 @@ public class DeleteSourceAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			/*TODO logger.debug("Parameter: "
-					+ "String documentId(" + req.getParameter("documentId") + "), "
-					+ "String inhalt(" + req.getParameter("inhalt") + ")"
+			logger.debug("Parameter: "
+					+ "String sourcecodeId(" + req.getParameter("sourcecodeId")
 					);
-			*/
+
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");

@@ -18,10 +18,27 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Hinzufügen eines neuen Sourcecodes angesprochen wird
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * data(List FileItem): request -> data
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * keine
+ * 
+ * Managermethoden:
+ * addNewSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=AddNewSourceAction
+ * 
  */
 public class AddNewSourceAction extends HttpRequestActionBase {
 
@@ -46,6 +63,7 @@ private MainManager mainManager;
 					+ "String inhalt(" + req.getParameter("inhalt") + ")"
 					);
 			*/
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");

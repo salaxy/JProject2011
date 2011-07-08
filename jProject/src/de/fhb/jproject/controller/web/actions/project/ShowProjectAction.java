@@ -41,7 +41,8 @@ import org.apache.log4j.Level;
  * Managermethoden:
  * ShowProject,
  * ShowAllMember,
- * ShowMember
+ * ShowMember,
+ * showUserInfo
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>

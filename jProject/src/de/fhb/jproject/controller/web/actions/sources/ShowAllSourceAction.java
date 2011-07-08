@@ -7,21 +7,38 @@ import javax.servlet.http.HttpServletResponse;
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Project;
 import de.fhb.jproject.data.Sourcecode;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 
 /**
- * Action, die alle mitgeschickten Parameter ausgibt: 
- * <parametername>: <value>
+ * Action, die beim Anzeigen aller Sourcecodes in einem Projekt angesprochen wird
  * 
- * @author klay
+ * Parameter: 
+ * Aktueller User: Session -> aktUser
+ * Aktuelles Project: Session -> aktProject
+ * sourcecodeId(Id des Sourcecodes 0 für alle): request -> sourcecodeId
+ * 
+ * 
+ * Rechteüberprüfung für GUI:
+ * isAllowedDeleteSourceAction
+ * 
+ * 
+ * Managermethoden:
+ * showAllSource
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
+ * 
+ * Beispiel-Aufruf:
+ * do=ShowAllSourceAction&
+ * ?????????????????????
+ * TODO
+ * 
  */
 public class ShowAllSourceAction extends HttpRequestActionBase {
 

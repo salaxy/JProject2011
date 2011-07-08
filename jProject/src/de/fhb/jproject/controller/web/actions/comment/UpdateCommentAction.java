@@ -11,7 +11,6 @@ import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.data.Comment;
 import de.fhb.jproject.data.CommentSetCollection;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import java.io.IOException;
