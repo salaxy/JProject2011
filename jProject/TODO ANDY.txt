@@ -27,7 +27,6 @@ DA-Schicht
 
 Datenbank
 **********
-DB UPDATEN
 		
 
 Bekannte Fehler
@@ -42,10 +41,4 @@ Passwort Hashwert ->
 	kommt später,
 	momemntan klartext zum testen
 
-Verwendete Technologien:
-	Hibernate,
-	JavaScript mit Mootools,
-	JSTL,
-	HTML,
-	CSS,
 	
