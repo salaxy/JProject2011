@@ -1,6 +1,4 @@
-5-maliger Hashwert des Passwortes realisiert!
-
-	bitte in der DB anlegen:
+bitte in der DB anlegen:
 		LoginName = Admin
 		Passwort = 8be3c943b1609fffbfc51aad666d0a04adf83c9d  (KlartextPasswort = Password)
 
@@ -14,8 +12,7 @@ Controller
 
 Manager
 *********
-Document-/SourcecodeManager =>
-	Upload/Download UNIX-Fähig machen
+
 
 DA-Schicht
 **********

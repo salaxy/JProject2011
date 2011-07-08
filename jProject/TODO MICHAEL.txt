@@ -1,6 +1,4 @@
-5-maliger Hashwert des Passwortes realisiert!
-
-	bitte in der DB anlegen:
+bitte in der DB anlegen:
 		LoginName = Admin
 		Passwort = 8be3c943b1609fffbfc51aad666d0a04adf83c9d  (KlartextPasswort = Password)
 
@@ -10,14 +8,12 @@ GUI
 *********
 
 ShowUserSettings =>
-	Alle Tasks des Users anzeigen,
-	Selfdelete.
+	(optional)Alle Tasks des Users anzeigen,
+	(optional)Selfdelete.
 
 Übersicht =>
 	(optional)Projekt suchen
 
-Impressum =>
-	Tino und Andy hinzufügen.
 
 Controller
 *********
@@ -44,10 +40,6 @@ Datenbank
 
 (optional)Password zu int machen wegen hashwert = int(NE DOCH NICH!...String, weil int-wert egal)
 (Semesterferien)Datenbank auf JPA umbauen
-		
-
-Fragen Stefan Pratsch:
-andere actions aufrufen
 
 Bekannte "Fehler":
 **********
