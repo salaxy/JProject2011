@@ -18,25 +18,26 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Login eines Users angesprochen wird.
+ * Action, die beim Login eines Users angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * loginName des Accounts: request -> loginname <br/>
+ * password des Accounts: request -> password <br/>
+ *  <br/>
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedOpenAdminconsoleAction <br/>
+ *  <br/>
  * 
- * Parameter: 
- * loginName des Accounts: request -> loginname
- * password des Accounts: request -> password
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedOpenAdminconsoleAction
- * 
- * 
- * Managermethoden:
- * login
- * 
+ * Managermethoden: <br/>
+ * login <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=Login&loginName=Bert&password=berta <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=Login&loginName=Bert&password=berta
  * 
  */
 public class LoginAction extends HttpRequestActionBase {

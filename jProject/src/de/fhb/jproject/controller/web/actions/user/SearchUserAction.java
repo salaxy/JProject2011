@@ -16,27 +16,27 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Suchen eines Users angesprochen wird.
- * (UNUSED)
+ * Action, die beim Suchen eines Users angesprochen wird. <br/>
+ * (UNUSED) <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * searchValue: request -> searchValue <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * searchValue: request -> searchValue
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * searchUser
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * searchUser <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=searchUser&searchValue=loginName <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=searchUser&searchValue=loginName
- * 
  */
 public class SearchUserAction extends HttpRequestActionBase {
 

@@ -17,27 +17,26 @@ import de.fhb.jproject.manager.MainManager;
 
 /**
  * Action die ausgefuehrt wird, wenn die eigenen Tasks
- * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen
+ * zu einem Projekt in dem der User teilnimmt angezeigt werden sollen <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * loginName(für den Member): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * loginName(für den Member): request -> loginName
- * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedShowAllOwnTasks
- * 
- * Managermethoden:
- * deAssignTask
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedShowAllOwnTasks <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * deAssignTask <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=ShowAllOwnTasks <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllOwnTasks
- * 
  */
 public class ShowAllOwnTasksAction extends HttpRequestActionBase {
 

@@ -17,27 +17,28 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Zuordnen eines Tasks zu einem Member des Projekt angesprochen wird
+ * Action, die beim Zuordnen eines Tasks zu einem Member des Projekt angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * taskId(Id des Tasks): request -> taskId <br/>
+ * loginName(für Memberauswahl): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * taskId(Id des Tasks): request -> taskId
- * loginName(für Memberauswahl): request -> loginName
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * assignTask
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * assignTask <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=AssignTask&loginName=karl&taskId=5 <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=AssignTask&loginName=karl&taskId=5
  */
 public class AssignTaskAction extends HttpRequestActionBase {
 

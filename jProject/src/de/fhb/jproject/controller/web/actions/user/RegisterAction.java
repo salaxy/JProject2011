@@ -18,30 +18,29 @@ import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 
 /**
- * Action, die beim Hinzufügen eines neuen Users angesprochen wird
+ * Action, die beim Hinzufügen eines neuen Users angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * loginName: request -> loginName <br/>
+ * passwort: request -> passwort <br/>
+ * passwortWdhl: request -> passwortWdhl <br/>
+ * nachname: request -> nachname <br/>
+ * vorname: request -> vorname <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * loginName: request -> loginName
- * passwort: request -> passwort
- * passwortWdhl: request -> passwortWdhl
- * nachname: request -> nachname
- * vorname: request -> vorname
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * register
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * register <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=Register&loginName=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=Register&loginName=neuerUser&passwort=passwort&passwortWdhl=passwort&nachname=Schmidt&vorname=Kurt
- * 
  */
 public class RegisterAction extends HttpRequestActionBase {
 

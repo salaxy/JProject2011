@@ -12,25 +12,24 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Logout eines Users angesprochen wird.
+ * Action, die beim Logout eines Users angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * keine <br/>
+ *  <br/>
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * Parameter: 
- * keine
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * logout
- * 
+ * Managermethoden: <br/>
+ * logout <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=Logout <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
- * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=Logout
- * 
+ * @author  Andy Klay <klay@fh-brandenburg.de> 
  */
 public class LogoutAction extends HttpRequestActionBase {
 

@@ -15,25 +15,25 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die beim Anzeigen der Info eines Users angesprochen wird.
+ * Action, die beim Anzeigen der Info eines Users angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * loginName: request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * loginName: request -> loginName
- * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedShowUserSettings
- * 
- * Managermethoden:
- * showUserInfo
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedShowUserSettings <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * showUserInfo <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=showUserInfo&loginName=loginName <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=showUserInfo&loginName=loginName
  * 
  */
 public class ShowUserInfoAction extends HttpRequestActionBase {

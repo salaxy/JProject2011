@@ -16,27 +16,28 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Abordern eines Member des Projekts von einem Task, angesprochen wird
+ * Action, die beim Abordern eines Member des Projekts von einem Task, angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * taskId(Id des Tasks): request -> taskId <br/>
+ * loginName(für Memberauswahl): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * taskId(Id des Tasks): request -> taskId
- * loginName(für Memberauswahl): request -> loginName
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * deAssignTask
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * deAssignTask <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=DeAssignTask&loginName=karl&taskId=5 <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=DeAssignTask&loginName=karl&taskId=5
  */
 public class DeAssignTaskAction extends HttpRequestActionBase {
 

@@ -17,29 +17,28 @@ import org.apache.log4j.Logger;
 /**
  * Action, die beim Anzeigen aller Sourcecodes in einem Projekt angesprochen wird,
  * dabei wird das erste Element detailiert angezeigt falls der Parameter sourceodeId null ist.
- * Wenn der Parameter nicht null ist wird der entsprechende Sourcecode angezeigt.
+ * Wenn der Parameter nicht null ist wird der entsprechende Sourcecode angezeigt. <br/>
+ *  <br/>
  * 
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * (optional)sourcecodeId: request -> sourcecodeId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * (optional)sourcecodeId: request -> sourcecodeId
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedDeleteSourceAction <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedDeleteSourceAction
- * 
- * 
- * Managermethoden:
- * showAllSource
- * 
+ * Managermethoden: <br/>
+ * showAllSource <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=ShowAllSourceAction <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllSourceAction
- * 
  */
 public class ShowAllSourceAction extends HttpRequestActionBase {
 

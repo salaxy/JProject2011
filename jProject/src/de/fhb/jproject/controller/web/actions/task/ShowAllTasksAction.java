@@ -21,32 +21,32 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action die angesprochen wird, wenn alle Aufgaben eines Projektes angezeigt werden sollen
+ * Action die angesprochen wird, wenn alle Aufgaben eines Projektes angezeigt werden sollen <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * taskId(Id des Tasks): request -> taskId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * taskId(Id des Tasks): request -> taskId
- * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedUpdateTaskAction,
- * isAllowedAddNewTaskAction,
- * isAllowedDeleteTaskAction,
- * isAllowedShowAllMemberAction,
- * isAllowedAssignTaskAction,
- * isAllowedDeAssignTaskAction
- * 
- * Managermethoden:
- * showAllTasks
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedUpdateTaskAction, <br/>
+ * isAllowedAddNewTaskAction, <br/>
+ * isAllowedDeleteTaskAction, <br/>
+ * isAllowedShowAllMemberAction, <br/>
+ * isAllowedAssignTaskAction, <br/>
+ * isAllowedDeAssignTaskAction <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * showAllTasks <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=ShowAllTasks&taskId=0 <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllTasks&taskId=0
- * 
  */
 public class ShowAllTasksAction extends HttpRequestActionBase {
 

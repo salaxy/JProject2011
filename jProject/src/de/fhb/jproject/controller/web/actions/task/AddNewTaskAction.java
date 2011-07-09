@@ -17,29 +17,29 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Hinzufügen eines neuen Tasks in einem Projekt angesprochen wird
+ * Action, die beim Hinzufügen eines neuen Tasks in einem Projekt angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * titel(Bezeichnung des Tasks): request -> titel <br/>
+ * aufgabenStellung(formulierte Aufgabenstellung): request -> aufgabenStellung <br/>
+ * date(Datum der Form "yyyy-mm-dd"): request -> date <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * titel(Bezeichnung des Tasks): request -> titel
- * aufgabenStellung(formulierte Aufgabenstellung): request -> aufgabenStellung
- * date(Datum der Form "yyyy-mm-dd"): request -> date
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * addNewTask
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * addNewTask <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=AddNewTask&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02 <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=AddNewTask&titel=TestAufgabe&aufgabenStellung=Tue%20dies%20und%20das!&date=2011-06-02
- * 
  */
 public class AddNewTaskAction extends HttpRequestActionBase {
 

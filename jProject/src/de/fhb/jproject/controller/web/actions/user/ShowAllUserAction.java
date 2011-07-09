@@ -16,25 +16,25 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Anzeigen aller User angesprochen wird.
+ * Action, die beim Anzeigen aller User angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedDeleteUserAction
- * 
- * Managermethoden:
- * showAllUser
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedDeleteUserAction <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * showAllUser <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=showAllUser <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
- * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=showAllUser
- * 
+ * @author  Andy Klay <klay@fh-brandenburg.de> 
  */
 public class ShowAllUserAction extends HttpRequestActionBase {
 
