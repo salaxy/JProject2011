@@ -16,20 +16,20 @@ import org.apache.log4j.Level;
 
 /**
  * Action die angesprochen wird wenn ein Dokument kommentiert wird
- * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * documentId(Id des Dokuments): request -> documentId
- * entry(Inhalt des Comments): request -> entry
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
+ * <b>
+ * Parameter: <b>
+ * Aktueller User: Session -> aktUser<b>
+ * Aktuelles Project: Session -> aktProject<b>
+ * documentId(Id des Dokuments): request -> documentId<b>
+ * entry(Inhalt des Comments): request -> entry<b>
  * 
  * 
- * Managermethoden:
- * commentDocu
+ * Rechteüberprüfung für GUI:<b>
+ * keine<b>
+ * 
+ * 
+ * Managermethoden:<b>
+ * commentDocu<b>
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
