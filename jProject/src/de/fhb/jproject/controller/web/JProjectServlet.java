@@ -121,6 +121,13 @@ public class JProjectServlet extends HttpServletControllerBase {
 			}
 		}
 	}
+	/** 
+	 * Handles the HTTP <code>GET</code> method.
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
@@ -162,12 +169,12 @@ public class JProjectServlet extends HttpServletControllerBase {
 		logger.info("--------------------------------------------------------------------------------------");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
+	/** 
+	 * Handles the HTTP <code>POST</code> method.
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
