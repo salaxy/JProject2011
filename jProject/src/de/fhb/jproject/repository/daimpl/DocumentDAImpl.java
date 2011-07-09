@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class DocumentDAImpl  extends DocumentDAOImpl implements DocumentDA {
 	private static final Logger logger = Logger.getLogger(DocumentDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public DocumentDAImpl(){
 		logger.info(" new DocumentDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Document> listAllDocuments() throws PersistentException {
 		logger.info("listAllDocuments()");
@@ -32,6 +40,12 @@ public class DocumentDAImpl  extends DocumentDAOImpl implements DocumentDA {
 		return Arrays.asList(listDocumentByQuery("Document.id = Document.id", "ID"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Document> listAllDocuments(String orderBy) throws PersistentException {
 		logger.info("listAllDocuments(String orderBy)");

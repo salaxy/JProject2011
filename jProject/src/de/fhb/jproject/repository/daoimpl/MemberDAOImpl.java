@@ -15,8 +15,19 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(MemberDAOImpl.class);
+	/**
+	 * 
+	 * @param user
+	 * @param project
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +39,13 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @param project
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member getMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +57,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @param project
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +76,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @param project
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member getMemberByORMID(de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +95,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param user
+	 * @param project
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException {
 		try {
 			Member member = new de.fhb.jproject.data.Member();
@@ -75,6 +117,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param user
+	 * @param project
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project) throws PersistentException {
 		try {
 			Member member = new de.fhb.jproject.data.Member();
@@ -89,6 +139,15 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param user
+	 * @param project
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			Member member = new de.fhb.jproject.data.Member();
@@ -103,6 +162,15 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param user
+	 * @param project
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member getMemberByORMID(PersistentSession session, de.fhb.jproject.data.User user, de.fhb.jproject.data.Project project, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			Member member = new de.fhb.jproject.data.Member();
@@ -117,6 +185,13 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member[] listMemberByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -128,6 +203,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member[] listMemberByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -139,6 +222,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member[] listMemberByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Member as Member");
 		if (condition != null)
@@ -156,6 +247,15 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member[] listMemberByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Member as Member");
 		if (condition != null)
@@ -174,6 +274,13 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -185,6 +292,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -196,6 +311,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Member[] members = listMemberByQuery(session, condition, orderBy);
 		if (members != null && members.length > 0)
@@ -204,6 +327,15 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Member loadMemberByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Member[] members = listMemberByQuery(session, condition, orderBy, lockMode);
 		if (members != null && members.length > 0)
@@ -212,6 +344,13 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateMemberByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -223,6 +362,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateMemberByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -234,6 +381,14 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateMemberByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Member as Member");
 		if (condition != null)
@@ -250,6 +405,15 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateMemberByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Member as Member");
 		if (condition != null)
@@ -267,10 +431,20 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Member createMember() {
 		return new de.fhb.jproject.data.Member();
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Member member) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(member);
@@ -282,6 +456,12 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Member member) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(member);
@@ -293,6 +473,12 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Member member)throws PersistentException {
 		try {
 			de.fhb.jproject.data.User user = member.getUser();
@@ -319,6 +505,13 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Member member, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			de.fhb.jproject.data.User user = member.getUser();
@@ -350,6 +543,12 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Member member) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(member);
@@ -361,6 +560,12 @@ public class MemberDAOImpl implements de.fhb.jproject.repository.dao.MemberDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Member member) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(member);

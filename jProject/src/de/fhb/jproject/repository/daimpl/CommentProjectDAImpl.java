@@ -23,10 +23,18 @@ public class CommentProjectDAImpl extends CommentProjectDAOImpl implements Comme
 
 	private static final Logger logger = Logger.getLogger(CommentProjectDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public CommentProjectDAImpl(){
 		logger.info(" new CommentProjectDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentProject> listAllCommentProjects() throws PersistentException {
 		logger.info("listAllCommentProjects()");
@@ -34,6 +42,12 @@ public class CommentProjectDAImpl extends CommentProjectDAOImpl implements Comme
 		return Arrays.asList(listCommentProjectByQuery("CommentProject.projectName = CommentProject.projectName", "ProjectName"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentProject> listAllCommentProjects(String orderBy) throws PersistentException {
 		logger.info("listAllCommentProjects(String orderBy)");

@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class SkypeDAImpl  extends SkypeDAOImpl implements SkypeDA {
 	private static final Logger logger = Logger.getLogger(SkypeDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public SkypeDAImpl(){
 		logger.info(" new SkypeDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Skype> listAllSkypes() throws PersistentException {
 		logger.info("listAllSkypes()");
@@ -32,6 +40,12 @@ public class SkypeDAImpl  extends SkypeDAOImpl implements SkypeDA {
 		return Arrays.asList(listSkypeByQuery("Skype.skypeName = Skype.skypeName", "SkypeName"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Skype> listAllSkypes(String orderBy) throws PersistentException {
 		logger.info("listAllSkypes(String orderBy)");

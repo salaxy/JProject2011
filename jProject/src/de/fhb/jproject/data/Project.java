@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Ein bis mehrere User können in einem Project involviert sein zum Lösen einer Problemstellung. 
  */
 public class Project implements Serializable {
+	/**
+	 * 
+	 */
 	public Project() {
 	}
 	
@@ -62,20 +65,34 @@ public class Project implements Serializable {
 	
 	private java.util.Set ORM_commentProject = new java.util.HashSet();
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setName(String value) {
 		this.name = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getORMID() {
 		return getName();
 	}
 	
 	/**
 	 * Status des Projects.
+	 * 
+	 * @param value 
 	 */
 	public void setStatus(String value) {
 		this.status = value;
@@ -83,6 +100,8 @@ public class Project implements Serializable {
 	
 	/**
 	 * Status des Projects.
+	 * 
+	 * @return 
 	 */
 	public String getStatus() {
 		return status;
@@ -96,6 +115,9 @@ public class Project implements Serializable {
 		return ORM_member;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Sourcecode(java.util.Set value) {
@@ -106,6 +128,9 @@ public class Project implements Serializable {
 		return ORM_sourcecode;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.SourcecodeSetCollection sourcecode = new de.fhb.jproject.data.SourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Document(java.util.Set value) {
@@ -116,6 +141,9 @@ public class Project implements Serializable {
 		return ORM_document;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.DocumentSetCollection document = new de.fhb.jproject.data.DocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Task(java.util.Set value) {
@@ -126,6 +154,9 @@ public class Project implements Serializable {
 		return ORM_task;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_CommentProject(java.util.Set value) {
@@ -136,8 +167,15 @@ public class Project implements Serializable {
 		return ORM_commentProject;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.CommentProjectSetCollection commentProject = new de.fhb.jproject.data.CommentProjectSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_PROJECT_COMMENTPROJECT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTPROJECT_PROJECT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getName());
 	}

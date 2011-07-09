@@ -22,10 +22,18 @@ public class CommentSourcecodeDAImpl extends CommentSourcecodeDAOImpl implements
 
 	private static final Logger logger = Logger.getLogger(CommentSourcecodeDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public CommentSourcecodeDAImpl(){
 		logger.info(" new CommentSourcecodeDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentSourcecode> listAllCommentSourcecodes() throws PersistentException {
 		logger.info("listAllCommentSourcecodes()");
@@ -33,6 +41,12 @@ public class CommentSourcecodeDAImpl extends CommentSourcecodeDAOImpl implements
 		return Arrays.asList(listCommentSourcecodeByQuery("CommentSourcecode.sourcecodeId = CommentSourcecode.sourcecodeId", "SourcecodeID"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentSourcecode> listAllCommentSourcecodes(String orderBy) throws PersistentException {
 		logger.info("listAllCommentSourcecodes(String orderBy)");

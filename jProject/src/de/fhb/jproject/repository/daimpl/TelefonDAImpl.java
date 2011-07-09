@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class TelefonDAImpl  extends TelefonDAOImpl implements TelefonDA {
 	private static final Logger logger = Logger.getLogger(TelefonDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public TelefonDAImpl(){
 		logger.info(" new TelefonDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Telefon> listAllTelefons() throws PersistentException {
 		logger.info("listAllTelefons()");
@@ -32,6 +40,12 @@ public class TelefonDAImpl  extends TelefonDAOImpl implements TelefonDA {
 		return Arrays.asList(listTelefonByQuery("Telefon.telNumber = Telefon.telNumber", "TelNumber"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Telefon> listAllTelefons(String orderBy) throws PersistentException {
 		logger.info("listAllTelefons(String orderBy)");

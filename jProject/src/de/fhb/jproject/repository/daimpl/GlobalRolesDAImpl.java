@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class GlobalRolesDAImpl  extends GlobalRolesDAOImpl implements GlobalRolesDA {
 	private static final Logger logger = Logger.getLogger(GlobalRolesDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public GlobalRolesDAImpl(){
 		logger.info(" new GlobalRolesDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<GlobalRoles> listAllGlobalRoles() throws PersistentException {
 		logger.info("listAllGlobalRoles()");
@@ -32,6 +40,12 @@ public class GlobalRolesDAImpl  extends GlobalRolesDAOImpl implements GlobalRole
 		return Arrays.asList(listGlobalRolesByQuery("GlobalRoles.role = GlobalRoles.role", "Role"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<GlobalRoles> listAllGlobalRoles(String orderBy) throws PersistentException {
 		logger.info("listAllGlobalRoles(String orderBy)");

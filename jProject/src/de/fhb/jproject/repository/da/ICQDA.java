@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface ICQDA extends ICQDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<ICQ> listAllICQs() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<ICQ> listAllICQs(String orderBy) throws PersistentException;
 }

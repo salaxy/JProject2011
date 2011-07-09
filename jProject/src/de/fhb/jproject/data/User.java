@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Der User stellt jeglichen Benutzer des System dar mit nötigen Daten zum Einloggen und zum Identifizieren.
  */
 public class User implements Serializable {
+	/**
+	 * 
+	 */
 	public User() {
 	}
 	
@@ -70,20 +73,34 @@ public class User implements Serializable {
 	
 	private java.util.Set ORM_telefon = new java.util.HashSet();
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setLoginName(String value) {
 		this.loginName = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getLoginName() {
 		return loginName;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getORMID() {
 		return getLoginName();
 	}
 	
 	/**
 	 * Passwort zum Einloggen in das System
+	 * 
+	 * @param value 
 	 */
 	public void setPassword(String value) {
 		this.password = value;
@@ -91,6 +108,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Passwort zum Einloggen in das System
+	 * 
+	 * @return 
 	 */
 	public String getPassword() {
 		return password;
@@ -98,6 +117,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Vorname des Useres
+	 * 
+	 * @param value 
 	 */
 	public void setVorname(String value) {
 		this.vorname = value;
@@ -105,6 +126,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Vorname des Useres
+	 * 
+	 * @return 
 	 */
 	public String getVorname() {
 		return vorname;
@@ -112,6 +135,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Nachname des Users
+	 * 
+	 * @param value 
 	 */
 	public void setNachname(String value) {
 		this.nachname = value;
@@ -119,6 +144,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Nachname des Users
+	 * 
+	 * @return 
 	 */
 	public String getNachname() {
 		return nachname;
@@ -126,6 +153,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Spracheinstellung des Users
+	 * 
+	 * @param value 
 	 */
 	public void setSprache(String value) {
 		this.sprache = value;
@@ -133,6 +162,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Spracheinstellung des Users
+	 * 
+	 * @return 
 	 */
 	public String getSprache() {
 		return sprache;
@@ -140,6 +171,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Globale Rolle des Users im System
+	 * 
+	 * @param value 
 	 */
 	public void setGlobalRole(String value) {
 		this.globalRole = value;
@@ -147,6 +180,8 @@ public class User implements Serializable {
 	
 	/**
 	 * Globale Rolle des Users im System
+	 * 
+	 * @return 
 	 */
 	public String getGlobalRole() {
 		return globalRole;
@@ -160,6 +195,9 @@ public class User implements Serializable {
 		return ORM_member;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.MemberSetCollection member = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_MEMBER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_USER, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Comment(java.util.Set value) {
@@ -170,6 +208,9 @@ public class User implements Serializable {
 		return ORM_comment;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.CommentSetCollection comment = new de.fhb.jproject.data.CommentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_COMMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENT_USER, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_iCQ(java.util.Set value) {
@@ -180,6 +221,9 @@ public class User implements Serializable {
 		return ORM_iCQ;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.ICQSetCollection iCQ = new de.fhb.jproject.data.ICQSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_ICQ, de.fhb.jproject.data.ORMConstants.KEY_ICQ_USERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Skype(java.util.Set value) {
@@ -190,6 +234,9 @@ public class User implements Serializable {
 		return ORM_skype;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.SkypeSetCollection skype = new de.fhb.jproject.data.SkypeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_SKYPE, de.fhb.jproject.data.ORMConstants.KEY_SKYPE_USERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Telefon(java.util.Set value) {
@@ -200,8 +247,15 @@ public class User implements Serializable {
 		return ORM_telefon;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.TelefonSetCollection telefon = new de.fhb.jproject.data.TelefonSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_USER_TELEFON, de.fhb.jproject.data.ORMConstants.KEY_TELEFON_USERLOGINNAME, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getLoginName());
 	}

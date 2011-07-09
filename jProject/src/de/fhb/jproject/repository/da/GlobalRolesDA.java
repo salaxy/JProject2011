@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface GlobalRolesDA extends GlobalRolesDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<GlobalRoles> listAllGlobalRoles() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<GlobalRoles> listAllGlobalRoles(String orderBy) throws PersistentException;
 }

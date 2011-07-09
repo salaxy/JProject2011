@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface CommentSourcecodeDA extends CommentSourcecodeDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<CommentSourcecode> listAllCommentSourcecodes() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<CommentSourcecode> listAllCommentSourcecodes(String orderBy) throws PersistentException;
 }

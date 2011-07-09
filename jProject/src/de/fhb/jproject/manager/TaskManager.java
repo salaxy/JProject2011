@@ -41,6 +41,9 @@ public class TaskManager {
 	
 	private static final Logger logger = Logger.getLogger(TaskManager.class);
 	
+	/**
+	 * 
+	 */
 	public TaskManager(){
 		logger.setLevel(Level.DEBUG);
 		memberDA = DAFactory.getDAFactory().getMemberDA();
@@ -54,11 +57,11 @@ public class TaskManager {
 	/**
 	 * Hinzufuegen einer neuen Aufgabe
 	 * 
-	 * @param aktUser
 	 * @param projectName
 	 * @param titel
 	 * @param aufgabenStellung
 	 * @param date
+	 * @return 
 	 * @throws ProjectException
 	 */
 	public int addNewTask(String projectName, String titel, String aufgabenStellung, Date date)
@@ -148,7 +151,6 @@ public class TaskManager {
 	/**
 	 * loeschen eines Taks eines Projektes
 	 * 
-	 * @param aktUser
 	 * @param taskId
 	 * @param projectName
 	 * @throws ProjectException
@@ -192,7 +194,6 @@ public class TaskManager {
 	/**
 	 * Holen aller Aufgaben zu einem Projekt
 	 * 
-	 * @param aktUser
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException
@@ -221,7 +222,7 @@ public class TaskManager {
 	/** 
 	 *  Anzeigen einer Aufgabe
 	 *  
-	 * @param projectName
+	 * @param taskId 
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -258,7 +259,7 @@ public class TaskManager {
 	 * Alle zugeordneten Aufgaben des aktuellen Users holen
 	 * (von allen Projekten)
 	 * 
-	 * @param projectName
+	 * @param aktUser 
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -452,7 +453,6 @@ public class TaskManager {
 	/**
 	 *  Updaten eines Tasks
 	 *  
-	 * @param aktUser
 	 * @param projectName
 	 * @param taskId
 	 * @param titel

@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(TaskDAOImpl.class);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task getTaskByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task getTaskByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Task) session.load(de.fhb.jproject.data.Task.class, new Integer(id));
@@ -71,6 +108,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task getTaskByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Task) session.get(de.fhb.jproject.data.Task.class, new Integer(id));
@@ -81,6 +125,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Task) session.load(de.fhb.jproject.data.Task.class, new Integer(id), lockMode);
@@ -91,6 +143,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task getTaskByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Task) session.get(de.fhb.jproject.data.Task.class, new Integer(id), lockMode);
@@ -101,6 +161,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task[] listTaskByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task[] listTaskByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task[] listTaskByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Task as Task");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task[] listTaskByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Task as Task");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Task[] tasks = listTaskByQuery(session, condition, orderBy);
 		if (tasks != null && tasks.length > 0)
@@ -188,6 +303,15 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Task loadTaskByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Task[] tasks = listTaskByQuery(session, condition, orderBy, lockMode);
 		if (tasks != null && tasks.length > 0)
@@ -196,6 +320,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTaskByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTaskByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTaskByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Task as Task");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTaskByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Task as Task");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Task createTask() {
 		return new de.fhb.jproject.data.Task();
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Task task) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(task);
@@ -266,6 +432,12 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Task task) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(task);
@@ -277,6 +449,12 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Task task)throws PersistentException {
 		try {
 			if(task.getProject() != null) {
@@ -303,6 +481,13 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Task task, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(task.getProject() != null) {
@@ -334,6 +519,12 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Task task) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(task);
@@ -345,6 +536,12 @@ public class TaskDAOImpl implements de.fhb.jproject.repository.dao.TaskDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param task
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Task task) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(task);

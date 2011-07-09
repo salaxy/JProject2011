@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(SkypeDAOImpl.class);
+	/**
+	 * 
+	 * @param skypeName
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByORMID(String skypeName) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skypeName
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype getSkypeByORMID(String skypeName) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skypeName
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByORMID(String skypeName, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skypeName
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype getSkypeByORMID(String skypeName, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param skypeName
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByORMID(PersistentSession session, String skypeName) throws PersistentException {
 		try {
 			return (Skype) session.load(de.fhb.jproject.data.Skype.class, skypeName);
@@ -71,6 +108,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param skypeName
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype getSkypeByORMID(PersistentSession session, String skypeName) throws PersistentException {
 		try {
 			return (Skype) session.get(de.fhb.jproject.data.Skype.class, skypeName);
@@ -81,6 +125,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param skypeName
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByORMID(PersistentSession session, String skypeName, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Skype) session.load(de.fhb.jproject.data.Skype.class, skypeName, lockMode);
@@ -91,6 +143,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param skypeName
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype getSkypeByORMID(PersistentSession session, String skypeName, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Skype) session.get(de.fhb.jproject.data.Skype.class, skypeName, lockMode);
@@ -101,6 +161,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype[] listSkypeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype[] listSkypeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype[] listSkypeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Skype as Skype");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype[] listSkypeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Skype as Skype");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Skype[] skypes = listSkypeByQuery(session, condition, orderBy);
 		if (skypes != null && skypes.length > 0)
@@ -188,6 +303,15 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Skype loadSkypeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Skype[] skypes = listSkypeByQuery(session, condition, orderBy, lockMode);
 		if (skypes != null && skypes.length > 0)
@@ -196,6 +320,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSkypeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSkypeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSkypeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Skype as Skype");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSkypeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Skype as Skype");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Skype createSkype() {
 		return new de.fhb.jproject.data.Skype();
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Skype skype) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(skype);
@@ -266,6 +432,12 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Skype skype) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(skype);
@@ -277,6 +449,12 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Skype skype)throws PersistentException {
 		try {
 			if(skype.getUserLoginName() != null) {
@@ -291,6 +469,13 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Skype skype, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(skype.getUserLoginName() != null) {
@@ -310,6 +495,12 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Skype skype) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(skype);
@@ -321,6 +512,12 @@ public class SkypeDAOImpl implements de.fhb.jproject.repository.dao.SkypeDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param skype
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Skype skype) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(skype);

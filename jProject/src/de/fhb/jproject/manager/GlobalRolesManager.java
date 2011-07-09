@@ -10,17 +10,30 @@ import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class GlobalRolesManager {
 
 	private UserDA userDA;
 	private GlobalRolesDA globalRolesDA;
 	private static final Logger logger = Logger.getLogger(GlobalRolesManager.class);
 	
+	/**
+	 * 
+	 */
 	public GlobalRolesManager(){
 		userDA = DAFactory.getDAFactory().getUserDA();
 		globalRolesDA = DAFactory.getDAFactory().getGlobalRolesDA();
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewProjectAction(String loginName) throws ProjectException {
 		logger.info("isAllowedAddNewProjectAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -31,6 +44,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteProjectAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteProjectAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -41,6 +60,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowProjectAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowProjectAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -51,6 +76,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedSearchProjectsAction(String loginName) throws ProjectException {
 		logger.info("isAllowedSearchProjectsAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -61,6 +92,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllProjectsAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllProjectsAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -71,6 +108,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllOwnProjectsAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllOwnProjectsAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -81,6 +124,12 @@ public class GlobalRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteUserAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteUserAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -91,6 +140,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowUserSettingsAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowUsersettingsAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -101,6 +156,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateUserSettingsAction(String loginName) throws ProjectException {
 		logger.info("isAllowedUpdateUserSettingsAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -111,6 +172,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowUserInfoAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowUserInfoAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -121,6 +188,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedSearchUserAction(String loginName) throws ProjectException {
 		logger.info("isAllowedSearchUserAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -131,6 +204,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllUserAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllUserAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -161,6 +240,12 @@ public class GlobalRolesManager {
 		}
 	}
 */
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedRegisterAction(String loginName) throws ProjectException {
 		logger.info("isAllowedRegisterAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -172,6 +257,12 @@ public class GlobalRolesManager {
 	}
 	/*-------------------------------------------------------------------------------------------------*/
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedCommentDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -182,6 +273,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedCommentSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -192,6 +289,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentTaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedCommentTaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -202,6 +305,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentProjectAction(String loginName) throws ProjectException {
 		logger.info("isAllowedCommentProjectAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -212,6 +321,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteCommentAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteCommentAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -222,6 +337,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41DocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllComments41DocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -232,6 +353,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41SourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllComments41SourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -242,6 +369,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41TaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllComments41TaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -252,6 +385,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41ProjectAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllComments41ProjectAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -262,6 +401,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateCommentAction(String loginName) throws ProjectException {
 		logger.info("isAllowedUpdateCommentAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -272,6 +417,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedAddNewDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -282,6 +433,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -292,6 +449,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDownloadDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDownloadDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -302,6 +465,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -312,6 +481,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -322,6 +497,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateDocuAction(String loginName) throws ProjectException {
 		logger.info("isAllowedUpdateDocuAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -332,6 +513,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddMemberAction(String loginName) throws ProjectException {
 		logger.info("isAllowedAddMemberAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -342,6 +529,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteMemberAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteMemberAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -352,6 +545,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllMemberAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllMemberAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -362,6 +561,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedAddNewSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -372,6 +577,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -382,6 +593,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDownloadSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDownloadSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -392,6 +609,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -402,6 +625,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -412,6 +641,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateSourceAction(String loginName) throws ProjectException {
 		logger.info("isAllowedUpdateSourceAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -422,6 +657,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewTaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedAddNewTaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -432,6 +673,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteTaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedDeleteTaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -442,6 +689,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllTasksAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllTasksAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -452,6 +705,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllOwnTasksAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowAllOwnTasksAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -462,6 +721,12 @@ public class GlobalRolesManager {
 		}
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateTaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedUpdateTaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -471,6 +736,12 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowTaskAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowTaskAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -480,6 +751,12 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowMemberAction(String loginName) throws ProjectException {
 		logger.info("isAllowedShowMemberAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");
@@ -489,6 +766,12 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	/**
+	 * 
+	 * @param loginName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedOpenAdminconsoleAction(String loginName) throws ProjectException {
 		logger.info("isAllowedOpenAdminconsoleAction(String loginName)");
 		logger.debug("String loginName(" + loginName + ")");

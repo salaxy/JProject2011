@@ -17,19 +17,36 @@ import de.fhb.jproject.repository.daoimpl.UserDAOImpl;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class UserDAImpl extends UserDAOImpl implements UserDA {
 	private static final Logger logger = Logger.getLogger(UserDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public UserDAImpl(){
 		logger.info(" new UserDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @param loginName
+	 * @throws PersistentException
+	 */
 	@Override
 	public void delete(String loginName) throws PersistentException{
 		logger.info("delete(String loginName)");
 		logger.debug("String loginName("+loginName+")");
 		delete(getUserByORMID(loginName));
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<User> listAllUsers() throws PersistentException {
 		logger.info("listAllUsers()");
@@ -37,6 +54,12 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
 		return Arrays.asList(listUserByQuery("User.loginName = User.loginName", "LoginName"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<User> listAllUsers(String orderBy) throws PersistentException {
 		logger.info("listAllUsers(String orderBy)");
@@ -46,6 +69,12 @@ public class UserDAImpl extends UserDAOImpl implements UserDA {
 		
 	}
 
+	/**
+	 * 
+	 * @param searchValue
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<User> listAllUsersLike(String searchValue)throws PersistentException {
 		logger.info("listAllUsersLike(String searchValue)");

@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface TaskDA extends TaskDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Task> listAllTasks() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Task> listAllTasks(String orderBy) throws PersistentException;
 }

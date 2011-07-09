@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface SkypeDA extends SkypeDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Skype> listAllSkypes() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Skype> listAllSkypes(String orderBy) throws PersistentException;
 }

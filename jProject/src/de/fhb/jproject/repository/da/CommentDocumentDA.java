@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface CommentDocumentDA extends CommentDocumentDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<CommentDocument> listAllCommentDocuments() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<CommentDocument> listAllCommentDocuments(String orderBy) throws PersistentException;
 }

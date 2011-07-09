@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(ICQDAOImpl.class);
+	/**
+	 * 
+	 * @param icqNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByORMID(String icqNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param icqNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ getICQByORMID(String icqNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param icqNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param icqNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ getICQByORMID(String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param icqNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByORMID(PersistentSession session, String icqNumber) throws PersistentException {
 		try {
 			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, icqNumber);
@@ -71,6 +108,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param icqNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ getICQByORMID(PersistentSession session, String icqNumber) throws PersistentException {
 		try {
 			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, icqNumber);
@@ -81,6 +125,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param icqNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (ICQ) session.load(de.fhb.jproject.data.ICQ.class, icqNumber, lockMode);
@@ -91,6 +143,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param icqNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ getICQByORMID(PersistentSession session, String icqNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (ICQ) session.get(de.fhb.jproject.data.ICQ.class, icqNumber, lockMode);
@@ -101,6 +161,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ[] listICQByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ[] listICQByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ[] listICQByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ICQ as ICQ");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ[] listICQByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ICQ as ICQ");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		ICQ[] iCQs = listICQByQuery(session, condition, orderBy);
 		if (iCQs != null && iCQs.length > 0)
@@ -188,6 +303,15 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ICQ loadICQByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		ICQ[] iCQs = listICQByQuery(session, condition, orderBy, lockMode);
 		if (iCQs != null && iCQs.length > 0)
@@ -196,6 +320,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateICQByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateICQByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateICQByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ICQ as ICQ");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateICQByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ICQ as ICQ");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ICQ createICQ() {
 		return new de.fhb.jproject.data.ICQ();
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.ICQ iCQ) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(iCQ);
@@ -266,6 +432,12 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.ICQ iCQ) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(iCQ);
@@ -277,6 +449,12 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.ICQ iCQ)throws PersistentException {
 		try {
 			if(iCQ.getUserLoginName() != null) {
@@ -291,6 +469,13 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.ICQ iCQ, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(iCQ.getUserLoginName() != null) {
@@ -310,6 +495,12 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.ICQ iCQ) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(iCQ);
@@ -321,6 +512,12 @@ public class ICQDAOImpl implements de.fhb.jproject.repository.dao.ICQDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param iCQ
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.ICQ iCQ) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(iCQ);

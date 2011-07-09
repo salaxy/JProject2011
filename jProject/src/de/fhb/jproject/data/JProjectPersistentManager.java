@@ -18,6 +18,10 @@ import org.orm.cfg.JDBCConnectionSetting;
 import org.hibernate.*;
 import java.util.Properties;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class JProjectPersistentManager extends PersistentManager {
 	private static final String PROJECT_NAME = "JProject";
 	private static PersistentManager _instance = null;
@@ -31,10 +35,19 @@ public class JProjectPersistentManager extends PersistentManager {
 		setFlushMode(FlushMode.AUTO);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getProjectName() {
 		return PROJECT_NAME;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static synchronized final PersistentManager instance() throws PersistentException {
 		if (_instance == null) {
 			_instance = new JProjectPersistentManager();
@@ -43,11 +56,20 @@ public class JProjectPersistentManager extends PersistentManager {
 		return _instance;
 	}
 	
+	/**
+	 * 
+	 * @throws PersistentException
+	 */
 	public void disposePersistentManager() throws PersistentException {
 		_instance = null;
 		super.disposePersistentManager();
 	}
 	
+	/**
+	 * 
+	 * @param sessionType
+	 * @throws PersistentException
+	 */
 	public static void setSessionType(SessionType sessionType) throws PersistentException {
 		if (_instance != null) {
 			throw new PersistentException("Cannot set session type after create PersistentManager instance");
@@ -58,6 +80,11 @@ public class JProjectPersistentManager extends PersistentManager {
 		
 	}
 	
+	/**
+	 * 
+	 * @param timeInMs
+	 * @throws PersistentException
+	 */
 	public static void setAppBaseSessionTimeToAlive(int timeInMs) throws PersistentException {
 		if (_instance != null) {
 			throw new PersistentException("Cannot set session time to alive after create PersistentManager instance");
@@ -68,6 +95,11 @@ public class JProjectPersistentManager extends PersistentManager {
 		
 	}
 	
+	/**
+	 * 
+	 * @param aConnectionSetting
+	 * @throws PersistentException
+	 */
 	public static void setJDBCConnectionSetting(JDBCConnectionSetting aConnectionSetting) throws PersistentException {
 		if (_instance != null) {
 			throw new PersistentException("Cannot set connection setting after create PersistentManager instance");
@@ -78,6 +110,11 @@ public class JProjectPersistentManager extends PersistentManager {
 		
 	}
 	
+	/**
+	 * 
+	 * @param aProperties
+	 * @throws PersistentException
+	 */
 	public static void setHibernateProperties(Properties aProperties) throws PersistentException {
 		if (_instance != null) {
 			throw new PersistentException("Cannot set hibernate properties after create PersistentManager instance");
@@ -88,6 +125,9 @@ public class JProjectPersistentManager extends PersistentManager {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public static void saveJDBCConnectionSetting() {
 		PersistentManager.saveJDBCConnectionSetting(PROJECT_NAME, _connectionSetting);
 	}

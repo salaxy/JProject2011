@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.GlobalRolesDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(GlobalRolesDAOImpl.class);
+	/**
+	 * 
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByORMID(String role) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles getGlobalRolesByORMID(String role) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByORMID(String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles getGlobalRolesByORMID(String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByORMID(PersistentSession session, String role) throws PersistentException {
 		try {
 			return (GlobalRoles) session.load(de.fhb.jproject.data.GlobalRoles.class, role);
@@ -71,6 +108,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles getGlobalRolesByORMID(PersistentSession session, String role) throws PersistentException {
 		try {
 			return (GlobalRoles) session.get(de.fhb.jproject.data.GlobalRoles.class, role);
@@ -81,6 +125,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByORMID(PersistentSession session, String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (GlobalRoles) session.load(de.fhb.jproject.data.GlobalRoles.class, role, lockMode);
@@ -91,6 +143,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles getGlobalRolesByORMID(PersistentSession session, String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (GlobalRoles) session.get(de.fhb.jproject.data.GlobalRoles.class, role, lockMode);
@@ -101,6 +161,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles[] listGlobalRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles[] listGlobalRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles[] listGlobalRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.GlobalRoles as GlobalRoles");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles[] listGlobalRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.GlobalRoles as GlobalRoles");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		GlobalRoles[] globalRoleses = listGlobalRolesByQuery(session, condition, orderBy);
 		if (globalRoleses != null && globalRoleses.length > 0)
@@ -188,6 +303,15 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public GlobalRoles loadGlobalRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		GlobalRoles[] globalRoleses = listGlobalRolesByQuery(session, condition, orderBy, lockMode);
 		if (globalRoleses != null && globalRoleses.length > 0)
@@ -196,6 +320,13 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateGlobalRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateGlobalRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateGlobalRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.GlobalRoles as GlobalRoles");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateGlobalRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.GlobalRoles as GlobalRoles");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public GlobalRoles createGlobalRoles() {
 		return new de.fhb.jproject.data.GlobalRoles();
 	}
 	
+	/**
+	 * 
+	 * @param globalRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.GlobalRoles globalRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(globalRoles);
@@ -266,6 +432,12 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param globalRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.GlobalRoles globalRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(globalRoles);
@@ -277,6 +449,12 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param globalRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.GlobalRoles globalRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(globalRoles);
@@ -288,6 +466,12 @@ public class GlobalRolesDAOImpl implements de.fhb.jproject.repository.dao.Global
 		}
 	}
 	
+	/**
+	 * 
+	 * @param globalRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.GlobalRoles globalRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(globalRoles);

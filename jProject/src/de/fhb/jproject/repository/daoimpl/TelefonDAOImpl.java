@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(TelefonDAOImpl.class);
+	/**
+	 * 
+	 * @param telNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByORMID(String telNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon getTelefonByORMID(String telNumber) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon getTelefonByORMID(String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param telNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException {
 		try {
 			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, telNumber);
@@ -71,6 +108,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param telNumber
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon getTelefonByORMID(PersistentSession session, String telNumber) throws PersistentException {
 		try {
 			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, telNumber);
@@ -81,6 +125,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param telNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Telefon) session.load(de.fhb.jproject.data.Telefon.class, telNumber, lockMode);
@@ -91,6 +143,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param telNumber
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon getTelefonByORMID(PersistentSession session, String telNumber, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Telefon) session.get(de.fhb.jproject.data.Telefon.class, telNumber, lockMode);
@@ -101,6 +161,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon[] listTelefonByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon[] listTelefonByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon[] listTelefonByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Telefon as Telefon");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon[] listTelefonByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Telefon as Telefon");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Telefon[] telefons = listTelefonByQuery(session, condition, orderBy);
 		if (telefons != null && telefons.length > 0)
@@ -188,6 +303,15 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Telefon loadTelefonByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Telefon[] telefons = listTelefonByQuery(session, condition, orderBy, lockMode);
 		if (telefons != null && telefons.length > 0)
@@ -196,6 +320,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTelefonByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTelefonByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTelefonByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Telefon as Telefon");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTelefonByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Telefon as Telefon");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Telefon createTelefon() {
 		return new de.fhb.jproject.data.Telefon();
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Telefon telefon) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(telefon);
@@ -266,6 +432,12 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Telefon telefon) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(telefon);
@@ -277,6 +449,12 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Telefon telefon)throws PersistentException {
 		try {
 			if(telefon.getUserLoginName() != null) {
@@ -291,6 +469,13 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Telefon telefon, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(telefon.getUserLoginName() != null) {
@@ -310,6 +495,12 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Telefon telefon) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(telefon);
@@ -321,6 +512,12 @@ public class TelefonDAOImpl implements de.fhb.jproject.repository.dao.TelefonDAO
 		}
 	}
 	
+	/**
+	 * 
+	 * @param telefon
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Telefon telefon) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(telefon);

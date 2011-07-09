@@ -19,6 +19,9 @@ import java.io.Serializable;
  * mit Informationen, deren Darstellung unterschiedlich sein kann.
  */
 public class Document implements Serializable {
+	/**
+	 * 
+	 */
 	public Document() {
 	}
 	
@@ -59,16 +62,26 @@ public class Document implements Serializable {
 		this.id = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getORMID() {
 		return getId();
 	}
 	
 	/**
 	 * Der Pfad der Datei des Dokuments im System.
+	 * 
+	 * @param value 
 	 */
 	public void setDateiname(String value) {
 		this.dateiname = value;
@@ -76,11 +89,17 @@ public class Document implements Serializable {
 	
 	/**
 	 * Der Pfad der Datei des Dokuments im System.
+	 * 
+	 * @return 
 	 */
 	public String getDateiname() {
 		return dateiname;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProject(de.fhb.jproject.data.Project value) {
 		if (project != null) {
 			project.document.remove(this);
@@ -90,12 +109,18 @@ public class Document implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Project getProject() {
 		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Project(de.fhb.jproject.data.Project value) {
 		this.project = value;
@@ -113,8 +138,15 @@ public class Document implements Serializable {
 		return ORM_commentDocument;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.CommentDocumentSetCollection commentDocument = new de.fhb.jproject.data.CommentDocumentSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_DOCUMENT_COMMENTDOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_COMMENTDOCUMENT_DOCUMENT, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getId());
 	}
