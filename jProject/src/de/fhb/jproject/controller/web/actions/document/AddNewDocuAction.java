@@ -19,25 +19,26 @@ import org.apache.commons.fileupload.FileItem;
 
 /**
  * Action, die beim Hinzufügen eines neuen Dokuments angesprochen wird
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * data(List FileItem): request -> data <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * data(List FileItem): request -> data
- * 
- * 
- * Rechteüberprüfung für GUI:
+ * Rechteüberprüfung für GUI: <br/>
  * keine
- * 
- * Managermethoden:
+ *  <br/> <br/>
+ * Managermethoden: <br/>
  * addNewDocu
+ *  <br/> <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=AddNewDocuAction <br/> <br/>
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * Beispiel-Aufruf:
- * do=AddNewDocuAction
  * 
  */
 public class AddNewDocuAction extends HttpRequestActionBase {

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die beim öffnen der AdminConsole angesprochen wird.
+ * Action, die beim Öffnen der AdminConsole angesprochen wird.
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser

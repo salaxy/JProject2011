@@ -15,26 +15,26 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Anzeigen aller eigenen Projekte angesprochen wird
+ * Action, die beim Anzeigen aller eigenen Projekte angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
  * 
+ * Managermethoden: <br/>
+ * showAllOwnProjects <br/> 
  * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * showAllOwnProjects
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllOwnProjects <br/>
+ *  <br/>
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllOwnProjects
- * 
  */
 public class ShowAllOwnProjectsAction extends HttpRequestActionBase {
 	private MainManager mainManager;

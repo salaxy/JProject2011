@@ -19,26 +19,29 @@ import org.apache.log4j.Logger;
 
 /**
  * Action, die beim Download eines Dokuments angesprochen wird
+ *  <br/> <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * documentId(Id des Documents): request -> documentId
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * documentId(Id des Documents): request -> documentId <br/>
+ *  <br/>
  * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * downloadDocu
- * 
+ * Managermethoden: <br/>
+ * downloadDocu <br/>
+ *  <br/>
+ *  
+ * Beispiel-Aufruf: <br/>
+ * do=DownloadDocuAction&documentId=1  <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=DownloadDocuAction&documentId=1
  * 
  */
 public class DownloadDocuAction extends HttpRequestActionBase {

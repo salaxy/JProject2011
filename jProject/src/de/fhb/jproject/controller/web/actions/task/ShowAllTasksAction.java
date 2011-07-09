@@ -21,8 +21,7 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action die angesprochen wird 
- * wenn alle Aufgaben eines Projektes angezeigt werden sollen
+ * Action die angesprochen wird, wenn alle Aufgaben eines Projektes angezeigt werden sollen
  * 
  * Parameter: 
  * Aktueller User: Session -> aktUser

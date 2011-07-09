@@ -24,33 +24,33 @@ import org.apache.log4j.Level;
  * Action, die das angeklickte Project darstellt.
  * Es werden allgemeine Informationen zum Project dargestellt und Optionen zur Memberverwaltung bereitgestellt.
  * Zuvor werden jedoch die Rechte überprüft.
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * Projectname(für Wechsel des aktProject): request -> projectName <br/>
+ * Loginname(für Memberauswahl): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * Projectname(für Wechsel des aktProject): request -> projectName
- * Loginname(für Memberauswahl): request -> loginName
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedAddMemberAction <br/>
+ * isAllowedDeleteMemberAction <br/>
+ * isAllowedShowAllTasksAction <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedAddMemberAction
- * isAllowedDeleteMemberAction
- * isAllowedShowAllTasksAction
- * 
- * 
- * Managermethoden:
- * ShowProject,
- * ShowAllMember,
- * ShowMember,
- * showUserInfo
- * 
+ * Managermethoden: <br/>
+ * ShowProject, <br/>
+ * ShowAllMember, <br/>
+ * ShowMember, <br/>
+ * showUserInfo <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=ShowProject&projectName=ProjectName <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowProject&projectName=ProjectName
- * 
  */
 public class ShowProjectAction extends HttpRequestActionBase {
 

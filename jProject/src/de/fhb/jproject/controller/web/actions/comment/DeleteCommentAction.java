@@ -17,26 +17,27 @@ import java.io.IOException;
 
 /** 
  * Action die angesprochen wird wenn ein Kommentar geloescht werden soll
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * commentId(Id des Comments): request -> commentId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * commentId(Id des Comments): request -> commentId
- * 
- * 
- * Rechteüberprüfung für GUI:
+ * Rechteüberprüfung für GUI: <br/>
  * keine
+ *  <br/> <br/>
  * 
- * 
- * Managermethoden:
+ * Managermethoden: <br/>
  * deleteComment
- * 
+ *  <br/> <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=DeleteComment&commentId=1
+ *  <br/> <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=DeleteComment&commentId=1
  * 
  */
 public class DeleteCommentAction extends HttpRequestActionBase {
@@ -60,6 +61,7 @@ public class DeleteCommentAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String commentId(" + req.getParameter("commentId") + ")"
 					);
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");

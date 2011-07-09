@@ -16,26 +16,26 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 
 /**
- * Action, die beim Anzeigen aller Member in einem Projekt angesprochen wird
+ * Action, die beim Anzeigen aller Member in einem Projekt angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * loginName(loginName des Users): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * loginName(loginName des Users): request -> loginName
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * showMember
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * showMember <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllMember&loginName=Heinz <br/>
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllMember&loginName=Heinz
  * 
  */
 public class ShowAllMemberAction extends HttpRequestActionBase {
@@ -60,6 +60,7 @@ public class ShowAllMemberAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String loginName(" + req.getParameter("loginName")
 					);	
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");
