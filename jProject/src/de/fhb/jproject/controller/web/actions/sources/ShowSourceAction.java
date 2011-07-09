@@ -14,29 +14,29 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
- * Action, die beim Anzeigen eines Sourcecode in einem Projekt angesprochen wird
- * (UNUSED)
+ * Action, die beim Anzeigen eines Sourcecode in einem Projekt angesprochen wird <br/>
+ * (UNUSED) <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * showSource
- * 
+ * Managermethoden: <br/>
+ * showSource <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=ShowSourceAction&sourcecodeId=1 <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowSourceAction&sourcecodeId=1
- * 
  */
 public class ShowSourceAction extends HttpRequestActionBase {
 

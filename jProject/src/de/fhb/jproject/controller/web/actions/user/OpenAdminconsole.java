@@ -17,26 +17,26 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die beim Öffnen der AdminConsole angesprochen wird.
+ * Action, die beim Öffnen der AdminConsole angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ *  <br/>
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedRegister <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedRegister
- * 
- * 
- * Managermethoden:
- * showAllProjects
- * showAllUser
- * 
+ * Managermethoden: <br/>
+ * showAllProjects <br/>
+ * showAllUser <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=OpenAdminconsole <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=OpenAdminconsole
- * 
  */
 public class OpenAdminconsole extends HttpRequestActionBase {
 

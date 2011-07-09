@@ -19,29 +19,28 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Ändern von Settings eines Users angesprochen wird.
- * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * loginName: request -> loginName
- * nachname: request -> nachname
- * vorname: request -> vorname
- * neuesPasswortEins: request -> neuesPasswortEins
- * neuesPasswortZwei: request -> neuesPasswortZwei
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * updateUserSettings
- * 
+ * Action, die beim Ändern von Settings eines Users angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * loginName: request -> loginName <br/>
+ * nachname: request -> nachname <br/>
+ * vorname: request -> vorname <br/>
+ * neuesPasswortEins: request -> neuesPasswortEins <br/>
+ * neuesPasswortZwei: request -> neuesPasswortZwei <br/>
+ *  <br/>
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * updateUserSettings <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=updateUserSettings&loginName=neuerUser&nachname=Schmidt&vorname=Kurt&neuesPasswortEins=bla&neuesPasswortZwei=bla <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=updateUserSettings&loginName=neuerUser&nachname=Schmidt&vorname=Kurt&neuesPasswortEins=bla&neuesPasswortZwei=bla
- * 
  */
 public class UpdateUserSettingsAction extends HttpRequestActionBase {
 

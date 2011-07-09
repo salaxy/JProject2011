@@ -15,27 +15,28 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Löschen eines Users angesprochen wird.
+ * Action, die beim Löschen eines Users angesprochen wird. <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * loginName(LoginName des Users): request -> loginName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * loginName(LoginName des Users): request -> loginName
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * deleteUser
- * 
+ * Managermethoden: <br/>
+ * deleteUser <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=DeleteUser&loginName=Bert <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=DeleteUser&loginName=Bert
  * 
  */
 public class DeleteUserAction extends HttpRequestActionBase {

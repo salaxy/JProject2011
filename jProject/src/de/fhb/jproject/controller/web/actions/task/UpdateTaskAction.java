@@ -17,31 +17,31 @@ import de.fhb.jproject.manager.MainManager;
 
 
 /**
- * Action, die beim Updaten einer Task in einem Projekt angesprochen wird
+ * Action, die beim Updaten einer Task in einem Projekt angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * taskId(Id des Tasks): request -> taskId <br/>
+ * (optional)titel(titel des Tasks): request -> titel <br/>
+ * (optional)aufgabenStellung(aufgabenStellung des Tasks): request -> aufgabenStellung <br/>
+ * (optional)date(Termin des Tasks): request -> date <br/>
+ * (optional)done(Status des Tasks): request -> done <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * taskId(Id des Tasks): request -> taskId
- * (optional)titel(titel des Tasks): request -> titel
- * (optional)aufgabenStellung(aufgabenStellung des Tasks): request -> aufgabenStellung
- * (optional)date(Termin des Tasks): request -> date
- * (optional)done(Status des Tasks): request -> done
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * updateTask
- * 
+ * Managermethoden: <br/>
+ * updateTask <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=UpdateTask&taskId=5&titel=DeineAufgabe&date=2011-06-10&done=true <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=UpdateTask&taskId=5&titel=DeineAufgabe&date=2011-06-10&done=true
- * 
  */
 public class UpdateTaskAction extends HttpRequestActionBase {
 

@@ -1,43 +1,45 @@
 package de.fhb.jproject.controller.web.actions.sources;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
 import de.fhb.jproject.controller.web.actions.document.ShowAllDocuAction;
 import de.fhb.jproject.data.Project;
-import de.fhb.jproject.data.User;
 import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 
 
 /**
- * Action, die beim Hinzufügen eines neuen Sourcecodes angesprochen wird
+ * Action, die beim Hinzufügen eines neuen Sourcecodes angesprochen wird <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * data(List FileItem): request -> data <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * data(List FileItem): request -> data
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * Managermethoden:
- * addNewSource
- * 
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * Managermethoden: <br/>
+ * addNewSource <br/>
+ *  <br/>
+ *  Beispiel-Aufruf: <br/>
+ * do=AddNewSourceAction <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=AddNewSourceAction
  * 
  */
 public class AddNewSourceAction extends HttpRequestActionBase {
