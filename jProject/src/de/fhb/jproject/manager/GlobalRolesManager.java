@@ -11,8 +11,11 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 /**
+ * Dieser Manager kontrolliert den Zugriff auf die Globalen Rechte
  * 
- * @author MacYser
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class GlobalRolesManager {
 
@@ -21,7 +24,7 @@ public class GlobalRolesManager {
 	private static final Logger logger = Logger.getLogger(GlobalRolesManager.class);
 	
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public GlobalRolesManager(){
 		userDA = DAFactory.getDAFactory().getUserDA();
@@ -29,9 +32,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewProjectAction(String loginName) throws ProjectException {
@@ -45,9 +50,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteProjectAction(String loginName) throws ProjectException {
@@ -61,9 +68,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowProjectAction(String loginName) throws ProjectException {
@@ -77,9 +86,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedSearchProjectsAction(String loginName) throws ProjectException {
@@ -93,9 +104,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllProjectsAction(String loginName) throws ProjectException {
@@ -109,9 +122,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllOwnProjectsAction(String loginName) throws ProjectException {
@@ -125,9 +140,11 @@ public class GlobalRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteUserAction(String loginName) throws ProjectException {
@@ -141,9 +158,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowUserSettingsAction(String loginName) throws ProjectException {
@@ -157,9 +176,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateUserSettingsAction(String loginName) throws ProjectException {
@@ -173,9 +194,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowUserInfoAction(String loginName) throws ProjectException {
@@ -189,9 +212,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedSearchUserAction(String loginName) throws ProjectException {
@@ -205,9 +230,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllUserAction(String loginName) throws ProjectException {
@@ -241,9 +268,11 @@ public class GlobalRolesManager {
 	}
 */
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedRegisterAction(String loginName) throws ProjectException {
@@ -258,9 +287,11 @@ public class GlobalRolesManager {
 	/*-------------------------------------------------------------------------------------------------*/
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die Action ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentDocuAction(String loginName) throws ProjectException {
@@ -274,9 +305,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedCommentSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentSourceAction(String loginName) throws ProjectException {
@@ -290,9 +323,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedCommentTaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentTaskAction(String loginName) throws ProjectException {
@@ -306,9 +341,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedCommentProjectAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentProjectAction(String loginName) throws ProjectException {
@@ -322,9 +359,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDeleteCommentAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteCommentAction(String loginName) throws ProjectException {
@@ -338,9 +377,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllComments41DocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41DocuAction(String loginName) throws ProjectException {
@@ -354,9 +395,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllComments41SourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41SourceAction(String loginName) throws ProjectException {
@@ -370,9 +413,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllComments41TaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41TaskAction(String loginName) throws ProjectException {
@@ -386,9 +431,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllComments41ProjectAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41ProjectAction(String loginName) throws ProjectException {
@@ -402,9 +449,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedUpdateCommentAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateCommentAction(String loginName) throws ProjectException {
@@ -418,9 +467,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedAddNewDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewDocuAction(String loginName) throws ProjectException {
@@ -434,9 +485,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDeleteDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteDocuAction(String loginName) throws ProjectException {
@@ -450,9 +503,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDownloadDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDownloadDocuAction(String loginName) throws ProjectException {
@@ -466,9 +521,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowDocuAction(String loginName) throws ProjectException {
@@ -482,9 +539,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllDocuAction(String loginName) throws ProjectException {
@@ -498,9 +557,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedUpdateDocuAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateDocuAction(String loginName) throws ProjectException {
@@ -514,9 +575,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedAddMemberAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddMemberAction(String loginName) throws ProjectException {
@@ -530,9 +593,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDeleteMemberAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteMemberAction(String loginName) throws ProjectException {
@@ -546,9 +611,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllMemberAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllMemberAction(String loginName) throws ProjectException {
@@ -562,9 +629,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedAddNewSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewSourceAction(String loginName) throws ProjectException {
@@ -578,9 +647,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDeleteSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteSourceAction(String loginName) throws ProjectException {
@@ -594,9 +665,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDownloadSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDownloadSourceAction(String loginName) throws ProjectException {
@@ -610,9 +683,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowSourceAction(String loginName) throws ProjectException {
@@ -626,9 +701,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllSourceAction(String loginName) throws ProjectException {
@@ -642,9 +719,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedUpdateSourceAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateSourceAction(String loginName) throws ProjectException {
@@ -658,9 +737,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedAddNewTaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewTaskAction(String loginName) throws ProjectException {
@@ -674,9 +755,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedDeleteTaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteTaskAction(String loginName) throws ProjectException {
@@ -690,9 +773,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllTasksAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllTasksAction(String loginName) throws ProjectException {
@@ -706,9 +791,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowAllOwnTasksAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllOwnTasksAction(String loginName) throws ProjectException {
@@ -722,9 +809,11 @@ public class GlobalRolesManager {
 	}
 
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedUpdateTaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateTaskAction(String loginName) throws ProjectException {
@@ -736,10 +825,13 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowTaskAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowTaskAction(String loginName) throws ProjectException {
@@ -752,9 +844,11 @@ public class GlobalRolesManager {
 		}
 	}
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedShowMemberAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowMemberAction(String loginName) throws ProjectException {
@@ -767,9 +861,11 @@ public class GlobalRolesManager {
 		}
 	}
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * die isAllowedOpenAdminconsoleAction ausführen darf
 	 * 
 	 * @param loginName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedOpenAdminconsoleAction(String loginName) throws ProjectException {
@@ -781,6 +877,7 @@ public class GlobalRolesManager {
 			throw new ProjectException("Kann Globale Rolle nich laden! " + ex);
 		}
 	}
+	
 	private User getUser(String loginName)throws ProjectException{
 		User aktUser = null;
 		try {
@@ -790,6 +887,7 @@ public class GlobalRolesManager {
 		}
 		return aktUser;
 	}
+	
 	private void clearSession() throws ProjectException{
 		try {
 			PersistentSession session;		
