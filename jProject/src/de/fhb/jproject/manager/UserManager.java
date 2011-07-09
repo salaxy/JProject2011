@@ -19,8 +19,9 @@ import org.apache.log4j.Level;
 /**
  * Dieser Manager kontrolliert dden Zugriff auf die User
  * 
- * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>
- * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class UserManager {
 	
