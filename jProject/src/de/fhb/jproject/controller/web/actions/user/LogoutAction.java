@@ -3,13 +3,12 @@ package de.fhb.jproject.controller.web.actions.user;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import de.fhb.commons.web.HttpRequestActionBase;
-import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
-import java.io.IOException;
-import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 
 
 /**

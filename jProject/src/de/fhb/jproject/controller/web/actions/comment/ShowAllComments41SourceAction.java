@@ -22,26 +22,26 @@ import org.json.JSONObject;
 
 /** 
  * Action die angesprochen wenn zu einem Sourcecode alle Kommentare angezeigt werden
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * sourcecodeId(Id des Sourcecodes): request -> sourcecodeId
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
+ * Managermethoden: <br/>
+ * showAllComments41Source <br/> <br/>
  * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * showAllComments41Source
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllComments41Source&sourcecodeId=1 <br/> <br/>
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllComments41Source&sourcecodeId=1
  * 
  */
 public class ShowAllComments41SourceAction extends HttpRequestActionBase {
@@ -69,6 +69,7 @@ public class ShowAllComments41SourceAction extends HttpRequestActionBase {
 			logger.debug("Parameter: "
 					+ "String sourcecodeId(" + req.getParameter("sourcecodeId") + ")"
 					);	
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");

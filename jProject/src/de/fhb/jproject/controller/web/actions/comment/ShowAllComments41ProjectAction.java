@@ -22,25 +22,26 @@ import org.json.JSONObject;
 
 /** 
  * Action die angesprochen wenn zu einem Projekt alle Kommentare angezeigt werden
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * 
- * 
- * Rechteüberprüfung für GUI:
+ * Rechteüberprüfung für GUI: <br/>
  * keine
+ *  <br/> <br/>
  * 
- * 
- * Managermethoden:
+ * Managermethoden: <br/>
  * showAllComments41Project
- * 
+ *  <br/> <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllComments41Project
+ *   <br/> <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * Beispiel-Aufruf:
- * do=ShowAllComments41Project
  * 
  */
 public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
@@ -65,9 +66,10 @@ public class ShowAllComments41ProjectAction extends HttpRequestActionBase {
 			
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			logger.debug("Parameter: "
-					+ "String projectName(" + req.getParameter("projectName") + ")"
-					);	
+//			logger.debug("Parameter: "
+//					+ "String projectName(" + req.getParameter("projectName") + ")"
+//					);	
+			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
 			Project aktProject = (Project)session.getAttribute("aktProject");

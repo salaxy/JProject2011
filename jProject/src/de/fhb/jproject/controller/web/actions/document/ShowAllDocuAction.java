@@ -18,26 +18,26 @@ import org.apache.log4j.Logger;
  * Action, die beim Anzeigen aller Dokumente in einem Projekt angesprochen wird,
  * dabei wird das erste Element detailiert angezeigt falls der Parameter documentId null ist.
  * Andernfalls wird das entsprechende Dokument angezeigt.
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * (optional)documentId: request -> documentId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * (optional)documentId: request -> documentId
+ * Rechteüberprüfung für GUI: <br/>
+ * isAllowedDeleteDocuAction <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * isAllowedDeleteDocuAction
- * 
- * 
- * Managermethoden:
- * showAllDocu
- * 
+ * Managermethoden: <br/>
+ * showAllDocu <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllDocuAction&documentId=0 <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllDocuAction
  * 
  */
 public class ShowAllDocuAction extends HttpRequestActionBase {

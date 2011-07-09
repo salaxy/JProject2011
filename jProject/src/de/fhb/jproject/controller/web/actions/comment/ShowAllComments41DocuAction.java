@@ -20,28 +20,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /** 
- * Action die angesprochen wenn zu einem Dokument alle Kommentare angezeigt werden
+ * Action die angesprochen wird, wenn zu einem Dokument alle Kommentare angezeigt werden
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * documentId(Id des Dokuments): request -> documentId <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * documentId(Id des Dokuments): request -> documentId
- * 
- * 
- * Rechteüberprüfung für GUI:
+ * Rechteüberprüfung für GUI: <br/>
  * keine
+ *  <br/> <br/>
  * 
- * 
- * Managermethoden:
+ * Managermethoden: <br/>
  * showAllComments41Docu
- * 
+ *  <br/> <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=ShowAllComments41Docu&documentId=1 
+ *  <br/> <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=ShowAllComments41Docu&documentId=1
- * 
  */
 public class ShowAllComments41DocuAction extends HttpRequestActionBase {
 

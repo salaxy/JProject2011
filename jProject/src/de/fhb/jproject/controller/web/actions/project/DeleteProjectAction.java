@@ -16,27 +16,29 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Action, die beim Löschen eines Projektes angesprochen wird
+ * Action, die beim Löschen eines Projektes angesprochen wird <br/>
+ *  <br/>
+ * Parameter: <br/> 
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * projectName(Bezeichnung des Projektes): request -> projectName <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * projectName(Bezeichnung des Projektes): request -> projectName
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * deleteProject
- * 
+ * Managermethoden: <br/>
+ * deleteProject <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=DeleteProject&projectName=Bezeichnung <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
- * Beispiel-Aufruf:
- * do=DeleteProject&projectName=Bezeichnung
  */
 public class DeleteProjectAction extends HttpRequestActionBase {
 

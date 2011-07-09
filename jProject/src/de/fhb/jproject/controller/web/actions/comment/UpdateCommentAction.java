@@ -18,28 +18,29 @@ import org.apache.log4j.Level;
 
 
 /** 
- * Action die angesprochen wird wenn ein Kommentar geupdatet werden soll
- * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * commentId(Id des Comments): request -> commentId
- * entry(Neuer Inhalt des Comments): request -> entry
- * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
+ * Action die angesprochen wird, wenn ein Kommentar geupdatet werden soll
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * commentId(Id des Comments): request -> commentId <br/>
+ * entry(Neuer Inhalt des Comments): request -> entry <br/>
  * 
  * 
- * Managermethoden:
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
+ * 
+ * Managermethoden: <br/>
  * updateComment
+ *  <br/> <br/>
+ *  
+ * Beispiel-Aufruf: <br/>
+ * do=UpdateComment&commentId=1&entry=aenderungInhalt <br/> <br/>  
  * 
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=UpdateComment&commentId=1&entry=aenderungInhalt
  * 
  */
 public class UpdateCommentAction extends HttpRequestActionBase {

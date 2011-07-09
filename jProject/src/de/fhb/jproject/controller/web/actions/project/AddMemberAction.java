@@ -16,27 +16,29 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Action, die beim Hinzufügen eines Members in einem Projekt angesprochen wird
+ *  <br/> <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * Aktuelles Project: Session -> aktProject <br/>
+ * loginName(loginName eines Users): request -> loginName <br/>
+ * rolle(Projectrolle): request -> rolle <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * Aktuelles Project: Session -> aktProject
- * loginName(loginName eines Users): request -> loginName
- * rolle(Projectrolle): request -> rolle
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * addMember
- * 
+ * Managermethoden: <br/>
+ * addMember <br/>
+ *  <br/>
+ *  
+ * Beispiel-Aufruf: <br/>
+ * do=AddMember&loginName=Heinz&rolle=Member <br/>
+ *  <br/>
+ *  
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=AddMember&loginName=Heinz&rolle=Member
  * 
  */
 public class AddMemberAction extends HttpRequestActionBase {

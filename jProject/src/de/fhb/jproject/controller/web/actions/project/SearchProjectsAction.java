@@ -15,29 +15,28 @@ import de.fhb.jproject.exceptions.ProjectException;
 import de.fhb.jproject.manager.MainManager;
 import org.apache.log4j.Level;
 
-/**
- * Action, die beim Suchen von Projekten angesprochen wird
- * (UNUSED)
+/** <br/>
+ * Action, die beim Suchen von Projekten angesprochen wird <br/>
+ * (UNUSED) <br/>
+ *  <br/>
+ * Parameter:  <br/>
+ * Aktueller User: Session -> aktUser <br/>
+ * searchValue(Teil einer Bezeichnung eines gesuchten Projektes): request -> searchValue <br/>
+ *  <br/>
  * 
- * Parameter: 
- * Aktueller User: Session -> aktUser
- * searchValue(Teil einer Bezeichnung eines gesuchten Projektes): request -> searchValue
+ * Rechteüberprüfung für GUI: <br/>
+ * keine <br/>
+ *  <br/>
  * 
- * 
- * Rechteüberprüfung für GUI:
- * keine
- * 
- * 
- * Managermethoden:
- * searchProjects
- * 
+ * Managermethoden: <br/>
+ * searchProjects <br/>
+ *  <br/>
+ * Beispiel-Aufruf: <br/>
+ * do=SearchProjects&searchValue=a <br/>
+ *  <br/>
  * @author  Michael Koppen <koppen@fh-brandenburg.de>
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
- * 
- * Beispiel-Aufruf:
- * do=SearchProjects&searchValue=a
- * 
  */
 public class SearchProjectsAction extends HttpRequestActionBase {
 
@@ -60,7 +59,9 @@ public class SearchProjectsAction extends HttpRequestActionBase {
 		
 			//Debugprint
 			logger.info("perform(HttpServletRequest req, HttpServletResponse resp)");
-			//TODO DEBUGINFO
+			logger.debug("Parameter: "
+					+ "String searchValue(" + req.getParameter("searchValue") + ")"
+					);
 			
 			//Parameter laden
 			String aktUser = (String) session.getAttribute("aktUser");
