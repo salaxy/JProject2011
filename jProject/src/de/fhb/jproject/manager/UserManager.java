@@ -17,7 +17,7 @@ import de.fhb.jproject.repository.da.UserDA;
 import org.apache.log4j.Level;
 
 /**
- * Manager fuer die User Aktionen
+ * Dieser Manager kontrolliert dden Zugriff auf die User
  * 
  * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>
  * 

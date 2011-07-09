@@ -24,8 +24,10 @@ import java.util.Set;
 import org.apache.log4j.Level;
 
 /**
- * Manager fuer die ProjectActions
+ * Dieser Manager kontrolliert dden Zugriff auf die Projekte
  * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  */

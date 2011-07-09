@@ -28,7 +28,10 @@ import org.orm.PersistentSession;
 
 /**
  * diese Klasse kontrolliert dden Zugriff auf den SourceCode
- * @author Tino Reuschel
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  *
  */
 public class SourceManager {

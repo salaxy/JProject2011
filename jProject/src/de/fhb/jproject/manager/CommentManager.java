@@ -33,8 +33,10 @@ import de.fhb.jproject.repository.da.TaskDA;
 import org.apache.log4j.Level;
 
 /**
- *  Manager fuer die Kommentare
+ *  Dieser Manager kontrolliert dden Zugriff auf die Kommentare
  * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  */
