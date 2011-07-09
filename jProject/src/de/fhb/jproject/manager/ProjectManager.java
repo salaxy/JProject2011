@@ -1,7 +1,9 @@
 package de.fhb.jproject.manager;
 
 import java.util.List;
+import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -17,11 +19,6 @@ import de.fhb.jproject.repository.da.MemberDA;
 import de.fhb.jproject.repository.da.ProjectDA;
 import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Set;
-import org.apache.log4j.Level;
 
 /**
  * Dieser Manager kontrolliert dden Zugriff auf die Projekte
