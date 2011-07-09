@@ -1,9 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.fhb.commons;
 
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 /**
  * Diese Klasse generiert einen SHA1- oder MD5-Haswert von einem String.
  *
@@ -11,19 +12,9 @@ package de.fhb.commons;
  * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
  * @author  Andy Klay <klay@fh-brandenburg.de>
  */
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
-
 public class HashIt {
 
-	/*
+	/**
 	 * Diese Methode führt die eigentliche Berechnung des Hashwertes aus.
 	 */
     private String calculateHash(MessageDigest algorithm, String pw) throws UnsupportedEncodingException{
@@ -33,7 +24,7 @@ public class HashIt {
 
         return byteArray2Hex(hash);
     }
-	/*
+	/**
 	 * Diese Methode formatiert den Byte-Array in einen Hexwert.
 	 */
     private String byteArray2Hex(byte[] hash) {
@@ -43,7 +34,7 @@ public class HashIt {
         }
         return formatter.toString();
     }
-	/*
+	/**
 	 * Diese Methode generiert den SHA1-Hashwert von einem String.
 	 */
     public String calcSHA1(String pw) 
@@ -53,7 +44,7 @@ public class HashIt {
 
         return calculateHash(sha1, pw);
     }
-	/*
+	/**
 	 * Diese Methode generiert den MD5-Hashwert von einem String.
 	 */
 	public String calcMD5(String pw) 

@@ -75,7 +75,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
-/*
+/**
  * JProjectServlet ist zum Verwalten der GET und POST Requests.
  * Dieses Servlet is spezialisiert auf alle Anfragen die nicht zu 
  * Dateiübermittlungszwecken oder Adminaktionen dient.

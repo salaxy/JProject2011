@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.fhb.commons;
 
 import de.fhb.jproject.exceptions.ProjectException;
@@ -22,7 +18,7 @@ public class CheckString {
 	public CheckString(){
 		logger.setLevel(Level.DEBUG);
 	}
-	/*
+	/**
 	 * Diese Methode kontrolliert ob der String für das System geeignet ist.
 	 * Erlaubt sind nur Eingaben von 0-9, A-Z und a-z.
 	 */
@@ -60,7 +56,7 @@ public class CheckString {
 		}
 		
 	}
-	/*
+	/**
 	 * Diese Methode kontrolliert ob das Passwort für das System geeignet ist.
 	 * Das Passwort darf nicht null sein, 
 	 * Beide Passwörter müssen gleich sein und das passwort muss mindestens 5 zeichen lang sein.
