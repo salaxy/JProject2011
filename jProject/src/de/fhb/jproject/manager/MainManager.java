@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
  * besitzt die Untermanager(BOs) zu den einzelnen Teilbereichen
  * an Abfragen und Aktionen des systems
  * 
- * @author  Andy Klay <klay@fh-brandenburg.de>, Michael Koppen <michael.koppen@googlemail.com>
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  * 
  */
 public class MainManager{
