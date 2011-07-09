@@ -22,8 +22,11 @@ import de.fhb.jproject.repository.da.ProjectRolesDA;
 import de.fhb.jproject.repository.da.UserDA;
 
 /**
- *
- * @author MacYser
+ * Dieser Manager kontrolliert den Zugriff auf die Projekt-Rechte
+ * 
+ * @author  Michael Koppen <koppen@fh-brandenburg.de>
+ * @author  Tino Reuschel <reuschel@fh-brandenburg.de>
+ * @author  Andy Klay <klay@fh-brandenburg.de>
  */
 public class ProjectRolesManager {
 	
@@ -34,7 +37,7 @@ public class ProjectRolesManager {
 	private static final Logger logger = Logger.getLogger(ProjectRolesManager.class);
 	
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public ProjectRolesManager(){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
@@ -44,10 +47,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedCommentDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentDocuAction(String loginName, String projectName) throws ProjectException{
@@ -61,10 +67,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedCommentSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentSourceAction(String loginName, String projectName) throws ProjectException{
@@ -78,10 +87,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedCommentTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentTaskAction(String loginName, String projectName) throws ProjectException{
@@ -95,10 +107,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedCommentProjektAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedCommentProjektAction(String loginName, String projectName) throws ProjectException{
@@ -112,10 +127,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteCommentAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteCommentAction(String loginName, String projectName) throws ProjectException{
@@ -129,10 +147,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllComments41DocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41DocuAction(String loginName, String projectName) throws ProjectException{
@@ -146,10 +167,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllComments41SourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41SourceAction(String loginName, String projectName) throws ProjectException{
@@ -163,10 +187,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllComments41TaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41TaskAction(String loginName, String projectName) throws ProjectException{
@@ -180,10 +207,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllComments41ProjectAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllComments41ProjectAction(String loginName, String projectName) throws ProjectException{
@@ -197,10 +227,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedUpdateCommentAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateCommentAction(String loginName, String projectName) throws ProjectException{
@@ -214,10 +247,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedAddNewDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewDocuAction(String loginName, String projectName) throws ProjectException{
@@ -231,10 +267,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteDocuAction(String loginName, String projectName) throws ProjectException{
@@ -248,10 +287,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDownloadDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDownloadDocuAction(String loginName, String projectName) throws ProjectException{
@@ -265,10 +307,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowDocuAction(String loginName, String projectName) throws ProjectException{
@@ -282,10 +327,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllDocuAction(String loginName, String projectName) throws ProjectException{
@@ -299,10 +347,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedUpdateDocuAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateDocuAction(String loginName, String projectName) throws ProjectException{
@@ -316,10 +367,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedAddMemberAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddMemberAction(String loginName, String projectName) throws ProjectException{
@@ -333,10 +387,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteMemberAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteMemberAction(String loginName, String projectName) throws ProjectException{
@@ -350,10 +407,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllMemberAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllMemberAction(String loginName, String projectName) throws ProjectException{
@@ -367,10 +427,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedAddNewSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewSourceAction(String loginName, String projectName) throws ProjectException{
@@ -384,10 +447,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteSourceAction(String loginName, String projectName) throws ProjectException{
@@ -401,10 +467,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDownloadSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDownloadSourceAction(String loginName, String projectName) throws ProjectException{
@@ -418,10 +487,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowSourceAction(String loginName, String projectName) throws ProjectException{
@@ -435,10 +507,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllSourceAction(String loginName, String projectName) throws ProjectException{
@@ -452,10 +527,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedUpdateSourceAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateSourceAction(String loginName, String projectName) throws ProjectException{
@@ -469,10 +547,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedAddNewTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAddNewTaskAction(String loginName, String projectName) throws ProjectException{
@@ -486,10 +567,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteTaskAction(String loginName, String projectName) throws ProjectException{
@@ -503,10 +587,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllTasksAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllTasksAction(String loginName, String projectName) throws ProjectException{
@@ -520,10 +607,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowAllOwnTasksAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowAllOwnTasksAction(String loginName, String projectName) throws ProjectException{
@@ -537,10 +627,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedUpdateTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedUpdateTaskAction(String loginName, String projectName) throws ProjectException{
@@ -554,10 +647,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeleteProjectAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeleteProjectAction(String loginName, String projectName) throws ProjectException{
@@ -571,10 +667,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedAssignTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedAssignTaskAction(String loginName, String projectName) throws ProjectException{
@@ -588,10 +687,13 @@ public class ProjectRolesManager {
 	}
 	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedDeAssignTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedDeAssignTaskAction(String loginName, String projectName) throws ProjectException{
@@ -603,11 +705,15 @@ public class ProjectRolesManager {
 			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
 		}
 	}
+	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowTaskAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowTaskAction(String loginName, String projectName) throws ProjectException{
@@ -619,11 +725,15 @@ public class ProjectRolesManager {
 			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
 		}
 	}
+	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * im Projekt(projectName)
+	 * die isAllowedShowMemberAction ausführen darf
 	 * 
 	 * @param loginName
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isAllowedShowMemberAction(String loginName, String projectName) throws ProjectException{
@@ -649,6 +759,7 @@ public class ProjectRolesManager {
 		}
 		return aktMember;
 	}
+	
 	private User getUser(String loginName)throws ProjectException{
 		User aktUser = null;
 		try {
@@ -658,6 +769,7 @@ public class ProjectRolesManager {
 		}
 		return aktUser;
 	}
+	
 	private Project getProject(String projectName)throws ProjectException{
 		Project aktProject = null;
 		try {
@@ -667,11 +779,14 @@ public class ProjectRolesManager {
 		}
 		return aktProject;
 	}
+	
 	/**
+	 * Gibt zurück ob der User(loginame)
+	 * Teilnehmer im Projekt(projectName) ist
 	 * 
 	 * @param aktUser
 	 * @param projectName
-	 * @return
+	 * @return boolean
 	 * @throws ProjectException
 	 */
 	public boolean isMember(String aktUser, String projectName)throws ProjectException{
@@ -687,7 +802,7 @@ public class ProjectRolesManager {
 	
 	/**
 	 * Holt alle Projektrollen als String-Liste
-	 * @return
+	 * @return List<String>
 	 * @throws ProjectException
 	 */
 	public List<String> showAllProjectRoles()
