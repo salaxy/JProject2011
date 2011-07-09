@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class TaskDAImpl  extends TaskDAOImpl implements TaskDA {
 	private static final Logger logger = Logger.getLogger(TaskDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public TaskDAImpl(){
 		logger.info(" new TaskDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Task> listAllTasks() throws PersistentException {
 		logger.info("listAllTasks()");
@@ -32,6 +40,12 @@ public class TaskDAImpl  extends TaskDAOImpl implements TaskDA {
 		return Arrays.asList(listTaskByQuery("Task.id = Task.id", "ID"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Task> listAllTasks(String orderBy) throws PersistentException {
 		logger.info("listAllTasks(String orderBy)");

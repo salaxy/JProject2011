@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.SourcecodeDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(SourcecodeDAOImpl.class);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode getSourcecodeByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode getSourcecodeByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Sourcecode) session.load(de.fhb.jproject.data.Sourcecode.class, new Integer(id));
@@ -71,6 +108,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode getSourcecodeByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Sourcecode) session.get(de.fhb.jproject.data.Sourcecode.class, new Integer(id));
@@ -81,6 +125,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Sourcecode) session.load(de.fhb.jproject.data.Sourcecode.class, new Integer(id), lockMode);
@@ -91,6 +143,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode getSourcecodeByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Sourcecode) session.get(de.fhb.jproject.data.Sourcecode.class, new Integer(id), lockMode);
@@ -101,6 +161,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode[] listSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode[] listSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode[] listSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Sourcecode as Sourcecode");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode[] listSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Sourcecode as Sourcecode");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Sourcecode[] sourcecodes = listSourcecodeByQuery(session, condition, orderBy);
 		if (sourcecodes != null && sourcecodes.length > 0)
@@ -188,6 +303,15 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Sourcecode loadSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Sourcecode[] sourcecodes = listSourcecodeByQuery(session, condition, orderBy, lockMode);
 		if (sourcecodes != null && sourcecodes.length > 0)
@@ -196,6 +320,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Sourcecode as Sourcecode");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Sourcecode as Sourcecode");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Sourcecode createSourcecode() {
 		return new de.fhb.jproject.data.Sourcecode();
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Sourcecode sourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(sourcecode);
@@ -266,6 +432,12 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Sourcecode sourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(sourcecode);
@@ -277,6 +449,12 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Sourcecode sourcecode)throws PersistentException {
 		try {
 			if(sourcecode.getProject() != null) {
@@ -295,6 +473,13 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Sourcecode sourcecode, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(sourcecode.getProject() != null) {
@@ -318,6 +503,12 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Sourcecode sourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(sourcecode);
@@ -329,6 +520,12 @@ public class SourcecodeDAOImpl implements de.fhb.jproject.repository.dao.Sourcec
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Sourcecode sourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(sourcecode);

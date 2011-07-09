@@ -33,6 +33,9 @@ public class ProjectRolesManager {
 	private ProjectRolesDA projectRolesDA;
 	private static final Logger logger = Logger.getLogger(ProjectRolesManager.class);
 	
+	/**
+	 * 
+	 */
 	public ProjectRolesManager(){
 		memberDA = DAFactory.getDAFactory().getMemberDA();
 		projectDA = DAFactory.getDAFactory().getProjectDA();
@@ -40,6 +43,13 @@ public class ProjectRolesManager {
 		projectRolesDA = DAFactory.getDAFactory().getProjectRolesDA();
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedCommentDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -50,6 +60,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedCommentSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -60,6 +77,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedCommentTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -70,6 +94,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedCommentProjektAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedCommentProjektAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -80,6 +111,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteCommentAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteCommentAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -90,6 +128,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41DocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllComments41DocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -100,6 +145,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41SourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllComments41SourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -110,6 +162,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41TaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllComments41TaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -120,6 +179,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllComments41ProjectAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllComments41ProjectAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -130,6 +196,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateCommentAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedUpdateCommentAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -140,6 +213,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedAddNewDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -150,6 +230,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -160,6 +247,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDownloadDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDownloadDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -170,6 +264,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -180,6 +281,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -190,6 +298,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateDocuAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedUpdateDocuAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -200,6 +315,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddMemberAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedAddMemberAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -210,6 +332,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteMemberAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteMemberAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -220,6 +349,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllMemberAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllMemberAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -230,6 +366,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedAddNewSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -240,6 +383,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -250,6 +400,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDownloadSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDownloadSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -260,6 +417,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -270,6 +434,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllSourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -280,6 +451,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateSourceAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedUpdatesourceAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -290,6 +468,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAddNewTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedAddNewTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -300,6 +485,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -310,6 +502,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllTasksAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -320,6 +519,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowAllOwnTasksAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowAllOwnTasksAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -330,6 +536,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedUpdateTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedUpdateTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -340,6 +553,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeleteProjectAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeleteProjectAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -350,6 +570,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedAssignTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedAssignTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -360,6 +587,13 @@ public class ProjectRolesManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedDeAssignTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedDeAssignTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -369,6 +603,13 @@ public class ProjectRolesManager {
 			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
 		}
 	}
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowTaskAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowTaskAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -378,6 +619,13 @@ public class ProjectRolesManager {
 			throw new ProjectException("Kann Projekte Rolle nich laden! "+ ex);
 		}
 	}
+	/**
+	 * 
+	 * @param loginName
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isAllowedShowMemberAction(String loginName, String projectName) throws ProjectException{
 		logger.info("isAllowedShowMemberAction(String loginName, String projectName)");
 		logger.debug("String loginName("+loginName+"), String projectName("+projectName+")");
@@ -419,6 +667,13 @@ public class ProjectRolesManager {
 		}
 		return aktProject;
 	}
+	/**
+	 * 
+	 * @param aktUser
+	 * @param projectName
+	 * @return
+	 * @throws ProjectException
+	 */
 	public boolean isMember(String aktUser, String projectName)throws ProjectException{
 		logger.info("isMember(String aktUser, String projectName)");
 		logger.debug("String aktUser("+aktUser+"), String projectName("+projectName+")");

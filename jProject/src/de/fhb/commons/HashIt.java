@@ -36,6 +36,11 @@ public class HashIt {
     }
 	/**
 	 * Diese Methode generiert den SHA1-Hashwert von einem String.
+	 * 
+	 * @param pw 
+	 * @return 
+	 * @throws UnsupportedEncodingException 
+	 * @throws NoSuchAlgorithmException 
 	 */
     public String calcSHA1(String pw) 
 			throws UnsupportedEncodingException, NoSuchAlgorithmException{
@@ -46,6 +51,11 @@ public class HashIt {
     }
 	/**
 	 * Diese Methode generiert den MD5-Hashwert von einem String.
+	 * 
+	 * @param pw 
+	 * @return 
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException  
 	 */
 	public String calcMD5(String pw) 
 			throws UnsupportedEncodingException, NoSuchAlgorithmException{

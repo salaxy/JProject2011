@@ -28,29 +28,105 @@ import de.fhb.jproject.repository.da.TelefonDA;
 import de.fhb.jproject.repository.da.TerminDA;
 import de.fhb.jproject.repository.da.UserDA;
 
+/**
+ * 
+ * @author MacYser
+ */
 public abstract class DAFactory {
 	private static DAFactory _factory = new DAFactoryImpl();
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static DAFactory getDAFactory() {
 		return _factory;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract UserDA getUserDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract ProjectDA getProjectDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract SourcecodeDA getSourcecodeDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract DocumentDA getDocumentDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract ICQDA getICQDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract SkypeDA getSkypeDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract TelefonDA getTelefonDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract CommentDA getCommentDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract TaskDA getTaskDA(); 
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract MemberDA getMemberDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract TerminDA getTerminDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract CommentProjectDA getCommentProjectDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract CommentSourcecodeDA getCommentSourcecodeDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract CommentDocumentDA getCommentDocumentDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract CommentTaskDA getCommentTaskDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract ProjectRolesDA getProjectRolesDA();
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract GlobalRolesDA getGlobalRolesDA();
 }
 

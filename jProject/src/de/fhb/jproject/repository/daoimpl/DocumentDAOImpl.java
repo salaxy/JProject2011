@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(DocumentDAOImpl.class);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document getDocumentByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document getDocumentByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Document) session.load(de.fhb.jproject.data.Document.class, new Integer(id));
@@ -71,6 +108,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document getDocumentByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Document) session.get(de.fhb.jproject.data.Document.class, new Integer(id));
@@ -81,6 +125,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Document) session.load(de.fhb.jproject.data.Document.class, new Integer(id), lockMode);
@@ -91,6 +143,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document getDocumentByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Document) session.get(de.fhb.jproject.data.Document.class, new Integer(id), lockMode);
@@ -101,6 +161,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document[] listDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document[] listDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document[] listDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Document as Document");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document[] listDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Document as Document");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Document[] documents = listDocumentByQuery(session, condition, orderBy);
 		if (documents != null && documents.length > 0)
@@ -188,6 +303,15 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Document loadDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Document[] documents = listDocumentByQuery(session, condition, orderBy, lockMode);
 		if (documents != null && documents.length > 0)
@@ -196,6 +320,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Document as Document");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Document as Document");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Document createDocument() {
 		return new de.fhb.jproject.data.Document();
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Document document) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(document);
@@ -266,6 +432,12 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Document document) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(document);
@@ -277,6 +449,12 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Document document)throws PersistentException {
 		try {
 			if(document.getProject() != null) {
@@ -295,6 +473,13 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Document document, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(document.getProject() != null) {
@@ -318,6 +503,12 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Document document) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(document);
@@ -329,6 +520,12 @@ public class DocumentDAOImpl implements de.fhb.jproject.repository.dao.DocumentD
 		}
 	}
 	
+	/**
+	 * 
+	 * @param document
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Document document) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(document);

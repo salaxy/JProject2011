@@ -20,9 +20,17 @@ import org.orm.PersistentSession;
 public class CommentDocumentDAImpl extends CommentDocumentDAOImpl implements CommentDocumentDA{
 	private PersistentSession session = null;
 	private static final Logger logger = Logger.getLogger(CommentDocumentDAImpl.class);
+	/**
+	 * 
+	 */
 	public CommentDocumentDAImpl() {
 		logger.info(" new CommentDocumentDAImpl()");
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentDocument> listAllCommentDocuments() throws PersistentException {
 		logger.info("listAllCommentDocuments()");
@@ -30,6 +38,12 @@ public class CommentDocumentDAImpl extends CommentDocumentDAOImpl implements Com
 		return Arrays.asList(listCommentDocumentByQuery("CommentDocument.documentId = CommentDocument.documentId", "DocumentID"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentDocument> listAllCommentDocuments(String orderBy) throws PersistentException {
 		logger.info("listAllCommentDocuments(String orderBy)");

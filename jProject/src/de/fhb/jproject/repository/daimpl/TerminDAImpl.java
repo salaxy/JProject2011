@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class TerminDAImpl  extends TerminDAOImpl implements TerminDA {
 	private static final Logger logger = Logger.getLogger(TerminDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public TerminDAImpl(){
 		logger.info(" new TerminDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Termin> listAllTermine() throws PersistentException {
 		logger.info("listAllTermins()");
@@ -32,6 +40,12 @@ public class TerminDAImpl  extends TerminDAOImpl implements TerminDA {
 		return Arrays.asList(listTerminByQuery("Termin.id = Termin.id", "id"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Termin> listAllTermine(String orderBy) throws PersistentException {
 		logger.info("listAllTermins(String orderBy)");

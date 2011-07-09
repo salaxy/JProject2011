@@ -35,7 +35,6 @@ public class UserManager {
     
 	/**
 	 * UserManager Konstruktor
-	 * @param globalRolesManager
 	 */
     public UserManager(){		
     	//debuglogging
@@ -49,7 +48,6 @@ public class UserManager {
     /**
      * User loeschen
      * 
-     * @param aktUser
      * @param loginName
      * @throws ProjectException
      */
@@ -75,7 +73,7 @@ public class UserManager {
 	/**
 	 * Anzeigen der eigenen Daten zum �ndern
 	 * 
-	 * @param aktUser
+	 * @param loginName 
 	 * @return User
 	 * @throws ProjectException
 	 */
@@ -103,7 +101,6 @@ public class UserManager {
 	/**
 	 * Anzeigen von Kontaktdaten eines anderen Users
 	 * 
-	 * @param aktUser
 	 * @param loginName
 	 * @return User
 	 * @throws ProjectException
@@ -131,7 +128,6 @@ public class UserManager {
 	/**
 	 * Suchen eines User nach Vornamen und Nachnamen
 	 * 
-	 * @param aktUser
 	 * @param searchValue
 	 * @return
 	 * @throws ProjectException
@@ -160,16 +156,14 @@ public class UserManager {
 	/**
 	 *  Updaten eines Users
 	 *  
-	 * @param aktUser
+	 * @param loginName 
 	 * @param nachName
 	 * @param vorname
-	 * @param icq
-	 * @param skype
-	 * @param telefon
+	 * @param icqArray 
+	 * @param skypeArray 
+	 * @param telefonArray 
 	 * @param sprache
 	 * @param neuesPasswortEins
-	 * @param neuesPasswortZwei
-	 * @param altesPasswort
 	 * @throws ProjectException
 	 */
 	public void updateUserSettings(String loginName, String nachName, String vorname, String[] icqArray, String[] skypeArray,
@@ -380,7 +374,6 @@ public class UserManager {
 	/**
 	 * Alle User Anzeigen
 	 * 
-	 * @param aktUser
 	 * @return List<User>
 	 * @throws ProjectException
 	 */
@@ -458,10 +451,8 @@ public class UserManager {
 	 * 
 	 * 
 	 * @param loginName
-	 * @param loginNameWdhl
 	 * @param passwort
-	 * @param passwortWdhl
-	 * @param nachName
+	 * @param nachname 
 	 * @param vorname
 	 * @throws ProjectException
 	 */
@@ -510,6 +501,12 @@ public class UserManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param aktUser
+	 * @return
+	 * @throws ProjectException
+	 */
 	public User getAktUser(String aktUser)throws ProjectException{
 		User user = null;
 		try {

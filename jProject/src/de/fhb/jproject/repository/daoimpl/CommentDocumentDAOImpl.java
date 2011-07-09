@@ -15,8 +15,19 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.CommentDocumentDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(CommentDocumentDAOImpl.class);
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument[] listCommentDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +39,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument[] listCommentDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +58,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument[] listCommentDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentDocument as CommentDocument");
 		if (condition != null)
@@ -56,6 +83,15 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument[] listCommentDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentDocument as CommentDocument");
 		if (condition != null)
@@ -74,6 +110,13 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument loadCommentDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -85,6 +128,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument loadCommentDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -96,6 +147,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument loadCommentDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		CommentDocument[] commentDocuments = listCommentDocumentByQuery(session, condition, orderBy);
 		if (commentDocuments != null && commentDocuments.length > 0)
@@ -104,6 +163,15 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentDocument loadCommentDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		CommentDocument[] commentDocuments = listCommentDocumentByQuery(session, condition, orderBy, lockMode);
 		if (commentDocuments != null && commentDocuments.length > 0)
@@ -112,6 +180,13 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentDocumentByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentDocumentByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -134,6 +217,14 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentDocumentByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentDocument as CommentDocument");
 		if (condition != null)
@@ -150,6 +241,15 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentDocumentByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentDocument as CommentDocument");
 		if (condition != null)
@@ -167,10 +267,20 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public CommentDocument createCommentDocument() {
 		return new de.fhb.jproject.data.CommentDocument();
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.CommentDocument commentDocument) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(commentDocument);
@@ -182,6 +292,12 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.CommentDocument commentDocument) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(commentDocument);
@@ -193,6 +309,12 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentDocument commentDocument)throws PersistentException {
 		try {
 			de.fhb.jproject.data.Comment comment = commentDocument.getComment();
@@ -213,6 +335,13 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentDocument commentDocument, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			de.fhb.jproject.data.Comment comment = commentDocument.getComment();
@@ -238,6 +367,12 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.CommentDocument commentDocument) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(commentDocument);
@@ -249,6 +384,12 @@ public class CommentDocumentDAOImpl implements de.fhb.jproject.repository.dao.Co
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentDocument
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.CommentDocument commentDocument) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(commentDocument);

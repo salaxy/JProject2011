@@ -19,9 +19,17 @@ import java.io.Serializable;
  * Ein Member ist also ein User der in ein Projekt involviert ist.
  */
 public class Member implements Serializable {
+	/**
+	 * 
+	 */
 	public Member() {
 	}
 	
+	/**
+	 * 
+	 * @param aObj
+	 * @return
+	 */
 	public boolean equals(Object aObj) {
 		if (aObj == this)
 			return true;
@@ -43,6 +51,10 @@ public class Member implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int hashCode() {
 		int hashcode = 0;
 		if (getUser() != null) {
@@ -87,10 +99,18 @@ public class Member implements Serializable {
 	
 	private String userId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setUserId(String value) {
 		this.userId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getUserId() {
 		return userId;
 	}
@@ -99,10 +119,18 @@ public class Member implements Serializable {
 	
 	private String projectId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProjectId(String value) {
 		this.projectId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getProjectId() {
 		return projectId;
 	}
@@ -113,6 +141,8 @@ public class Member implements Serializable {
 	
 	/**
 	 * Projektrolle des Member in einem Projekt.
+	 * 
+	 * @param value 
 	 */
 	public void setProjectRole(String value) {
 		this.projectRole = value;
@@ -120,11 +150,17 @@ public class Member implements Serializable {
 	
 	/**
 	 * Projektrolle des Member in einem Projekt.
+	 * 
+	 * @return 
 	 */
 	public String getProjectRole() {
 		return projectRole;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setUser(de.fhb.jproject.data.User value) {
 		if (user != null) {
 			user.member.remove(this);
@@ -134,12 +170,18 @@ public class Member implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.User getUser() {
 		return user;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_User(de.fhb.jproject.data.User value) {
 		this.user = value;
@@ -149,6 +191,10 @@ public class Member implements Serializable {
 		return user;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProject(de.fhb.jproject.data.Project value) {
 		if (project != null) {
 			project.member.remove(this);
@@ -158,12 +204,18 @@ public class Member implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Project getProject() {
 		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Project(de.fhb.jproject.data.Project value) {
 		this.project = value;
@@ -181,8 +233,15 @@ public class Member implements Serializable {
 		return ORM_task;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSER, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(((getUser() == null) ? "" : String.valueOf(getUser().getORMID())) + " " + ((getProject() == null) ? "" : String.valueOf(getProject().getORMID())));
 	}

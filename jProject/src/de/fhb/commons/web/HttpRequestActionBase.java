@@ -24,7 +24,7 @@ public abstract class HttpRequestActionBase {
 	 * Standard-Methode, die durch Servlet aufgerufen wird.
 	 * 
 	 * @param req aktueller Request der bearbeitet werden soll
-	 * @param res Response-Objekt fuer die Weiterleitung zu dem View
+	 * @param resp 
 	 * @throws ServletException 
 	 */
 	public abstract void perform(HttpServletRequest req, HttpServletResponse resp) throws ServletException;

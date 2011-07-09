@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Spezieller Kommentar zu einem Sourcecode
  */
 public class CommentSourcecode implements Serializable {
+	/**
+	 * 
+	 */
 	public CommentSourcecode() {
 	}
 	
@@ -44,14 +47,26 @@ public class CommentSourcecode implements Serializable {
 	
 	private int commentId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentId(int value) {
 		this.commentId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCommentId() {
 		return commentId;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
@@ -65,14 +80,26 @@ public class CommentSourcecode implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getORMID() {
 		return getComment();
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setSourcecode(de.fhb.jproject.data.Sourcecode value) {
 		if (sourcecode != null) {
 			sourcecode.commentSourcecode.remove(this);
@@ -82,12 +109,18 @@ public class CommentSourcecode implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Sourcecode getSourcecode() {
 		return sourcecode;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Sourcecode(de.fhb.jproject.data.Sourcecode value) {
 		this.sourcecode = value;
@@ -97,6 +130,10 @@ public class CommentSourcecode implements Serializable {
 		return sourcecode;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}

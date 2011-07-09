@@ -14,8 +14,30 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface UserDA extends UserDAO{
+	/**
+	 * 
+	 * @param loginName
+	 * @throws PersistentException
+	 */
 	public void delete(String loginName) throws PersistentException;
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<User> listAllUsers() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<User> listAllUsers(String orderBy) throws PersistentException;
+	/**
+	 * 
+	 * @param searchValue
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<User> listAllUsersLike(String searchValue) throws PersistentException;
 }

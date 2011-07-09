@@ -21,16 +21,30 @@ import org.orm.PersistentSession;
 public class ICQDAImpl  extends ICQDAOImpl implements ICQDA {
 	private static final Logger logger = Logger.getLogger(ICQDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public ICQDAImpl(){
 		logger.info(" new ICQDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<ICQ> listAllICQs() throws PersistentException {
 		logger.info("listAllICQs()");
 		return Arrays.asList(listICQByQuery("ICQ.icqNumber = ICQ.icqNumber", "ICQNumber"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<ICQ> listAllICQs(String orderBy) throws PersistentException {
 		logger.info("listAllICQs(String orderBy)");

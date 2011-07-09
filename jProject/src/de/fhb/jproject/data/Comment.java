@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Kommentar zu Sourcecode/Document/Project/Task. Beinhaltet spezielle Kommentare.
  */
 public class Comment implements Serializable {
+	/**
+	 * 
+	 */
 	public Comment() {
 	}
 	
@@ -68,16 +71,26 @@ public class Comment implements Serializable {
 		this.id = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getORMID() {
 		return getId();
 	}
 	
 	/**
 	 * Der eigentliche Inhalt des Kommentars
+	 * 
+	 * @param value 
 	 */
 	public void setEntry(String value) {
 		this.entry = value;
@@ -85,11 +98,17 @@ public class Comment implements Serializable {
 	
 	/**
 	 * Der eigentliche Inhalt des Kommentars
+	 * 
+	 * @return 
 	 */
 	public String getEntry() {
 		return entry;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setUser(de.fhb.jproject.data.User value) {
 		if (user != null) {
 			user.comment.remove(this);
@@ -99,12 +118,18 @@ public class Comment implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.User getUser() {
 		return user;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_User(de.fhb.jproject.data.User value) {
 		this.user = value;
@@ -114,6 +139,10 @@ public class Comment implements Serializable {
 		return user;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentProject(de.fhb.jproject.data.CommentProject value) {
 		if (this.commentProject != value) {
 			de.fhb.jproject.data.CommentProject lcommentProject = this.commentProject;
@@ -127,10 +156,18 @@ public class Comment implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.CommentProject getCommentProject() {
 		return commentProject;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentSourcecode(de.fhb.jproject.data.CommentSourcecode value) {
 		if (this.commentSourcecode != value) {
 			de.fhb.jproject.data.CommentSourcecode lcommentSourcecode = this.commentSourcecode;
@@ -144,10 +181,18 @@ public class Comment implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.CommentSourcecode getCommentSourcecode() {
 		return commentSourcecode;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentDocument(de.fhb.jproject.data.CommentDocument value) {
 		if (this.commentDocument != value) {
 			de.fhb.jproject.data.CommentDocument lcommentDocument = this.commentDocument;
@@ -161,10 +206,18 @@ public class Comment implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.CommentDocument getCommentDocument() {
 		return commentDocument;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentTask(de.fhb.jproject.data.CommentTask value) {
 		if (this.commentTask != value) {
 			de.fhb.jproject.data.CommentTask lcommentTask = this.commentTask;
@@ -178,10 +231,18 @@ public class Comment implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.CommentTask getCommentTask() {
 		return commentTask;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getId());
 	}

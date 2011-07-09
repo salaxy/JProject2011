@@ -21,16 +21,30 @@ import org.orm.PersistentSession;
 public class MemberDAImpl  extends MemberDAOImpl implements MemberDA {
 	private static final Logger logger = Logger.getLogger(MemberDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public MemberDAImpl(){
 		logger.info(" new MemberDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Member> listAllMembers() throws PersistentException {
 		logger.info("listAllMembers()");
 		//SELECT * FROM `Member` WHERE NOT Project IS NULL Order By Project
 		return Arrays.asList(listMemberByQuery("NOT Project IS NULL", "Project"));
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Member> listAllMembers(String orderBy) throws PersistentException {
 		logger.info("listAllMembers(String orderBy)");

@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Spezieller Kommentar zu einem Task
  */
 public class CommentTask implements Serializable {
+	/**
+	 * 
+	 */
 	public CommentTask() {
 	}
 	
@@ -42,16 +45,28 @@ public class CommentTask implements Serializable {
 	
 	private int commentId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentId(int value) {
 		this.commentId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCommentId() {
 		return commentId;
 	}
 	
 	private de.fhb.jproject.data.Task task;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
@@ -65,14 +80,26 @@ public class CommentTask implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getORMID() {
 		return getComment();
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setTask(de.fhb.jproject.data.Task value) {
 		if (task != null) {
 			task.commentTask.remove(this);
@@ -82,12 +109,18 @@ public class CommentTask implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Task getTask() {
 		return task;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Task(de.fhb.jproject.data.Task value) {
 		this.task = value;
@@ -97,6 +130,10 @@ public class CommentTask implements Serializable {
 		return task;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}

@@ -15,11 +15,30 @@ package de.fhb.jproject.data;
 
 import org.orm.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class SkypeSetCollection extends org.orm.util.ORMSet {
+	/**
+	 * 
+	 * @param owner
+	 * @param adapter
+	 * @param ownerKey
+	 * @param targetKey
+	 * @param collType
+	 */
 	public SkypeSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int targetKey, int collType) {
 		super(owner, adapter, ownerKey, targetKey, true, collType);
 	}
 	
+	/**
+	 * 
+	 * @param owner
+	 * @param adapter
+	 * @param ownerKey
+	 * @param collType
+	 */
 	public SkypeSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int collType) {
 		super(owner, adapter, ownerKey, -1, false, collType);
 	}
@@ -90,6 +109,11 @@ public class SkypeSetCollection extends org.orm.util.ORMSet {
 		return (Skype[]) super.toArray(new Skype[size()], propertyName, ascending);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	protected PersistentManager getPersistentManager() throws PersistentException {
 		return de.fhb.jproject.data.JProjectPersistentManager.instance();
 	}

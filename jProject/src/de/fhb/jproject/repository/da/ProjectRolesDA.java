@@ -14,6 +14,17 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface ProjectRolesDA extends ProjectRolesDAO{
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<ProjectRoles> listAllProjectRoles() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<ProjectRoles> listAllProjectRoles(String orderBy) throws PersistentException;
 }

@@ -14,8 +14,30 @@ import org.orm.PersistentException;
  * @author MacYser
  */
 public interface ProjectDA extends ProjectDAO{
+	/**
+	 * 
+	 * @param projectName
+	 * @throws PersistentException
+	 */
 	public void delete(String projectName) throws PersistentException;
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Project> listAllProjects() throws PersistentException;
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Project> listAllProjects(String orderBy) throws PersistentException;
+	/**
+	 * 
+	 * @param searchValue
+	 * @return
+	 * @throws PersistentException
+	 */
 	public List<Project> listAllProjectsLike(String searchValue) throws PersistentException;
 }

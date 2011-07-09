@@ -27,10 +27,18 @@ import de.fhb.jproject.repository.daoimpl.CommentDAOImpl;
 public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 	private static final Logger logger = Logger.getLogger(CommentDAImpl.class); 
 	
+	/**
+	 * 
+	 */
 	public CommentDAImpl(){
 		logger.info(" new CommentDAImpl()");
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllComments() throws PersistentException {
 		logger.info("listAllComments()");
@@ -39,6 +47,12 @@ public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 		
 	}
 	
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllComments(String orderBy) throws PersistentException {
 		logger.info("listAllComments(String orderBy)");
@@ -48,6 +62,12 @@ public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 	}
 	
 	
+	/**
+	 * 
+	 * @param documentId
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllCommentsToDocument(int documentId)throws PersistentException {
 		logger.info("listAllCommentsToDocument(int documentId)");
@@ -69,6 +89,12 @@ public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 	}
 	
 	
+	/**
+	 * 
+	 * @param sourcecodeId
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllCommentsToSourcecode(int sourcecodeId)throws PersistentException {
 		logger.info("listAllCommentsToSourcecode(int sourcecodeId)");
@@ -90,6 +116,12 @@ public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param taskId
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllCommentsToTask(int taskId)throws PersistentException {
 		logger.info("listAllCommentsToTask(int taskId)");
@@ -110,6 +142,12 @@ public class CommentDAImpl extends CommentDAOImpl implements CommentDA {
 		return list;
 	}
 	
+	/**
+	 * 
+	 * @param projectName
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Comment> listAllCommentsToProject(String projectName)throws PersistentException {
 		logger.info("listAllCommentsToProject(String projectName)");

@@ -15,12 +15,19 @@ public class CheckString {
 	private static final Logger logger = Logger.getLogger(CheckString.class);
 	private final int PASSWORD_MIN_LENGTH = 5;
 	
+	/**
+	 * 
+	 */
 	public CheckString(){
 		logger.setLevel(Level.DEBUG);
 	}
 	/**
 	 * Diese Methode kontrolliert ob der String für das System geeignet ist.
 	 * Erlaubt sind nur Eingaben von 0-9, A-Z und a-z.
+	 * 
+	 * @param valueName
+	 * @param stringToCheck 
+	 * @throws ProjectException  
 	 */
 	public void checkString(String valueName, String stringToCheck) throws ProjectException{
 		if ((valueName != null) && (stringToCheck !=null)) {
@@ -60,6 +67,10 @@ public class CheckString {
 	 * Diese Methode kontrolliert ob das Passwort für das System geeignet ist.
 	 * Das Passwort darf nicht null sein, 
 	 * Beide Passwörter müssen gleich sein und das passwort muss mindestens 5 zeichen lang sein.
+	 * 
+	 * @param passwort
+	 * @param passwortWdhl
+	 * @throws ProjectException  
 	 */
 	public void checkPassword(String passwort, String passwortWdhl) throws ProjectException{
 		/*

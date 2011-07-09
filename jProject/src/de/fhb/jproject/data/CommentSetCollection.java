@@ -15,11 +15,30 @@ package de.fhb.jproject.data;
 
 import org.orm.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class CommentSetCollection extends org.orm.util.ORMSet {
+	/**
+	 * 
+	 * @param owner
+	 * @param adapter
+	 * @param ownerKey
+	 * @param targetKey
+	 * @param collType
+	 */
 	public CommentSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int targetKey, int collType) {
 		super(owner, adapter, ownerKey, targetKey, true, collType);
 	}
 	
+	/**
+	 * 
+	 * @param owner
+	 * @param adapter
+	 * @param ownerKey
+	 * @param collType
+	 */
 	public CommentSetCollection(Object owner, org.orm.util.ORMAdapter adapter, int ownerKey, int collType) {
 		super(owner, adapter, ownerKey, -1, false, collType);
 	}
@@ -92,6 +111,11 @@ public class CommentSetCollection extends org.orm.util.ORMSet {
 		return (Comment[]) super.toArray(new Comment[size()], propertyName, ascending);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	protected PersistentManager getPersistentManager() throws PersistentException {
 		return de.fhb.jproject.data.JProjectPersistentManager.instance();
 	}

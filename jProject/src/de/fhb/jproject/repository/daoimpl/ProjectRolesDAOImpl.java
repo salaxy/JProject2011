@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.ProjectRolesDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(ProjectRolesDAOImpl.class);
+	/**
+	 * 
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByORMID(String role) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles getProjectRolesByORMID(String role) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByORMID(String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles getProjectRolesByORMID(String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByORMID(PersistentSession session, String role) throws PersistentException {
 		try {
 			return (ProjectRoles) session.load(de.fhb.jproject.data.ProjectRoles.class, role);
@@ -71,6 +108,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles getProjectRolesByORMID(PersistentSession session, String role) throws PersistentException {
 		try {
 			return (ProjectRoles) session.get(de.fhb.jproject.data.ProjectRoles.class, role);
@@ -81,6 +125,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByORMID(PersistentSession session, String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (ProjectRoles) session.load(de.fhb.jproject.data.ProjectRoles.class, role, lockMode);
@@ -91,6 +143,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param role
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles getProjectRolesByORMID(PersistentSession session, String role, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (ProjectRoles) session.get(de.fhb.jproject.data.ProjectRoles.class, role, lockMode);
@@ -101,6 +161,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles[] listProjectRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles[] listProjectRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles[] listProjectRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ProjectRoles as ProjectRoles");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles[] listProjectRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ProjectRoles as ProjectRoles");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		ProjectRoles[] projectRoleses = listProjectRolesByQuery(session, condition, orderBy);
 		if (projectRoleses != null && projectRoleses.length > 0)
@@ -188,6 +303,15 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public ProjectRoles loadProjectRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		ProjectRoles[] projectRoleses = listProjectRolesByQuery(session, condition, orderBy, lockMode);
 		if (projectRoleses != null && projectRoleses.length > 0)
@@ -196,6 +320,13 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateProjectRolesByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateProjectRolesByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateProjectRolesByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ProjectRoles as ProjectRoles");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateProjectRolesByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.ProjectRoles as ProjectRoles");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ProjectRoles createProjectRoles() {
 		return new de.fhb.jproject.data.ProjectRoles();
 	}
 	
+	/**
+	 * 
+	 * @param projectRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.ProjectRoles projectRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(projectRoles);
@@ -266,6 +432,12 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param projectRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.ProjectRoles projectRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(projectRoles);
@@ -277,6 +449,12 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param projectRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.ProjectRoles projectRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(projectRoles);
@@ -288,6 +466,12 @@ public class ProjectRolesDAOImpl implements de.fhb.jproject.repository.dao.Proje
 		}
 	}
 	
+	/**
+	 * 
+	 * @param projectRoles
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.ProjectRoles projectRoles) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(projectRoles);

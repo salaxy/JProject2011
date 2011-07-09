@@ -56,6 +56,9 @@ public class CommentManager {
 	
 	
 	
+	/**
+	 * 
+	 */
 	public CommentManager(){
 		logger.setLevel(Level.DEBUG);
 		documentDA = DAFactory.getDAFactory().getDocumentDA();
@@ -148,6 +151,7 @@ public class CommentManager {
 	/**
 	 * kommentieren eines Sourcecodes
 	 * 
+	 * @param aktUser 
 	 * @param sourcecodeId
 	 * @param inhalt
 	 * @throws ProjectException
@@ -487,6 +491,7 @@ public class CommentManager {
 	 * @param aktUser
 	 * @param projectName
 	 * @param sourcecodeId
+	 * @return 
 	 * @throws ProjectException
 	 */
 	public List<Comment>  showAllComments41Source(String aktUser, String projectName, int sourcecodeId)

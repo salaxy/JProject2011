@@ -21,10 +21,18 @@ import org.orm.PersistentSession;
 public class CommentTaskDAImpl extends CommentTaskDAOImpl implements CommentTaskDA{
 	private static final Logger logger = Logger.getLogger(CommentTaskDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public CommentTaskDAImpl(){
 		logger.info(" new CommentTaskDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentTask> listAllCommentTasks() throws PersistentException {
 		logger.info("listAllCommentTasks()");
@@ -32,6 +40,12 @@ public class CommentTaskDAImpl extends CommentTaskDAOImpl implements CommentTask
 		return Arrays.asList(listCommentTaskByQuery("CommentTask.taskId = CommentTask.taskId", "TaskID"));
 		
 	}
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<CommentTask> listAllCommentTasks(String orderBy) throws PersistentException {
 		logger.info("listAllCommentTasks(String orderBy)");

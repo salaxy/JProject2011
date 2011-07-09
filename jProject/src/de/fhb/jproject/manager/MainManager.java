@@ -27,6 +27,9 @@ public class MainManager{
 
 	
 
+	/**
+	 * 
+	 */
 	public MainManager() {
 		rootLogger.setLevel(Level.INFO);
 		
@@ -44,41 +47,73 @@ public class MainManager{
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public SourceManager getSourceManager() {
 		return sourceManager;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public TaskManager getTaskManager() {
 		return taskManager;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public DocumentManager getDocumentManager() {
 		return documentManager;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public CommentManager getCommentManager() {
 		return commentManager;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public UserManager getUserManager() {
 		return userManager;
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ProjectRolesManager getProjectRolesManager(){
 		return projectRolesManager;
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public GlobalRolesManager getGlobalRolesManager(){
 		return globalRolesManager;
 	}

@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Spezieller Kommentar zu einem Projekt
  */
 public class CommentProject implements Serializable {
+	/**
+	 * 
+	 */
 	public CommentProject() {
 	}
 	
@@ -42,16 +45,28 @@ public class CommentProject implements Serializable {
 	
 	private int commentId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentId(int value) {
 		this.commentId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCommentId() {
 		return commentId;
 	}
 	
 	private de.fhb.jproject.data.Project project;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
@@ -65,14 +80,26 @@ public class CommentProject implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getORMID() {
 		return getComment();
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProject(de.fhb.jproject.data.Project value) {
 		if (project != null) {
 			project.commentProject.remove(this);
@@ -82,12 +109,18 @@ public class CommentProject implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Project getProject() {
 		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Project(de.fhb.jproject.data.Project value) {
 		this.project = value;
@@ -97,6 +130,10 @@ public class CommentProject implements Serializable {
 		return project;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}

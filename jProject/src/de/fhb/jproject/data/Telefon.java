@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Ist eine Telefonnummer
  */
 public class Telefon implements Serializable {
+	/**
+	 * 
+	 */
 	public Telefon() {
 	}
 	
@@ -38,18 +41,34 @@ public class Telefon implements Serializable {
 	
 	private String telNumber;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setTelNumber(String value) {
 		this.telNumber = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getTelNumber() {
 		return telNumber;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getORMID() {
 		return getTelNumber();
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setUserLoginName(de.fhb.jproject.data.User value) {
 		if (userLoginName != null) {
 			userLoginName.telefon.remove(this);
@@ -59,12 +78,18 @@ public class Telefon implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.User getUserLoginName() {
 		return userLoginName;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_UserLoginName(de.fhb.jproject.data.User value) {
 		this.userLoginName = value;
@@ -74,6 +99,10 @@ public class Telefon implements Serializable {
 		return userLoginName;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getTelNumber());
 	}

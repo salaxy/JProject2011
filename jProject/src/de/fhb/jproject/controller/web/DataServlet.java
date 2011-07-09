@@ -56,8 +56,9 @@ public class DataServlet extends HttpServletControllerBase {
 	private static final Logger logger = Logger.getLogger(JProjectServlet.class);
 	/** 
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-	 * @param request servlet request
-	 * @param response servlet response
+	 * @param req 
+	 * @param resp 
+	 * @param session 
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException if an I/O error occurs
 	 */
@@ -94,8 +95,6 @@ public class DataServlet extends HttpServletControllerBase {
 
 	/** 
 	 * Handles the HTTP <code>GET</code> method.
-	 * @param request servlet request
-	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException if an I/O error occurs
 	 */
@@ -174,8 +173,6 @@ public class DataServlet extends HttpServletControllerBase {
 
 	/** 
 	 * Handles the HTTP <code>POST</code> method.
-	 * @param request servlet request
-	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException if an I/O error occurs
 	 */

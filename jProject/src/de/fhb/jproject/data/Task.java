@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Ein Task ist eine Aufgabe die es in einem Projekt zu erledigen gilt.
  */
 public class Task implements Serializable {
+	/**
+	 * 
+	 */
 	public Task() {
 	}
 	
@@ -73,16 +76,26 @@ public class Task implements Serializable {
 		this.id = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getORMID() {
 		return getId();
 	}
 	
 	/**
 	 * Bezeichnung der Task
+	 * 
+	 * @param value 
 	 */
 	public void setTitel(String value) {
 		this.titel = value;
@@ -90,6 +103,8 @@ public class Task implements Serializable {
 	
 	/**
 	 * Bezeichnung der Task
+	 * 
+	 * @return 
 	 */
 	public String getTitel() {
 		return titel;
@@ -97,6 +112,8 @@ public class Task implements Serializable {
 	
 	/**
 	 * Formulierter Inhalt der Aufgabenstellung
+	 * 
+	 * @param value 
 	 */
 	public void setAufgabenstellung(String value) {
 		this.aufgabenstellung = value;
@@ -104,6 +121,8 @@ public class Task implements Serializable {
 	
 	/**
 	 * Formulierter Inhalt der Aufgabenstellung
+	 * 
+	 * @return 
 	 */
 	public String getAufgabenstellung() {
 		return aufgabenstellung;
@@ -111,6 +130,8 @@ public class Task implements Serializable {
 	
 	/**
 	 * Flag für den Status ob ein Task erledigt ist oder nicht.
+	 * 
+	 * @param value 
 	 */
 	public void setDone(boolean value) {
 		this.done = value;
@@ -118,6 +139,8 @@ public class Task implements Serializable {
 	
 	/**
 	 * Flag für den Status ob ein Task erledigt ist oder nicht.
+	 * 
+	 * @return 
 	 */
 	public boolean getDone() {
 		return done;
@@ -131,8 +154,15 @@ public class Task implements Serializable {
 		return ORM_memberUser;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.MemberSetCollection memberUser = new de.fhb.jproject.data.MemberSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_MEMBERUSER, de.fhb.jproject.data.ORMConstants.KEY_MEMBER_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProject(de.fhb.jproject.data.Project value) {
 		if (project != null) {
 			project.task.remove(this);
@@ -142,12 +172,18 @@ public class Task implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Project getProject() {
 		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Project(de.fhb.jproject.data.Project value) {
 		this.project = value;
@@ -157,6 +193,10 @@ public class Task implements Serializable {
 		return project;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setTermin(de.fhb.jproject.data.Termin value) {
 		if (termin != null) {
 			termin.task.remove(this);
@@ -166,12 +206,18 @@ public class Task implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Termin getTermin() {
 		return termin;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Termin(de.fhb.jproject.data.Termin value) {
 		this.termin = value;
@@ -189,8 +235,15 @@ public class Task implements Serializable {
 		return ORM_commentTask;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.CommentTaskSetCollection commentTask = new de.fhb.jproject.data.CommentTaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TASK_COMMENTTASK, de.fhb.jproject.data.ORMConstants.KEY_COMMENTTASK_TASK, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getId());
 	}

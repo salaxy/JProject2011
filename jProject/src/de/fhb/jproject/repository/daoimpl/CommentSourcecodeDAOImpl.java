@@ -15,8 +15,19 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.CommentSourcecodeDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(CommentSourcecodeDAOImpl.class);
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode[] listCommentSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +39,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode[] listCommentSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +58,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode[] listCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentSourcecode as CommentSourcecode");
 		if (condition != null)
@@ -56,6 +83,15 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode[] listCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentSourcecode as CommentSourcecode");
 		if (condition != null)
@@ -74,6 +110,13 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode loadCommentSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -85,6 +128,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode loadCommentSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -96,6 +147,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode loadCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		CommentSourcecode[] commentSourcecodes = listCommentSourcecodeByQuery(session, condition, orderBy);
 		if (commentSourcecodes != null && commentSourcecodes.length > 0)
@@ -104,6 +163,15 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public CommentSourcecode loadCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		CommentSourcecode[] commentSourcecodes = listCommentSourcecodeByQuery(session, condition, orderBy, lockMode);
 		if (commentSourcecodes != null && commentSourcecodes.length > 0)
@@ -112,6 +180,13 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentSourcecodeByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentSourcecodeByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -134,6 +217,14 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentSourcecode as CommentSourcecode");
 		if (condition != null)
@@ -150,6 +241,15 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateCommentSourcecodeByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.CommentSourcecode as CommentSourcecode");
 		if (condition != null)
@@ -167,10 +267,20 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public CommentSourcecode createCommentSourcecode() {
 		return new de.fhb.jproject.data.CommentSourcecode();
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.CommentSourcecode commentSourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(commentSourcecode);
@@ -182,6 +292,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.CommentSourcecode commentSourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(commentSourcecode);
@@ -193,6 +309,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentSourcecode commentSourcecode)throws PersistentException {
 		try {
 			if(commentSourcecode.getSourcecode() != null) {
@@ -213,6 +335,13 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.CommentSourcecode commentSourcecode, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			if(commentSourcecode.getSourcecode() != null) {
@@ -238,6 +367,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.CommentSourcecode commentSourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(commentSourcecode);
@@ -249,6 +384,12 @@ public class CommentSourcecodeDAOImpl implements de.fhb.jproject.repository.dao.
 		}
 	}
 	
+	/**
+	 * 
+	 * @param commentSourcecode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.CommentSourcecode commentSourcecode) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(commentSourcecode);

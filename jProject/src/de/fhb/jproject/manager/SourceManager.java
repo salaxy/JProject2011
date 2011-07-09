@@ -50,8 +50,8 @@ public class SourceManager {
 	/**
 	 * hinzufuegen eines SourceCodes in Datenbank und Filesystem
 	 * 
-	 * @param projectName:String
-	 * @param fields:List<FileItem>
+	 * @param projectName 
+	 * @param fields 
 	 * @throws ProjectException
 	 */
 	public void  addNewSource(String projectName, List<FileItem> fields)throws ProjectException{
@@ -138,8 +138,8 @@ public class SourceManager {
 	
 	/**
 	 * methode zum loeschen eines Sourcecodes aus der Datenbank und dem Filesystems
-	 * @param sourceId:int
-	 * @param projectName:String
+	 * @param sourceId 
+	 * @param projectName 
 	 * @throws ProjectException
 	 */
 	public void  deleteSource(int sourceId, String projectName)throws ProjectException {
@@ -184,8 +184,8 @@ public class SourceManager {
 	
 	/**
 	 * methode um ein Sourcecode zu downloaden
-	 * @param sourceId:int
-	 * @param projectName:String
+	 * @param sourceId 
+	 * @param projectName 
 	 * @return File
 	 * @throws ProjectException
 	 */
@@ -216,7 +216,7 @@ public class SourceManager {
 	
 	/**
 	 * Methode um ein Sourcecode aus der Datenbank zu holen
-	 * @param sourceId:int
+	 * @param sourceId 
 	 * @return Sourcecode
 	 * @throws ProjectException
 	 */
@@ -243,7 +243,7 @@ public class SourceManager {
 	
 	/**
 	 * methode zum Anzeigen aller Sourcecodes eines Projectes
-	 * @param projectName:String
+	 * @param projectName 
 	 * @return SourcecodeSetCollection
 	 * @throws ProjectException
 	 */
@@ -268,9 +268,9 @@ public class SourceManager {
 	
 	/**
 	 * methode um ein Sourcecode neu hochzuladen ohne neuen Eintrag in die Datenbank
-	 * @param projectName:String
-	 * @param fields:List<FileItem>
-	 * @param sourceId:int
+	 * @param projectName 
+	 * @param fields 
+	 * @param sourceId 
 	 * @throws ProjectException
 	 */
 	public void updateSource(String projectName, List<FileItem> fields, int sourceId)throws ProjectException{

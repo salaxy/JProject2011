@@ -42,6 +42,9 @@ public class ProjectManager {
 	
 	private static final Logger logger = Logger.getLogger(ProjectManager.class);
 	
+	/**
+	 * 
+	 */
 	public ProjectManager(){
 		logger.setLevel(Level.DEBUG);
 		memberDA = DAFactory.getDAFactory().getMemberDA();
@@ -55,7 +58,6 @@ public class ProjectManager {
 	 * 	 Hinzufuegen eines Users zu einem Projekt
 	 *  (Methode Funktioniert auch zum updaten der Rolle)
 	 * 
-	 * @param aktUser
 	 * @param loginName
 	 * @param projectName
 	 * @param rolle
@@ -273,6 +275,8 @@ public class ProjectManager {
 	/**
 	 * loeschen eines Projektes
 	 * @param aktUser
+	 * @param projectName 
+	 * @param globalRoles 
 	 * @throws ProjectException
 	 */
 	public void deleteProject(String aktUser, String projectName, GlobalRolesManager globalRoles)
@@ -318,7 +322,9 @@ public class ProjectManager {
 	/**
 	 *  Member aus einen Projekt entfernen
 	 * @param aktUser
+	 * @param loginName 
 	 * @param projectName
+	 * @param globalRoles 
 	 * @throws ProjectException
 	 */
 	public void deleteMember(String aktUser, String loginName, String projectName, GlobalRolesManager globalRoles)
@@ -445,8 +451,7 @@ public class ProjectManager {
 	
 	/**
 	 *  Projekte suchen
-	 * @param aktUser
-	 * @param loginName
+	 * @param searchValue 
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -473,7 +478,6 @@ public class ProjectManager {
 	/**
 	 *  anzeigen aller existierenden Projekte
 	 * 
-	 * @param aktUser
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -498,6 +502,7 @@ public class ProjectManager {
 	
 	/**
 	 * Anzeigen aller projekte des aktuellen Users
+	 * @param aktUser 
 	 * @return
 	 * @throws ProjectException
 	 */
@@ -527,7 +532,7 @@ public class ProjectManager {
 	/**
 	 * Anzeigen eines Member eines Projektes
 	 * 
-	 * @param aktUser
+	 * @param loginName 
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException
@@ -570,7 +575,6 @@ public class ProjectManager {
 	/**
 	 * Anzeigen aller Member eines Projektes
 	 * 
-	 * @param aktUser
 	 * @param projectName
 	 * @return
 	 * @throws ProjectException

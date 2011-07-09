@@ -21,16 +21,29 @@ import de.fhb.jproject.repository.daoimpl.ProjectDAOImpl;
 public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 	private static final Logger logger = Logger.getLogger(ProjectDAImpl.class);
 	
+	/**
+	 * 
+	 */
 	public ProjectDAImpl(){
 		logger.info(" new ProjectDAImpl()");
 	}
 
+	/**
+	 * 
+	 * @param projectName
+	 * @throws PersistentException
+	 */
 	@Override
 	public void delete(String projectName) throws PersistentException{
 		logger.info("delete(String projectName)");
 		logger.debug("String projectName("+projectName+")");
 		delete(loadProjectByORMID(projectName));
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Project> listAllProjects() throws PersistentException {
 		logger.info("listAllProjects()");
@@ -39,6 +52,12 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		
 	}
 	
+	/**
+	 * 
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Project> listAllProjects(String orderBy) throws PersistentException {
 		logger.info("listAllProjects(String orderBy)");
@@ -47,6 +66,12 @@ public class ProjectDAImpl  extends ProjectDAOImpl implements ProjectDA {
 		return Arrays.asList(listProjectByQuery("Project.name = Project.name", orderBy));
 	}
 
+	/**
+	 * 
+	 * @param searchValue
+	 * @return
+	 * @throws PersistentException
+	 */
 	@Override
 	public List<Project> listAllProjectsLike(String searchValue)throws PersistentException {
 		logger.info("listAllProjectsLike(String searchValue)");

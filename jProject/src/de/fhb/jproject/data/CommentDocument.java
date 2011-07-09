@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Spezieller Kommentar zu einem Dokument
  */
 public class CommentDocument implements Serializable {
+	/**
+	 * 
+	 */
 	public CommentDocument() {
 	}
 	
@@ -42,16 +45,28 @@ public class CommentDocument implements Serializable {
 	
 	private int commentId;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setCommentId(int value) {
 		this.commentId = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCommentId() {
 		return commentId;
 	}
 	
 	private de.fhb.jproject.data.Document document;
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setComment(de.fhb.jproject.data.Comment value) {
 		if (this.comment != value) {
 			de.fhb.jproject.data.Comment lcomment = this.comment;
@@ -65,14 +80,26 @@ public class CommentDocument implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getComment() {
 		return comment;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Comment getORMID() {
 		return getComment();
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setDocument(de.fhb.jproject.data.Document value) {
 		if (document != null) {
 			document.commentDocument.remove(this);
@@ -82,12 +109,18 @@ public class CommentDocument implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Document getDocument() {
 		return document;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Document(de.fhb.jproject.data.Document value) {
 		this.document = value;
@@ -97,6 +130,10 @@ public class CommentDocument implements Serializable {
 		return document;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(((getComment() == null) ? "" : String.valueOf(getComment().getORMID())));
 	}

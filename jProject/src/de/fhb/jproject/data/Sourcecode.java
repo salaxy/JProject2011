@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Ein Sourcecode ist ein in der Informatik, für Menschen lesbare, in einer Programmiersprache geschriebene Text eines Computerprogramms.
  */
 public class Sourcecode implements Serializable {
+	/**
+	 * 
+	 */
 	public Sourcecode() {
 	}
 	
@@ -58,16 +61,26 @@ public class Sourcecode implements Serializable {
 		this.id = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getORMID() {
 		return getId();
 	}
 	
 	/**
 	 * Der Pfad der Datei des Sourcecodes im System.
+	 * 
+	 * @param value 
 	 */
 	public void setDateiname(String value) {
 		this.dateiname = value;
@@ -75,11 +88,17 @@ public class Sourcecode implements Serializable {
 	
 	/**
 	 * Der Pfad der Datei des Sourcecodes im System.
+	 * 
+	 * @return 
 	 */
 	public String getDateiname() {
 		return dateiname;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setProject(de.fhb.jproject.data.Project value) {
 		if (project != null) {
 			project.sourcecode.remove(this);
@@ -89,12 +108,18 @@ public class Sourcecode implements Serializable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public de.fhb.jproject.data.Project getProject() {
 		return project;
 	}
 	
 	/**
 	 * This method is for internal use only.
+	 * 
+	 * @param value 
 	 */
 	public void setORM_Project(de.fhb.jproject.data.Project value) {
 		this.project = value;
@@ -112,8 +137,15 @@ public class Sourcecode implements Serializable {
 		return ORM_commentSourcecode;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.CommentSourcecodeSetCollection commentSourcecode = new de.fhb.jproject.data.CommentSourcecodeSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_SOURCECODE_COMMENTSOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_COMMENTSOURCECODE_SOURCECODE, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getId());
 	}

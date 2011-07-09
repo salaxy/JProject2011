@@ -15,8 +15,18 @@ import org.hibernate.Query;
 import java.util.List;
 import de.fhb.jproject.data.*;
 
+/**
+ * 
+ * @author MacYser
+ */
 public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 	private static final org.apache.log4j.Logger _logger = org.apache.log4j.Logger.getLogger(TerminDAOImpl.class);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -28,6 +38,12 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin getTerminByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -39,6 +55,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -50,6 +73,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin getTerminByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -61,6 +91,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Termin) session.load(de.fhb.jproject.data.Termin.class, new Integer(id));
@@ -71,6 +108,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin getTerminByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
 			return (Termin) session.get(de.fhb.jproject.data.Termin.class, new Integer(id));
@@ -81,6 +125,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Termin) session.load(de.fhb.jproject.data.Termin.class, new Integer(id), lockMode);
@@ -91,6 +143,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param id
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin getTerminByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			return (Termin) session.get(de.fhb.jproject.data.Termin.class, new Integer(id), lockMode);
@@ -101,6 +161,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin[] listTerminByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -112,6 +179,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin[] listTerminByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -123,6 +198,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin[] listTerminByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Termin as Termin");
 		if (condition != null)
@@ -140,6 +223,15 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin[] listTerminByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Termin as Termin");
 		if (condition != null)
@@ -158,6 +250,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -169,6 +268,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -180,6 +287,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		Termin[] termins = listTerminByQuery(session, condition, orderBy);
 		if (termins != null && termins.length > 0)
@@ -188,6 +303,15 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public Termin loadTerminByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		Termin[] termins = listTerminByQuery(session, condition, orderBy, lockMode);
 		if (termins != null && termins.length > 0)
@@ -196,6 +320,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTerminByQuery(String condition, String orderBy) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -207,6 +338,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTerminByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = de.fhb.jproject.data.JProjectPersistentManager.instance().getSession();
@@ -218,6 +357,14 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTerminByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Termin as Termin");
 		if (condition != null)
@@ -234,6 +381,15 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 * @param lockMode
+	 * @return
+	 * @throws PersistentException
+	 */
 	public static java.util.Iterator iterateTerminByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		StringBuffer sb = new StringBuffer("From de.fhb.jproject.data.Termin as Termin");
 		if (condition != null)
@@ -251,10 +407,20 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Termin createTermin() {
 		return new de.fhb.jproject.data.Termin();
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean save(de.fhb.jproject.data.Termin termin) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().saveObject(termin);
@@ -266,6 +432,12 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean delete(de.fhb.jproject.data.Termin termin) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().deleteObject(termin);
@@ -277,6 +449,12 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Termin termin)throws PersistentException {
 		try {
 			de.fhb.jproject.data.Task[] lTasks = termin.task.toArray();
@@ -291,6 +469,13 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @param session
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean deleteAndDissociate(de.fhb.jproject.data.Termin termin, org.orm.PersistentSession session)throws PersistentException {
 		try {
 			de.fhb.jproject.data.Task[] lTasks = termin.task.toArray();
@@ -310,6 +495,12 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean refresh(de.fhb.jproject.data.Termin termin) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().refresh(termin);
@@ -321,6 +512,12 @@ public class TerminDAOImpl implements de.fhb.jproject.repository.dao.TerminDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param termin
+	 * @return
+	 * @throws PersistentException
+	 */
 	public boolean evict(de.fhb.jproject.data.Termin termin) throws PersistentException {
 		try {
 			de.fhb.jproject.data.JProjectPersistentManager.instance().getSession().evict(termin);

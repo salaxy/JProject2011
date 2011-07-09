@@ -18,6 +18,9 @@ import java.io.Serializable;
  * Ein Termin ist ein festgelegtes Kalenderdatum.
  */
 public class Termin implements Serializable {
+	/**
+	 * 
+	 */
 	public Termin() {
 	}
 	
@@ -46,16 +49,26 @@ public class Termin implements Serializable {
 		this.id = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getORMID() {
 		return getId();
 	}
 	
 	/**
 	 * Datum
+	 * 
+	 * @param value 
 	 */
 	public void setTermin(java.util.Date value) {
 		this.termin = value;
@@ -63,6 +76,8 @@ public class Termin implements Serializable {
 	
 	/**
 	 * Datum
+	 * 
+	 * @return 
 	 */
 	public java.util.Date getTermin() {
 		return termin;
@@ -76,8 +91,15 @@ public class Termin implements Serializable {
 		return ORM_task;
 	}
 	
+	/**
+	 * 
+	 */
 	public final de.fhb.jproject.data.TaskSetCollection task = new de.fhb.jproject.data.TaskSetCollection(this, _ormAdapter, de.fhb.jproject.data.ORMConstants.KEY_TERMIN_TASK, de.fhb.jproject.data.ORMConstants.KEY_TASK_TERMIN, de.fhb.jproject.data.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return String.valueOf(getId());
 	}

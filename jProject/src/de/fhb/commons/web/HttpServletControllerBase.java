@@ -18,10 +18,18 @@ import org.apache.log4j.Logger;
  *
  */
 public abstract class HttpServletControllerBase extends HttpServlet {
+	/**
+	 * 
+	 */
 	protected HashMap actions;
 	  
 	/* (non-Javadoc)
 	 * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
+	 */
+	/**
+	 * 
+	 * @param conf
+	 * @throws ServletException
 	 */
 	public void init(ServletConfig conf) throws ServletException {
 		HttpRequestActionBase action = null;
@@ -43,6 +51,13 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	/**
+	 * 
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	    throws IOException, ServletException {
 	
@@ -59,6 +74,13 @@ public abstract class HttpServletControllerBase extends HttpServlet {
 	  
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	/**
+	 * 
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 * @throws ServletException
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	    throws IOException, ServletException {

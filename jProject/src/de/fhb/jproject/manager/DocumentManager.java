@@ -48,8 +48,8 @@ public class DocumentManager {
 	/**
 	 * hinzufuegen eines Documents in Datenbank und Filesystem
 	 * 
-	 * @param projectName:String
-	 * @param fields:List<FileItem>
+	 * @param projectName 
+	 * @param fields 
 	 * @throws ProjectException
 	 */
 	public void addNewDocu(String projectName, List<FileItem> fields)throws ProjectException{
@@ -137,8 +137,8 @@ public class DocumentManager {
 	
 	/**
 	 * methode zum loeschen eines Documents aus der Datenbank und dem Filesystems
-	 * @param documentId:int
-	 * @param projectName:String
+	 * @param documentId 
+	 * @param projectName 
 	 * @throws ProjectException
 	 */
 	public void deleteDocu(int documentId, String projectName)throws ProjectException {
@@ -185,8 +185,8 @@ public class DocumentManager {
 	
 	/**
 	 * methode um ein Document zu downloaden
-	 * @param documentId:int
-	 * @param projectName:String
+	 * @param documentId 
+	 * @param projectName 
 	 * @return File
 	 * @throws ProjectException
 	 */
@@ -218,7 +218,7 @@ public class DocumentManager {
 	
 	/**
 	 * methode zum Anzeigen aller Documente eines Projectes
-	 * @param projectName:String
+	 * @param projectName 
 	 * @return DocumentsetCollection
 	 * @throws ProjectException
 	 */
@@ -245,9 +245,9 @@ public class DocumentManager {
 	
 	/**
 	 * methode um ein Document neu hochzuladen ohne neuen Eintrag in die Datenbank
-	 * @param projectName:String
-	 * @param fields:List<FileItem>
-	 * @param documentId:int
+	 * @param projectName 
+	 * @param fields 
+	 * @param documentId 
 	 * @throws ProjectException
 	 */
 	public void updateDocu(String projectName, List<FileItem> fields, int documentId)throws ProjectException{
@@ -263,7 +263,7 @@ public class DocumentManager {
 	
 	/**
 	 * Methode um ein Document aus der Datenbank zu holen
-	 * @param documentId:int
+	 * @param documentId 
 	 * @return Document
 	 * @throws ProjectException
 	 */
